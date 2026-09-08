@@ -31,6 +31,8 @@ Orange Pi 5 (Rockchip RK3588S) tek kart bilgisayarı için sahada bizzat test ed
 | [**Donanım Kontrolü ve GPIO / C++**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20Kontrolü%20ve%20GPIO-C++%20Geliştirme%20Rehberi.md) | 26-pin başlık şeması, wiringOP ile C++/CMake mimarisi, buton/LED kontrolü, libgpiod ve I2C sensörleri. |
 | [**NPU ile Yerel Dil Modeli (RKLLM / Qwen)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20NPU%20ile%20Yerel%20Dil%20Modeli%20(RKLLM%20ve%20Qwen)%20Kurulumu.md) | 6 TOPS NPU üzerinde internetsiz Qwen-1.5B/3B çalıştırma, W4A16 kuantizasyon, 18+ token/s akıcı sohbet. |
 | [**Çevrimdışı Sesli Asistan (Whisper & Piper)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Çevrimdışı%20Sesli%20Asistan%20(Whisper%20ve%20Piper%20TTS)%20Projesi.md) | %100 yerel sesli asistan: faster-whisper (STT) + RKLLM zekası + Piper TTS doğal Türkçe ses sentezi (<1s gecikme). |
+| [**Kişisel Bulut & Jellyfin VPU Medya Sunucusu**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Kişisel%20Bulut%20ve%20Jellyfin%20Donanımsal%20Medya%20Sunucusu.md) | NVMe üzerinde CasaOS, telefon fotoğraflarını otomatik yedekleme (Nextcloud), 4K VPU donanımsal transcode (Jellyfin) ve Samba. |
+| [**Ağ Güvenlik Kalkanı (AdGuard, Unbound, Tailscale)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Ağ%20Güvenlik%20Kalkanı%20(AdGuard%20Home,%20Unbound%20ve%20Tailscale).md) | Tüm ev için donanımsal reklam/izleyici kalkanı, İSS kaydını önleyen Unbound kök DNS ve dışarıdan güvenli erişim için Tailscale VPN. |
 
 ### 🛠️ Kılavuz Yazım İlkeleri
 
@@ -72,14 +74,18 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
     │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
     │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
-    │   └── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
+    │   └── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
     └── Turkish/
         ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
         ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
         ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
         ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
         ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
-        └── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
+        ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
+        ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
+        └── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
 ```
 
 ### 📄 Lisans
@@ -116,6 +122,8 @@ Field-tested recovery protocols, bootloader restorations, and setup guides enric
 | [**Hardware Control & GPIO / C++**](projects/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20Control%20and%20GPIO-C++%20Development%20Guide.md) | 26-pin header diagram, wiringOP with C++/CMake, button/LED interfacing, libgpiod, and I2C peripherals. |
 | [**Local LLM on NPU (RKLLM / Qwen)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Local%20LLM%20on%20NPU%20with%20RKLLM%20and%20Qwen%20Guide.md) | Running offline Qwen-1.5B/3B on the 6 TOPS NPU, W4A16 quantization, and 18+ tokens/sec streaming response. |
 | [**Offline Voice Assistant (Whisper & Piper)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Offline%20Voice%20Assistant%20with%20Whisper%20and%20Piper%20TTS%20Guide.md) | 100% private voice assistant: faster-whisper (STT) + RKLLM reasoning + Piper TTS neural synthesis (<1s round-trip). |
+| [**Personal Cloud & Jellyfin Media Server**](projects/English/Orange%20Pi%205%20(RK3588S)%20Personal%20Cloud%20and%20Jellyfin%20Hardware%20Media%20Server%20Guide.md) | CasaOS on NVMe, automatic camera roll sync (Nextcloud), 4K VPU hardware transcoding (Jellyfin), and Samba. |
+| [**Network Shield (AdGuard, Unbound, Tailscale)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Network%20Shield%20(AdGuard%20Home,%20Unbound%20and%20Tailscale%20Guide).md) | Whole-home ad/tracker sinkhole, zero-ISP-logging recursive Unbound root DNS, and secure remote Tailscale exit node. |
 
 ### 🛠️ Guide Principles
 
@@ -157,14 +165,18 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
     │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
     │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
-    │   └── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
+    │   └── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
     └── Turkish/
         ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
         ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
         ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
         ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
         ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
-        └── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
+        ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
+        ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
+        └── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
 ```
 
 ### 📄 License
