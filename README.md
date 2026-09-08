@@ -21,6 +21,15 @@ Orange Pi 5 (Rockchip RK3588S) tek kart bilgisayarı için sahada bizzat test ed
 | [**Docker & Donanım Hızlandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Docker%20Kurulumu%20ve%20Donanım%20Hızlandırma%20Rehberi.md) | Temiz Docker kurulumu, cgroup bellek uyarısı çözümü ve Jellyfin/Plex için VPU/GPU donanımsal transcode izinleri. |
 | [**Uzaktan Erişim & Masaüstü Bağlantı Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Uzaktan%20Erişim%20ve%20Masaüstü%20Bağlantı%20Rehberi.md) | SSH/CMD terminal bağlantısı, şifresiz SSH anahtarı, UART seri port (1.5M baud) ve Windows RDP/VNC/NoMachine ile masaüstü kontrolü. |
 
+### 🚀 Yazılımcı Projeleri ve Yapay Zeka Rehberleri
+
+| Proje / Rehber | Açıklama |
+| :--- | :--- | 
+| [**IDE ve Geliştirme Ortamı Kurulumu**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Yazılımcılar%20İçin%20IDE%20ve%20Geliştirme%20Ortamı%20Kurulumu.md) | VS Code Remote - SSH, tarayıcı tabanlı Code-Server, Python sanal ortamı (venv) ve proje mimarisi. |
+| [**NPU Aktivasyonu & RKNN Kurulumu**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20NPU%20Aktivasyonu%20ve%20RKNN%20Çalışma%20Ortamı%20Kurulumu.md) | 3 çekirdekli 6 TOPS NPU'yu uyandırma, librknpu2 entegrasyonu, RKNN-Lite2 ve 3 çekirdek telemetri testi. |
+| [**İlk Yapay Zeka Projesi: YOLOv8 NPU**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20İlk%20Yapay%20Zeka%20Projesi%20ve%20YOLOv8%20NPU%20Çıkarımı.md) | Bilgisayarda ONNX/RKNN derleme, 3 çekirdekli NPU ile 70+ FPS nesne tanıma ve donanım kıyaslaması. |
+| [**Donanım Kontrolü ve GPIO / C++**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20Kontrolü%20ve%20GPIO-C++%20Geliştirme%20Rehberi.md) | 26-pin başlık şeması, wiringOP ile C++/CMake mimarisi, buton/LED kontrolü, libgpiod ve I2C sensörleri. |
+
 ### 🛠️ Kılavuz Yazım İlkeleri
 
 * **Bizzat Doğrulanmış Çözümler:** Yalnızca teorik değil, doğrudan donanım üzerinde karşılaşılan ve çözüme kavuşturulan senaryolar.
@@ -34,26 +43,37 @@ OrangePi5_Tutorials/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-└── guides/
+├── guides/
+│   ├── English/
+│   │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
+│   │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
+│   ├── Turkish/
+│   │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
+│   │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
+│   │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
+│   │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
+│   └── assets/
+└── projects/
     ├── English/
-    │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
-    │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
-    ├── Turkish/
-    │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
-    │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
-    │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
-    │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
-    └── assets/
+    │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
+    │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
+    │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
+    │   └── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
+    └── Turkish/
+        ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
+        ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
+        ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
+        └── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
 ```
 
 ### 📄 Lisans
@@ -80,6 +100,15 @@ Field-tested recovery protocols, bootloader restorations, and setup guides enric
 | [**Docker & Hardware Acceleration Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Docker%20Installation%20and%20Hardware%20Acceleration%20Guide.md) | Clean upstream Docker setup, fixing cgroup memory limits, and passing VPU/GPU nodes into containers (Jellyfin/Plex). |
 | [**Remote Access & Desktop Connection Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Remote%20Access%20and%20Desktop%20Connection%20Guide.md) | Terminal access via SSH/CMD, passwordless SSH keys, UART serial (1.5M baud), and Windows RDP/VNC/NoMachine graphical desktop streaming. |
 
+### 🚀 Developer Projects & AI Guides
+
+| Project / Guide | Description |
+| :--- | :--- | 
+| [**IDE & Development Environment Setup**](projects/English/Orange%20Pi%205%20(RK3588S)%20IDE%20and%20Development%20Environment%20Setup%20for%20Developers.md) | VS Code Remote - SSH workflow, browser-based Code-Server, isolated Python venvs, and build toolchains. |
+| [**NPU Activation & RKNN Runtime Setup**](projects/English/Orange%20Pi%205%20(RK3588S)%20NPU%20Activation%20and%20RKNN%20Runtime%20Setup%20Guide.md) | Waking up the 3-core 6 TOPS NPU, librknpu2 integration, RKNN-Lite2, and multi-core telemetry validation. |
+| [**First AI Project: YOLOv8 NPU**](projects/English/Orange%20Pi%205%20(RK3588S)%20First%20AI%20Project%20and%20YOLOv8%20NPU%20Inference%20Guide.md) | Host-side ONNX/RKNN compilation, 3-core NPU deployment, 70+ FPS object detection, and hardware benchmarks. |
+| [**Hardware Control & GPIO / C++**](projects/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20Control%20and%20GPIO-C++%20Development%20Guide.md) | 26-pin header diagram, wiringOP with C++/CMake, button/LED interfacing, libgpiod, and I2C peripherals. |
+
 ### 🛠️ Guide Principles
 
 * **Field-Verified Solutions:** Practical scenarios encountered and resolved directly on physical hardware, rather than purely theoretical steps.
@@ -93,26 +122,37 @@ OrangePi5_Tutorials/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-└── guides/
+├── guides/
+│   ├── English/
+│   │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
+│   │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
+│   ├── Turkish/
+│   │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
+│   │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
+│   │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
+│   │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
+│   │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
+│   └── assets/
+└── projects/
     ├── English/
-    │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
-    │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
-    ├── Turkish/
-    │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
-    │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
-    │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
-    │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
-    │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
-    └── assets/
+    │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
+    │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
+    │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
+    │   └── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
+    └── Turkish/
+        ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
+        ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
+        ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
+        └── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
 ```
 
 ### 📄 License
