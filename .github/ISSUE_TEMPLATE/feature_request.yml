@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Yeni bir rehber, donanım testi veya proje önerisi için teşekkürler! Lütfen detayları girin.
+        Yeni bir rehber, donanım testi veya proje önerisi için teşekkürler! Lütfen aşağıdaki alanları doldurun.
   - type: checkboxes
     id: category
     attributes:
@@ -19,27 +19,44 @@ body:
         - label: "Server, Networking & Media (Docker, VPN, Jellyfin)"
         - label: "Hardware Benchmarking, Stress Tests & Diagnostics"
         - label: "Other / Diğer"
+  - type: checkboxes
+    id: target_board
+    attributes:
+      label: Target Board / Hedef Kart Modeli
+      description: Bu öneri hangi kart(lar)ı hedefliyor?
+      options:
+        - label: "Orange Pi 5 (RK3588S)"
+        - label: "Orange Pi 5B (RK3588S)"
+        - label: "Orange Pi 5 Pro (RK3588S)"
+        - label: "Orange Pi 5 Plus (RK3588)"
+        - label: "All RK3588 Boards / Tüm Kartlar"
   - type: textarea
     id: motivation
     attributes:
       label: Motivation & Problem Statement / Motivasyon ve İhtiyaç
-      description: Bu rehbere veya projeye neden ihtiyaç var? Geliştiricilere ne kazandıracak?
+      description: Bu rehbere veya projeye neden ihtiyaç var? Geliştiricilere ve öğrencilere ne kazandıracak?
     validations:
       required: true
   - type: textarea
     id: proposed_solution
     attributes:
       label: Proposed Solution / Önerilen Çözüm ve Mimari
-      description: Hangi kütüphaneler, mimariler veya adımlar kullanılmalı?
+      description: Hangi kütüphaneler, algoritmalar, mimariler veya adımlar kullanılmalı?
     validations:
       required: true
   - type: textarea
     id: hardware_required
     attributes:
       label: Hardware & Peripherals Required / Gerekli Donanım ve Sensörler
-      placeholder: "Örn: USB/CSI Kamera, Coral TPU, CAN bus alıcı-verici, harici ekran vb."
+      placeholder: "Örn: USB/CSI Kamera, Coral TPU, CAN bus alıcı-verici, harici ekran, SPI LCD vb."
   - type: textarea
     id: reference_links
     attributes:
       label: Reference Links / Kaynak Bağlantılar
       placeholder: "İlgili GitHub repoları, datasheet veya makale linkleri..."
+  - type: checkboxes
+    id: contribution_willingness
+    attributes:
+      label: Contribution / Katkı
+      options:
+        - label: "Bu özellik veya rehber üzerinde çalışıp PR (Pull Request) gönderebilirim / I am willing to submit a PR"
