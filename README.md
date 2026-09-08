@@ -1,5 +1,12 @@
 # 🍊 Orange Pi 5 (RK3588S) Field Notes & Tutorials
 
+<div align="center">
+  <img src="assets/social-preview.png" alt="Orange Pi 5 RK3588S Field Notes & Tutorials" width="100%" />
+</div>
+
+<br/>
+
+[![CI](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/actions/workflows/ci.yml/badge.svg)](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/actions)
 [![SoC](https://img.shields.io/badge/SoC-Rockchip_RK3588S-orange.svg)](#)
 [![NPU](https://img.shields.io/badge/NPU-6_TOPS_Tri--Core-blue.svg)](#)
 [![OS](https://img.shields.io/badge/OS-Ubuntu_24.04_|_Armbian-purple.svg)](#)
@@ -33,6 +40,18 @@ Bu depodaki rehberler Orange Pi 5 (RK3588S) temel alınarak hazırlanmıştır; 
 | **Orange Pi 5B** | RK3588S | 6 TOPS / Mali-G610 | Dahili eMMC + MicroSD (M.2 yuvası yok) | 1x GbE LAN + WiFi 6 / BT 5.0 | AI/NPU ve Docker rehberleri tam uyumlu; NVMe boot rehberi yerine dahili eMMC kullanılır. |
 | **Orange Pi 5 Pro** | RK3588S | 6 TOPS / Mali-G610 | M.2 PCIe 2.0 x1 (2280) + MicroSD | 1x GbE LAN + WiFi 5/6 + BT | AI/NPU rehberleri tam uyumlu; standart 2280 SSD destekler. 40-pin GPIO pin numaraları kontrol edilmelidir. |
 | **Orange Pi 5 Plus** | **RK3588** (Tam) | 6 TOPS / Mali-G610 | M.2 PCIe 3.0 x4 (2280) + eMMC yuvası | 2x 2.5 GbE LAN + M.2 E-Key (WiFi) | AI/NPU rehberleri tam uyumlu; NVMe hızı ~3500 MB/s'ye çıkar, çift 2.5G ağ ile sunucu projelerine mükemmel uyum sağlar. |
+
+---
+
+### ⚡ Hızlı Donanım Teşhis Aracı (One-Line Health Check)
+
+Orange Pi 5 kartınızın CPU frekanslarını, çekirdek sıcaklıklarını, 6 TOPS NPU sürücü durumunu, Mali-G610 GPU/VPU düğümlerini ve NVMe PCIe hat hızını tek satırda doğrulamak için terminalde çalıştırın:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
+```
+> [!TIP]
+> Bu script sisteme hiçbir harici paket yüklemez; salt okunur olarak `/dev/rknpu`, thermal zonelar ve DVFS governor durumlarını tarayıp anında renkli bir sistem teşhis tablosu basar.
 
 ---
 
@@ -128,13 +147,17 @@ Lütfen katkı kuralları için **[CONTRIBUTING.md](CONTRIBUTING.md)** dosyasın
 ```
 OrangePi5_Tutorials/
 ├── .github/
-│   └── ISSUE_TEMPLATE/
-│       ├── bug_report.yml
-│       └── feature_request.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   └── feature_request.yml
+│   └── workflows/
+│       └── ci.yml
 ├── .gitignore
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
+├── assets/
+│   └── social-preview.png
 ├── guides/
 │   ├── English/
 │   │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
@@ -155,35 +178,38 @@ OrangePi5_Tutorials/
 │   │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
 │   │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
 │   └── assets/
-└── projects/
-    ├── English/
-    │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
-    │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
-    │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
-    │   ├── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide.md
-    │   ├── Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide.md
-    │   └── Orange Pi 5 (RK3588S) Linux Kernel Module and Device Driver Guide.md
-    └── Turkish/
-        ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
-        ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
-        ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
-        ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
-        ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
-        ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
-        ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
-        ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
-        ├── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
-        ├── Orange Pi 5 (RK3588S) Çapraz Derleme ve Uzaktan Hata Ayıklama Rehberi.md
-        ├── Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Görü İşleme Pipeline Rehberi.md
-        ├── Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi.md
-        └── Orange Pi 5 (RK3588S) Linux Çekirdek Modülü ve Aygıt Sürücüsü Geliştirme Rehberi.md
+├── projects/
+│   ├── English/
+│   │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
+│   │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
+│   │   ├── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide.md
+│   │   └── Orange Pi 5 (RK3588S) Linux Kernel Module and Device Driver Guide.md
+│   └── Turkish/
+│       ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
+│       ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
+│       ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
+│       ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
+│       ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
+│       ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
+│       ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
+│       ├── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) Çapraz Derleme ve Uzaktan Hata Ayıklama Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Görü İşleme Pipeline Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi.md
+│       └── Orange Pi 5 (RK3588S) Linux Çekirdek Modülü ve Aygıt Sürücüsü Geliştirme Rehberi.md
+└── scripts/
+    ├── check_health.sh
+    └── setup_npu.sh
 ```
 
 ---
@@ -219,6 +245,18 @@ While this repository is authored and benchmarked against the baseline Orange Pi
 | **Orange Pi 5B** | RK3588S | 6 TOPS / Mali-G610 | Onboard eMMC + MicroSD (No M.2 slot) | 1x GbE LAN + WiFi 6 / BT 5.0 | All AI/NPU and Docker guides fully compatible; flash to eMMC instead of NVMe. |
 | **Orange Pi 5 Pro** | RK3588S | 6 TOPS / Mali-G610 | M.2 PCIe 2.0 x1 (2280) + MicroSD | 1x GbE LAN + WiFi 5/6 + BT | All AI/NPU guides fully compatible. Supports standard 2280 NVMe SSDs; verify 40-pin GPIO pinout. |
 | **Orange Pi 5 Plus** | **RK3588** (Full) | 6 TOPS / Mali-G610 | M.2 PCIe 3.0 x4 (2280) + eMMC socket | 2x 2.5 GbE LAN + M.2 E-Key slot | All AI/NPU guides fully compatible. NVMe speeds reach ~3500 MB/s; dual 2.5G LAN excels for server appliances. |
+
+---
+
+### ⚡ One-Line Hardware Diagnostics Utility
+
+To immediately audit your board's live CPU frequencies, thermal zone temperatures, 6 TOPS NPU driver node, Mali-G610 GPU, VPU hardware decoder, and PCIe link width, execute this command on your board:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
+```
+> [!TIP]
+> This read-only audit inspects thermal sensors, DVFS governor states, and `/dev/rknpu` tri-core status without modifying any system configuration.
 
 ---
 
@@ -314,13 +352,17 @@ Please check out our **[CONTRIBUTING.md](CONTRIBUTING.md)** guidelines, feel fre
 ```
 OrangePi5_Tutorials/
 ├── .github/
-│   └── ISSUE_TEMPLATE/
-│       ├── bug_report.yml
-│       └── feature_request.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   └── feature_request.yml
+│   └── workflows/
+│       └── ci.yml
 ├── .gitignore
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
+├── assets/
+│   └── social-preview.png
 ├── guides/
 │   ├── English/
 │   │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
@@ -341,35 +383,38 @@ OrangePi5_Tutorials/
 │   │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
 │   │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
 │   └── assets/
-└── projects/
-    ├── English/
-    │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
-    │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
-    │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
-    │   ├── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide.md
-    │   ├── Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide.md
-    │   ├── Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide.md
-    │   └── Orange Pi 5 (RK3588S) Linux Kernel Module and Device Driver Guide.md
-    └── Turkish/
-        ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
-        ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
-        ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
-        ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
-        ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
-        ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
-        ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
-        ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
-        ├── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
-        ├── Orange Pi 5 (RK3588S) Çapraz Derleme ve Uzaktan Hata Ayıklama Rehberi.md
-        ├── Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Görü İşleme Pipeline Rehberi.md
-        ├── Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi.md
-        └── Orange Pi 5 (RK3588S) Linux Çekirdek Modülü ve Aygıt Sürücüsü Geliştirme Rehberi.md
+├── projects/
+│   ├── English/
+│   │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
+│   │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
+│   │   ├── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide.md
+│   │   ├── Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide.md
+│   │   └── Orange Pi 5 (RK3588S) Linux Kernel Module and Device Driver Guide.md
+│   └── Turkish/
+│       ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
+│       ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
+│       ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
+│       ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
+│       ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
+│       ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
+│       ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
+│       ├── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) Çapraz Derleme ve Uzaktan Hata Ayıklama Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Görü İşleme Pipeline Rehberi.md
+│       ├── Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi.md
+│       └── Orange Pi 5 (RK3588S) Linux Çekirdek Modülü ve Aygıt Sürücüsü Geliştirme Rehberi.md
+└── scripts/
+    ├── check_health.sh
+    └── setup_npu.sh
 ```
 
 ---
