@@ -1,77 +1,93 @@
 # Orange Pi 5 (RK3588S) 26-Pin GPIO Header Reference & Pinout Guide
 
-> Complete physical pinout mapping, subsystem multiplexing (I2C, SPI, UART, PWM), and programming cheat sheet for the **Orange Pi 5 (Rockchip RK3588S)** 26-pin expansion header.
+> Complete physical pinout mapping, subsystem multiplexing (I2C, SPI, UART, PWM, CAN), and programming cheat sheet for the **Orange Pi 5 (Rockchip RK3588S V1.3.2)** 26-pin expansion header and dedicated 3-pin Debug UART.
 
 ---
 
-## 1. Physical 26-Pin Header Diagram
+## 1. Physical 26-Pin & 3-Pin Debug Header Diagram
 
 ```
-                              ORANGE PI 5 (26-PIN HEADER)
-                                     Top View
-                               +-------------------+
-                       3.3V DC | [01]   |   [02]   | +5.0V DC (VCC)
-            I2C6_SDA / GPIO0_B5 | [03]   |   [04]   | +5.0V DC (VCC)
-            I2C6_SCL / GPIO0_B6 | [05]   |   [06]   | GROUND (GND)
-             PWM3_M0 / GPIO0_C4 | [07]   |   [08]   | UART2_TX / GPIO0_C1
-                    GROUND (GND)| [09]   |   [10]   | UART2_RX / GPIO0_C0
-             PWM4_M0 / GPIO1_A0 | [11]   |   [12]   | GPIO1_A1 / PWM5_M0
-             PWM6_M0 / GPIO1_A2 | [13]   |   [14]   | GROUND (GND)
-             PWM7_M0 / GPIO1_A3 | [15]   |   [16]   | GPIO1_A4 / SPI4_CS0
-                       3.3V DC | [17]   |   [18]   | GPIO1_A5 / SPI4_MISO
-            SPI4_MOSI / GPIO1_A6 | [19]   |   [20]   | GROUND (GND)
-            SPI4_CLK  / GPIO1_A7 | [21]   |   [22]   | GPIO1_B0
-            I2C5_SDA  / GPIO3_C4 | [23]   |   [24]   | GPIO3_C5 / I2C5_SCL
-                    GROUND (GND)| [25]   |   [26]   | GPIO3_D0
-                               +-------------------+
+                              ORANGE PI 5 (V1.3.2)
+                                 26-PIN HEADER
+                                    Top View
+                              +-------------------+
+                      3.3V DC | [01]   |   [02]   | +5.0V DC (VCC)
+          GPIO1_B7 / PWM13_M2 | [03]   |   [04]   | +5.0V DC (VCC)
+          GPIO1_B6 / UART1_TX | [05]   |   [06]   | GROUND (GND)
+          GPIO1_C6 / PWM15_IR | [07]   |   [08]   | GPIO4_A3 / UART0_TX
+                 GROUND (GND) | [09]   |   [10]   | GPIO4_A4 / UART0_RX
+           GPIO4_B2 / CAN1_RX | [11]   |   [12]   | GPIO0_D5 / CAN2_TX
+           GPIO4_B3 / CAN1_TX | [13]   |   [14]   | GROUND (GND)
+           GPIO0_D4 / CAN2_RX | [15]   |   [16]   | GPIO1_D3 / UART4_RX
+                      3.3V DC | [17]   |   [18]   | GPIO1_D2 / UART4_TX / PWM0_M1
+        GPIO1_C1 / SPI4_MOSI  | [19]   |   [20]   | GROUND (GND)
+        GPIO1_C0 / SPI4_MISO  | [21]   |   [22]   | GPIO2_D4
+        GPIO1_C2 / SPI4_CLK   | [23]   |   [24]   | GPIO1_C4 / SPI4_CS1
+                 GROUND (GND) | [25]   |   [26]   | GPIO1_A3 / PWM1_M2
+                              +-------------------+
+
+                        DEDICATED 3-PIN DEBUG UART
+                              +-------------+
+                         [TX] | UART_TX     | (1,500,000 Baud)
+                         [RX] | UART_RX     |
+                        [GND] | GROUND (■)  | (Square Pad)
+                              +-------------+
 ```
 
 ---
 
-## 2. Comprehensive Pin Mapping Table
+## 2. Comprehensive Pin Mapping Table (Orange Pi 5 V1.3.2)
 
 > [!WARNING]
-> **Voltage Warning:** All GPIO data pins on the Orange Pi 5 operate at **3.3V TTL logic levels**. Connecting 5V digital signals directly to any GPIO pin will permanently destroy the SoC I/O pad. Always use a level shifter.
+> **Voltage Warning:** All GPIO data pins on the Orange Pi 5 operate at **3.3V TTL logic levels**. Connecting 5V digital signals directly to any GPIO pin will permanently destroy the SoC I/O pad. Always use a level shifter for 5V peripherals.
 
-| Physical Pin | Default Function | WiringOP ID | Linux `libgpiod` Chip & Offset | Linux Sysfs GPIO Index | Alternate Function 1 | Alternate Function 2 |
-| :---: | :--- | :---: | :--- | :---: | :--- | :--- |
-| **01** | **+3.3V Power** | — | — | — | DC Power Rail (Max 500mA) | — |
-| **02** | **+5.0V Power** | — | — | — | DC Power Rail (Direct from Type-C) | — |
-| **03** | **GPIO0_B5** | 8 | `gpiochip0` Line 13 | 13 | **I2C6_SDA** | — |
-| **04** | **+5.0V Power** | — | — | — | DC Power Rail (Direct from Type-C) | — |
-| **05** | **GPIO0_B6** | 9 | `gpiochip0` Line 14 | 14 | **I2C6_SCL** | — |
-| **06** | **Ground (GND)**| — | — | — | 0V Ground Reference | — |
-| **07** | **GPIO0_C4** | 7 | `gpiochip0` Line 20 | 20 | **PWM3_M0** | — |
-| **08** | **GPIO0_C1** | 15 | `gpiochip0` Line 17 | 17 | **UART2_TX** (Debug Console) | — |
-| **09** | **Ground (GND)**| — | — | — | 0V Ground Reference | — |
-| **10** | **GPIO0_C0** | 16 | `gpiochip0` Line 16 | 16 | **UART2_RX** (Debug Console) | — |
-| **11** | **GPIO1_A0** | 0 | `gpiochip1` Line 0 | 32 | **PWM4_M0** | — |
-| **12** | **GPIO1_A1** | 1 | `gpiochip1` Line 1 | 33 | **PWM5_M0** | — |
-| **13** | **GPIO1_A2** | 2 | `gpiochip1` Line 2 | 34 | **PWM6_M0** | — |
-| **14** | **Ground (GND)**| — | — | — | 0V Ground Reference | — |
-| **15** | **GPIO1_A3** | 3 | `gpiochip1` Line 3 | 35 | **PWM7_M0** | — |
-| **16** | **GPIO1_A4** | 4 | `gpiochip1` Line 4 | 36 | **SPI4_CS0_M1** | — |
-| **17** | **+3.3V Power** | — | — | — | DC Power Rail | — |
-| **18** | **GPIO1_A5** | 5 | `gpiochip1` Line 5 | 37 | **SPI4_MISO_M1** | — |
-| **19** | **GPIO1_A6** | 12 | `gpiochip1` Line 6 | 38 | **SPI4_MOSI_M1** | — |
-| **20** | **Ground (GND)**| — | — | — | 0V Ground Reference | — |
-| **21** | **GPIO1_A7** | 14 | `gpiochip1` Line 7 | 39 | **SPI4_CLK_M1** | — |
-| **22** | **GPIO1_B0** | 6 | `gpiochip1` Line 8 | 40 | — | — |
-| **23** | **GPIO3_C4** | 10 | `gpiochip3` Line 20 | 116 | **I2C5_SDA** | — |
-| **24** | **GPIO3_C5** | 11 | `gpiochip3` Line 21 | 117 | **I2C5_SCL** | — |
-| **25** | **Ground (GND)**| — | — | — | 0V Ground Reference | — |
-| **26** | **GPIO3_D0** | 13 | `gpiochip3` Line 24 | 120 | — | — |
+| Physical Pin | Default Function | WiringOP ID | Linux `libgpiod` Chip & Offset | Linux Sysfs GPIO Index | Alternate Function 1 | Alternate Function 2 | Alternate Function 3 |
+| :---: | :--- | :---: | :--- | :---: | :--- | :--- | :--- |
+| **01** | **+3.3V Power** | — | — | — | 3.3V DC Power Rail | — | — |
+| **02** | **+5.0V Power** | — | — | — | 5.0V DC Power Rail | — | — |
+| **03** | **GPIO1_B7** | 2 | `gpiochip1` Line 15 | **47** | **PWM13_M2** | **UART1_RX_M1** | **I2C5_SDA_M3** |
+| **04** | **+5.0V Power** | — | — | — | 5.0V DC Power Rail | — | — |
+| **05** | **GPIO1_B6** | 3 | `gpiochip1` Line 14 | **46** | **UART1_TX_M1** | **I2C5_SCL_M3** | — |
+| **06** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
+| **07** | **GPIO1_C6** | 4 | `gpiochip1` Line 22 | **54** | **PWM15_IR_M2** | — | — |
+| **08** | **GPIO4_A3** | 15 | `gpiochip4` Line 3 | **131** | **UART0_TX_M2** | — | — |
+| **09** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
+| **10** | **GPIO4_A4** | 16 | `gpiochip4` Line 4 | **132** | **UART0_RX_M2** | — | — |
+| **11** | **GPIO4_B2** | 0 | `gpiochip4` Line 10 | **138** | **PWM14_M1** | **CAN1_RX_M1** | — |
+| **12** | **GPIO0_D5** | 6 | `gpiochip0` Line 29 | **29** | **CAN2_TX_M1** | — | — |
+| **13** | **GPIO4_B3** | 1 | `gpiochip4` Line 11 | **139** | **CAN1_TX_M1** | — | — |
+| **14** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
+| **15** | **GPIO0_D4** | 5 | `gpiochip0` Line 28 | **28** | **PWM3_IR_M0** | **CAN2_RX_M1** | — |
+| **16** | **GPIO1_D3** | 8 | `gpiochip1` Line 27 | **59** | **UART4_RX_M0** | **I2C1_SDA_M4** | — |
+| **17** | **+3.3V Power** | — | — | — | 3.3V DC Power Rail | — | — |
+| **18** | **GPIO1_D2** | 9 | `gpiochip1` Line 26 | **58** | **UART4_TX_M0** | **I2C1_SCL_M4** | **PWM0_M1** |
+| **19** | **GPIO1_C1** | 12 | `gpiochip1` Line 17 | **49** | **I2C3_SCL_M0** | **UART3_TX_M0** | **SPI4_MOSI_M0** |
+| **20** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
+| **21** | **GPIO1_C0** | 13 | `gpiochip1` Line 16 | **48** | **I2C3_SDA_M0** | **UART3_RX_M0** | **SPI4_MISO_M0** |
+| **22** | **GPIO2_D4** | 10 | `gpiochip2` Line 28 | **92** | — | — | — |
+| **23** | **GPIO1_C2** | 14 | `gpiochip1` Line 18 | **50** | **SPI4_CLK_M0** | — | — |
+| **24** | **GPIO1_C4** | 11 | `gpiochip1` Line 20 | **52** | **SPI4_CS1_M0** | — | — |
+| **25** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
+| **26** | **GPIO1_A3** | 7 | `gpiochip1` Line 3 | **35** | **PWM1_M2** | — | — |
+
+### Dedicated 3-Pin Debug UART Header
+Located immediately below the 26-pin header on the Orange Pi 5 PCB:
+* **TX:** Rockchip serial debug transmit pin. Connect to your USB-TTL adapter's **RX** pin.
+* **RX:** Rockchip serial debug receive pin. Connect to your USB-TTL adapter's **TX** pin.
+* **GND:** Ground reference (indicated by the square solder pad). Connect to USB-TTL adapter's **GND**.
+* **Baud Rate:** **`1,500,000` (1.5M baud)** strictly.
 
 ---
 
 ## 3. Sysfs Calculation Formula
 
-In the Linux kernel, global GPIO numbers follow this formula:
+In the Linux kernel, global GPIO numbers follow this mathematical formula:
 $$\text{GPIO Index} = (\text{Bank Number} \times 32) + (\text{Port Letter} \times 8) + \text{Pin Number}$$
 Where:
 * **Port Letter Index:** `A = 0`, `B = 1`, `C = 2`, `D = 3`.
-* **Example (`GPIO1_A2`):** $(1 \times 32) + (0 \times 8) + 2 = \mathbf{34}$.
-* **Example (`GPIO3_C4`):** $(3 \times 32) + (2 \times 8) + 4 = 96 + 16 + 4 = \mathbf{116}$.
+* **Example (`GPIO1_C6` / Pin 7):** $(1 \times 32) + (2 \times 8) + 6 = 32 + 16 + 6 = \mathbf{54}$.
+* **Example (`GPIO1_D2` / Pin 18):** $(1 \times 32) + (3 \times 8) + 2 = 32 + 24 + 2 = \mathbf{58}$.
+* **Example (`GPIO4_B2` / Pin 11):** $(4 \times 32) + (1 \times 8) + 2 = 128 + 8 + 2 = \mathbf{138}$.
 
 ---
 
@@ -81,8 +97,8 @@ Where:
 
 > [!NOTE]
 > **libgpiod v1 vs v2 Syntax:**
-> * **Ubuntu 22.04 / Debian 11/12 (libgpiod v1):** `gpioset gpiochip1 0=1`
-> * **Ubuntu 24.04 Noble (libgpiod v2):** `gpioset -c 1 0=active` (or `gpioset --chip 1 0=1`)
+> * **Ubuntu 22.04 / Debian 11/12 (libgpiod v1):** `gpioset gpiochip1 22=1`
+> * **Ubuntu 24.04 Noble (libgpiod v2):** `gpioset -c 1 22=active` (or `gpioset --chip 1 22=1`)
 
 ```bash
 # Install tool
@@ -91,13 +107,13 @@ sudo apt install -y gpiod
 # Inspect all available GPIO chips
 gpiodetect
 
-# Toggle Pin 11 (GPIO1_A0 -> gpiochip1 offset 0) HIGH then LOW (v1 syntax)
-gpioset gpiochip1 0=1
+# Toggle Pin 7 (GPIO1_C6 -> gpiochip1 Line 22) HIGH then LOW (v1 syntax)
+gpioset gpiochip1 22=1
 sleep 1
-gpioset gpiochip1 0=0
+gpioset gpiochip1 22=0
 
-# Read state of Pin 12 (GPIO1_A1 -> gpiochip1 offset 1)
-gpioget gpiochip1 1
+# Read state of Pin 18 (GPIO1_D2 -> gpiochip1 Line 26)
+gpioget gpiochip1 26
 ```
 
 ### B. C++ (`wiringOP`)
@@ -105,7 +121,8 @@ gpioget gpiochip1 1
 #include <wiringPi.h>
 #include <iostream>
 
-#define LED_PIN 0 // Physical Pin 11 (GPIO1_A0)
+// Physical Pin 7 (GPIO1_C6) corresponds to wiringOP pin 4
+#define LED_PIN 4 
 
 int main() {
     if (wiringPiSetup() == -1) {
@@ -129,13 +146,13 @@ import gpiod
 import time
 
 chip = gpiod.Chip("gpiochip1")
-line = chip.get_line(0) # Physical Pin 11
+line = chip.get_line(22) # Physical Pin 7 (GPIO1_C6)
 line.request(consumer="LED_Test", type=gpiod.LINE_REQ_DIR_OUT)
 
 try:
-    line.set_value(1) # HIGH
+    line.set_value(1) # HIGH (3.3V)
     time.sleep(1)
-    line.set_value(0) # LOW
+    line.set_value(0) # LOW (0V)
 finally:
     line.release()
 ```
@@ -149,9 +166,9 @@ import time
 with gpiod.request_lines(
     "/dev/gpiochip1",
     consumer="LED_Test",
-    config={0: gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)}
+    config={22: gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)} # Physical Pin 7
 ) as req:
-    req.set_value(0, gpiod.line.Value.ACTIVE)
+    req.set_value(22, gpiod.line.Value.ACTIVE)
     time.sleep(1)
-    req.set_value(0, gpiod.line.Value.INACTIVE)
+    req.set_value(22, gpiod.line.Value.INACTIVE)
 ```

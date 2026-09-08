@@ -53,10 +53,12 @@ curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/s
 
 ### **Initial Setup Wizard:**
 1. Open your browser and navigate to `http://ORANGE_PI_IP:3000`.
-2. **Web Interface:** Listen on Port `80` or `8080`.
+2. **Web Interface:** Listen on Port **`8080`** (or `80` if not running any web server/CasaOS).
+   > [!WARNING]
+   > **Port 80 Conflict Warning:** If CasaOS (Project 11) or Nginx/Apache is already installed, Port 80 is occupied. To prevent binding crashes, explicitly select **`8080`** or **`3000`** for the AdGuard Home admin web UI.
 3. **DNS Server:** Listen on Port `53` on all interfaces (`0.0.0.0`).
 4. Set up administrative credentials.
-5. Access the full dashboard at `http://ORANGE_PI_IP`.
+5. Access the full dashboard at `http://ORANGE_PI_IP:8080` (or chosen port).
 
 ---
 

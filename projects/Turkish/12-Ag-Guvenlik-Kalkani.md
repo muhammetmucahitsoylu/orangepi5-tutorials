@@ -54,10 +54,12 @@ curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/s
 
 ### **İlk Yapılandırma:**
 1. Bilgisayarınızın tarayıcısından `http://ORANGE_PI_IP:3000` adresine gidin.
-2. **Yönetim Arayüzü:** Port `80` veya `8080` olarak seçin.
+2. **Yönetim Arayüzü:** Port **`8080`** (veya CasaOS/web sunucusu kullanmıyorsanız `80`) olarak seçin.
+   > [!WARNING]
+   > **Port 80 Çakışma Uyarısı:** Eğer sisteminizde CasaOS (Proje 11) veya Nginx/Apache kuruluysa Port 80 zaten doludur. Çakışmayı önlemek için yönetim arayüzü portunu mutlaka **`8080`** veya **`3000`** olarak belirleyin.
 3. **DNS Sunucusu:** Port `53` olarak seçin ve devam edin.
 4. Yönetici kullanıcı adı ve şifrenizi belirleyin.
-5. Kurulum bittiğinde yönetim paneli `http://ORANGE_PI_IP` üzerinde aktif hale gelecektir.
+5. Kurulum bittiğinde yönetim paneline `http://ORANGE_PI_IP:8080` (veya seçtiğiniz port) üzerinden erişebilirsiniz.
 
 ---
 

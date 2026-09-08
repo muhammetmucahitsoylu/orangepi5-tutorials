@@ -34,9 +34,11 @@ Standart bilgisayarlarda LLM çalıştırmak için devasa Nvidia ekran kartları
 # Python 3.10 sanal ortamı oluşturun:
 python3 -m venv rkllm_env && source rkllm_env/bin/activate
 
-# Resmi RKLLM araç setini indirin ve kurun:
+# Resmi RKLLM deposunu klonlayın ve ilgili çarkı (wheel) kurun:
+git clone --depth 1 https://github.com/airockchip/rknn-llm.git
+cd rknn-llm/rkllm-toolkit/packages/
 pip install --upgrade pip
-pip install https://github.com/airockchip/rknn-llm/releases/download/v1.1.4/rkllm_toolkit-1.1.4-cp310-cp310-linux_x86_64.whl
+pip install rkllm_toolkit-*-cp310-cp310-linux_x86_64.whl
 ```
 
 ### **2. Qwen Modelini İndirip Dönüştürme Scripti (`export_rkllm.py`):**
@@ -46,7 +48,7 @@ from rkllm.api import RKLLM
 llm = RKLLM()
 
 # Modeli HuggingFace'den veya yerel dizinden yükleyin
-# Desteklenen modeller: Qwen2.5-1.5B-Instruct, Llama-3.2-1B-Instruct vb.
+# Desteklenen modeller: Qwen/Qwen2.5-1.5B-Instruct, meta-llama/Llama-3.2-1B-Instruct vb.
 modelpath = "Qwen/Qwen2.5-1.5B-Instruct"
 
 ret = llm.load_huggingface(model_dir=modelpath)
@@ -77,16 +79,17 @@ scp qwen2.5_1.5b_w4a16_rk3588.rkllm kullanici@ORANGE_PI_IP:~/projects/ilk-projem
 
 ---
 
-## **3. Adım 2: Orange Pi 5 Üzerinde RKLLM Çalışma Ortamını Kurma**
+## **3. Adım 2: Orange Pi 5 Üzerinde RKLLM Çalışma Ortamını ve C++ Demo Motorunu Kurma**
 
-Orange Pi 5 terminalinde (veya VS Code Remote - SSH oturumunuzda):
+> [!NOTE]
+> Rockchip RKLLM, ARM64 kartlar için Python pip çarkı yerine doğrudan donanıma en yüksek hızda erişen C/C++ çalışma kütüphanesi (`librkllmrt.so`) ve optimize edilmiş `llm_demo` yürütülebilir dosyası sunar. Bu sayede Python GIL kısıtlaması olmadan saniyede 18-22 token hızına ulaşılır.
+
+Orange Pi 5 terminalinde:
 
 ```bash
-cd ~/projects/ilk-projem
-source venv/bin/activate
+mkdir -p ~/projects && cd ~/projects
 
 # 1. Resmi rknn-llm deposunu klonlayın:
-cd /tmp
 git clone --depth 1 https://github.com/airockchip/rknn-llm.git
 
 # 2. 64-bit ARM çalışma kütüphanesini (/usr/lib) dizinine kopyalayın:
@@ -94,89 +97,27 @@ sudo cp rknn-llm/rkllm-runtime/Linux/librkllm_api/aarch64/librkllmrt.so /usr/lib
 sudo chmod 755 /usr/lib/librkllmrt.so
 sudo ldconfig
 
-# 3. Orange Pi 5 için derlenmiş Python RKLLM kütüphanesini kurun:
-pip install https://github.com/airockchip/rknn-llm/releases/download/v1.1.4/rkllm_runtime-1.1.4-cp310-cp310-linux_aarch64.whl
-# (Eğer Python 3.11/3.12 kullanıyorsanız depodaki ilgili sürüm çarkını kurun)
-
-# Geçici dosyaları temizleyin:
-rm -rf /tmp/rknn-llm
+# 3. Optimize edilmiş C++ LLM çalıştırıcısını (llm_demo) derleyin:
+cd rknn-llm/examples/rkllm_api_demo
+mkdir -p build && cd build
+cmake ..
+make -j$(nproc)
 ```
 
 ---
 
-## **4. Adım 3: Etkileşimli Terminal Chatbot Scripti (`src/chat_llm.py`)**
+## **4. Adım 3: NPU ile Etkileşimli Terminal Sohbetini Başlatma**
 
-Aşağıdaki Python kodu; modeli 6 TOPS NPU üzerine yükler ve harf harf akıcı (streaming) biçimde cevap üreten bir terminal sohbet arayüzü sunar:
-
-```python
-import sys
-import time
-from rkllm.api import RKLLM
-
-MODEL_PATH = "models/qwen2.5_1.5b_w4a16_rk3588.rkllm"
-
-print("==================================================")
-print("  Orange Pi 5 (RK3588S) NPU Yerel Dil Modeli     ")
-print("==================================================")
-
-# 1. RKLLM Motorunu Başlat
-llm = RKLLM()
-print(f"--> NPU modeli yükleniyor: {MODEL_PATH}")
-start_time = time.time()
-
-ret = llm.init(
-    model_path=MODEL_PATH,
-    lora_model_path=None,
-    prompt_cache_path=None
-)
-
-if ret != 0:
-    print("[HATA] NPU çalışma motoru başlatılamadı!")
-    sys.exit(1)
-
-print(f"[BAŞARILI] Model NPU'ya yüklendi ({time.time() - start_time:.2f} saniye).")
-print("Sohbeti sonlandırmak için 'exit' veya 'quit' yazın.\n")
-
-# 2. Akıcı (Streaming) Çıktı Geri Çağırma Fonksiyonu
-def callback_fn(result, state):
-    # state: 0 (üretim devam ediyor), 1 (üretim tamamlandı), 2 (hata)
-    text = result if isinstance(result, str) else getattr(result, 'text', str(result))
-    sys.stdout.write(text)
-    sys.stdout.flush()
-
-# 3. Sonsuz Sohbet Döngüsü
-while True:
-    try:
-        user_input = input("\n👤 Kullanıcı: ").strip()
-        if not user_input:
-            continue
-        if user_input.lower() in ["exit", "quit", "q"]:
-            print("\nÇıkış yapılıyor...")
-            break
-
-        # Qwen için standart ChatML formatı
-        prompt = f"<|im_start|>system\nSen Orange Pi 5 üzerinde çalışan yardımsever, hızlı bir yapay zeka asistanısın.<|im_end|>\n<|im_start|>user\n{user_input}<|im_end|>\n<|im_start|>assistant\n"
-
-        print("🤖 Asistan: ", end="")
-        llm.run(prompt=prompt, callback=callback_fn)
-        print()
-
-    except KeyboardInterrupt:
-        print("\n\nİşlem kullanıcı tarafından durduruldu.")
-        break
-
-llm.release()
-print("NPU kaynakları serbest bırakıldı.")
-```
-
----
-
-## **5. Adım 4: Çalıştırma ve Performans Analizi**
+Derlenen `llm_demo` uygulamasını NPU model dosyanız ile çalıştırın:
 
 ```bash
-cd ~/projects/ilk-projem
-python3 src/chat_llm.py
+cd ~/projects/rknn-llm/examples/rkllm_api_demo/build
+
+# Kullanım: ./llm_demo <model_yolu> <maksimum_yeni_token> <maksimum_baglam_uzunlugu>
+./llm_demo ~/projects/ilk-projem/models/qwen2.5_1.5b_w4a16_rk3588.rkllm 512 2048
 ```
+
+Program modeli doğrudan 6 TOPS NPU çekirdeklerine yükler ve terminalde interaktif soru-cevap oturumu başlatır. İstem girdiğiniz anda cevaplar donanım ivmelendirmeli olarak saniyede 18+ token hızıyla akmaya başlar.
 
 ### **Örnek Çalışma Çıktısı:**
 ```text

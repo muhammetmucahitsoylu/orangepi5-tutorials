@@ -82,13 +82,20 @@ v4l2-ctl --list-devices
 
 ## **4. Adım 2: YOLOv8 RKNN Modelini Hazırlama**
 
-Daha önceki yapay zeka rehberimizden derlediğiniz veya indirdiğiniz `yolov8n.rknn` model dosyasını kullanacağız.
+03. Projede derlediğiniz `yolov8n_rk3588.rknn` model dosyasını veya resmi depodan sağlanan modeli kullanacağız:
 
 ```bash
 mkdir -p ~/projects/camera-pipeline && cd ~/projects/camera-pipeline
 
-# Eğer elinizde hazır model yoksa, önceden derlenmiş örnek modeli indirin:
-wget -O yolov8n.rknn https://github.com/rockchip-linux/rknpu2/raw/master/examples/rknn_yolov8_demo/model/RK3588/yolov8n.rknn
+# 1. Seçenek (Önerilen): 03. Projede ürettiğiniz modeli kopyalayın:
+if [ -f ~/projects/ilk-projem/models/yolov8n_rk3588.rknn ]; then
+    cp ~/projects/ilk-projem/models/yolov8n_rk3588.rknn ./yolov8n.rknn
+    echo "Model 03. Projeden başarıyla kopyalandı."
+fi
+
+# 2. Seçenek: Eğer model henüz elinizde yoksa, airockchip rknn_model_zoo resmi deposundan çekin:
+# git clone --depth 1 https://github.com/airockchip/rknn_model_zoo.git
+# cp rknn_model_zoo/examples/yolov8/model/RK3588/yolov8n.rknn ./yolov8n.rknn
 ```
 
 ---

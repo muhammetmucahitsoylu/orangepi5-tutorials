@@ -19,21 +19,21 @@ This guide covers interfacing with the Orange Pi 5's 26-pin expansion header usi
 Key pin assignments on the Orange Pi 5 physical 26-pin header:
 
 ```
-                  26-Pin Expansion Header
+                  26-Pin Expansion Header (V1.3.2)
                          ┌────────┐
           3.3V Power [ 1]│  ●  ●  │[ 2]  5V Power
-   I2C1_SDA / GPIO   [ 3]│  ●  ●  │[ 4]  5V Power
-   I2C1_SCL / GPIO   [ 5]│  ●  ●  │[ 6]  GND (Ground)
-      GPIO1_D0       [ 7]│  ●  ●  │[ 8]  UART1_TX / GPIO
-           GND       [ 9]│  ●  ●  │[10]  UART1_RX / GPIO
-      GPIO1_D1       [11]│  ●  ●  │[12]  GPIO1_D2
-      GPIO1_D3       [13]│  ●  ●  │[14]  GND (Ground)
-      GPIO1_D4       [15]│  ●  ●  │[16]  GPIO1_D5
-          3.3V       [17]│  ●  ●  │[18]  GPIO1_D6
-  SPI1_MOSI / GPIO   [19]│  ●  ●  │[20]  GND (Ground)
-  SPI1_MISO / GPIO   [21]│  ●  ●  │[22]  GPIO1_D7
-   SPI1_CLK / GPIO   [23]│  ●  ●  │[24]  SPI1_CS0 / GPIO
-           GND       [25]│  ●  ●  │[26]  GPIO1_D8
+     GPIO1_B7 / PWM13[ 3]│  ●  ●  │[ 4]  5V Power
+     GPIO1_B6 / UART1[ 5]│  ●  ●  │[ 6]  GND (Ground)
+     GPIO1_C6 / PWM15[ 7]│  ●  ●  │[ 8]  GPIO4_A3 / UART0_TX
+         GND (Ground)[ 9]│  ●  ●  │[10]  GPIO4_A4 / UART0_RX
+      GPIO4_B2 / CAN1[11]│  ●  ●  │[12]  GPIO0_D5 / CAN2_TX
+      GPIO4_B3 / CAN1[13]│  ●  ●  │[14]  GND (Ground)
+      GPIO0_D4 / CAN2[15]│  ●  ●  │[16]  GPIO1_D3 / UART4_RX
+          3.3V Power [17]│  ●  ●  │[18]  GPIO1_D2 / UART4_TX
+  GPIO1_C1 / SPI_MOSI[19]│  ●  ●  │[20]  GND (Ground)
+  GPIO1_C0 / SPI_MISO[21]│  ●  ●  │[22]  GPIO2_D4
+   GPIO1_C2 / SPI_CLK[23]│  ●  ●  │[24]  GPIO1_C4 / SPI_CS1
+         GND (Ground)[25]│  ●  ●  │[26]  GPIO1_A3 / PWM1
                          └────────┘
 ```
 
@@ -86,7 +86,7 @@ target_link_libraries(hardware_app PRIVATE ${WIRINGOP_LIB} pthread)
 ```
 
 ### **3. C++ Source Code (`src/main.cpp`):**
-Blinks an LED on Pin 7 (wiringOP Pin 2 / GPIO1_D0) and samples button state on Pin 11 (wiringOP Pin 0) with internal pull-up:
+Blinks an LED on Pin 7 (wiringOP Pin 4 / GPIO1_C6) and samples button state on Pin 11 (wiringOP Pin 0 / GPIO4_B2) with internal pull-up:
 
 ```cpp
 #include <iostream>
@@ -94,8 +94,8 @@ Blinks an LED on Pin 7 (wiringOP Pin 2 / GPIO1_D0) and samples button state on P
 #include <thread>
 #include <wiringPi.h>
 
-#define LED_PIN    2   // Physical Pin 7
-#define BUTTON_PIN 0   // Physical Pin 11
+#define LED_PIN    4   // Physical Pin 7 (GPIO1_C6 - wiringOP 4)
+#define BUTTON_PIN 0   // Physical Pin 11 (GPIO4_B2 - wiringOP 0)
 
 int main() {
     std::cout << "--- Orange Pi 5 Hardware Control (C++) ---" << std::endl;
@@ -111,12 +111,13 @@ int main() {
     pinMode(BUTTON_PIN, INPUT);
     pullUpDnControl(BUTTON_PIN, PUD_UP); // Enable internal pull-up resistor
 
-    std::cout << "LED (Pin 7) blinking. Press Ctrl+C to abort." << std::endl;
+    std::cout << "LED and button loop started. Press Ctrl+C to abort." << std::endl;
 
     for (int i = 0; i < 10; ++i) {
         int btn_state = digitalRead(BUTTON_PIN);
-        std::cout << "Loop " << (i + 1) << " - Button: " 
-                  << (btn_state == LOW ? "PRESSED" : "RELEASED") << std::endl;
+        if (btn_state == LOW) {
+            std::cout << "Button Pressed!" << std::endl;
+        }
 
         digitalWrite(LED_PIN, HIGH);
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -125,7 +126,6 @@ int main() {
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 
-    std::cout << "Verification cycle completed." << std::endl;
     return 0;
 }
 ```
@@ -157,8 +157,8 @@ import time
 
 # RK3588S GPIO1 controller (/dev/gpiochip1)
 CHIP_NUM = 1
-# GPIO1_D0 = line 24 (Physical Pin 7)
-LINE_NUM = 24
+# GPIO1_C6 = line 22 (Physical Pin 7)
+LINE_NUM = 22
 
 chip = gpiod.Chip(f"gpiochip{CHIP_NUM}")
 line = chip.get_line(LINE_NUM)
@@ -173,9 +173,9 @@ line.request(config)
 try:
     print("Blinking LED via kernel libgpiod...")
     for _ in range(5):
-        line.set_value(1)
+        line.set_value(1) # HIGH (3.3V)
         time.sleep(0.5)
-        line.set_value(0)
+        line.set_value(0) # LOW (0V)
         time.sleep(0.5)
 finally:
     line.release()

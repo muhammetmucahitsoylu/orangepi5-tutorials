@@ -97,14 +97,14 @@ Evaluates whether the NVMe SSD fully saturates the board's PCIe 2.0 x1 bus using
 
 ### **Sequential Read Benchmark (1M Block Size)**
 ```bash
-fio --name=seq_read --filename=/tmp/fio_test --size=2G --rw=read --bs=1M --direct=1 --ioengine=libaio --iodepth=16 --numjobs=1 --time_based --runtime=20 --group_reporting && rm -f /tmp/fio_test
+fio --name=seq_read --filename=$HOME/fio_test --size=2G --rw=read --bs=1M --direct=1 --ioengine=libaio --iodepth=16 --numjobs=1 --time_based --runtime=20 --group_reporting && rm -f $HOME/fio_test
 ```
 * **Reference Sequential Speed:** **~418 MB/s**  
-* *Assessment:* This represents the practical physical ceiling of the Orange Pi 5's PCIe 2.0 x1 lane. Results between 400 and 425 MB/s confirm full bus saturation.
+* *Assessment:* This represents the practical physical ceiling of the Orange Pi 5's PCIe 2.0 x1 lane. Results between 400 and 425 MB/s confirm full bus saturation. (Note: Using `$HOME` tests the physical disk rather than volatile RAM `tmpfs`).
 
 ### **4K Random Read Benchmark (IOPS)**
 ```bash
-fio --name=rand_read --filename=/tmp/fio_test --size=1G --rw=randread --bs=4k --direct=1 --ioengine=libaio --iodepth=64 --numjobs=4 --time_based --runtime=20 --group_reporting && rm -f /tmp/fio_test
+fio --name=rand_read --filename=$HOME/fio_test --size=1G --rw=randread --bs=4k --direct=1 --ioengine=libaio --iodepth=64 --numjobs=4 --time_based --runtime=20 --group_reporting && rm -f $HOME/fio_test
 ```
 * **Reference IOPS:** **~90,900 IOPS (~372 MB/s)** (Average latency: ~2.79 ms).
 

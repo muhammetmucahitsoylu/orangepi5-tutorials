@@ -73,12 +73,17 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 
 ---
 
-## **4. Step 2: Install ROS 2 Humble & Robotics Tooling**
+## **4. Step 2: Install ROS 2 Humble / Jazzy & Robotics Tooling**
+
+> [!NOTE]
+> **Ubuntu Release Compatibility:**
+> * **Ubuntu 22.04 LTS (Jammy):** The official standard LTS distribution is **`ros-humble`**.
+> * **Ubuntu 24.04 LTS (Noble):** If running on Ubuntu 24.04, substitute `humble` with **`jazzy`** (ROS 2 Jazzy Jalisco) packages (`ros-jazzy-ros-base`, `ros-jazzy-cv-bridge`, and `source /opt/ros/jazzy/setup.bash`).
 
 ```bash
 sudo apt update
 
-# Install base ROS 2 packages and OpenCV bridges
+# Install base ROS 2 packages and OpenCV bridges (Ubuntu 22.04 example):
 sudo apt install -y ros-humble-ros-base \
                     ros-dev-tools \
                     python3-colcon-common-extensions \

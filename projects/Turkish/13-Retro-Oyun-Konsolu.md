@@ -75,23 +75,34 @@ echo performance | sudo tee /sys/class/devfreq/fb000000.gpu/governor
 
 ---
 
-## **5. Adım 3: PlayStation 2 (AetherSX2) Kurulumu**
+## **5. Adım 3: PlayStation 2 ve Retro Oyun Emülasyonu Kurulumu**
 
-AetherSX2, ARM64 işlemciler ve Mali GPU'lar için optimize edilmiş en güçlü PS2 emülatörüdür:
+Orange Pi 5 (RK3588) üzerinde PS2 ve konsol oyunlarını çalıştırmak için iki ana yöntem bulunur:
+
+### **Yöntem 1 (Önerilen - En Yüksek FPS): Özel Retro İşletim Sistemi (Batocera / ROCKNIX)**
+Kayıpsız 60 FPS, tam donanım hızlandırmalı Vulkan sürücüleri ve sıfır yapılandırma için:
+* **Batocera.linux** veya **ROCKNIX (eski adıyla JELOS)** Orange Pi 5 resmi RK3588 imajını indirin.
+* BalenaEtcher ile ayrı bir MicroSD karta yazdırıp doğrudan konsol arayüzü (EmulationStation) ile başlayın. PS2, PSP, Dreamcast ve GameCube çekirdekleri hazır olarak gelir.
+
+### **Yöntem 2: Ubuntu Üzerinde RetroArch ve PCSX2 / Flatpak Kurulumu**
+Mevcut Ubuntu masaüstünüzü bozmadan oyun oynamak için:
 
 ```bash
-# 1. AetherSX2 ARM64 Linux AppImage dosyasını indirin:
-mkdir -p ~/Emulators/PS2 && cd ~/Emulators/PS2
-wget https://github.com/aethersx2/aethersx2/releases/download/v1.5-4248/AetherSX2-v1.5-4248-aarch64.AppImage
+# 1. Flatpak ve Flathub deposunu kurun:
+sudo apt update && sudo apt install -y flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# 2. Çalıştırma izni verin:
-chmod +x AetherSX2-v1.5-4248-aarch64.AppImage
+# 2. RetroArch (Tüm klasik konsollar için evrensel emülatör) kurun:
+sudo apt install -y retroarch
+
+# 3. PCSX2 (PlayStation 2) veya bağımsız emülatörleri Flatpak üzerinden edinin:
+flatpak install -y flathub net.pcsx2.PCSX2 || echo "Flatpak üzerinden PCSX2 veya RetroArch PCSX2 core tercih edilebilir."
 ```
 
-### **AetherSX2 Kritik Grafik Ayarları:**
-* **Graphics Renderer:** Mutlaka **Vulkan** seçilmelidir (OpenGL'e göre %40 daha yüksek FPS verir).
+### **Kritik Emülatör Grafik Ayarları:**
+* **Graphics Renderer:** Mutlaka **Vulkan** seçilmelidir (Mali-G610 GPU'da OpenGL'e göre %40 daha yüksek ve kararlı FPS sağlar).
 * **Upscale Multiplier:** **2x Native (~720p/1080p)** seçin.
-* **Aspect Ratio:** TV'niz için **16:9** veya orijinal **4:3** tercih edin.
+* **Aspect Ratio:** TV'niz için **16:9** (Widescreen hack açık) veya orijinal **4:3** tercih edin.
 
 ---
 

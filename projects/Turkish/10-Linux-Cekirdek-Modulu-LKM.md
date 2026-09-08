@@ -30,7 +30,7 @@ Bu rehber; Orange Pi 5 (Rockchip RK3588S) üzerinde Linux çekirdek mimarisini (
 │                                                                        │
 │   opi5_gpio_driver.ko (Çekirdek Modülü)                                │
 │   - copy_from_user() ile güvenli veri aktarımı                         │
-│   - Donanım GPIO Bankası (GPIO1_D0 / Pin 7) Sürüşü                     │
+│   - Donanım GPIO Bankası (GPIO1_C6 / Pin 7) Sürüşü                     │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ (Fiziksel Voltaj Seviyesi)
                                     ▼
@@ -78,7 +78,7 @@ x86 Ubuntu'da `sudo apt install linux-headers-$(uname -r)` komutu hemen çalış
 
 ## **3. Adım 1: Sürücü Kaynak Kodunu Yazma (`opi5_gpio_driver.c`)**
 
-Bu sürücü; çekirdeğe bir **Misc Character Device** (çeşitli karakter aygıtı) olarak kaydolur, `/dev/opi5_gpio` dosyasını otomatik üretir ve kullanıcıdan gelen `"1"` veya `"0"` komutuna göre Pin 7'yi (GPIO1_D0) donanımsal olarak sürer.
+Bu sürücü; çekirdeğe bir **Misc Character Device** (çeşitli karakter aygıtı) olarak kaydolur, `/dev/opi5_gpio` dosyasını otomatik üretir ve kullanıcıdan gelen `"1"` veya `"0"` komutuna göre Pin 7'yi (GPIO1_C6) donanımsal olarak sürer.
 
 Çalışma dizinini oluşturun:
 ```bash
@@ -104,13 +104,13 @@ MODULE_VERSION("1.0");
 #define DEVICE_NAME "opi5_gpio"
 
 /* 
- * Orange Pi 5 Fiziksel Pin 7 = GPIO1_D0
+ * Orange Pi 5 Fiziksel Pin 7 = GPIO1_C6
  * Linux GPIO Numarası Hesaplama:
- * Banka 1, Grup D (A=0, B=1, C=2, D=3), Pin 0
+ * Banka 1, Grup C (A=0, B=1, C=2, D=3), Pin 6
  * Formül: (Banka * 32) + (Grup * 8) + Pin
- * GPIO1_D0 = (1 * 32) + (3 * 8) + 0 = 32 + 24 + 0 = 56
+ * GPIO1_C6 = (1 * 32) + (2 * 8) + 6 = 32 + 16 + 6 = 54
  */
-#define TARGET_GPIO 56
+#define TARGET_GPIO 54
 
 static char driver_buffer[256];
 static int led_state = 0;
@@ -130,7 +130,7 @@ static ssize_t dev_read(struct file *filep, char __user *buffer, size_t len, lof
     if (*offset > 0)
         return 0;
 
-    snprintf(state_str, sizeof(state_str), "GPIO56 Durumu: %d\n", led_state);
+    snprintf(state_str, sizeof(state_str), "GPIO54 Durumu: %d\n", led_state);
     bytes_to_copy = strlen(state_str);
 
     /* Bellek Güvenliği: Kernel belleğinden User space belleğine güvenli kopyalama */
@@ -157,11 +157,11 @@ static ssize_t dev_write(struct file *filep, const char __user *buffer, size_t l
     if (driver_buffer[0] == '1') {
         gpio_set_value(TARGET_GPIO, 1);
         led_state = 1;
-        pr_info("[OPI5_GPIO] GPIO56 HIGH (1) yapildi. Donanim aktif.\n");
+        pr_info("[OPI5_GPIO] GPIO54 HIGH (1) yapildi. Donanim aktif.\n");
     } else if (driver_buffer[0] == '0') {
         gpio_set_value(TARGET_GPIO, 0);
         led_state = 0;
-        pr_info("[OPI5_GPIO] GPIO56 LOW (0) yapildi. Donanim kapali.\n");
+        pr_info("[OPI5_GPIO] GPIO54 LOW (0) yapildi. Donanim kapali.\n");
     } else {
         pr_warn("[OPI5_GPIO] Gecersiz komut! Sadece '1' veya '0' gonderin.\n");
     }
@@ -324,7 +324,7 @@ echo "1" > /dev/opi5_gpio
 
 # Anlık Durumu Çekirdekten Oku:
 cat /dev/opi5_gpio
-# Çıktı: GPIO56 Durumu: 1
+# Çıktı: GPIO54 Durumu: 1
 
 # Donanımı Kapat:
 echo "0" > /dev/opi5_gpio
@@ -334,7 +334,7 @@ echo "0" > /dev/opi5_gpio
 ```bash
 sudo dmesg | tail -n 5
 ```
-*Çıktıda `[OPI5_GPIO] GPIO56 HIGH (1) yapildi.` mesajını göreceksiniz.*
+*Çıktıda `[OPI5_GPIO] GPIO54 HIGH (1) yapildi.` mesajını göreceksiniz.*
 
 ---
 

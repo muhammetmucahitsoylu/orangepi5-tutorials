@@ -81,13 +81,20 @@ v4l2-ctl --list-devices
 
 ## **4. Step 2: Acquire the RKNN YOLOv8 Model**
 
-Obtain the pre-compiled `yolov8n.rknn` model targeting the RK3588 NPU:
+We will use the `yolov8n_rk3588.rknn` compiled in Project 03 or the official Rockchip model zoo:
 
 ```bash
 mkdir -p ~/projects/camera-pipeline && cd ~/projects/camera-pipeline
 
-# Fetch model
-wget -O yolov8n.rknn https://github.com/rockchip-linux/rknpu2/raw/master/examples/rknn_yolov8_demo/model/RK3588/yolov8n.rknn
+# Option 1 (Recommended): Copy model compiled in Project 03:
+if [ -f ~/projects/ilk-projem/models/yolov8n_rk3588.rknn ]; then
+    cp ~/projects/ilk-projem/models/yolov8n_rk3588.rknn ./yolov8n.rknn
+    echo "Successfully copied model from Project 03."
+fi
+
+# Option 2: Clone and copy from official airockchip rknn_model_zoo:
+# git clone --depth 1 https://github.com/airockchip/rknn_model_zoo.git
+# cp rknn_model_zoo/examples/yolov8/model/RK3588/yolov8n.rknn ./yolov8n.rknn
 ```
 
 ---

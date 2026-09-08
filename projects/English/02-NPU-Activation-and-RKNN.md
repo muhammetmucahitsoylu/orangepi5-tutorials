@@ -77,15 +77,15 @@ pip install numpy opencv-python pillow
 ### **Install Version-Specific Wheel:**
 * **For Python 3.10 (Ubuntu 22.04 LTS):**
   ```bash
-  pip install https://github.com/airockchip/rknn-toolkit2/releases/download/v2.3.0/rknn_toolkit_lite2-2.3.0-cp310-cp310-linux_aarch64.whl
+  pip install https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/packages/rknn_toolkit_lite2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
   ```
 * **For Python 3.11 (Debian Bookworm):**
   ```bash
-  pip install https://github.com/airockchip/rknn-toolkit2/releases/download/v2.3.0/rknn_toolkit_lite2-2.3.0-cp311-cp311-linux_aarch64.whl
+  pip install https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/packages/rknn_toolkit_lite2-2.3.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
   ```
 * **For Python 3.12 (Ubuntu 24.04):**
   ```bash
-  pip install https://github.com/airockchip/rknn-toolkit2/releases/download/v2.3.0/rknn_toolkit_lite2-2.3.0-cp312-cp312-linux_aarch64.whl
+  pip install https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/packages/rknn_toolkit_lite2-2.3.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
   ```
 
 ---

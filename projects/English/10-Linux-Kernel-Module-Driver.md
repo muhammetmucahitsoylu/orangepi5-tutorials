@@ -30,7 +30,7 @@ Modern processor architectures enforce strict hardware privilege rings to guaran
 │                                                                        │
 │   opi5_gpio_driver.ko (Loadable Kernel Module)                         │
 │   - copy_from_user() boundary validation                               │
-│   - Direct hardware GPIO controller driver (GPIO1_D0 / Pin 7)          │
+│   - Direct hardware GPIO controller driver (GPIO1_C6 / Pin 7)          │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ (Physical Voltage Output)
                                     ▼
@@ -78,7 +78,7 @@ On standard x86 systems, running `sudo apt install linux-headers-$(uname -r)` is
 
 ## **3. Step 1: Device Driver Implementation (`opi5_gpio_driver.c`)**
 
-This driver registers as a modern **Miscellaneous Character Device**, creating `/dev/opi5_gpio` automatically via sysfs/udev, and maps user-space write requests directly to physical **Pin 7 (GPIO1_D0)**.
+This driver registers as a modern **Miscellaneous Character Device**, creating `/dev/opi5_gpio` automatically via sysfs/udev, and maps user-space write requests directly to physical **Pin 7 (GPIO1_C6)**.
 
 Create workspace:
 ```bash
@@ -104,13 +104,13 @@ MODULE_VERSION("1.0");
 #define DEVICE_NAME "opi5_gpio"
 
 /* 
- * Orange Pi 5 Physical Pin 7 = GPIO1_D0
+ * Orange Pi 5 Physical Pin 7 = GPIO1_C6
  * Linux Global GPIO Index Formula:
- * Bank 1, Group D (A=0, B=1, C=2, D=3), Pin 0
+ * Bank 1, Group C (A=0, B=1, C=2, D=3), Pin 6
  * Index = (Bank * 32) + (Group * 8) + Pin
- * GPIO1_D0 = (1 * 32) + (3 * 8) + 0 = 32 + 24 + 0 = 56
+ * GPIO1_C6 = (1 * 32) + (2 * 8) + 6 = 32 + 16 + 6 = 54
  */
-#define TARGET_GPIO 56
+#define TARGET_GPIO 54
 
 static char driver_buffer[256];
 static int led_state = 0;
@@ -130,7 +130,7 @@ static ssize_t dev_read(struct file *filep, char __user *buffer, size_t len, lof
     if (*offset > 0)
         return 0;
 
-    snprintf(state_str, sizeof(state_str), "GPIO56 State: %d\n", led_state);
+    snprintf(state_str, sizeof(state_str), "GPIO54 State: %d\n", led_state);
     bytes_to_copy = strlen(state_str);
 
     /* Safe Memory Boundary: Kernel to User Space copy */
@@ -157,11 +157,11 @@ static ssize_t dev_write(struct file *filep, const char __user *buffer, size_t l
     if (driver_buffer[0] == '1') {
         gpio_set_value(TARGET_GPIO, 1);
         led_state = 1;
-        pr_info("[OPI5_GPIO] GPIO56 driven HIGH (1). Hardware ON.\n");
+        pr_info("[OPI5_GPIO] GPIO54 driven HIGH (1). Hardware ON.\n");
     } else if (driver_buffer[0] == '0') {
         gpio_set_value(TARGET_GPIO, 0);
         led_state = 0;
-        pr_info("[OPI5_GPIO] GPIO56 driven LOW (0). Hardware OFF.\n");
+        pr_info("[OPI5_GPIO] GPIO54 driven LOW (0). Hardware OFF.\n");
     } else {
         pr_warn("[OPI5_GPIO] Invalid argument. Send '1' or '0'.\n");
     }
@@ -323,7 +323,7 @@ echo "1" > /dev/opi5_gpio
 
 # Read state directly from kernel space:
 cat /dev/opi5_gpio
-# Output: GPIO56 State: 1
+# Output: GPIO54 State: 1
 
 # Drive pin LOW (Turn LED OFF):
 echo "0" > /dev/opi5_gpio
@@ -333,7 +333,7 @@ Inspect the driver's real-time kernel logging:
 ```bash
 sudo dmesg | tail -n 5
 ```
-*Reports: `[OPI5_GPIO] GPIO56 driven HIGH (1). Hardware ON.`*
+*Reports: `[OPI5_GPIO] GPIO54 driven HIGH (1). Hardware ON.`*
 
 ---
 
