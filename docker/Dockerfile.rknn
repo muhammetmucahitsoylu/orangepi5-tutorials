@@ -3,7 +3,7 @@
 # Repository: https://github.com/muhammetmucahitsoylu/orangepi5-tutorials
 # ==============================================================================
 
-FROM ubuntu:22.04
+FROM --platform=linux/arm64 ubuntu:22.04
 
 LABEL maintainer="Muhammet Mucahit Soylu"
 LABEL description="Isolated containerized NPU runtime environment for Orange Pi 5 (RK3588S)"
