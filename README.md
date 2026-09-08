@@ -2,7 +2,7 @@
 
 [![SoC](https://img.shields.io/badge/SoC-Rockchip_RK3588S-orange.svg)](#)
 [![NPU](https://img.shields.io/badge/NPU-6_TOPS_Tri--Core-blue.svg)](#)
-[![OS](https://img.shields.io/badge/OS-Ubuntu_22.04_|_Armbian-purple.svg)](#)
+[![OS](https://img.shields.io/badge/OS-Ubuntu_24.04_|_Armbian-purple.svg)](#)
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Living_Documentation-success.svg)](#)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
