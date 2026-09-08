@@ -19,6 +19,7 @@ Orange Pi 5 (Rockchip RK3588S) tek kart bilgisayarı için sahada bizzat test ed
 | [**Sabit MAC & IP Yapılandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Sabit%20MAC%20Adresi%20ve%20IP%20Yapılandırma%20Rehberi.md) | Her yeniden başlamada rastgele değişen MAC adresi sorununu çözme ve NetworkManager ile kalıcı statik IP atama. |
 | [**Ekransız (Headless) Sunucu Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Ekransız%20Sunucu%20ve%20İlk%20Kurulum%20Optimizasyon%20Rehberi.md) | 7/24 ev sunucusu için GUI kapatma (500MB+ RAM kazanımı), ZRAM sıkıştırılmış takas alanı, NTP ve kalıcı governor servisi. |
 | [**Docker & Donanım Hızlandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Docker%20Kurulumu%20ve%20Donanım%20Hızlandırma%20Rehberi.md) | Temiz Docker kurulumu, cgroup bellek uyarısı çözümü ve Jellyfin/Plex için VPU/GPU donanımsal transcode izinleri. |
+| [**Uzaktan Erişim & Masaüstü Bağlantı Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Uzaktan%20Erişim%20ve%20Masaüstü%20Bağlantı%20Rehberi.md) | SSH/CMD terminal bağlantısı, şifresiz SSH anahtarı, UART seri port (1.5M baud) ve Windows RDP/VNC/NoMachine ile masaüstü kontrolü. |
 
 ### 🛠️ Kılavuz Yazım İlkeleri
 
@@ -41,7 +42,8 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
     │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
     │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
-    │   └── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
+    │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
     ├── Turkish/
     │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
@@ -49,7 +51,8 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
     │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
-    │   └── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
+    │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
+    │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
     └── assets/
 ```
 
@@ -75,6 +78,7 @@ Field-tested recovery protocols, bootloader restorations, and setup guides enric
 | [**Fixed MAC & Static IP Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Fixed%20MAC%20Address%20and%20Static%20IP%20Guide.md) | Resolving randomized MAC addresses on boot and pinning persistent local static IP via NetworkManager. |
 | [**Headless Server & Optimization Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Headless%20Server%20and%20Initial%20Optimization%20Guide.md) | 24/7 server setup: disabling GUI (reclaiming 500MB+ RAM), ZRAM swap setup, NTP sync, and boot performance service. |
 | [**Docker & Hardware Acceleration Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Docker%20Installation%20and%20Hardware%20Acceleration%20Guide.md) | Clean upstream Docker setup, fixing cgroup memory limits, and passing VPU/GPU nodes into containers (Jellyfin/Plex). |
+| [**Remote Access & Desktop Connection Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Remote%20Access%20and%20Desktop%20Connection%20Guide.md) | Terminal access via SSH/CMD, passwordless SSH keys, UART serial (1.5M baud), and Windows RDP/VNC/NoMachine graphical desktop streaming. |
 
 ### 🛠️ Guide Principles
 
@@ -97,7 +101,8 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
     │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
     │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
-    │   └── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
+    │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
     ├── Turkish/
     │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
@@ -105,7 +110,8 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
     │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
-    │   └── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
+    │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
+    │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
     └── assets/
 ```
 
