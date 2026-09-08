@@ -16,6 +16,9 @@ Orange Pi 5 (Rockchip RK3588S) tek kart bilgisayarı için sahada bizzat test ed
 | [**Donanım & Aksesuar Uyumluluk Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20ve%20Aksesuar%20Uyumluluk%20Kılavuzu.md) | 5V/4A güç beslemesi, M.2 PCIe 2.0 x1 hat sınırları, uyumlu NVMe modelleri ve termal çözümler. |
 | [**Donanım Doğrulama & Stres Testi Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20Doğrulama%20ve%20Stres%20Testi%20Kılavuzu.md) | CPU tepe güç ölçümü, RAM bant genişliği, fio ile NVMe hız testi ve termal kararlılık doğrulama protokolü. |
 | [**Tarayıcı & Video Hızlandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Tarayıcı%20ve%20Donanımsal%20Video%20Hızlandırma%20Kılavuzu.md) | Chromium'da donanımsal VPU hızlandırma açma, 4K YouTube takılmalarını önleme ve CPU yükünü düşürme. |
+| [**Sabit MAC & IP Yapılandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Sabit%20MAC%20Adresi%20ve%20IP%20Yapılandırma%20Rehberi.md) | Her yeniden başlamada rastgele değişen MAC adresi sorununu çözme ve NetworkManager ile kalıcı statik IP atama. |
+| [**Ekransız (Headless) Sunucu Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Ekransız%20Sunucu%20ve%20İlk%20Kurulum%20Optimizasyon%20Rehberi.md) | 7/24 ev sunucusu için GUI kapatma (500MB+ RAM kazanımı), ZRAM sıkıştırılmış takas alanı, NTP ve kalıcı governor servisi. |
+| [**Docker & Donanım Hızlandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Docker%20Kurulumu%20ve%20Donanım%20Hızlandırma%20Rehberi.md) | Temiz Docker kurulumu, cgroup bellek uyarısı çözümü ve Jellyfin/Plex için VPU/GPU donanımsal transcode izinleri. |
 
 ### 🛠️ Kılavuz Yazım İlkeleri
 
@@ -35,12 +38,18 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
     │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
     │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
-    │   └── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
+    │   └── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
     ├── Turkish/
     │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
-    │   └── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
+    │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
+    │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
+    │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
+    │   └── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
     └── assets/
 ```
 
@@ -63,6 +72,9 @@ Field-tested recovery protocols, bootloader restorations, and setup guides enric
 | [**Hardware & Accessory Compatibility Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20and%20Accessory%20Compatibility%20Guide.md) | 5V/4A power supply requirements, M.2 PCIe 2.0 x1 bus limits, compatible NVMe SSDs, and thermal solutions. |
 | [**Hardware Verification & Stress Testing Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20Verification%20and%20Stress%20Testing%20Guide.md) | CPU prime compute, RAM bandwidth, fio NVMe throughput testing, and thermal saturation verification protocol. |
 | [**Browser & Video Acceleration Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Browser%20and%20Hardware%20Video%20Acceleration%20Guide.md) | Enabling VPU hardware acceleration in Chromium, fixing 4K YouTube stutter, and reducing CPU load. |
+| [**Fixed MAC & Static IP Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Fixed%20MAC%20Address%20and%20Static%20IP%20Guide.md) | Resolving randomized MAC addresses on boot and pinning persistent local static IP via NetworkManager. |
+| [**Headless Server & Optimization Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Headless%20Server%20and%20Initial%20Optimization%20Guide.md) | 24/7 server setup: disabling GUI (reclaiming 500MB+ RAM), ZRAM swap setup, NTP sync, and boot performance service. |
+| [**Docker & Hardware Acceleration Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Docker%20Installation%20and%20Hardware%20Acceleration%20Guide.md) | Clean upstream Docker setup, fixing cgroup memory limits, and passing VPU/GPU nodes into containers (Jellyfin/Plex). |
 
 ### 🛠️ Guide Principles
 
@@ -82,12 +94,18 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
     │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
     │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
-    │   └── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
+    │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
+    │   └── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
     ├── Turkish/
     │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
     │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
-    │   └── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
+    │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
+    │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
+    │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
+    │   └── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
     └── assets/
 ```
 
