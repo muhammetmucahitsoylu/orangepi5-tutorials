@@ -59,34 +59,34 @@ curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutor
 
 | Kılavuz | Açıklama |
 | :--- | :--- | 
-| [**SPI Flash & U-Boot Kurtarma / NVMe Boot**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Kurtarma%20ve%20Kurulum%20Kılavuzu.md) | EDK2 UEFI kilitlenmesinden resmi U-Boot'a dönüş, MaskROM onarımı ve M.2 NVMe SSD'ye doğrudan ağ üzerinden yazım. |
-| [**Donanım & Aksesuar Uyumluluk Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20ve%20Aksesuar%20Uyumluluk%20Kılavuzu.md) | 5V/4A güç beslemesi, M.2 PCIe 2.0 x1 hat sınırları, uyumlu NVMe modelleri ve termal çözümler. |
-| [**Donanım Doğrulama & Stres Testi Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20Doğrulama%20ve%20Stres%20Testi%20Kılavuzu.md) | CPU tepe güç ölçümü, RAM bant genişliği, fio ile NVMe hız testi ve termal kararlılık doğrulama protokolü. |
-| [**Tarayıcı & Video Hızlandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Tarayıcı%20ve%20Donanımsal%20Video%20Hızlandırma%20Kılavuzu.md) | Chromium'da donanımsal VPU hızlandırma açma, 4K YouTube takılmalarını önleme ve CPU yükünü düşürme. |
-| [**Sabit MAC & IP Yapılandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Sabit%20MAC%20Adresi%20ve%20IP%20Yapılandırma%20Rehberi.md) | Her yeniden başlamada rastgele değişen MAC adresi sorununu teşhis etme ve NetworkManager ile kalıcı statik IP atama. |
-| [**Ekransız (Headless) Sunucu Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Ekransız%20Sunucu%20ve%20İlk%20Kurulum%20Optimizasyon%20Rehberi.md) | 7/24 ev sunucusu için GUI kapatma (500MB+ RAM kazanımı), ZRAM sıkıştırılmış takas alanı, NTP ve kalıcı governor servisi. |
-| [**Docker & Donanım Hızlandırma Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Docker%20Kurulumu%20ve%20Donanım%20Hızlandırma%20Rehberi.md) | Dağıtıma göre cgroup bellek uyarısı çözümü ve Jellyfin/Plex için VPU/GPU donanımsal transcode izinleri. |
-| [**Uzaktan Erişim & Masaüstü Bağlantı Rehberi**](guides/Turkish/Orange%20Pi%205%20(RK3588S)%20Uzaktan%20Erişim%20ve%20Masaüstü%20Bağlantı%20Rehberi.md) | SSH/CMD terminal bağlantısı, şifresiz SSH anahtarı, UART seri port (1.5M baud) ve Windows RDP/VNC/NoMachine ile masaüstü kontrolü. |
+| [**01. SPI Flash & U-Boot Kurtarma / NVMe Boot**](guides/Turkish/01-Kurtarma-ve-NVMe-Kurulum.md) | EDK2 UEFI kilitlenmesinden resmi U-Boot'a dönüş, MaskROM onarımı ve M.2 NVMe SSD'ye doğrudan ağ üzerinden yazım. |
+| [**02. Donanım & Aksesuar Uyumluluk Rehberi**](guides/Turkish/02-Donanim-ve-Aksesuar-Uyumluluk.md) | 5V/4A güç beslemesi, M.2 PCIe 2.0 x1 hat sınırları, uyumlu NVMe modelleri ve termal çözümler. |
+| [**03. Donanım Doğrulama & Stres Testi Rehberi**](guides/Turkish/03-Donanim-Dogrulama-ve-Stres-Testi.md) | CPU tepe güç ölçümü, RAM bant genişliği, fio ile NVMe hız testi ve termal kararlılık doğrulama protokolü. |
+| [**04. Sabit MAC & IP Yapılandırma Rehberi**](guides/Turkish/04-Sabit-MAC-ve-Statik-IP.md) | Her yeniden başlamada rastgele değişen MAC adresi sorununu teşhis etme ve NetworkManager ile kalıcı statik IP atama. |
+| [**05. Ekransız (Headless) Sunucu Rehberi**](guides/Turkish/05-Ekransiz-Sunucu-Optimizasyonu.md) | 7/24 ev sunucusu için GUI kapatma (500MB+ RAM kazanımı), ZRAM sıkıştırılmış takas alanı, NTP ve kalıcı governor servisi. |
+| [**06. Docker & Donanım Hızlandırma Rehberi**](guides/Turkish/06-Docker-ve-Donanim-Hizlandirma.md) | Dağıtıma göre cgroup bellek uyarısı çözümü ve Jellyfin/Plex için VPU/GPU donanımsal transcode izinleri. |
+| [**07. Tarayıcı & Video Hızlandırma Rehberi**](guides/Turkish/07-Tarayici-ve-VPU-Hizlandirma.md) | Chromium'da donanımsal VPU hızlandırma açma, 4K YouTube takılmalarını önleme ve CPU yükünü düşürme. |
+| [**08. Uzaktan Erişim & Masaüstü Bağlantı Rehberi**](guides/Turkish/08-Uzaktan-Erisim-ve-Masaustu.md) | SSH/CMD terminal bağlantısı, şifresiz SSH anahtarı, UART seri port (1.5M baud) ve Windows RDP/VNC/NoMachine ile masaüstü kontrolü. |
 
 ---
 
 ### 🚀 Yazılımcı Projeleri ve Yapay Zeka Rehberleri
 
-| Kategori | Proje / Rehber | Açıklama |
-| :--- | :--- | :--- | 
-| 🛠️ **Geliştirme** | [**IDE ve Geliştirme Ortamı Kurulumu**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Yazılımcılar%20İçin%20IDE%20ve%20Geliştirme%20Ortamı%20Kurulumu.md) | VS Code Remote - SSH, tarayıcı tabanlı Code-Server, Python sanal ortamı (venv) ve proje mimarisi. |
-| 🤖 **Edge AI** | [**NPU Aktivasyonu & RKNN Kurulumu**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20NPU%20Aktivasyonu%20ve%20RKNN%20Çalışma%20Ortamı%20Kurulumu.md) | 3 çekirdekli 6 TOPS NPU'yu uyandırma, librknpu2 entegrasyonu, RKNN-Lite2 ve 3 çekirdek telemetri testi. |
-| 🤖 **Edge AI** | [**İlk Yapay Zeka Projesi: YOLOv8 NPU**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20İlk%20Yapay%20Zeka%20Projesi%20ve%20YOLOv8%20NPU%20Çıkarımı.md) | Bilgisayarda ONNX/RKNN derleme, 3 çekirdekli NPU ile 70+ FPS nesne tanıma ve donanım kıyaslaması. |
-| 🤖 **Edge AI** | [**NPU ile Yerel Dil Modeli (RKLLM / Qwen)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20NPU%20ile%20Yerel%20Dil%20Modeli%20(RKLLM%20ve%20Qwen)%20Kurulumu.md) | 6 TOPS NPU üzerinde internetsiz Qwen-1.5B/3B çalıştırma, W4A16 kuantizasyon, 18+ token/s akıcı sohbet. |
-| 🤖 **Edge AI** | [**Çevrimdışı Sesli Asistan (Whisper & Piper)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Çevrimdışı%20Sesli%20Asistan%20(Whisper%20ve%20Piper%20TTS)%20Projesi.md) | %100 yerel sesli asistan: faster-whisper (STT) + RKLLM zekası + Piper TTS doğal Türkçe ses sentezi (<1s gecikme). |
-| 🤖 **Edge AI** | [**Canlı Kamera & NPU Görü İşleme Pipeline**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Canlı%20Kamera%20ve%20NPU%20Görü%20İşleme%20Pipeline%20Rehberi.md) | USB/RTSP kamera akışı, çoklu iş parçacığıyla sıfır gecikmeli kare yakalama, 3 çekirdek NPU YOLOv8 tespiti ve Flask MJPEG web yayını. |
-| 🦾 **Robotik** | [**ROS 2 Kurulumu & NPU Robotik Düğüm**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20ROS%202%20Kurulumu%20ve%20NPU%20Robotik%20Düğüm%20Rehberi.md) | ROS 2 Humble kurulumu, DDS ağ optimizasyonu, 6 TOPS NPU ile nesne algılama düğümü ve navigasyon koordinat yayını. |
-| ⚙️ **Gömülü** | [**Donanım Kontrolü ve GPIO / C++**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20Kontrolü%20ve%20GPIO-C++%20Geliştirme%20Rehberi.md) | 26-pin başlık şeması, wiringOP ile C++/CMake mimarisi, buton/LED kontrolü, libgpiod ve I2C sensörleri. |
-| ⚙️ **Gömülü** | [**Çapraz Derleme & Uzaktan Hata Ayıklama (GDB)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Çapraz%20Derleme%20ve%20Uzaktan%20Hata%20Ayıklama%20Rehberi.md) | x86_64 PC'de ARM64 GNU toolchain ve CMake ile derleme, rsync otomatik yükleme, gdbserver ve VS Code ile uzaktan F5 debug. |
-| ⚙️ **Gömülü** | [**Linux Çekirdek Modülü (LKM) ve Aygıt Sürücüsü**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Linux%20Çekirdek%20Modülü%20ve%20Aygıt%20Sürücüsü%20Geliştirme%20Rehberi.md) | Rockchip kernel headers kurulumu, Ring 0 / Ring 3 mimarisi, misc karakter sürücüsü ile GPIO donanım kontrolü ve Kbuild Makefile. |
-| 🌐 **Sunucu & Ağ** | [**Kişisel Bulut & Jellyfin VPU Medya Sunucusu**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Kişisel%20Bulut%20ve%20Jellyfin%20Donanımsal%20Medya%20Sunucusu.md) | NVMe üzerinde CasaOS, telefon fotoğraflarını otomatik yedekleme (Nextcloud), 4K VPU donanımsal transcode (Jellyfin) ve Samba. |
-| 🌐 **Sunucu & Ağ** | [**Ağ Güvenlik Kalkanı (AdGuard, Unbound, Tailscale)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Ağ%20Güvenlik%20Kalkanı%20(AdGuard%20Home,%20Unbound%20ve%20Tailscale).md) | Tüm ev için donanımsal reklam/izleyici kalkanı, İSS kaydını önleyen Unbound kök DNS ve dışarıdan güvenli erişim için Tailscale VPN. |
-| 🎮 **Multimedya** | [**Retro Oyun Konsolu (PS2, PSP, GameCube)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Retro%20Oyun%20Konsolu%20ve%201080p%2060FPS%20Emülasyon%20Rehberi.md) | Mali-G610 GPU ve Vulkan hızlandırma ile 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emülasyonu ve DualShock 3/4 kol eşleşmesi. |
+| Kategori | No | Proje / Rehber | Açıklama |
+| :--- | :--- | :--- | :--- | 
+| 🛠️ **Geliştirme** | **01** | [**IDE ve Geliştirme Ortamı Kurulumu**](projects/Turkish/01-IDE-ve-Gelistirme-Ortami.md) | VS Code Remote - SSH, tarayıcı tabanlı Code-Server, Python sanal ortamı (venv) ve proje mimarisi. |
+| 🤖 **Edge AI** | **02** | [**NPU Aktivasyonu & RKNN Kurulumu**](projects/Turkish/02-NPU-Aktivasyonu-ve-RKNN.md) | 3 çekirdekli 6 TOPS NPU'yu uyandırma, librknpu2 entegrasyonu, RKNN-Lite2 ve 3 çekirdek telemetri testi. |
+| 🤖 **Edge AI** | **03** | [**İlk Yapay Zeka Projesi: YOLOv8 NPU**](projects/Turkish/03-YOLOv8-NPU-Cikarimi.md) | Bilgisayarda ONNX/RKNN derleme, 3 çekirdekli NPU ile 70+ FPS nesne tanıma ve donanım kıyaslaması. |
+| 🤖 **Edge AI** | **04** | [**Canlı Kamera & NPU Görü İşleme Pipeline**](projects/Turkish/04-Canli-Kamera-NPU-Pipeline.md) | USB/RTSP kamera akışı, çoklu iş parçacığıyla sıfır gecikmeli kare yakalama, 3 çekirdek NPU YOLOv8 tespiti ve Flask MJPEG web yayını. |
+| 🤖 **Edge AI** | **05** | [**NPU ile Yerel Dil Modeli (RKLLM / Qwen)**](projects/Turkish/05-Yerel-LLM-Qwen-RKLLM.md) | 6 TOPS NPU üzerinde internetsiz Qwen-1.5B/3B çalıştırma, W4A16 kuantizasyon, 18+ token/s akıcı sohbet. |
+| 🤖 **Edge AI** | **06** | [**Çevrimdışı Sesli Asistan (Whisper & Piper)**](projects/Turkish/06-Sesli-Asistan-Whisper-Piper.md) | %100 yerel sesli asistan: faster-whisper (STT) + RKLLM zekası + Piper TTS doğal Türkçe ses sentezi (<1s gecikme). |
+| 🦾 **Robotik** | **07** | [**ROS 2 Kurulumu & NPU Robotik Düğüm**](projects/Turkish/07-ROS2-ve-NPU-Robotik-Dugum.md) | ROS 2 Humble kurulumu, DDS ağ optimizasyonu, 6 TOPS NPU ile nesne algılama düğümü ve navigasyon koordinat yayını. |
+| ⚙️ **Gömülü** | **08** | [**Donanım Kontrolü ve GPIO / C++**](projects/Turkish/08-GPIO-ve-Donanim-Kontrolu.md) | 26-pin başlık şeması, wiringOP ile C++/CMake mimarisi, buton/LED kontrolü, libgpiod ve I2C sensörleri. |
+| ⚙️ **Gömülü** | **09** | [**Çapraz Derleme & Uzaktan Hata Ayıklama (GDB)**](projects/Turkish/09-Capraz-Derleme-ve-GDB.md) | x86_64 PC'de ARM64 GNU toolchain ve CMake ile derleme, rsync otomatik yükleme, gdbserver ve VS Code ile uzaktan F5 debug. |
+| ⚙️ **Gömülü** | **10** | [**Linux Çekirdek Modülü (LKM) ve Aygıt Sürücüsü**](projects/Turkish/10-Linux-Cekirdek-Modulu-LKM.md) | Rockchip kernel headers kurulumu, Ring 0 / Ring 3 mimarisi, misc karakter sürücüsü ile GPIO donanım kontrolü ve Kbuild Makefile. |
+| 🌐 **Sunucu & Ağ** | **11** | [**Kişisel Bulut & Jellyfin VPU Medya Sunucusu**](projects/Turkish/11-Kisisel-Bulut-Jellyfin.md) | NVMe üzerinde CasaOS, telefon fotoğraflarını otomatik yedekleme (Nextcloud), 4K VPU donanımsal transcode (Jellyfin) ve Samba. |
+| 🌐 **Sunucu & Ağ** | **12** | [**Ağ Güvenlik Kalkanı (AdGuard, Unbound, Tailscale)**](projects/Turkish/12-Ag-Guvenlik-Kalkani.md) | Tüm ev için donanımsal reklam/izleyici kalkanı, İSS kaydını önleyen Unbound kök DNS ve dışarıdan güvenli erişim için Tailscale VPN. |
+| 🎮 **Multimedya** | **13** | [**Retro Oyun Konsolu (PS2, PSP, GameCube)**](projects/Turkish/13-Retro-Oyun-Konsolu.md) | Mali-G610 GPU ve Vulkan hızlandırma ile 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emülasyonu ve DualShock 3/4 kol eşleşmesi. |
 
 ---
 
@@ -160,53 +160,53 @@ OrangePi5_Tutorials/
 │   └── social-preview.png
 ├── guides/
 │   ├── English/
-│   │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
-│   │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
+│   │   ├── 01-Recovery-and-NVMe-Installation.md
+│   │   ├── 02-Hardware-and-Accessory-Compatibility.md
+│   │   ├── 03-Hardware-Verification-and-Stress-Testing.md
+│   │   ├── 04-Fixed-MAC-and-Static-IP.md
+│   │   ├── 05-Headless-Server-Optimization.md
+│   │   ├── 06-Docker-and-Hardware-Acceleration.md
+│   │   ├── 07-Browser-and-VPU-Acceleration.md
+│   │   └── 08-Remote-Access-and-Desktop-Connection.md
 │   ├── Turkish/
-│   │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
-│   │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
-│   │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
-│   │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
+│   │   ├── 01-Kurtarma-ve-NVMe-Kurulum.md
+│   │   ├── 02-Donanim-ve-Aksesuar-Uyumluluk.md
+│   │   ├── 03-Donanim-Dogrulama-ve-Stres-Testi.md
+│   │   ├── 04-Sabit-MAC-ve-Statik-IP.md
+│   │   ├── 05-Ekransiz-Sunucu-Optimizasyonu.md
+│   │   ├── 06-Docker-ve-Donanim-Hizlandirma.md
+│   │   ├── 07-Tarayici-ve-VPU-Hizlandirma.md
+│   │   └── 08-Uzaktan-Erisim-ve-Masaustu.md
 │   └── assets/
 ├── projects/
 │   ├── English/
-│   │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
-│   │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
-│   │   ├── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide.md
-│   │   └── Orange Pi 5 (RK3588S) Linux Kernel Module and Device Driver Guide.md
+│   │   ├── 01-IDE-and-Dev-Environment.md
+│   │   ├── 02-NPU-Activation-and-RKNN.md
+│   │   ├── 03-YOLOv8-NPU-Inference.md
+│   │   ├── 04-Real-Time-Camera-NPU-Pipeline.md
+│   │   ├── 05-Local-LLM-Qwen-RKLLM.md
+│   │   ├── 06-Offline-Voice-Assistant-Whisper-Piper.md
+│   │   ├── 07-ROS2-and-NPU-Robotics-Node.md
+│   │   ├── 08-Hardware-Control-GPIO-Cpp.md
+│   │   ├── 09-Cross-Compilation-and-GDB.md
+│   │   ├── 10-Linux-Kernel-Module-Driver.md
+│   │   ├── 11-Personal-Cloud-Jellyfin.md
+│   │   ├── 12-Network-Shield-AdGuard-Tailscale.md
+│   │   └── 13-Retro-Gaming-Console.md
 │   └── Turkish/
-│       ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
-│       ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
-│       ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
-│       ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
-│       ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
-│       ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
-│       ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
-│       ├── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) Çapraz Derleme ve Uzaktan Hata Ayıklama Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Görü İşleme Pipeline Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi.md
-│       └── Orange Pi 5 (RK3588S) Linux Çekirdek Modülü ve Aygıt Sürücüsü Geliştirme Rehberi.md
+│       ├── 01-IDE-ve-Gelistirme-Ortami.md
+│       ├── 02-NPU-Aktivasyonu-ve-RKNN.md
+│       ├── 03-YOLOv8-NPU-Cikarimi.md
+│       ├── 04-Canli-Kamera-NPU-Pipeline.md
+│       ├── 05-Yerel-LLM-Qwen-RKLLM.md
+│       ├── 06-Sesli-Asistan-Whisper-Piper.md
+│       ├── 07-ROS2-ve-NPU-Robotik-Dugum.md
+│       ├── 08-GPIO-ve-Donanim-Kontrolu.md
+│       ├── 09-Capraz-Derleme-ve-GDB.md
+│       ├── 10-Linux-Cekirdek-Modulu-LKM.md
+│       ├── 11-Kisisel-Bulut-Jellyfin.md
+│       ├── 12-Ag-Guvenlik-Kalkani.md
+│       └── 13-Retro-Oyun-Konsolu.md
 └── scripts/
     ├── check_health.sh
     └── setup_npu.sh
@@ -264,34 +264,34 @@ curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutor
 
 | Guide | Description |
 | :--- | :--- | 
-| [**SPI Flash & U-Boot Recovery / NVMe Boot**](guides/English/Orange%20Pi%205%20(RK3588S)%20Recovery%20and%20Installation%20Guide.md) | Restoring official U-Boot from EDK2 UEFI lockups, MaskROM recovery, and direct network streaming to M.2 NVMe SSD. |
-| [**Hardware & Accessory Compatibility Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20and%20Accessory%20Compatibility%20Guide.md) | 5V/4A power supply requirements, M.2 PCIe 2.0 x1 bus limits, compatible NVMe SSDs, and thermal solutions. |
-| [**Hardware Verification & Stress Testing Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20Verification%20and%20Stress%20Testing%20Guide.md) | CPU prime compute, RAM bandwidth, fio NVMe throughput testing, and thermal saturation verification protocol. |
-| [**Browser & Video Acceleration Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Browser%20and%20Hardware%20Video%20Acceleration%20Guide.md) | Enabling VPU hardware acceleration in Chromium, fixing 4K YouTube stutter, and reducing CPU load. |
-| [**Fixed MAC & Static IP Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Fixed%20MAC%20Address%20and%20Static%20IP%20Guide.md) | Diagnosing randomized MAC addresses across boots and pinning persistent local static IP via NetworkManager. |
-| [**Headless Server & Optimization Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Headless%20Server%20and%20Initial%20Optimization%20Guide.md) | 24/7 server setup: disabling GUI (reclaiming 500MB+ RAM), ZRAM swap setup, NTP sync, and boot performance service. |
-| [**Docker & Hardware Acceleration Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Docker%20Installation%20and%20Hardware%20Acceleration%20Guide.md) | Clean upstream Docker setup, distro-specific cgroup memory limit fixes, and passing VPU/GPU nodes into containers. |
-| [**Remote Access & Desktop Connection Guide**](guides/English/Orange%20Pi%205%20(RK3588S)%20Remote%20Access%20and%20Desktop%20Connection%20Guide.md) | Terminal access via SSH/CMD, passwordless SSH keys, UART serial (1.5M baud), and Windows RDP/VNC/NoMachine graphical desktop streaming. |
+| [**01. SPI Flash & U-Boot Recovery / NVMe Boot**](guides/English/01-Recovery-and-NVMe-Installation.md) | Restoring official U-Boot from EDK2 UEFI lockups, MaskROM recovery, and direct network streaming to M.2 NVMe SSD. |
+| [**02. Hardware & Accessory Compatibility Guide**](guides/English/02-Hardware-and-Accessory-Compatibility.md) | 5V/4A power supply requirements, M.2 PCIe 2.0 x1 bus limits, compatible NVMe SSDs, and thermal solutions. |
+| [**03. Hardware Verification & Stress Testing Guide**](guides/English/03-Hardware-Verification-and-Stress-Testing.md) | CPU prime compute, RAM bandwidth, fio NVMe throughput testing, and thermal saturation verification protocol. |
+| [**04. Fixed MAC & Static IP Guide**](guides/English/04-Fixed-MAC-and-Static-IP.md) | Diagnosing randomized MAC addresses across boots and pinning persistent local static IP via NetworkManager. |
+| [**05. Headless Server & Optimization Guide**](guides/English/05-Headless-Server-Optimization.md) | 24/7 server setup: disabling GUI (reclaiming 500MB+ RAM), ZRAM swap setup, NTP sync, and boot performance service. |
+| [**06. Docker & Hardware Acceleration Guide**](guides/English/06-Docker-and-Hardware-Acceleration.md) | Clean upstream Docker setup, distro-specific cgroup memory limit fixes, and passing VPU/GPU nodes into containers. |
+| [**07. Browser & Video Acceleration Guide**](guides/English/07-Browser-and-VPU-Acceleration.md) | Enabling VPU hardware acceleration in Chromium, fixing 4K YouTube stutter, and reducing CPU load. |
+| [**08. Remote Access & Desktop Connection Guide**](guides/English/08-Remote-Access-and-Desktop-Connection.md) | Terminal access via SSH/CMD, passwordless SSH keys, UART serial (1.5M baud), and Windows RDP/VNC/NoMachine graphical desktop streaming. |
 
 ---
 
 ### 🚀 Developer Projects & AI Guides
 
-| Category | Project / Guide | Description |
-| :--- | :--- | :--- | 
-| 🛠️ **Dev Tools** | [**IDE & Development Environment Setup**](projects/English/Orange%20Pi%205%20(RK3588S)%20IDE%20and%20Development%20Environment%20Setup%20for%20Developers.md) | VS Code Remote - SSH workflow, browser-based Code-Server, isolated Python venvs, and build toolchains. |
-| 🤖 **Edge AI** | [**NPU Activation & RKNN Runtime Setup**](projects/English/Orange%20Pi%205%20(RK3588S)%20NPU%20Activation%20and%20RKNN%20Runtime%20Setup%20Guide.md) | Waking up the 3-core 6 TOPS NPU, librknpu2 integration, RKNN-Lite2, and multi-core telemetry validation. |
-| 🤖 **Edge AI** | [**First AI Project: YOLOv8 NPU**](projects/English/Orange%20Pi%205%20(RK3588S)%20First%20AI%20Project%20and%20YOLOv8%20NPU%20Inference%20Guide.md) | Host-side ONNX/RKNN compilation, 3-core NPU deployment, 70+ FPS object detection, and hardware benchmarks. |
-| 🤖 **Edge AI** | [**Local LLM on NPU (RKLLM / Qwen)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Local%20LLM%20on%20NPU%20with%20RKLLM%20and%20Qwen%20Guide.md) | Running offline Qwen-1.5B/3B on the 6 TOPS NPU, W4A16 quantization, and 18+ tokens/sec streaming response. |
-| 🤖 **Edge AI** | [**Offline Voice Assistant (Whisper & Piper)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Offline%20Voice%20Assistant%20with%20Whisper%20and%20Piper%20TTS%20Guide.md) | 100% private voice assistant: faster-whisper (STT) + RKLLM reasoning + Piper TTS neural synthesis (<1s round-trip). |
-| 🤖 **Edge AI** | [**Real-Time Camera & NPU Vision Pipeline**](projects/English/Orange%20Pi%205%20(RK3588S)%20Real-Time%20Camera%20and%20NPU%20Vision%20Pipeline%20Guide.md) | USB/RTSP camera ingestion, multi-threaded zero-latency capture, tri-core NPU YOLOv8 detection, and Flask MJPEG web streaming. |
-| 🦾 **Robotics** | [**ROS 2 Setup & NPU Robotics Node**](projects/English/Orange%20Pi%205%20(RK3588S)%20ROS%202%20Setup%20and%20NPU%20Robotics%20Node%20Guide.md) | ROS 2 Humble setup, DDS network tuning, 6 TOPS NPU perception node, and coordinate publishing for Nav2 kinematics. |
-| ⚙️ **Embedded** | [**Hardware Control & GPIO / C++**](projects/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20Control%20and%20GPIO-C++%20Development%20Guide.md) | 26-pin header diagram, wiringOP with C++/CMake, button/LED interfacing, libgpiod, and I2C peripherals. |
-| ⚙️ **Embedded** | [**Cross-Compilation & Remote Debugging (GDB)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Cross-Compilation%20and%20Remote%20Debugging%20Guide.md) | x86_64 host cross-compilation with ARM64 GNU toolchain & CMake, rsync auto-deploy, gdbserver, and VS Code F5 remote debug. |
-| ⚙️ **Embedded** | [**Linux Kernel Module & Device Driver**](projects/English/Orange%20Pi%205%20(RK3588S)%20Linux%20Kernel%20Module%20and%20Device%20Driver%20Guide.md) | Rockchip kernel headers setup, Ring 0 vs Ring 3 privilege rings, misc character device driver for GPIO control, and Kbuild. |
-| 🌐 **Server & Net** | [**Personal Cloud & Jellyfin Media Server**](projects/English/Orange%20Pi%205%20(RK3588S)%20Personal%20Cloud%20and%20Jellyfin%20Hardware%20Media%20Server%20Guide.md) | CasaOS on NVMe, automatic camera roll sync (Nextcloud), 4K VPU hardware transcoding (Jellyfin), and Samba. |
-| 🌐 **Server & Net** | [**Network Shield (AdGuard, Unbound, Tailscale)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Network%20Shield%20(AdGuard%20Home,%20Unbound%20and%20Tailscale%20Guide).md) | Whole-home ad/tracker sinkhole, zero-ISP-logging recursive Unbound root DNS, and secure remote Tailscale exit node. |
-| 🎮 **Multimedia** | [**Retro Gaming Console (PS2, PSP, GameCube)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Retro%20Gaming%20Console%20and%201080p%2060FPS%20Emulation%20Guide.md) | Mali-G610 GPU with Vulkan acceleration for 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emulation, and controller pairing. |
+| Category | No | Project / Guide | Description |
+| :--- | :--- | :--- | :--- | 
+| 🛠️ **Dev Tools** | **01** | [**IDE & Development Environment Setup**](projects/English/01-IDE-and-Dev-Environment.md) | VS Code Remote - SSH workflow, browser-based Code-Server, isolated Python venvs, and build toolchains. |
+| 🤖 **Edge AI** | **02** | [**NPU Activation & RKNN Runtime Setup**](projects/English/02-NPU-Activation-and-RKNN.md) | Waking up the 3-core 6 TOPS NPU, librknpu2 integration, RKNN-Lite2, and multi-core telemetry validation. |
+| 🤖 **Edge AI** | **03** | [**First AI Project: YOLOv8 NPU**](projects/English/03-YOLOv8-NPU-Inference.md) | Host-side ONNX/RKNN compilation, 3-core NPU deployment, 70+ FPS object detection, and hardware benchmarks. |
+| 🤖 **Edge AI** | **04** | [**Real-Time Camera & NPU Vision Pipeline**](projects/English/04-Real-Time-Camera-NPU-Pipeline.md) | USB/RTSP camera ingestion, multi-threaded zero-latency capture, tri-core NPU YOLOv8 detection, and Flask MJPEG web streaming. |
+| 🤖 **Edge AI** | **05** | [**Local LLM on NPU (RKLLM / Qwen)**](projects/English/05-Local-LLM-Qwen-RKLLM.md) | Running offline Qwen-1.5B/3B on the 6 TOPS NPU, W4A16 quantization, and 18+ tokens/sec streaming response. |
+| 🤖 **Edge AI** | **06** | [**Offline Voice Assistant (Whisper & Piper)**](projects/English/06-Offline-Voice-Assistant-Whisper-Piper.md) | 100% private voice assistant: faster-whisper (STT) + RKLLM reasoning + Piper TTS neural synthesis (<1s round-trip). |
+| 🦾 **Robotics** | **07** | [**ROS 2 Setup & NPU Robotics Node**](projects/English/07-ROS2-and-NPU-Robotics-Node.md) | ROS 2 Humble setup, DDS network tuning, 6 TOPS NPU perception node, and coordinate publishing for Nav2 kinematics. |
+| ⚙️ **Embedded** | **08** | [**Hardware Control & GPIO / C++**](projects/English/08-Hardware-Control-GPIO-Cpp.md) | 26-pin header diagram, wiringOP with C++/CMake, button/LED interfacing, libgpiod, and I2C peripherals. |
+| ⚙️ **Embedded** | **09** | [**Cross-Compilation & Remote Debugging (GDB)**](projects/English/09-Cross-Compilation-and-GDB.md) | x86_64 host cross-compilation with ARM64 GNU toolchain & CMake, rsync auto-deploy, gdbserver, and VS Code F5 remote debug. |
+| ⚙️ **Embedded** | **10** | [**Linux Kernel Module & Device Driver**](projects/English/10-Linux-Kernel-Module-Driver.md) | Rockchip kernel headers setup, Ring 0 vs Ring 3 privilege rings, misc character device driver for GPIO control, and Kbuild. |
+| 🌐 **Server & Net** | **11** | [**Personal Cloud & Jellyfin Media Server**](projects/English/11-Personal-Cloud-Jellyfin.md) | CasaOS on NVMe, automatic camera roll sync (Nextcloud), 4K VPU hardware transcoding (Jellyfin), and Samba. |
+| 🌐 **Server & Net** | **12** | [**Network Shield (AdGuard, Unbound, Tailscale)**](projects/English/12-Network-Shield-AdGuard-Tailscale.md) | Whole-home ad/tracker sinkhole, zero-ISP-logging recursive Unbound root DNS, and secure remote Tailscale exit node. |
+| 🎮 **Multimedia** | **13** | [**Retro Gaming Console (PS2, PSP, GameCube)**](projects/English/13-Retro-Gaming-Console.md) | Mali-G610 GPU with Vulkan acceleration for 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emulation, and controller pairing. |
 
 ---
 
@@ -365,53 +365,53 @@ OrangePi5_Tutorials/
 │   └── social-preview.png
 ├── guides/
 │   ├── English/
-│   │   ├── Orange Pi 5 (RK3588S) Recovery and Installation Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Browser and Hardware Video Acceleration Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide.md
-│   │   └── Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide.md
+│   │   ├── 01-Recovery-and-NVMe-Installation.md
+│   │   ├── 02-Hardware-and-Accessory-Compatibility.md
+│   │   ├── 03-Hardware-Verification-and-Stress-Testing.md
+│   │   ├── 04-Fixed-MAC-and-Static-IP.md
+│   │   ├── 05-Headless-Server-Optimization.md
+│   │   ├── 06-Docker-and-Hardware-Acceleration.md
+│   │   ├── 07-Browser-and-VPU-Acceleration.md
+│   │   └── 08-Remote-Access-and-Desktop-Connection.md
 │   ├── Turkish/
-│   │   ├── Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
-│   │   ├── Orange Pi 5 (RK3588S) Sabit MAC Adresi ve IP Yapılandırma Rehberi.md
-│   │   ├── Orange Pi 5 (RK3588S) Ekransız Sunucu ve İlk Kurulum Optimizasyon Rehberi.md
-│   │   ├── Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi.md
-│   │   └── Orange Pi 5 (RK3588S) Uzaktan Erişim ve Masaüstü Bağlantı Rehberi.md
+│   │   ├── 01-Kurtarma-ve-NVMe-Kurulum.md
+│   │   ├── 02-Donanim-ve-Aksesuar-Uyumluluk.md
+│   │   ├── 03-Donanim-Dogrulama-ve-Stres-Testi.md
+│   │   ├── 04-Sabit-MAC-ve-Statik-IP.md
+│   │   ├── 05-Ekransiz-Sunucu-Optimizasyonu.md
+│   │   ├── 06-Docker-ve-Donanim-Hizlandirma.md
+│   │   ├── 07-Tarayici-ve-VPU-Hizlandirma.md
+│   │   └── 08-Uzaktan-Erisim-ve-Masaustu.md
 │   └── assets/
 ├── projects/
 │   ├── English/
-│   │   ├── Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers.md
-│   │   ├── Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Hardware Control and GPIO-C++ Development Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
-│   │   ├── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide.md
-│   │   ├── Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide.md
-│   │   └── Orange Pi 5 (RK3588S) Linux Kernel Module and Device Driver Guide.md
+│   │   ├── 01-IDE-and-Dev-Environment.md
+│   │   ├── 02-NPU-Activation-and-RKNN.md
+│   │   ├── 03-YOLOv8-NPU-Inference.md
+│   │   ├── 04-Real-Time-Camera-NPU-Pipeline.md
+│   │   ├── 05-Local-LLM-Qwen-RKLLM.md
+│   │   ├── 06-Offline-Voice-Assistant-Whisper-Piper.md
+│   │   ├── 07-ROS2-and-NPU-Robotics-Node.md
+│   │   ├── 08-Hardware-Control-GPIO-Cpp.md
+│   │   ├── 09-Cross-Compilation-and-GDB.md
+│   │   ├── 10-Linux-Kernel-Module-Driver.md
+│   │   ├── 11-Personal-Cloud-Jellyfin.md
+│   │   ├── 12-Network-Shield-AdGuard-Tailscale.md
+│   │   └── 13-Retro-Gaming-Console.md
 │   └── Turkish/
-│       ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
-│       ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
-│       ├── Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı.md
-│       ├── Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO-C++ Geliştirme Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
-│       ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
-│       ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
-│       ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
-│       ├── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) Çapraz Derleme ve Uzaktan Hata Ayıklama Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Görü İşleme Pipeline Rehberi.md
-│       ├── Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi.md
-│       └── Orange Pi 5 (RK3588S) Linux Çekirdek Modülü ve Aygıt Sürücüsü Geliştirme Rehberi.md
+│       ├── 01-IDE-ve-Gelistirme-Ortami.md
+│       ├── 02-NPU-Aktivasyonu-ve-RKNN.md
+│       ├── 03-YOLOv8-NPU-Cikarimi.md
+│       ├── 04-Canli-Kamera-NPU-Pipeline.md
+│       ├── 05-Yerel-LLM-Qwen-RKLLM.md
+│       ├── 06-Sesli-Asistan-Whisper-Piper.md
+│       ├── 07-ROS2-ve-NPU-Robotik-Dugum.md
+│       ├── 08-GPIO-ve-Donanim-Kontrolu.md
+│       ├── 09-Capraz-Derleme-ve-GDB.md
+│       ├── 10-Linux-Cekirdek-Modulu-LKM.md
+│       ├── 11-Kisisel-Bulut-Jellyfin.md
+│       ├── 12-Ag-Guvenlik-Kalkani.md
+│       └── 13-Retro-Oyun-Konsolu.md
 └── scripts/
     ├── check_health.sh
     └── setup_npu.sh
