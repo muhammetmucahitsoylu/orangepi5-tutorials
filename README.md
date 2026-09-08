@@ -10,9 +10,9 @@ Orange Pi 5 (Rockchip RK3588S) tek kart bilgisayarı için sahada bizzat test ed
 
 ### 📚 Kılavuzlar ve Rehberler
 
-| Kılavuz | Açıklama | Seviye | Durum |
-| :--- | :--- | :---: | :---: |
-| [**SPI Flash & U-Boot Kurtarma / NVMe Boot**](guides/orangepi5-spi-uboot-recovery.md) | EDK2 UEFI kilitlenmesinden resmi U-Boot'a dönüş, MaskROM onarımı ve M.2 NVMe SSD'ye doğrudan ağ üzerinden yazım. | İleri | Doğrulandı ✅ |
+| Kılavuz | Açıklama |
+| :--- | :--- | 
+| [**SPI Flash & U-Boot Kurtarma / NVMe Boot**](guides/orangepi5-spi-uboot-recovery.md) | EDK2 UEFI kilitlenmesinden resmi U-Boot'a dönüş, MaskROM onarımı ve M.2 NVMe SSD'ye doğrudan ağ üzerinden yazım.
 
 ### 🛠️ Kılavuz Yazım İlkeleri
 
@@ -37,8 +37,8 @@ Field-tested recovery protocols, bootloader restorations, and setup guides enric
 
 ### 📚 Guides & Tutorials
 
-| Guide | Description | Level | Status |
-| :--- | :--- | :---: | :---: |
+| Guide | Description |
+| :--- | :--- | 
 | [**SPI Flash & U-Boot Recovery / NVMe Boot**](guides/orangepi5-spi-uboot-recovery.md) | Restoring official U-Boot from EDK2 UEFI lockups, MaskROM recovery, and direct network streaming to M.2 NVMe SSD.
 
 ### 🛠️ Guide Principles
