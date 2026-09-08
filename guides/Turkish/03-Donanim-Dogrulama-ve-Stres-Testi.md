@@ -97,14 +97,14 @@ Bu test, NVMe SSD'nin kartın PCIe 2.0 x1 veri yolunu tam kapasite doyurup doyur
 
 ### **Sıralı Okuma Testi (1M Blok)**
 ```bash
-fio --name=seq_read --filename=/tmp/fio_test --size=2G --rw=read --bs=1M --direct=1 --ioengine=libaio --iodepth=16 --numjobs=1 --time_based --runtime=20 --group_reporting && rm -f /tmp/fio_test
+fio --name=seq_read --filename=$HOME/fio_test --size=2G --rw=read --bs=1M --direct=1 --ioengine=libaio --iodepth=16 --numjobs=1 --time_based --runtime=20 --group_reporting && rm -f $HOME/fio_test
 ```
 * **Referans Sıralı Hız:** **~418 MB/s**  
-* *Yorum:* Bu değer Orange Pi 5'in PCIe 2.0 x1 hattının fiziksel pratik tavanıdır. 400–420 MB/s aralığındaki değerler SSD'nin tam kapasitede çalıştığını kanıtlar.
+* *Yorum:* Bu değer Orange Pi 5'in PCIe 2.0 x1 hattının fiziksel pratik tavanıdır. 400–420 MB/s aralığındaki değerler SSD'nin tam kapasitede çalıştığını kanıtlar. (Not: Test dosyası RAM'deki `tmpfs` yerine doğrudan disk üzerindeki `$HOME` dizininde oluşturulur).
 
 ### **4K Rastgele Okuma Testi (IOPS)**
 ```bash
-fio --name=rand_read --filename=/tmp/fio_test --size=1G --rw=randread --bs=4k --direct=1 --ioengine=libaio --iodepth=64 --numjobs=4 --time_based --runtime=20 --group_reporting && rm -f /tmp/fio_test
+fio --name=rand_read --filename=$HOME/fio_test --size=1G --rw=randread --bs=4k --direct=1 --ioengine=libaio --iodepth=64 --numjobs=4 --time_based --runtime=20 --group_reporting && rm -f $HOME/fio_test
 ```
 * **Referans IOPS Değeri:** **~90.900 IOPS (~372 MB/s)** (Ortalama gecikme: ~2.79 ms).
 

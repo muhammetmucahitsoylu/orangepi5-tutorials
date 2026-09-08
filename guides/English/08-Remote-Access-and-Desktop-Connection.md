@@ -31,12 +31,18 @@ To avoid typing your password upon every connection and improve security, instal
 ### **Method 3: Hardware UART Serial Console (No Network or Display Required)**
 The most reliable recovery interface when network access is down, the IP is unknown, or the board freezes during bootloader stages.
 
-* **Hardware Requirement:** 3.3V USB-to-TTL UART serial adapter (CP2102 or CH340).
-* **Pinout Connection:**
-  * USB-TTL **GND** -> Orange Pi 5 GND (Pin 6)
-  * USB-TTL **RX** -> Orange Pi 5 TX (Pin 8)
-  * USB-TTL **TX** -> Orange Pi 5 RX (Pin 10)
-* **Critical Setting:** The Rockchip RK3588 SoC communicates at a non-standard serial baud rate of **1,500,000 (1.5M)** baud. In PuTTY or your serial terminal, configure speed to `1500000`.
+* **Hardware Requirement:** 3.3V TTL USB-to-serial adapter (CP2102 or CH340).
+* **Connection Options (V1.3.2 Hardware Pinout):**
+  * **Recommended: Dedicated 3-Pin Debug UART Header:**  
+    Located directly below the 26-pin expansion header (the square solder pad is GND):
+    * USB-TTL **GND** -> Orange Pi 5 **GND** (Bottom square pin)
+    * USB-TTL **RX** -> Orange Pi 5 **TX** (Top pin)
+    * USB-TTL **TX** -> Orange Pi 5 **RX** (Middle pin)
+  * **Alternative: Via 26-Pin Header (UART0):**
+    * USB-TTL **GND** -> Pin 6 (GND)
+    * USB-TTL **RX** -> Pin 8 (`GPIO4_A3` / `UART0_TX_M2`)
+    * USB-TTL **TX** -> Pin 10 (`GPIO4_A4` / `UART0_RX_M2`)
+* **Critical Setting:** The Rockchip RK3588 serial debug console communicates at a non-standard speed of **1,500,000 (1.5M)** baud. In PuTTY, minicom, or screen, strictly configure baud rate to `1500000`. Refer to [docs/GPIO_PINOUT.md](../../docs/GPIO_PINOUT.md) for full header mappings.
 
 ---
 

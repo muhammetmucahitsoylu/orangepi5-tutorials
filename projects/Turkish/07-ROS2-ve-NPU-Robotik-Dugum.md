@@ -74,13 +74,18 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 
 ---
 
-## **4. Adım 2: ROS 2 Humble ve Geliştirici Araçlarının Kurulumu**
+## **4. Adım 2: ROS 2 Humble / Jazzy ve Geliştirici Araçlarının Kurulumu**
+
+> [!NOTE]
+> **Ubuntu Sürüm Uyumluluğu:**
+> * **Ubuntu 22.04 LTS (Jammy):** Standart LTS sürümü **`ros-humble`** paketleridir.
+> * **Ubuntu 24.04 LTS (Noble):** 24.04 üzerinde ROS 2 kuruyorsanız `humble` yerine **`jazzy`** (ROS 2 Jazzy Jalisco) paketlerini seçin (`ros-jazzy-ros-base`, `ros-jazzy-cv-bridge`, vb.).
 
 ```bash
 # Paket listesini güncelleyin
 sudo apt update
 
-# Robot için optimize edilmiş hafif ROS-Base ve Python araçlarını kurun:
+# Ubuntu 22.04 için optimize edilmiş hafif ROS-Base ve Python araçlarını kurun:
 sudo apt install -y ros-humble-ros-base \
                     ros-dev-tools \
                     python3-colcon-common-extensions \
@@ -88,7 +93,7 @@ sudo apt install -y ros-humble-ros-base \
                     ros-humble-cv-bridge \
                     ros-humble-vision-msgs
 
-# rosdep veritabanını başlatın
+# rosdep veritabanını başlatın:
 sudo rosdep init
 rosdep update
 ```

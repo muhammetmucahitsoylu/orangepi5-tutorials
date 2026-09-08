@@ -24,12 +24,15 @@ Compared to traditional single-board computers (such as Raspberry Pi 4/5), the O
 
 ---
 
-## **2. Step 1: Mounting M.2 NVMe Storage Permanently**
+## **2. Step 1: Configuring M.2 NVMe Storage**
 
-To ensure persistent mount points across reboots, mount your NVMe SSD by its filesystem UUID:
+> [!TIP]
+> **For NVMe Boot Installations:** If you followed [Guide 01](../../guides/English/01-Recovery-and-NVMe-Installation.md) and installed your root OS directly onto the NVMe SSD, your root filesystem (`/`) is already running on the NVMe drive. No `/etc/fstab` modification is needed; simply run `sudo mkdir -p /DATA/AppData /DATA/Media /DATA/Documents` and proceed directly to Step 2.
+
+For users keeping the OS on MicroSD and mounting the NVMe SSD as a **secondary data storage drive**:
 
 ```bash
-# 1. Identify your NVMe partition UUID:
+# 1. Identify your secondary NVMe partition UUID:
 sudo blkid
 # Example output: /dev/nvme0n1p1: UUID="a1b2c3d4-xxxx" TYPE="ext4"
 

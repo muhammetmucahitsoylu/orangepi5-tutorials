@@ -34,9 +34,11 @@ Running LLMs on edge devices typically requires high-end desktop GPUs with dedic
 # Create an isolated Python 3.10 virtual environment:
 python3 -m venv rkllm_env && source rkllm_env/bin/activate
 
-# Install the official Rockchip RKLLM toolkit wheel:
+# Clone the official RKLLM repository and install the wheel:
+git clone --depth 1 https://github.com/airockchip/rknn-llm.git
+cd rknn-llm/rkllm-toolkit/packages/
 pip install --upgrade pip
-pip install https://github.com/airockchip/rknn-llm/releases/download/v1.1.4/rkllm_toolkit-1.1.4-cp310-cp310-linux_x86_64.whl
+pip install rkllm_toolkit-*-cp310-cp310-linux_x86_64.whl
 ```
 
 ### **2. Conversion Script (`export_rkllm.py`):**
@@ -46,7 +48,7 @@ from rkllm.api import RKLLM
 llm = RKLLM()
 
 # Load model from Hugging Face or local path
-# Supported architectures: Qwen2.5-1.5B-Instruct, Llama-3.2-1B-Instruct, etc.
+# Supported architectures: Qwen/Qwen2.5-1.5B-Instruct, meta-llama/Llama-3.2-1B-Instruct, etc.
 modelpath = "Qwen/Qwen2.5-1.5B-Instruct"
 
 ret = llm.load_huggingface(model_dir=modelpath)
@@ -77,16 +79,17 @@ scp qwen2.5_1.5b_w4a16_rk3588.rkllm user@ORANGE_PI_IP:~/projects/ilk-projem/mode
 
 ---
 
-## **3. Step 2: Setting up RKLLM Runtime on Orange Pi 5**
+## **3. Step 2: Setting up RKLLM Runtime and C++ Engine on Orange Pi 5**
 
-Inside your Orange Pi 5 terminal (or VS Code Remote - SSH session):
+> [!NOTE]
+> For board-side ARM64 inference, Rockchip provides a high-performance native C/C++ runtime library (`librkllmrt.so`) and optimized executable (`llm_demo`) rather than an official Python pip wheel. This bypasses the Python GIL entirely to achieve the maximum 18–22 tokens/sec NPU throughput.
+
+Inside your Orange Pi 5 terminal:
 
 ```bash
-cd ~/projects/ilk-projem
-source venv/bin/activate
+mkdir -p ~/projects && cd ~/projects
 
 # 1. Clone the rknn-llm repository:
-cd /tmp
 git clone --depth 1 https://github.com/airockchip/rknn-llm.git
 
 # 2. Install the 64-bit ARM runtime library to system path:
@@ -94,88 +97,27 @@ sudo cp rknn-llm/rkllm-runtime/Linux/librkllm_api/aarch64/librkllmrt.so /usr/lib
 sudo chmod 755 /usr/lib/librkllmrt.so
 sudo ldconfig
 
-# 3. Install Python RKLLM runtime package:
-pip install https://github.com/airockchip/rknn-llm/releases/download/v1.1.4/rkllm_runtime-1.1.4-cp310-cp310-linux_aarch64.whl
-
-# Clean up temporary build artifacts:
-rm -rf /tmp/rknn-llm
+# 3. Compile the optimized C++ LLM inference executable (llm_demo):
+cd rknn-llm/examples/rkllm_api_demo
+mkdir -p build && cd build
+cmake ..
+make -j$(nproc)
 ```
 
 ---
 
-## **4. Step 3: Interactive Streaming Terminal Chatbot (`src/chat_llm.py`)**
+## **4. Step 3: Launching Interactive NPU Terminal Chat**
 
-The following script initializes the NPU runtime and implements token-by-token streaming generation:
-
-```python
-import sys
-import time
-from rkllm.api import RKLLM
-
-MODEL_PATH = "models/qwen2.5_1.5b_w4a16_rk3588.rkllm"
-
-print("==================================================")
-print("   Orange Pi 5 (RK3588S) NPU Local LLM Chatbot    ")
-print("==================================================")
-
-# 1. Initialize RKLLM Engine
-llm = RKLLM()
-print(f"--> Loading model to NPU: {MODEL_PATH}")
-start_time = time.time()
-
-ret = llm.init(
-    model_path=MODEL_PATH,
-    lora_model_path=None,
-    prompt_cache_path=None
-)
-
-if ret != 0:
-    print("[ERROR] Failed to initialize NPU runtime!")
-    sys.exit(1)
-
-print(f"[SUCCESS] Model loaded onto 3-core NPU in {time.time() - start_time:.2f} seconds.")
-print("Type 'exit' or 'quit' to end session.\n")
-
-# 2. Token Streaming Callback Function
-def callback_fn(result, state):
-    # state: 0 (generating), 1 (finished), 2 (error)
-    text = result if isinstance(result, str) else getattr(result, 'text', str(result))
-    sys.stdout.write(text)
-    sys.stdout.flush()
-
-# 3. Continuous Chat Loop
-while True:
-    try:
-        user_input = input("\n👤 User: ").strip()
-        if not user_input:
-            continue
-        if user_input.lower() in ["exit", "quit", "q"]:
-            print("\nExiting...")
-            break
-
-        # Standard ChatML prompt template for Qwen
-        prompt = f"<|im_start|>system\nYou are a fast, helpful AI assistant running locally on an Orange Pi 5 NPU.<|im_end|>\n<|im_start|>user\n{user_input}<|im_end|>\n<|im_start|>assistant\n"
-
-        print("🤖 Assistant: ", end="")
-        llm.run(prompt=prompt, callback=callback_fn)
-        print()
-
-    except KeyboardInterrupt:
-        print("\n\nSession aborted by user.")
-        break
-
-llm.release()
-print("NPU hardware resources released.")
-```
-
----
-
-## **5. Step 4: Verification & Performance Benchmark**
+Execute the compiled `llm_demo` with your converted NPU model:
 
 ```bash
-cd ~/projects/ilk-projem
-python3 src/chat_llm.py
+cd ~/projects/rknn-llm/examples/rkllm_api_demo/build
+
+# Usage: ./llm_demo <model_path> <max_new_tokens> <max_context_len>
+./llm_demo ~/projects/ilk-projem/models/qwen2.5_1.5b_w4a16_rk3588.rkllm 512 2048
 ```
+
+The executable initializes the 3-core NPU hardware, loads the quantized model weights, and enters an interactive CLI session where answers stream in real-time at 18+ tokens/second.
 
 ### **Sample Output:**
 ```text

@@ -24,12 +24,15 @@ Orange Pi 5'in bu görev için standart bir Raspberry Pi 4/5'e kıyasla ezici av
 
 ---
 
-## **2. Adım 1: M.2 NVMe Depolama Alanını Sabitleme**
+## **2. Adım 1: M.2 NVMe Depolama Alanını Yapılandırma**
 
-Sistemin yeniden başlamasında disk yolunun değişmemesi için NVMe SSD'nizi kalıcı olarak bağlayın:
+> [!TIP]
+> **NVMe Boot ile Başlatanlar İçin:** Eğer sisteminizi [Rehber 01](../../guides/Turkish/01-Kurtarma-ve-NVMe-Kurulum.md) adımlarını uygulayarak doğrudan NVMe SSD üzerine kurduysanız, kök dizininiz (`/`) zaten ultra hızlı NVMe üzerindedir. `/etc/fstab` düzenlemesine gerek yoktur; sadece `sudo mkdir -p /DATA/AppData /DATA/Media /DATA/Documents` komutunu çalıştırıp doğrudan Adım 2'ye geçin.
+
+İşletim sistemini MicroSD karttan çalıştırıp NVMe SSD'yi **ikinci bir harici veri depolama diski** olarak bağlayacak olanlar için:
 
 ```bash
-# 1. Diskin UUID numarasını öğrenin:
+# 1. NVMe veri diskinin UUID numarasını öğrenin:
 sudo blkid
 # Örnek çıktı: /dev/nvme0n1p1: UUID="a1b2c3d4-xxxx" TYPE="ext4"
 

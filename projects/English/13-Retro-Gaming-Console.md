@@ -75,23 +75,34 @@ echo performance | sudo tee /sys/class/devfreq/fb000000.gpu/governor
 
 ---
 
-## **5. Step 3: PlayStation 2 (AetherSX2) ARM64 Deployment**
+## **5. Step 3: PlayStation 2 & Retro Gaming Deployment**
 
-AetherSX2 is the most optimized PS2 emulator for ARM64 and Mali GPU architectures:
+There are two primary methods to run PS2 and retro emulators on the Orange Pi 5 (RK3588):
+
+### **Method 1 (Recommended - Maximum FPS): Dedicated Gaming OS (Batocera / ROCKNIX)**
+For rock-solid 60 FPS, pre-configured Vulkan drivers, and zero-configuration controller mappings:
+* Download the official Orange Pi 5 RK3588 build of **Batocera.linux** or **ROCKNIX (formerly JELOS)**.
+* Flash it to a MicroSD card or secondary drive with BalenaEtcher and boot directly into the EmulationStation console frontend.
+
+### **Method 2: RetroArch & PCSX2 / Flatpak on Ubuntu Desktop**
+To game without disturbing your current Ubuntu desktop installation:
 
 ```bash
-# 1. Download the AetherSX2 ARM64 Linux AppImage:
-mkdir -p ~/Emulators/PS2 && cd ~/Emulators/PS2
-wget https://github.com/aethersx2/aethersx2/releases/download/v1.5-4248/AetherSX2-v1.5-4248-aarch64.AppImage
+# 1. Install Flatpak and Flathub repository:
+sudo apt update && sudo apt install -y flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# 2. Grant executable permission:
-chmod +x AetherSX2-v1.5-4248-aarch64.AppImage
+# 2. Install RetroArch (Universal frontend for classic console cores):
+sudo apt install -y retroarch
+
+# 3. Install PCSX2 (PlayStation 2) or standalone emulators via Flatpak:
+flatpak install -y flathub net.pcsx2.PCSX2 || echo "Install PCSX2 via Flatpak or compile ARM64 JIT support."
 ```
 
-### **Essential AetherSX2 Graphics Settings:**
-* **Graphics Renderer:** Select **Vulkan** (Vulkan delivers up to 40% higher frame stability than OpenGL ES on Mali-G610).
+### **Essential Emulator Graphics Settings:**
+* **Graphics Renderer:** Always select **Vulkan** (Vulkan delivers up to 40% higher frame stability than OpenGL ES on Mali-G610).
 * **Upscale Multiplier:** Choose **2x Native (~720p/1080p)**.
-* **Aspect Ratio:** Set to **16:9** for modern widescreen displays.
+* **Aspect Ratio:** Set to **16:9** (with widescreen patch enabled) or original **4:3**.
 
 ---
 

@@ -29,14 +29,20 @@ Her seferinde şifre yazmamak ve güvenliği artırmak için bilgisayarınızdak
   ```
 
 ### **3. Yöntem: UART Seri Konsol (Ağ ve Ekran Olmadan Doğrudan Kablo ile)**
-Ağ bağlantısı çöktüğünde, IP bilinmediğinde veya sistem bootloader aşamasında takıldığında en güvenilir erişim yöntemidir.
+Ağ bağlantısı çöktüğünde, IP bilinmediğinde veya sistem bootloader aşamasında takıldığında en güvenilir donanımsal erişim yöntemidir.
 
-* **Gereksinim:** USB-TTL dönüştürücü kablo (3.3V seviyesinde çalışan CP2102 veya CH340).
-* **Bağlantı:** 
-  * USB-TTL **GND** -> Orange Pi 5 GND (Pin 6)
-  * USB-TTL **RX** -> Orange Pi 5 TX (Pin 8)
-  * USB-TTL **TX** -> Orange Pi 5 RX (Pin 10)
-* **Kritik Kural:** Rockchip RK3588 serisinin seri port baud hızı standart 115200 değil, **1.500.000 (1.5M)** baud'dur. PuTTY veya terminal programında hızı `1500000` olarak ayarlayın.
+* **Gereksinim:** USB-TTL dönüştürücü kablo (3.3V mantık seviyesinde çalışan CP2102 veya CH340).
+* **Bağlantı Seçenekleri (V1.3.2 Donanım Şeması):**
+  * **Önerilen: Özel 3-Pin Hata Ayıklama (Debug UART) Başlığı:**  
+    26 pinlik başlığın hemen alt tarafında yer alan bağımsız 3 pinli gruptur (kare lehim pedi GND'dir):
+    * USB-TTL **GND** -> Orange Pi 5 **GND** (Alttaki kare ped)
+    * USB-TTL **RX** -> Orange Pi 5 **TX** (En üst pin)
+    * USB-TTL **TX** -> Orange Pi 5 **RX** (Orta pin)
+  * **Alternatif: 26-Pin Başlık Üzerinden (UART0):**
+    * USB-TTL **GND** -> Pin 6 (GND)
+    * USB-TTL **RX** -> Pin 8 (`GPIO4_A3` / `UART0_TX_M2`)
+    * USB-TTL **TX** -> Pin 10 (`GPIO4_A4` / `UART0_RX_M2`)
+* **Kritik Kural:** Rockchip RK3588 serisinin seri hata ayıklama konsolu baud hızı standart 115200 değil, **1.500.000 (1.5M)** baud'dur. PuTTY, minicom veya terminal programında hız mutlaka `1500000` olarak seçilmelidir. Detaylı pin şeması için [docs/GPIO_PINOUT.md](../../docs/GPIO_PINOUT.md) belgesini inceleyin.
 
 ---
 
