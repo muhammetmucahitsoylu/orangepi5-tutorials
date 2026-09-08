@@ -38,7 +38,7 @@ Bazı SSD modellerinde (örneğin Kingston NV2 veya bazı Phison denetleyicili m
   ```
 
 ### **Önerilen SSD Modelleri**
-* **Sorunsuz Çalışanlar:** Kioxia Exceria G2, Western Digital WD Blue SN570 / SN580, Samsung 970 EVO Plus / 980, Crucial P2 / P3.
+* **Çalışanlar:** M.2 NVMe SSD'ler.
 * **Desteklenmeyenler:** Bütün M.2 SATA SSD'ler.
 
 ---
