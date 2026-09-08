@@ -78,7 +78,7 @@ for tz in /sys/class/thermal/thermal_zone*; do
     if [ -d "$tz" ]; then
         TZ_TYPE=$(cat "$tz/type" 2>/dev/null || echo "thermal")
         RAW_TEMP=$(cat "$tz/temp" 2>/dev/null || echo "0")
-        DEGREE=$(awk "BEGIN {printf \"%.1f\", $RAW_TEMP / 1000}")
+        DEGREE=$(LC_ALL=C awk "BEGIN {printf \"%.1f\", $RAW_TEMP / 1000}")
         INT_DEGREE=${DEGREE%.*}
         
         if [ "$INT_DEGREE" -ge 80 ]; then
