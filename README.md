@@ -44,6 +44,13 @@ OrangePi5_Tutorials/
     └── assets/
 ```
 
+### 📄 Lisans
+
+Bu projedeki tüm kılavuzlar ve içerikler **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International ([CC BY-NC-ND 4.0](LICENSE))** lisansı ile korunmaktadır.
+* **Kişisel Kullanım & Uygulama:** Serbesttir.
+* **Paylaşım:** Yazar (`Muhammet Mücahit Soylu`) ve orijinal depo bağlantısı belirtilerek serbesttir.
+* **Türev İçerik Üretimi & Ticari Kullanım:** Yasaktır (içerik değiştirilerek başka platformlarda kendi eseri gibi yayımlanamaz veya ticari amaçla kullanılamaz).
+
 ## English
 
 Field-tested recovery protocols, bootloader restorations, and setup guides enriched with technical root-cause analyses for the Orange Pi 5 (Rockchip RK3588S) single-board computer.
@@ -83,3 +90,10 @@ OrangePi5_Tutorials/
     │   └── Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu.md
     └── assets/
 ```
+
+### 📄 License
+
+All guides and documentation in this repository are protected under the **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International ([CC BY-NC-ND 4.0](LICENSE))** license.
+* **Personal Learning & Execution:** Free and open.
+* **Sharing:** Allowed only with clear attribution to the author (`Muhammet Mücahit Soylu`) and original repository link.
+* **Derivative Works & Commercial Exploitation:** Strictly prohibited (materials may not be remixed, altered, republished as personal content, or used for commercial purposes).
