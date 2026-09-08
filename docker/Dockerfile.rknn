@@ -1,0 +1,51 @@
+# ==============================================================================
+# Orange Pi 5 (RK3588S) Isolated RKNN-Toolkit-Lite2 Container Environment
+# Repository: https://github.com/muhammetmucahitsoylu/orangepi5-tutorials
+# ==============================================================================
+
+FROM ubuntu:22.04
+
+LABEL maintainer="Muhammet Mucahit Soylu"
+LABEL description="Isolated containerized NPU runtime environment for Orange Pi 5 (RK3588S)"
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+
+# Install baseline Linux utilities & Python 3.10
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-dev \
+    build-essential \
+    git \
+    curl \
+    ca-certificates \
+    libgl1 \
+    libglib2.0-0 \
+    libgomp1 \
+    libxslt1-dev \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /workspace
+
+# Upgrade core pip tooling
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
+
+# Install scientific dependencies
+RUN pip3 install --no-cache-dir \
+    numpy==1.24.3 \
+    opencv-python-headless \
+    pillow \
+    tqdm
+
+# Clone official Rockchip RKNPU2 repository and install matching aarch64 wheel
+RUN git clone --depth 1 https://github.com/airockchip/rknpu2.git /tmp/rknpu2 && \
+    pip3 install --no-cache-dir /tmp/rknpu2/rknn-toolkit-lite2/packages/*cp310*linux_aarch64.whl && \
+    rm -rf /tmp/rknpu2
+
+# Verification test inside container image
+RUN python3 -c "from rknnlite.api import RKNNLite; print('RKNN-Toolkit-Lite2 successfully installed in container!')"
+
+CMD ["/bin/bash"]
