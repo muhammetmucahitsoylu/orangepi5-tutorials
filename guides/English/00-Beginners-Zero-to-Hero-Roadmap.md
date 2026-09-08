@@ -12,8 +12,9 @@ flowchart LR
     A["1. Desk Setup<br>(ESD & Clean Power)"] --> B["2. Choosing the OS<br>(Ubuntu BSP Image)"]
     B --> C["3. Flash to SD<br>(BalenaEtcher)"]
     C --> D["4. First Connection<br>(Monitor or SSH)"]
-    D --> E["5. Core Linux Skills<br>(Survival Commands)"]
-    E --> F["6. Choose a Project<br>(AI, Server, Robotics)"]
+    D --> E["5. Terminal Skills<br>(Panic Button & Poweroff)"]
+    E --> F["6. Clone Repo to Board<br>(Git, Pip & Essentials)"]
+    F --> G["7. Quick Win & Projects<br>(opi5.sh & Roadmap)"]
 ```
 
 ---
@@ -117,13 +118,15 @@ Your CPU die temperatures, NPU character nodes, and memory headroom will render 
 
 ---
 
-## **Step 6: Terminal Survival Kit (The Core 8 Commands)**
+## **Step 6: Terminal Survival Kit & Panic Button**
 
-The Linux terminal is simply a **file explorer without a mouse**. Here are the only commands you need to get started:
+The Linux terminal is simply a **file explorer without a mouse**.
+
+### Essential File & Navigation Commands
 
 | Command | Literal Meaning | What Does It Do? | Practical Example |
 | :--- | :--- | :--- | :--- |
-| `pwd` | *"Where am I?"* | Prints your current working directory path. | `pwd` |
+| `pwd` | *"Where am I?"* | Prints the full path of your current working directory. | `pwd` |
 | `ls` | *"What is here?"* | Lists all files and subdirectories in the current folder. | `ls -la` (Includes hidden files) |
 | `cd` | *"Change Directory"* | Navigates into another directory. | `cd Desktop` or go back up with `cd ..` |
 | `mkdir` | *"Make Directory"* | Creates a new folder. | `mkdir MyProjects` |
@@ -131,16 +134,86 @@ The Linux terminal is simply a **file explorer without a mouse**. Here are the o
 | `cat` | *"Concatenate"* | Prints the text contents of a file directly to the screen. | `cat /etc/os-release` |
 | `htop` | *"Task Manager"* | Displays a real-time monitor of CPU, RAM, and background tasks. | `htop` *(Press `q` to quit)* |
 | `sudo reboot` | *"Reboot Board"* | Gracefully restarts the operating system. | `sudo reboot` |
+| `sudo poweroff` | *"Power Off"* | Safely shuts down the operating system. | `sudo poweroff` |
 
 ---
 
-## **Step 7: Where to Go Next? (Choose Your Path)**
+### 🚨 The Board Killer: NEVER Yank the Power Cable Directly!
 
-Congratulations! You have set up your hardware, established a reliable network bridge, and mastered basic Linux terminal commands. You are now fully equipped to tackle the deep-dive guides and projects in this repository:
+> [!CAUTION]
+> **Protect Your MicroSD Card and Filesystem:**  
+> Never unplug the Type-C power cable while the board is running! Linux continually commits metadata writes to the storage medium. Pulling the plug abruptly causes EXT4 filesystem corruption, leaving your board unable to boot next time.  
+> **The Safe Shutdown Sequence:**
+> 1. In your terminal, run `sudo poweroff` and press Enter.
+> 2. Wait for the green activity LED to completely turn off (approx. 10 seconds).
+> 3. Once only the solid red LED remains, it is safe to unplug the power supply.
+
+---
+
+### 🛟 Terminal Panic Button (Lifesaving Reflexes)
+
+| Key / Shortcut | What Does It Do? | Why It Saves Your Day |
+| :--- | :--- | :--- |
+| **`Ctrl + C`** | **Interrupt Process (Emergency Brake)** | If a command hangs, scrolls endlessly, or gets stuck in an infinite loop, press this to forcefully stop execution. |
+| **`Ctrl + Shift + V`** | **Paste into Terminal** | Standard `Ctrl + V` does not work in Linux terminals! Use `Ctrl + Shift + V` or **right-click** your mouse to paste copied text. |
+| **`TAB Key`** | **Autocompletion** | Never type long file paths by hand! For example, typing `cd or` and hitting `TAB` automatically expands to `cd orangepi5-tutorials/`. |
+| **`Up Arrow (↑)`** | **Command History** | Instead of retyping commands, press the Up Arrow to cycle through previously executed commands. |
+| **`clear` or `Ctrl + L`** | **Clear Terminal Screen** | Wipes terminal clutter and resets your viewport to a clean prompt. |
+
+---
+
+## **Step 7: Developer Essentials & Cloning This Repository to Your Board**
+
+To run the AI, camera, and home server projects on your board, you must install the fundamental developer packages and clone this repository directly onto the device:
+
+### 1. Install Essential Tooling
+Execute this single command to install Git, Python, virtual environment tooling, and build compilers:
+```bash
+sudo apt install -y git python3-pip python3-venv build-essential
+```
+
+### 2. Clone This Tutorial Repository
+Download all source codes, models, and scripts directly to your board:
+```bash
+git clone https://github.com/muhammetmucahitsoylu/orangepi5-tutorials.git
+cd orangepi5-tutorials
+```
+You are now situated in `/home/orangepi/orangepi5-tutorials`; every project, script, and guide is directly accessible on your board!
+
+---
+
+## **Step 8: Your First Quick Win (Interactive Telemetry Dashboard)**
+
+To verify that your board and this repository are running in complete harmony, launch our interactive terminal control center:
+
+```bash
+bash scripts/opi5.sh
+```
+
+A sleek ASCII dashboard and menu will launch:
+* Press **`1`** to run a comprehensive hardware health check.
+* Press **`4`** to monitor real-time CPU core frequencies and thermal sensors.
+* Press **`0`** to exit back to the shell prompt.
+
+> [!TIP]
+> **Pro Tip: Escape Nano with VS Code Remote - SSH**  
+> You don't have to write code inside a raw terminal!  
+> 1. Install the free [Visual Studio Code](https://code.visualstudio.com/) on your laptop (Windows or Mac).  
+> 2. Install the **"Remote - SSH"** extension by Microsoft from the Extensions tab.  
+> 3. Click the bottom-left blue `><` button, select **"Connect to Host..."**, and enter `orangepi@orangepi5.local`.  
+> 4. Enter your password, then choose **"Open Folder"** and select `/home/orangepi/orangepi5-tutorials`.  
+> You now enjoy a desktop file explorer, syntax coloring, drag-and-drop file transfers, and an integrated terminal!  
+> *(For step-by-step setup details, see: [01. IDE & Dev Environment Guide](../../projects/English/01-IDE-and-Dev-Environment.md))*.
+
+---
+
+## **Step 9: Where to Go Next? (Choose Your Path)**
+
+Congratulations! You have configured your hardware, established a stable network shell, mastered basic terminal commands, and cloned this repository to your board. You are now ready to jump straight into any project:
 
 ```mermaid
 graph TD
-    Start["Orange Pi 5 is Running"] --> Choice{"What would you like to build?"}
+    Start["Orange Pi 5 & Repo Ready"] --> Choice{"What would you like to build?"}
     
     Choice -->|"Performance & Speed"| Path1["1. Move to High-Speed NVMe<br>• Ditch slow MicroSD cards<br>• 10x faster boot times"]
     Path1 --> Guide1["Guide 01: SPI Flash & NVMe Boot"]
@@ -159,7 +232,10 @@ graph TD
 ```
 
 ### 🔗 Quick Links to Next Projects:
+* **For IDE & Setup:** [01. IDE & Development Environment Setup](../../projects/English/01-IDE-and-Dev-Environment.md)
 * **For Speed & Storage:** [01. SPI Flash & NVMe Boot Installation Guide](01-Recovery-and-NVMe-Installation.md)
 * **For Edge AI:** [02. NPU Activation & RKNN Runtime Setup](../../projects/English/02-NPU-Activation-and-RKNN.md)
+* **For Object Detection:** [03. YOLOv8 Edge AI Inference on NPU](../../projects/English/03-YOLOv8-NPU-Inference.md)
 * **For Private Cloud & Media:** [11. Personal Cloud & Jellyfin Media Server](../../projects/English/11-Personal-Cloud-Jellyfin.md)
-* **For Hardware Pins & Electronics:** [26-Pin GPIO Header Reference & Pinout Guide](../../docs/GPIO_PINOUT.md)
+* **For Hardware Pins:** [26-Pin GPIO Header Reference & Pinout Guide](../../docs/GPIO_PINOUT.md)
+* **For GPIO Control:** [08. Hardware Control with GPIO & C++](../../projects/English/08-Hardware-Control-GPIO-Cpp.md)
