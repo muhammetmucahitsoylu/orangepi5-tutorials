@@ -119,7 +119,7 @@ Bu depo, Orange Pi 5 ekosistemindeki geliştiricilerin karşılaştığı engell
 * Kılavuzlarda eksik, hatalı veya güncelliğini yitirmiş bir komut mu fark ettiniz?
 * Yeni bir proje veya optimizasyon öneriniz mi var?
 
-Lütfen katkı kuralları için **[CONTRIBUTING.md](CONTRIBUTING.md)** dosyasını inceleyin, deneyiminizi paylaşmak için bir **[Issue](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/issues)** açın veya doğrudan bir **Pull Request (PR)** gönderin.
+Lütfen katkı kuralları için **[CONTRIBUTING.md](CONTRIBUTING.md)** dosyasını inceleyin, deneyiminizi paylaşmak için bir **[Issue](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/issues/new/choose)** açın veya doğrudan bir **Pull Request (PR)** gönderin.
 
 ---
 
@@ -305,7 +305,7 @@ This repository is a living open-source reference intended to streamline develop
 * Spotted a deprecated package or command syntax?
 * Want to contribute a new edge AI or robotics recipe?
 
-Please check out our **[CONTRIBUTING.md](CONTRIBUTING.md)** guidelines, feel free to open an **[Issue](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/issues)**, or submit a **Pull Request (PR)**!
+Please check out our **[CONTRIBUTING.md](CONTRIBUTING.md)** guidelines, feel free to open an **[Issue](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/issues/new/choose)**, or submit a **Pull Request (PR)**!
 
 ---
 
