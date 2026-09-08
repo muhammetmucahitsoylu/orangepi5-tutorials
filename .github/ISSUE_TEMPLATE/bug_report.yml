@@ -7,19 +7,17 @@ body:
     attributes:
       value: |
         Orange Pi 5 ekosistemindeki hataları bildirdiğiniz için teşekkürler. Lütfen aşağıdaki alanları doldurun.
-  - type: dropdown
+  - type: checkboxes
     id: board_model
     attributes:
       label: Hardware Model / Donanım Modeli
-      description: Select your board model / Kart modelinizi seçin
+      description: Kart modelinizi işaretleyin (tıklayarak seçin)
       options:
-        - Orange Pi 5 (RK3588S)
-        - Orange Pi 5B (RK3588S)
-        - Orange Pi 5 Pro (RK3588S)
-        - Orange Pi 5 Plus (RK3588)
-        - Other Rockchip RK3588 Board
-    validations:
-      required: true
+        - label: Orange Pi 5 (RK3588S)
+        - label: Orange Pi 5B (RK3588S)
+        - label: Orange Pi 5 Pro (RK3588S)
+        - label: Orange Pi 5 Plus (RK3588)
+        - label: Other Rockchip RK3588 Board
   - type: input
     id: os_kernel
     attributes:
@@ -28,16 +26,15 @@ body:
       placeholder: "Ubuntu 22.04 LTS / Linux 5.10.160-rockchip-rk3588"
     validations:
       required: true
-  - type: dropdown
+  - type: checkboxes
     id: storage
     attributes:
       label: Storage Medium / Depolama Birimi
+      description: Kullandığınız depolama birimini seçin
       options:
-        - M.2 NVMe SSD
-        - MicroSD Card
-        - Onboard eMMC
-    validations:
-      required: true
+        - label: M.2 NVMe SSD
+        - label: MicroSD Card
+        - label: Onboard eMMC
   - type: input
     id: power_supply
     attributes:
