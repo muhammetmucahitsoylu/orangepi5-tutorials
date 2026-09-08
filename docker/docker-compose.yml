@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  rknn-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.rknn
+    image: orangepi5-rknn:latest
+    container_name: opi5_rknn_workspace
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    ipc: host
+    network_mode: host
+    volumes:
+      - ../:/workspace
+    devices:
+      - /dev/rknpu:/dev/rknpu
+      - /dev/mali0:/dev/mali0
+    environment:
+      - TZ=UTC
+    working_dir: /workspace

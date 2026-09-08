@@ -43,15 +43,30 @@ Bu depodaki rehberler Orange Pi 5 (RK3588S) temel alınarak hazırlanmıştır; 
 
 ---
 
-### ⚡ Hızlı Donanım Teşhis Aracı (One-Line Health Check)
+### 🎮 İnteraktif Kontrol Merkezi & Donanım Araçları
 
-Orange Pi 5 kartınızın CPU frekanslarını, çekirdek sıcaklıklarını, 6 TOPS NPU sürücü durumunu, Mali-G610 GPU/VPU düğümlerini ve NVMe PCIe hat hızını tek satırda doğrulamak için terminalde çalıştırın:
+Orange Pi 5 kartınızı tek bir komutla yönetmek, performans modunu kilitlemek veya donanım sağlığını denetlemek için terminalde çalıştırın:
 
+#### 1. İnteraktif Yönetim & Benchmark Paketi (`opi5.sh` TUI):
+```bash
+curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/opi5.sh | bash
+```
+> Klavye oklarıyla yönetilen renkli menü: CPU/GPU/NPU sıcaklıkları, 2.4 GHz tepe frekans kilidi, NVMe I/O hız testi, NPU sürücü doğrulaması ve kalıcı MAC adresi sabitleyici.
+
+#### 2. Hızlı Salt-Okunur Donanım Teşhisi (`check_health.sh`):
 ```bash
 curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
 ```
-> [!TIP]
-> Bu script sisteme hiçbir harici paket yüklemez; salt okunur olarak `/dev/rknpu`, thermal zonelar ve DVFS governor durumlarını tarayıp anında renkli bir sistem teşhis tablosu basar.
+
+---
+
+### 🔥 Özel Teknik Dokümanlar & Karşılaştırmalar
+
+| Özel Kaynak | Açıklama |
+| :--- | :--- |
+| 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Donanımsal Karşılaştırma**](BENCHMARKS.md) | 6 TOPS NPU vs CPU AI çıkarımı (YOLOv8, Qwen LLM), 8K VPU transcode, derleme süresi ve güç tüketimi karşılaştırması. |
+| 🗺️ [**26-Pin GPIO Header & Donanım Şeması**](docs/GPIO_PINOUT.md) | Fiziksel pinler, WiringOP ID, Linux `libgpiod` adresleri, I2C/SPI/UART multiplex haritası ve C++/Python örnekleri. |
+| 🐳 [**İzole Docker RKNN Geliştirme Ortamı**](docker/README.md) | `/dev/rknpu` donanım geçişli (passthrough), bağımlılık çakışması olmadan tek tıkla çalışan Docker konteyneri. |
 
 ---
 
@@ -153,11 +168,18 @@ OrangePi5_Tutorials/
 │   └── workflows/
 │       └── ci.yml
 ├── .gitignore
+├── BENCHMARKS.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
 ├── assets/
 │   └── social-preview.png
+├── docker/
+│   ├── Dockerfile.rknn
+│   ├── README.md
+│   └── docker-compose.yml
+├── docs/
+│   └── GPIO_PINOUT.md
 ├── guides/
 │   ├── English/
 │   │   ├── 01-Recovery-and-NVMe-Installation.md
@@ -209,6 +231,7 @@ OrangePi5_Tutorials/
 │       └── 13-Retro-Oyun-Konsolu.md
 └── scripts/
     ├── check_health.sh
+    ├── opi5.sh
     └── setup_npu.sh
 ```
 
@@ -248,15 +271,30 @@ While this repository is authored and benchmarked against the baseline Orange Pi
 
 ---
 
-### ⚡ One-Line Hardware Diagnostics Utility
+### 🎮 Interactive Control Center & Hardware Tools
 
-To immediately audit your board's live CPU frequencies, thermal zone temperatures, 6 TOPS NPU driver node, Mali-G610 GPU, VPU hardware decoder, and PCIe link width, execute this command on your board:
+Manage your Orange Pi 5, lock performance governors, run storage benchmarks, or verify hardware nodes with zero friction:
 
+#### 1. Interactive Control Center & Benchmark Suite (`opi5.sh` TUI):
+```bash
+curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/opi5.sh | bash
+```
+> Full-color interactive terminal UI: Live thermal sensors, 1-click 2.4 GHz performance lock, direct NVMe I/O throughput test, NPU subsystem audit, and permanent static MAC address locking.
+
+#### 2. Read-Only Instant Diagnostics (`check_health.sh`):
 ```bash
 curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
 ```
-> [!TIP]
-> This read-only audit inspects thermal sensors, DVFS governor states, and `/dev/rknpu` tri-core status without modifying any system configuration.
+
+---
+
+### 🔥 Special Technical References & Deep Dives
+
+| Special Document | Description |
+| :--- | :--- |
+| 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Hardware Benchmarks**](BENCHMARKS.md) | Empirical analysis: 6 TOPS NPU vs. CPU AI inference (YOLOv8, Qwen LLM), 8K VPU hardware transcoding, compilation throughput, and power efficiency. |
+| 🗺️ [**26-Pin GPIO Header Reference & Pinout Guide**](docs/GPIO_PINOUT.md) | Physical pin diagram, WiringOP IDs, Linux `libgpiod` line offsets, sysfs formulas, I2C/SPI/UART multiplexing, and C++/Python examples. |
+| 🐳 [**Isolated Docker RKNN Development Environment**](docker/README.md) | Pre-configured container with direct `/dev/rknpu` hardware passthrough, OpenCV, and zero host dependency contamination. |
 
 ---
 
@@ -358,11 +396,18 @@ OrangePi5_Tutorials/
 │   └── workflows/
 │       └── ci.yml
 ├── .gitignore
+├── BENCHMARKS.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
 ├── assets/
 │   └── social-preview.png
+├── docker/
+│   ├── Dockerfile.rknn
+│   ├── README.md
+│   └── docker-compose.yml
+├── docs/
+│   └── GPIO_PINOUT.md
 ├── guides/
 │   ├── English/
 │   │   ├── 01-Recovery-and-NVMe-Installation.md
@@ -414,6 +459,7 @@ OrangePi5_Tutorials/
 │       └── 13-Retro-Oyun-Konsolu.md
 └── scripts/
     ├── check_health.sh
+    ├── opi5.sh
     └── setup_npu.sh
 ```
 
