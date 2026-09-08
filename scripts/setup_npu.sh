@@ -57,29 +57,33 @@ source "$VENV_DIR/bin/activate"
 
 # 5. Determine Python Version & Install Matching RKNN-Toolkit-Lite2
 PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-echo -e "\n${BOLD}[4/4] Installing RKNN-Toolkit-Lite2 for Python ${PY_VER}...${RESET}"
+PY_TAG=$(python3 -c "import sys; print(f'{sys.version_info.major}{sys.version_info.minor}')")
+echo -e "\n${BOLD}[4/4] Installing RKNN-Toolkit-Lite2 for Python ${PY_VER} (cp${PY_TAG})...${RESET}"
 
 pip install --upgrade pip setuptools wheel
 pip install numpy opencv-python-headless
 
-# Clone and install official RKNN-Toolkit-Lite2 wheel
-TEMP_CLONE=$(mktemp -d)
-echo "Cloning official Rockchip RKNPU2 repository (shallow clone)..."
-git clone --depth 1 https://github.com/airockchip/rknpu2.git "$TEMP_CLONE/rknpu2"
+# Fetch official wheel from airockchip/rknn-toolkit2
+WHEEL_URL="https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/packages/rknn_toolkit_lite2-2.3.2-cp${PY_TAG}-cp${PY_TAG}-manylinux_2_17_aarch64.manylinux2014_aarch64.whl"
 
-WHEEL_PATH=$(find "$TEMP_CLONE/rknpu2/rknn-toolkit-lite2/packages" -name "*cp${PY_VER/./}*linux_aarch64.whl" | head -n 1)
-
-if [ -n "$WHEEL_PATH" ] && [ -f "$WHEEL_PATH" ]; then
-    echo -e "Found matching wheel: ${CYAN}$(basename "$WHEEL_PATH")${RESET}"
-    pip install "$WHEEL_PATH"
-    echo -e "${GREEN}[SUCCESS] RKNN-Toolkit-Lite2 installed successfully!${RESET}"
+echo "Attempting direct wheel install from Rockchip upstream..."
+if pip install "$WHEEL_URL"; then
+    echo -e "${GREEN}[SUCCESS] RKNN-Toolkit-Lite2 wheel installed successfully!${RESET}"
 else
-    echo -e "${YELLOW}[WARN] Exact wheel for Python ${PY_VER} not bundled. Installing latest generic or building from repo...${RESET}"
-    pip install "$TEMP_CLONE/rknpu2/rknn-toolkit-lite2/packages/"*linux_aarch64.whl || true
+    echo -e "${YELLOW}[WARN] Direct install failed, falling back to repository clone...${RESET}"
+    TEMP_CLONE=$(mktemp -d)
+    git clone --depth 1 https://github.com/airockchip/rknn-toolkit2.git "$TEMP_CLONE/rknn-toolkit2"
+    WHEEL_PATH=$(find "$TEMP_CLONE/rknn-toolkit2/rknn-toolkit-lite2/packages" -name "*cp${PY_TAG}*linux_aarch64.whl" | head -n 1)
+    
+    if [ -n "$WHEEL_PATH" ] && [ -f "$WHEEL_PATH" ]; then
+        echo -e "Found local wheel: ${CYAN}$(basename "$WHEEL_PATH")${RESET}"
+        pip install "$WHEEL_PATH"
+        echo -e "${GREEN}[SUCCESS] RKNN-Toolkit-Lite2 installed from cloned repo!${RESET}"
+    else
+        echo -e "${RED}[FAIL] Compatible wheel for Python ${PY_VER} not found.${RESET}"
+    fi
+    rm -rf "$TEMP_CLONE"
 fi
-
-# Clean up temporary git clone
-rm -rf "$TEMP_CLONE"
 
 # 6. Verification Test
 echo -e "\n${BOLD}======================================================================"

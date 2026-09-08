@@ -40,10 +40,9 @@ RUN pip3 install --no-cache-dir \
     pillow \
     tqdm
 
-# Clone official Rockchip RKNPU2 repository and install matching aarch64 wheel
-RUN git clone --depth 1 https://github.com/airockchip/rknpu2.git /tmp/rknpu2 && \
-    pip3 install --no-cache-dir /tmp/rknpu2/rknn-toolkit-lite2/packages/*cp310*linux_aarch64.whl && \
-    rm -rf /tmp/rknpu2
+# Download and install official RKNN-Toolkit-Lite2 wheel for Python 3.10 (Ubuntu 22.04 LTS)
+RUN pip3 install --no-cache-dir \
+    https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/packages/rknn_toolkit_lite2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
 
 # Verification test inside container image
 RUN python3 -c "from rknnlite.api import RKNNLite; print('RKNN-Toolkit-Lite2 successfully installed in container!')"
