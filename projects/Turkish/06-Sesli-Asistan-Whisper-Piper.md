@@ -237,7 +237,7 @@ Toplam Yanıt Süresi: ~353 ms
 | **Maliyet** | Aylık API / abonelik ücretleri riski | **Sıfır maliyet (Tamamen açık kaynak)** |
 
 > [!TIP]
-> Bu sistemi [Orange Pi 5 GPIO Rehberimizdeki](file:///projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20Kontrolü%20ve%20GPIO-C++%20Geliştirme%20Rehberi.md) röle kontrol kodlarıyla birleştirerek; "Işığı aç", "Kombiyi çalıştır" veya "Kapıyı kilitle" gibi sesli ev otomasyon komutlarını internet olmadan çalıştırabilirsiniz.
+> Bu sistemi [Orange Pi 5 GPIO Rehberimizdeki](08-GPIO-ve-Donanim-Kontrolu.md) röle kontrol kodlarıyla birleştirerek; "Işığı aç", "Kombiyi çalıştır" veya "Kapıyı kilitle" gibi sesli ev otomasyon komutlarını internet olmadan çalıştırabilirsiniz.
 
 ---
 

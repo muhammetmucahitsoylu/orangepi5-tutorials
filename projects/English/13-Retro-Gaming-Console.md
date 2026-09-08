@@ -124,7 +124,7 @@ exit
 * **Game ROMs:** Store `.iso`, `.chd`, or `.cso` files on your high-speed M.2 NVMe SSD (e.g., `/DATA/Games/PS2`).
 
 > [!TIP]
-> Using the [Samba Share Guide](file:///projects/English/Orange%20Pi%205%20(RK3588S)%20Personal%20Cloud%20and%20Jellyfin%20Hardware%20Media%20Server%20Guide.md), you can drag and drop game ROMs directly over your local network by navigating to `\\ORANGE_PI_IP\OrangePi_Share\Games` from your PC.
+> Using the [Samba Share Guide](11-Personal-Cloud-Jellyfin.md), you can drag and drop game ROMs directly over your local network by navigating to `\\ORANGE_PI_IP\OrangePi_Share\Games` from your PC.
 
 ---
 

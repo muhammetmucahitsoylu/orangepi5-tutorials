@@ -236,7 +236,7 @@ Total Turnaround Latency: ~356 ms
 | **Cost** | Risk of API subscription fees | **100% Free & Open Source** |
 
 > [!TIP]
-> Integrate this voice assistant with the [Hardware Control & GPIO Guide](file:///projects/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20Control%20and%20GPIO-C++%20Development%20Guide.md) to trigger relays, turn on lighting, or command robotics entirely by voice without ever touching an internet connection.
+> Integrate this voice assistant with the [Hardware Control & GPIO Guide](08-Hardware-Control-GPIO-Cpp.md) to trigger relays, turn on lighting, or command robotics entirely by voice without ever touching an internet connection.
 
 ---
 
