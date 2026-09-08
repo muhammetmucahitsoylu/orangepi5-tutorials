@@ -21,6 +21,11 @@ Orange Pi 5 kullanıcılarının yaşadığı ani yeniden başlama veya yük alt
 
 Kartın alt yüzeyinde bir adet M.2 yuvası yer almaktadır. Disk seçiminde dikkat edilmesi gereken kritik noktalar şunlardır:
 
+### **Fiziksel Boyut (Form Factor): M.2 2242 Standardı**
+* **Dahili Vida Yuvası 2242'dir:** Kartın altındaki pirinç vida yuvası **M.2 2242 (22mm genişlik, 42mm uzunluk)** boyutuna göre konumlandırılmıştır.
+* **Standart 2280 SSD Takılır mı?** Piyasadaki en yaygın SSD'ler **2280 (80mm)** boyutundadır. 2280 bir disk yuvaya oturur ve elektriksel olarak sorunsuz çalışır; ancak diskin arka kısmı kartın vida yuvasının dışına taşar. Diski sabitlemek için küçük bir **2242-2280 metal uzatma braketi** kullanılmalı veya diskin arkasının sallanması engellenmelidir (Orange Pi 5 Pro ve Plus modellerinde 2280 vida yuvası yerleşiktir).
+* **Doğrudan Karta Oturan Modeller:** Kioxia BG4, Western Digital SN530 (2242 boyutu), Transcend 430S veya KingSpec 2242 NVMe.
+
 ### **Yalnızca NVMe (PCIe) Desteklenir**
 * Bu yuvaya **kesinlikle M.2 SATA SSD takılmamalıdır**. Anakart üzerinde SATA veri hattı bulunmadığı için kart SATA diskleri algılamaz (`lsblk` komutunda disk görünmez).
 * Yalnızca **M.2 NVMe (PCIe)** protokolünü kullanan diskler çalışır (M-Key).

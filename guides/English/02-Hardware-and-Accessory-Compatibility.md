@@ -21,6 +21,11 @@ Unexpected reboots and system crashes under load on the Orange Pi 5 are most com
 
 The Orange Pi 5 features a single M.2 socket on the underside of the board. Keep the following rules in mind when choosing an SSD:
 
+### **Physical Form Factor: M.2 2242 Default Standoff**
+* **Onboard Screw Hole is 2242:** The brass mounting standoff on the underside of the PCB is physically positioned for **M.2 2242 (22mm wide, 42mm long)** drives.
+* **Can You Use a Standard 2280 SSD?** The most common consumer SSDs are **2280 (80mm)**. A 2280 drive is electrically 100% compatible and fits into the M-Key slot, but its rear extends ~38mm past the mounting screw hole. To secure it firmly against vibration, you should use a cheap **2242-to-2280 metal adapter extender bracket** or a dedicated 3D-printed enclosure (Orange Pi 5 Pro and Plus boards feature native 2280 standoffs).
+* **Native 2242 Plug-and-Play Drives:** Kioxia BG4, Western Digital SN530 (2242 variant), Transcend 430S, or KingSpec 2242 NVMe.
+
 ### **NVMe (PCIe) Only**
 * **Do NOT install an M.2 SATA SSD.** The slot does not have SATA data lines routed to it; M.2 SATA drives will not be detected at all (`lsblk` will show nothing).
 * Only **M.2 NVMe (PCIe)** drives are supported (M-Key).
