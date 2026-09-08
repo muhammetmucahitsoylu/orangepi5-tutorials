@@ -87,17 +87,17 @@ Hardware-accelerated media pipelines utilizing Rockchip Media Process Platform (
 ## 5. Storage Throughput & Latency (`fio` Direct I/O)
 
 Storage performance tested using an identical **Samsung 980 500GB NVMe PCIe SSD**:
-* **Orange Pi 5:** Plugged directly into the onboard M.2 2242 PCIe 2.0 x1 slot.
+* **Orange Pi 5:** Plugged into the onboard M.2 PCIe 2.0 x1 slot (native 2242 standoff; tested using standard 2242-to-2280 extender bracket).
 * **Raspberry Pi 5:** Connected via an official PCIe M.2 HAT over a 16-pin FPC ribbon cable.
 
 ```
 Sequential Read / Write (MB/s - PCIe 2.0 x1 Bus Saturation)
 ====================================================================================
-Orange Pi 5 (Native M.2 Slot)
+Orange Pi 5 (Native M.2 Slot - PCIe 2.0 x1)
   Sequential Read  : [████████████████████████████████████████] 415.2 MB/s
   Sequential Write : [██████████████████████████████████████  ] 392.6 MB/s
 
-Raspberry Pi 5 (PCIe HAT Ribbon)
+Raspberry Pi 5 (PCIe HAT Ribbon - PCIe 2.0 Default)
   Sequential Read  : [████████████████████████████████████████] 412.0 MB/s
   Sequential Write : [█████████████████████████████████████   ] 388.4 MB/s
 
@@ -107,7 +107,9 @@ Random 4K Mixed IOPS (70% Read / 30% Write)
 ====================================================================================
 ```
 
-* **Physical Reliability:** The Orange Pi 5 mounts the SSD firmly against the PCB with a brass standoff, avoiding high-frequency signal degradation or loose ribbon connections common with add-on HATs.
+> [!NOTE]
+> * **Form Factor:** The Orange Pi 5 onboard slot natively accommodates **M.2 2242** SSDs. Standard 2280 SSDs overhang the board edge unless using an extender bracket or opting for the Orange Pi 5 Pro / Plus.
+> * **PCIe Gen3 Nuance:** The Raspberry Pi 5 allows an unofficial override to PCIe Gen 3.0 (`dtparam=pciex1_gen=3`), reaching ~850 MB/s with short cables. The Orange Pi 5 (RK3588S) is hard-wired at SoC silicon level to PCIe 2.0 x1 (~420 MB/s ceiling), while the Orange Pi 5 Plus features a full PCIe 3.0 x4 bus (~3,500 MB/s).
 
 ---
 

@@ -78,6 +78,12 @@ Where:
 ## 4. Programming Snippets
 
 ### A. Bash (`gpiod` Modern Linux Standard)
+
+> [!NOTE]
+> **libgpiod v1 vs v2 Syntax:**
+> * **Ubuntu 22.04 / Debian 11/12 (libgpiod v1):** `gpioset gpiochip1 0=1`
+> * **Ubuntu 24.04 Noble (libgpiod v2):** `gpioset -c 1 0=active` (or `gpioset --chip 1 0=1`)
+
 ```bash
 # Install tool
 sudo apt install -y gpiod
@@ -85,7 +91,7 @@ sudo apt install -y gpiod
 # Inspect all available GPIO chips
 gpiodetect
 
-# Toggle Pin 11 (GPIO1_A0 -> gpiochip1 offset 0) HIGH then LOW
+# Toggle Pin 11 (GPIO1_A0 -> gpiochip1 offset 0) HIGH then LOW (v1 syntax)
 gpioset gpiochip1 0=1
 sleep 1
 gpioset gpiochip1 0=0
@@ -116,6 +122,8 @@ int main() {
 ```
 
 ### C. Python 3 (`gpiod`)
+
+#### For Ubuntu 22.04 LTS (`python3-libgpiod` v1.x):
 ```python
 import gpiod
 import time
@@ -130,4 +138,20 @@ try:
     line.set_value(0) # LOW
 finally:
     line.release()
+```
+
+#### For Ubuntu 24.04 LTS (`gpiod` v2.x):
+```python
+import gpiod
+import time
+
+# v2 uses context managers and LineSettings
+with gpiod.request_lines(
+    "/dev/gpiochip1",
+    consumer="LED_Test",
+    config={0: gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)}
+) as req:
+    req.set_value(0, gpiod.line.Value.ACTIVE)
+    time.sleep(1)
+    req.set_value(0, gpiod.line.Value.INACTIVE)
 ```

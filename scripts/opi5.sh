@@ -16,6 +16,17 @@ CYAN="\033[0;36m"
 MAGENTA="\033[0;35m"
 RESET="\033[0m"
 
+# Resilient Input Reader (Supports curl ... | bash pipe via /dev/tty fallback)
+read_input() {
+    if [ -t 0 ]; then
+        read -r "$@"
+    elif [ -e /dev/tty ]; then
+        read -r "$@" < /dev/tty
+    else
+        read -r "$@"
+    fi
+}
+
 # Print Header Banner
 print_header() {
     clear 2>/dev/null || true
@@ -95,23 +106,31 @@ run_diagnostics() {
     echo -e "    Root Filesystem  : ${CYAN}${ROOT_DEV}${RESET}"
     
     echo -e "\nPress [ENTER] to return to the main menu..."
-    read -r _
+    read_input _
 }
 
 # 2. Performance Governor Lock
 set_performance() {
     echo -e "\n${BOLD}${YELLOW}=== [2] Locking System to Maximum Performance Mode ===${RESET}\n"
+    
+    # Elevate with sudo if not root
+    SUDO_CMD=""
     if [ "$EUID" -ne 0 ]; then
-        echo -e "${RED}[ERROR] Root privileges required. Re-run with sudo.${RESET}"
-        echo -e "Press [ENTER] to return..."
-        read -r _
-        return
+        if command -v sudo >/dev/null 2>&1; then
+            echo -e "${YELLOW}[!] Elevating permissions via sudo...${RESET}"
+            SUDO_CMD="sudo"
+        else
+            echo -e "${RED}[ERROR] Root privileges required and sudo not available.${RESET}"
+            echo -e "Press [ENTER] to return..."
+            read_input _
+            return
+        fi
     fi
     
     echo "Setting CPU DVFS governors to 'performance'..."
     for pol in /sys/devices/system/cpu/cpufreq/policy*; do
         if [ -f "$pol/scaling_governor" ]; then
-            echo "performance" > "$pol/scaling_governor"
+            echo "performance" | $SUDO_CMD tee "$pol/scaling_governor" >/dev/null 2>&1 || true
             CURR_MHZ=$(($(cat "$pol/scaling_cur_freq") / 1000))
             echo -e "  $(basename "$pol") locked at: ${GREEN}${CURR_MHZ} MHz${RESET}"
         fi
@@ -120,7 +139,7 @@ set_performance() {
     # GPU Performance
     for gpu_gov in /sys/class/devfreq/*gpu*/governor; do
         if [ -f "$gpu_gov" ]; then
-            echo "performance" > "$gpu_gov" 2>/dev/null || true
+            echo "performance" | $SUDO_CMD tee "$gpu_gov" >/dev/null 2>&1 || true
             echo -e "  GPU Governor set to: ${GREEN}performance${RESET}"
         fi
     done
@@ -128,7 +147,7 @@ set_performance() {
     # NPU Performance
     for npu_gov in /sys/class/devfreq/*npu*/governor; do
         if [ -f "$npu_gov" ]; then
-            echo "performance" > "$npu_gov" 2>/dev/null || true
+            echo "performance" | $SUDO_CMD tee "$npu_gov" >/dev/null 2>&1 || true
             echo -e "  NPU Governor set to: ${GREEN}performance${RESET}"
         fi
     done
@@ -136,57 +155,80 @@ set_performance() {
     echo -e "\n${GREEN}${BOLD}[SUCCESS] Full hardware performance mode engaged!${RESET}"
     echo -e "${YELLOW}Note: Ensure active fan cooling is connected to prevent thermal throttling.${RESET}"
     echo -e "\nPress [ENTER] to return..."
-    read -r _
+    read_input _
 }
 
 # 3. Default Power-Saving Governor
 set_powersave() {
     echo -e "\n${BOLD}${CYAN}=== [3] Restoring Balanced Power Governor (Schedutil) ===${RESET}\n"
+    
+    SUDO_CMD=""
     if [ "$EUID" -ne 0 ]; then
-        echo -e "${RED}[ERROR] Root privileges required. Re-run with sudo.${RESET}"
-        echo -e "Press [ENTER] to return..."
-        read -r _
-        return
+        if command -v sudo >/dev/null 2>&1; then
+            echo -e "${YELLOW}[!] Elevating permissions via sudo...${RESET}"
+            SUDO_CMD="sudo"
+        else
+            echo -e "${RED}[ERROR] Root privileges required and sudo not available.${RESET}"
+            echo -e "Press [ENTER] to return..."
+            read_input _
+            return
+        fi
     fi
     
     for pol in /sys/devices/system/cpu/cpufreq/policy*; do
         if [ -f "$pol/scaling_governor" ]; then
             AVAILABLE=$(cat "$pol/scaling_available_governors")
+            TARGET_GOV="schedutil"
             if [[ "$AVAILABLE" =~ schedutil ]]; then
-                echo "schedutil" > "$pol/scaling_governor"
+                TARGET_GOV="schedutil"
             elif [[ "$AVAILABLE" =~ ondemand ]]; then
-                echo "ondemand" > "$pol/scaling_governor"
+                TARGET_GOV="ondemand"
             fi
+            echo "$TARGET_GOV" | $SUDO_CMD tee "$pol/scaling_governor" >/dev/null 2>&1 || true
             echo -e "  $(basename "$pol") restored to: ${GREEN}$(cat "$pol/scaling_governor")${RESET}"
         fi
     done
     
     echo -e "\n${GREEN}[SUCCESS] Balanced dynamic frequency scaling restored.${RESET}"
     echo -e "\nPress [ENTER] to return..."
-    read -r _
+    read_input _
 }
 
 # 4. Storage Benchmark
 run_storage_benchmark() {
     echo -e "\n${BOLD}${MAGENTA}=== [4] Storage I/O Benchmark (Sequential Throughput) ===${RESET}\n"
-    TEST_FILE="./.opi5_speedtest_tmp"
     
-    echo "Preparing 256MB direct write benchmark (bypassing Linux page cache)..."
-    WRITE_RESULT=$(dd if=/dev/zero of="$TEST_FILE" bs=1M count=256 conv=fdatasync 2>&1)
-    WRITE_SPEED=$(echo "$WRITE_RESULT" | grep -o '[0-9.]* [M|G]B/s' | tail -n 1)
+    TEST_DIR="${HOME:-/tmp}"
+    if [ ! -w "$TEST_DIR" ]; then
+        TEST_DIR="/tmp"
+    fi
+    TEST_FILE="${TEST_DIR}/.opi5_speedtest_tmp"
+    
+    echo -e "Target Directory         : ${CYAN}${TEST_DIR}${RESET}"
+    echo "Running 256MB direct write benchmark (fdatasync)..."
+    WRITE_RESULT=$(LC_ALL=C dd if=/dev/zero of="$TEST_FILE" bs=1M count=256 conv=fdatasync 2>&1)
+    WRITE_SPEED=$(echo "$WRITE_RESULT" | grep -o '[0-9.]* [M|G|k|K]B/s' | tail -n 1)
     
     echo -e "  Sequential Write Speed : ${GREEN}${WRITE_SPEED:-N/A}${RESET}"
     
-    # Flush cache
+    # Flush cache if permissions allow
+    CACHE_CLEARED=false
     if [ "$EUID" -eq 0 ]; then
         echo 3 > /proc/sys/vm/drop_caches 2>/dev/null || true
+        CACHE_CLEARED=true
+    elif command -v sudo >/dev/null 2>&1; then
+        sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches' 2>/dev/null && CACHE_CLEARED=true || true
     fi
     
     echo "Running 256MB direct read benchmark..."
-    READ_RESULT=$(dd if="$TEST_FILE" of=/dev/null bs=1M count=256 2>&1)
-    READ_SPEED=$(echo "$READ_RESULT" | grep -o '[0-9.]* [M|G]B/s' | tail -n 1)
+    READ_RESULT=$(LC_ALL=C dd if="$TEST_FILE" of=/dev/null bs=1M count=256 2>&1)
+    READ_SPEED=$(echo "$READ_RESULT" | grep -o '[0-9.]* [M|G|k|K]B/s' | tail -n 1)
     
-    echo -e "  Sequential Read Speed  : ${GREEN}${READ_SPEED:-N/A}${RESET}"
+    if [ "$CACHE_CLEARED" = true ]; then
+        echo -e "  Sequential Read Speed  : ${GREEN}${READ_SPEED:-N/A}${RESET} (Uncached direct disk read)"
+    else
+        echo -e "  Sequential Read Speed  : ${YELLOW}${READ_SPEED:-N/A}${RESET} (Page cache active - root needed for purge)"
+    fi
     
     rm -f "$TEST_FILE"
     
@@ -196,7 +238,7 @@ run_storage_benchmark() {
     echo "  < 35 MB/s  : Standard MicroSD card (High bottleneck for I/O)"
     
     echo -e "\nPress [ENTER] to return..."
-    read -r _
+    read_input _
 }
 
 # 5. NPU Verification & Benchmark
@@ -207,7 +249,7 @@ run_npu_test() {
         echo -e "${RED}[FAIL] /dev/rknpu device node not detected!${RESET}"
         echo -e "The Rockchip NPU driver is not loaded in this kernel."
         echo -e "Press [ENTER] to return..."
-        read -r _
+        read_input _
         return
     fi
     
@@ -234,24 +276,36 @@ run_npu_test() {
     
     echo -e "\n${GREEN}[SUCCESS] NPU hardware subsystem is healthy and ready for inference!${RESET}"
     echo -e "\nPress [ENTER] to return..."
-    read -r _
+    read_input _
 }
 
 # 6. Static MAC Address Fix
 fix_mac_address() {
     echo -e "\n${BOLD}${YELLOW}=== [6] Permanent MAC Address Lock Utility ===${RESET}\n"
+    
+    SUDO_CMD=""
     if [ "$EUID" -ne 0 ]; then
-        echo -e "${RED}[ERROR] Root privileges required. Re-run with sudo.${RESET}"
-        echo -e "Press [ENTER] to return..."
-        read -r _
-        return
+        if command -v sudo >/dev/null 2>&1; then
+            echo -e "${YELLOW}[!] Elevating permissions via sudo...${RESET}"
+            SUDO_CMD="sudo"
+        else
+            echo -e "${RED}[ERROR] Root privileges required and sudo not available.${RESET}"
+            echo -e "Press [ENTER] to return..."
+            read_input _
+            return
+        fi
     fi
     
-    IFACE=$(ip -br link | awk '$1 !~ /^lo/ {print $1}' | head -n 1)
+    # Prioritize physical Ethernet (end*, eth*) or WiFi (wl*)
+    IFACE=$(ip -br link | awk '$1 ~ /^(en|eth|wl)/ {print $1}' | head -n 1)
     if [ -z "$IFACE" ]; then
-        echo -e "${RED}[ERROR] No network interface found!${RESET}"
+        IFACE=$(ip -br link | awk '$1 !~ /^(lo|docker|veth|br|tailscale|tun|tap)/ {print $1}' | head -n 1)
+    fi
+    
+    if [ -z "$IFACE" ]; then
+        echo -e "${RED}[ERROR] No physical network interface found!${RESET}"
         echo -e "Press [ENTER] to return..."
-        read -r _
+        read_input _
         return
     fi
     
@@ -260,10 +314,10 @@ fix_mac_address() {
     echo -e "Current Assigned MAC       : ${BOLD}${CURRENT_MAC}${RESET}"
     
     echo -e "\nDo you want to permanently bind interface '${IFACE}' to MAC '${CURRENT_MAC}'? (y/N)"
-    read -r CONFIRM
+    read_input CONFIRM
     if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
         RULE_FILE="/etc/udev/rules.d/70-persistent-net.rules"
-        echo "SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS==\"?*\", ATTR{address}==\"${CURRENT_MAC}\", NAME=\"${IFACE}\"" > "$RULE_FILE"
+        echo "SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS==\"?*\", ATTR{address}==\"${CURRENT_MAC}\", NAME=\"${IFACE}\"" | $SUDO_CMD tee "$RULE_FILE" >/dev/null
         echo -e "${GREEN}[SUCCESS] Udev rule created at ${RULE_FILE}.${RESET}"
         echo -e "Your MAC address and DHCP IP lease will remain persistent across reboots."
     else
@@ -271,7 +325,7 @@ fix_mac_address() {
     fi
     
     echo -e "\nPress [ENTER] to return..."
-    read -r _
+    read_input _
 }
 
 # 7. Live Thermal & Frequency Monitor Loop
@@ -315,7 +369,7 @@ main_menu() {
         echo -e "  ${RED}0)${RESET} 🚪 Exit"
         echo ""
         echo -ne "${BOLD}Enter choice [0-7]: ${RESET}"
-        read -r CHOICE
+        read_input CHOICE
         
         case "$CHOICE" in
             1) run_diagnostics ;;
