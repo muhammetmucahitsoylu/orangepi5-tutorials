@@ -72,10 +72,13 @@ curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutor
 
 ### 📚 Kılavuzlar ve Rehberler
 
+> 🐣 **İlk Kez Başlayanlar:** Kartı kutudan ilk defa çıkarıyorsanız ve Linux bilmiyorsanız, doğrudan [00. Sıfırdan Başlayanlar Rehberimizden](guides/Turkish/00-Sifirdan-Baslayanlar-Rehberi.md) başlayın!
+
 | Kılavuz | Açıklama |
 | :--- | :--- | 
+| [**00. 0'dan Başlayanlar İçin Kurulum & Linux Rehberi**](guides/Turkish/00-Sifirdan-Baslayanlar-Rehberi.md) | Kutudan çıkarma, doğru Ubuntu imajı seçimi, BalenaEtcher ile yazım, SSH ile ilk bağlantı ve temel Linux komutları. |
 | [**01. SPI Flash & U-Boot Kurtarma / NVMe Boot**](guides/Turkish/01-Kurtarma-ve-NVMe-Kurulum.md) | EDK2 UEFI kilitlenmesinden resmi U-Boot'a dönüş, MaskROM onarımı ve M.2 NVMe SSD'ye doğrudan ağ üzerinden yazım. |
-| [**02. Donanım & Aksesuar Uyumluluk Rehberi**](guides/Turkish/02-Donanim-ve-Aksesuar-Uyumluluk.md) | 5V/4A güç beslemesi, M.2 PCIe 2.0 x1 hat sınırları, uyumlu NVMe modelleri ve termal çözümler. |
+| [**02. Donanım & Aksesuar Uyumluluk Rehberi**](guides/Turkish/02-Donanim-ve-Aksesuar-Uyumluluk.md) | 5V/4A güç beslemesi, M.2 2242/2280 form factor sınırları, uyumlu NVMe modelleri ve termal çözümler. |
 | [**03. Donanım Doğrulama & Stres Testi Rehberi**](guides/Turkish/03-Donanim-Dogrulama-ve-Stres-Testi.md) | CPU tepe güç ölçümü, RAM bant genişliği, fio ile NVMe hız testi ve termal kararlılık doğrulama protokolü. |
 | [**04. Sabit MAC & IP Yapılandırma Rehberi**](guides/Turkish/04-Sabit-MAC-ve-Statik-IP.md) | Her yeniden başlamada rastgele değişen MAC adresi sorununu teşhis etme ve NetworkManager ile kalıcı statik IP atama. |
 | [**05. Ekransız (Headless) Sunucu Rehberi**](guides/Turkish/05-Ekransiz-Sunucu-Optimizasyonu.md) | 7/24 ev sunucusu için GUI kapatma (500MB+ RAM kazanımı), ZRAM sıkıştırılmış takas alanı, NTP ve kalıcı governor servisi. |
@@ -182,6 +185,7 @@ OrangePi5_Tutorials/
 │   └── GPIO_PINOUT.md
 ├── guides/
 │   ├── English/
+│   │   ├── 00-Beginners-Zero-to-Hero-Roadmap.md
 │   │   ├── 01-Recovery-and-NVMe-Installation.md
 │   │   ├── 02-Hardware-and-Accessory-Compatibility.md
 │   │   ├── 03-Hardware-Verification-and-Stress-Testing.md
@@ -191,6 +195,7 @@ OrangePi5_Tutorials/
 │   │   ├── 07-Browser-and-VPU-Acceleration.md
 │   │   └── 08-Remote-Access-and-Desktop-Connection.md
 │   ├── Turkish/
+│   │   ├── 00-Sifirdan-Baslayanlar-Rehberi.md
 │   │   ├── 01-Kurtarma-ve-NVMe-Kurulum.md
 │   │   ├── 02-Donanim-ve-Aksesuar-Uyumluluk.md
 │   │   ├── 03-Donanim-Dogrulama-ve-Stres-Testi.md
@@ -300,10 +305,13 @@ curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutor
 
 ### 📚 Guides & Tutorials
 
+> 🐣 **First Time with Orange Pi or Linux?** Start with our comprehensive [00. Zero-to-Hero Beginner Setup & Linux Primer](guides/English/00-Beginners-Zero-to-Hero-Roadmap.md)!
+
 | Guide | Description |
 | :--- | :--- | 
+| [**00. Zero-to-Hero Beginner Setup & Linux Primer**](guides/English/00-Beginners-Zero-to-Hero-Roadmap.md) | Unboxing safety, choosing the right Ubuntu image, flashing with BalenaEtcher, headless SSH onboarding, and terminal basics. |
 | [**01. SPI Flash & U-Boot Recovery / NVMe Boot**](guides/English/01-Recovery-and-NVMe-Installation.md) | Restoring official U-Boot from EDK2 UEFI lockups, MaskROM recovery, and direct network streaming to M.2 NVMe SSD. |
-| [**02. Hardware & Accessory Compatibility Guide**](guides/English/02-Hardware-and-Accessory-Compatibility.md) | 5V/4A power supply requirements, M.2 PCIe 2.0 x1 bus limits, compatible NVMe SSDs, and thermal solutions. |
+| [**02. Hardware & Accessory Compatibility Guide**](guides/English/02-Hardware-and-Accessory-Compatibility.md) | 5V/4A power supply requirements, M.2 2242/2280 form factor limits, compatible NVMe SSDs, and thermal solutions. |
 | [**03. Hardware Verification & Stress Testing Guide**](guides/English/03-Hardware-Verification-and-Stress-Testing.md) | CPU prime compute, RAM bandwidth, fio NVMe throughput testing, and thermal saturation verification protocol. |
 | [**04. Fixed MAC & Static IP Guide**](guides/English/04-Fixed-MAC-and-Static-IP.md) | Diagnosing randomized MAC addresses across boots and pinning persistent local static IP via NetworkManager. |
 | [**05. Headless Server & Optimization Guide**](guides/English/05-Headless-Server-Optimization.md) | 24/7 server setup: disabling GUI (reclaiming 500MB+ RAM), ZRAM swap setup, NTP sync, and boot performance service. |
@@ -410,6 +418,7 @@ OrangePi5_Tutorials/
 │   └── GPIO_PINOUT.md
 ├── guides/
 │   ├── English/
+│   │   ├── 00-Beginners-Zero-to-Hero-Roadmap.md
 │   │   ├── 01-Recovery-and-NVMe-Installation.md
 │   │   ├── 02-Hardware-and-Accessory-Compatibility.md
 │   │   ├── 03-Hardware-Verification-and-Stress-Testing.md
@@ -419,6 +428,7 @@ OrangePi5_Tutorials/
 │   │   ├── 07-Browser-and-VPU-Acceleration.md
 │   │   └── 08-Remote-Access-and-Desktop-Connection.md
 │   ├── Turkish/
+│   │   ├── 00-Sifirdan-Baslayanlar-Rehberi.md
 │   │   ├── 01-Kurtarma-ve-NVMe-Kurulum.md
 │   │   ├── 02-Donanim-ve-Aksesuar-Uyumluluk.md
 │   │   ├── 03-Donanim-Dogrulama-ve-Stres-Testi.md
