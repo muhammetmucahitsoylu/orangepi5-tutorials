@@ -27,8 +27,8 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v4
 
-      - name: "Check Markdown Links with Lychee"
-        uses: lycheeverse/lychee-action@v1
+      - name: "Check Markdown Internal Links"
+        uses: lycheeverse/lychee-action@v2
         with:
-          args: "--verbose --no-progress --exclude-mail --offline './**/*.md'"
+          args: --verbose --no-progress --exclude-mail --offline "**/*.md"
           fail: true

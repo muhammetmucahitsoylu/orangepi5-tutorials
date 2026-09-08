@@ -126,7 +126,7 @@ Emülatörlerin çalışabilmesi için ilgili konsolların yasal BIOS dosyaları
 * **ROM Dosyaları:** `.iso`, `.chd` veya `.cso` formatındaki oyunlarınızı M.2 NVMe SSD üzerinde bir klasöre aktarın (Örn: `/DATA/Games/PS2`).
 
 > [!TIP]
-> Daha önce kurduğumuz [Samba Paylaşımı](file:///projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Kişisel%20Bulut%20ve%20Jellyfin%20Donanımsal%20Medya%20Sunucusu.md) sayesinde, bilgisayarınızdan ağ üzerinden `\\ORANGE_PI_IP\OrangePi_Depo\Games` klasörüne oyunlarınızı doğrudan sürükleyip bırakabilirsiniz.
+> Daha önce kurduğumuz [Samba Paylaşımı](11-Kisisel-Bulut-Jellyfin.md) sayesinde, bilgisayarınızdan ağ üzerinden `\\ORANGE_PI_IP\OrangePi_Depo\Games` klasörüne oyunlarınızı doğrudan sürükleyip bırakabilirsiniz.
 
 ---
 

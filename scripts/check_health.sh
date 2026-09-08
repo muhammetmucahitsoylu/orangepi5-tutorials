@@ -42,7 +42,7 @@ echo -e "  SoC Architecture : ${CYAN}Rockchip RK3588/RK3588S (${SOC_TYPE:-ARMv8}
 
 KERNEL_VER=$(uname -r)
 echo -e "  Linux Kernel     : ${BOLD}${KERNEL_VER}${RESET}"
-if [[ "$KERNEL_VER" =~ "5.10" ]] || [[ "$KERNEL_VER" =~ "6.1" ]]; then
+if [[ "$KERNEL_VER" =~ 5\.10 ]] || [[ "$KERNEL_VER" =~ 6\.1 ]]; then
     echo -e "  Kernel Type      : ${GREEN}Rockchip BSP Branch (Optimal for NPU/VPU/GPU)${RESET}"
 else
     echo -e "  Kernel Type      : ${YELLOW}Mainline / Custom (NPU/VPU might require custom out-of-tree drivers)${RESET}"
@@ -62,7 +62,7 @@ for policy in /sys/devices/system/cpu/cpufreq/policy*; do
         MAX_MHZ=$((MAX_FREQ / 1000))
         GOV=$(cat "$policy/scaling_governor" 2>/dev/null || echo "unknown")
         
-        if [ "$GOV" == "performance" ]; then
+        if [ "$GOV" = "performance" ]; then
             GOV_COLOR="${GREEN}"
         else
             GOV_COLOR="${YELLOW}"
@@ -162,7 +162,7 @@ echo -e "\n${BOLD}[7/7] Boot & Root Storage Topology${RESET}"
 ROOT_DEV=$(df / | tail -n 1 | awk '{print $1}')
 echo -e "  Root Filesystem    : ${BOLD}${ROOT_DEV}${RESET}"
 
-if [[ "$ROOT_DEV" =~ "nvme" ]]; then
+if [[ "$ROOT_DEV" =~ nvme ]]; then
     echo -e "  Storage Interface  : ${GREEN}M.2 PCIe NVMe Solid State Drive (Optimal Throughput & IOPS)${RESET}"
     NVMe_DEV=$(echo "$ROOT_DEV" | grep -o 'nvme[0-9]*' | head -n 1)
     if [ -d "/sys/block/$NVMe_DEV/device" ]; then
@@ -170,9 +170,9 @@ if [[ "$ROOT_DEV" =~ "nvme" ]]; then
         PCIE_SPEED=$(cat "/sys/block/$NVMe_DEV/device/current_link_speed" 2>/dev/null || echo "unknown")
         echo -e "  PCIe Link Status   : ${CYAN}Gen ${PCIE_SPEED} x${PCIE_WIDTH} lane(s)${RESET}"
     fi
-elif [[ "$ROOT_DEV" =~ "mmcblk0" ]]; then
+elif [[ "$ROOT_DEV" =~ mmcblk0 ]]; then
     echo -e "  Storage Interface  : ${YELLOW}MicroSD Card (High I/O latency risk, consider upgrading to M.2 NVMe SSD)${RESET}"
-elif [[ "$ROOT_DEV" =~ "mmcblk1" ]]; then
+elif [[ "$ROOT_DEV" =~ mmcblk1 ]]; then
     echo -e "  Storage Interface  : ${GREEN}Onboard eMMC Flash (Orange Pi 5B / 5 Plus)${RESET}"
 else
     echo -e "  Storage Interface  : ${CYAN}${ROOT_DEV}${RESET}"
