@@ -129,8 +129,8 @@ Lütfen katkı kuralları için **[CONTRIBUTING.md](CONTRIBUTING.md)** dosyasın
 OrangePi5_Tutorials/
 ├── .github/
 │   └── ISSUE_TEMPLATE/
-│       ├── bug_report.md
-│       └── feature_request.md
+│       ├── bug_report.yml
+│       └── feature_request.yml
 ├── .gitignore
 ├── CONTRIBUTING.md
 ├── LICENSE
@@ -315,8 +315,8 @@ Please check out our **[CONTRIBUTING.md](CONTRIBUTING.md)** guidelines, feel fre
 OrangePi5_Tutorials/
 ├── .github/
 │   └── ISSUE_TEMPLATE/
-│       ├── bug_report.md
-│       └── feature_request.md
+│       ├── bug_report.yml
+│       └── feature_request.yml
 ├── .gitignore
 ├── CONTRIBUTING.md
 ├── LICENSE
