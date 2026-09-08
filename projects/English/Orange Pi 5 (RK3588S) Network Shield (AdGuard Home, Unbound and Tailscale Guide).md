@@ -33,7 +33,10 @@ By default, Ubuntu's `systemd-resolved` binds to UDP port 53. Free this port for
 # 1. Disable DNSStubListener in systemd-resolved:
 sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf
 
-# 2. Restart the daemon:
+# 2. CRITICAL: Point resolv.conf directly to upstream DNS so internet resolution stays active:
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+# 3. Restart systemd-resolved (Port 53 is now freed without losing internet access):
 sudo systemctl restart systemd-resolved
 ```
 

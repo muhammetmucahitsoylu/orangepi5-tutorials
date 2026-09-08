@@ -94,6 +94,7 @@ import os
 import wave
 import time
 import pyaudio
+import subprocess
 from faster_whisper import WhisperModel
 
 # --- 1. Yapılandırma Ayarları ---
@@ -141,9 +142,14 @@ def speech_to_text(audio_path):
 
 def text_to_speech(text):
     """Piper TTS ile metni doğal Türkçe sese dönüştürüp çalar."""
-    # Piper komut satırı aracıyla ultra hızlı ses üretimi
-    cmd = f'echo "{text}" | piper --model {VOICE_MODEL} --output_file {OUTPUT_AUDIO} && aplay {OUTPUT_AUDIO}'
-    os.system(cmd)
+    # Güvenli subprocess: Tırnak ve özel karakter hatalarını tamamen önler
+    process = subprocess.Popen(
+        ["piper", "--model", VOICE_MODEL, "--output_file", OUTPUT_AUDIO],
+        stdin=subprocess.PIPE,
+        text=True
+    )
+    process.communicate(input=text)
+    subprocess.run(["aplay", OUTPUT_AUDIO], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def generate_response(prompt):
     """Asistan zekası: Temel komutlar veya NPU RKLLM yanıtı."""

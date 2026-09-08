@@ -27,8 +27,8 @@ The golden rule of embedded edge machine learning is: **"Train & Convert on PC, 
 ```bash
 pip install ultralytics onnx
 
-# Export YOLOv8 nano model to ONNX:
-yolo export model=yolov8n.pt format=onnx imgsz=640
+# Export YOLOv8 nano model to ONNX (opset=12 is most stable for RKNN compilation):
+yolo export model=yolov8n.pt format=onnx imgsz=640 opset=12
 ```
 
 ### **2. Convert ONNX to RKNN Format Script (`convert_to_rknn.py`):**
@@ -182,9 +182,10 @@ def main():
         print("Failed to initialize NPU runtime!")
         return
 
-    # 2. Image Loading and Preprocessing
+    # 2. Image Loading and Preprocessing (Convert OpenCV BGR to RGB expected by model)
     orig_img = cv2.imread(IMAGE_PATH)
-    img_padded, scale, (dw, dh) = letterbox(orig_img, (640, 640))
+    img_rgb = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
+    img_padded, scale, (dw, dh) = letterbox(img_rgb, (640, 640))
     input_data = np.expand_dims(img_padded, axis=0)
 
     # 3. Hardware NPU Inference & Timing
