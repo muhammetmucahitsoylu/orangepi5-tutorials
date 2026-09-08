@@ -138,8 +138,9 @@ print(f"[BAŞARILI] Model NPU'ya yüklendi ({time.time() - start_time:.2f} saniy
 print("Sohbeti sonlandırmak için 'exit' veya 'quit' yazın.\n")
 
 # 2. Akıcı (Streaming) Çıktı Geri Çağırma Fonksiyonu
-def callback_fn(text, state):
+def callback_fn(result, state):
     # state: 0 (üretim devam ediyor), 1 (üretim tamamlandı), 2 (hata)
+    text = result if isinstance(result, str) else getattr(result, 'text', str(result))
     sys.stdout.write(text)
     sys.stdout.flush()
 

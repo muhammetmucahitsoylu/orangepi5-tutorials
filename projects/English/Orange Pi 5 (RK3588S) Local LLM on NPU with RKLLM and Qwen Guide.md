@@ -137,8 +137,9 @@ print(f"[SUCCESS] Model loaded onto 3-core NPU in {time.time() - start_time:.2f}
 print("Type 'exit' or 'quit' to end session.\n")
 
 # 2. Token Streaming Callback Function
-def callback_fn(text, state):
+def callback_fn(result, state):
     # state: 0 (generating), 1 (finished), 2 (error)
+    text = result if isinstance(result, str) else getattr(result, 'text', str(result))
     sys.stdout.write(text)
     sys.stdout.flush()
 

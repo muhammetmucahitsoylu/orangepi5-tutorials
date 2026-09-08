@@ -81,8 +81,16 @@ Jellyfin, kişisel film ve dizi arşivinizi Netflix benzeri bir arayüzle organi
 
 ### **1. Gerekli Donanım İzinlerini Ayarlayın:**
 ```bash
-# VPU ve grafik düğümlerine erişim izinlerini verin:
+# 1. VPU ve grafik düğümlerine erişim izinlerini verin:
 sudo chmod 666 /dev/mpp_service /dev/rga /dev/dri/*
+
+# 2. KRİTİK ADIM: Yeniden başlatmalarda izinlerin sıfırlanmaması için kalıcı udev kuralı tanımlayın:
+sudo tee /etc/udev/rules.d/99-rockchip-permissions.rules <<EOF
+KERNEL=="mpp_service", MODE="0666"
+KERNEL=="rga", MODE="0666"
+KERNEL=="renderD*", MODE="0666"
+EOF
+sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
 ### **2. Docker Compose ile Donanım Hızlandırmalı Jellyfin Kurulumu:**

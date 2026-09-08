@@ -94,6 +94,7 @@ import os
 import wave
 import time
 import pyaudio
+import subprocess
 from faster_whisper import WhisperModel
 
 # --- 1. System Configuration ---
@@ -141,8 +142,14 @@ def speech_to_text(audio_path):
 
 def text_to_speech(text):
     """Synthesizes text into high-fidelity speech via Piper TTS."""
-    cmd = f'echo "{text}" | piper --model {VOICE_MODEL} --output_file {OUTPUT_AUDIO} && aplay {OUTPUT_AUDIO}'
-    os.system(cmd)
+    # Safe subprocess execution to avoid shell quoting and escaping bugs:
+    process = subprocess.Popen(
+        ["piper", "--model", VOICE_MODEL, "--output_file", OUTPUT_AUDIO],
+        stdin=subprocess.PIPE,
+        text=True
+    )
+    process.communicate(input=text)
+    subprocess.run(["aplay", OUTPUT_AUDIO], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def generate_response(prompt):
     """Decision engine: Handles local commands or delegates to RKLLM NPU."""

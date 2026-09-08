@@ -30,10 +30,14 @@ Sistem, evinizdeki hiçbir cihaza (Akıllı TV, iPhone, Android, PC) ekstra uygu
 Ubuntu üzerinde `systemd-resolved` servisi DNS portu olan 53'ü varsayılan olarak işgal eder. AdGuard'ın çalışabilmesi için bu port serbest bırakılmalıdır:
 
 ```bash
-# 1. systemd-resolved yapılandırma dosyasını düzenleyin:
+# 1. DNSStubListener'ı devre dışı bırakın:
 sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf
 
-# 2. Sistem DNS çözümleyicisini güncelleyin:
+# 2. KRİTİK ADIM: 127.0.0.53 kapandığında internetinizin kopmaması için
+# resolv.conf dosyasını gerçek yukarı akış DNS dosyasına bağlayın:
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+# 3. Servisi yeniden başlatın (Port 53 artık boşa çıktı ve internet kesilmedi):
 sudo systemctl restart systemd-resolved
 ```
 

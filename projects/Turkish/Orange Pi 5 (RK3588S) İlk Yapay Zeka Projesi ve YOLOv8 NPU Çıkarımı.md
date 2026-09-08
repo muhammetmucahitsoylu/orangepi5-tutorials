@@ -27,8 +27,8 @@ Gömülü cihazlarda yapay zeka çalıştırmanın altın kuralı: **"Bilgisayar
 ```bash
 pip install ultralytics onnx
 
-# YOLOv8 nano modelini ONNX olarak dışa aktarın:
-yolo export model=yolov8n.pt format=onnx imgsz=640
+# YOLOv8 nano modelini ONNX olarak dışa aktarın (RKNN derleyicisi için en kararlı opset=12'dir):
+yolo export model=yolov8n.pt format=onnx imgsz=640 opset=12
 ```
 
 ### **2. ONNX'ten RKNN Formatına Dönüştürme Scripti (`convert_to_rknn.py`):**
@@ -182,9 +182,10 @@ def main():
         print("NPU Runtime başlatılamadı!")
         return
 
-    # 2. Görseli Yükle ve Ön İşleme
+    # 2. Görseli Yükle ve Ön İşleme (OpenCV BGR formatını modelin beklediği RGB formatına çevirin)
     orig_img = cv2.imread(IMAGE_PATH)
-    img_padded, scale, (dw, dh) = letterbox(orig_img, (640, 640))
+    img_rgb = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
+    img_padded, scale, (dw, dh) = letterbox(img_rgb, (640, 640))
     input_data = np.expand_dims(img_padded, axis=0)
 
     # 3. NPU Çıkarımını Gerçekleştir (Süre Ölçümü)

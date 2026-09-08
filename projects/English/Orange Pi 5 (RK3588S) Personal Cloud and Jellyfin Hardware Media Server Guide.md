@@ -81,8 +81,16 @@ Jellyfin transforms your raw video library into a rich media experience. The cri
 
 ### **1. Configure Hardware Device Permissions:**
 ```bash
-# Grant container access to VPU, 2D RGA, and render nodes:
+# 1. Grant immediate access to VPU, 2D RGA, and render nodes:
 sudo chmod 666 /dev/mpp_service /dev/rga /dev/dri/*
+
+# 2. CRITICAL: Persist permissions across reboots via udev rule:
+sudo tee /etc/udev/rules.d/99-rockchip-permissions.rules <<EOF
+KERNEL=="mpp_service", MODE="0666"
+KERNEL=="rga", MODE="0666"
+KERNEL=="renderD*", MODE="0666"
+EOF
+sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
 ### **2. Deploy Hardware-Accelerated Jellyfin Container:**
