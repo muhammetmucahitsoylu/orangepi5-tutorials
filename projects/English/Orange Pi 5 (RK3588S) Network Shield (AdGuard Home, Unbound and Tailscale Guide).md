@@ -159,3 +159,14 @@ To automatically route all household devices through the shield:
 * **Smart TV & Streaming Protection:** Blocks telemetry, smart TV tracking, and intrusive popups before packets hit your screen.
 * **Zero Client Overhead:** No background VPN applications draining battery on mobile phones inside the house.
 * **True Decentralized Privacy:** Eliminates dependency on ISP DNS servers, preventing ISP metadata harvesting.
+
+---
+
+## **9. Troubleshooting & Diagnostics Matrix**
+
+| Error / Symptom | Root Cause | Verified Solution |
+| :--- | :--- | :--- |
+| `listen tcp 0.0.0.0:53: bind: address already in use` | `systemd-resolved` or another local daemon still binds Port 53. | Identify listener via `sudo ss -tulpn \| grep :53`, ensure `DNSStubListener=no` is configured, and restart the service. |
+| Board loses internet connectivity after AdGuard install | `127.0.0.53` stub was disabled before `/etc/resolv.conf` upstream link was established. | Edit `/etc/resolv.conf` to add `nameserver 1.1.1.1` temporarily to restore network access, then finish AdGuard configuration. |
+| Unbound resolution fails (`SERVFAIL`) | Stale DNSSEC root keys or RTC clock drift. | Synchronize system clock via NTP and refresh root trust anchors using `sudo -u unbound unbound-anchor`. |
+| Tailscale connects but routing/internet drops | Kernel IP forwarding disabled or routes unapproved in web console. | Verify `sysctl net.ipv4.ip_forward` outputs `1` and approve subnet/exit node in Tailscale admin dashboard. |

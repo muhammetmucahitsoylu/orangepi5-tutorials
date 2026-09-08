@@ -237,3 +237,14 @@ Total Turnaround Latency: ~356 ms
 
 > [!TIP]
 > Integrate this voice assistant with the [Hardware Control & GPIO Guide](file:///projects/English/Orange%20Pi%205%20(RK3588S)%20Hardware%20Control%20and%20GPIO-C++%20Development%20Guide.md) to trigger relays, turn on lighting, or command robotics entirely by voice without ever touching an internet connection.
+
+---
+
+## **8. Troubleshooting & Diagnostics Matrix**
+
+| Error / Symptom | Root Cause | Verified Solution |
+| :--- | :--- | :--- |
+| `PyAudio: [Errno -9996] Invalid input device` | Board lacks onboard microphone; default ALSA capture device is empty. | Run `arecord -l` to find USB microphone card index and pass to `pyaudio.open(input_device_index=...)`. |
+| `piper: command not found` | Piper executable missing from PATH or lacks execute permission. | Install binary globally via `sudo install -m 755 piper /usr/local/bin/`. |
+| `OSError: libgomp.so.1: cannot open shared object file` | Missing GNU OpenMP runtime required by `faster-whisper` (ctranslate2). | Install via `sudo apt update && sudo apt install -y libgomp1`. |
+| Captured transcription empty or garbled | Sample rate or channel format mismatch. | Strictly record audio in **16000 Hz, 16-bit Mono** PCM format. |

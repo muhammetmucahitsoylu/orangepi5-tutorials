@@ -203,3 +203,14 @@ Sohbeti sonlandırmak için 'exit' veya 'quit' yazın.
 
 > [!IMPORTANT]
 > RKLLM ile NPU üzerinde dil modeli çalışırken verileriniz internete veya herhangi bir üçüncü taraf bulut sunucusuna (OpenAI, Anthropic vb.) asla gönderilmez. Tamamen gizli, yerel ve sıfır abonelik maliyetli bir yapay zeka altyapısına sahip olursunuz.
+
+---
+
+## **7. Sık Karşılaşılan Hatalar ve Teşhis Tablosu**
+
+| Hata Mesajı / Belirti | Kök Neden | Kesin Çözüm |
+| :--- | :--- | :--- |
+| `RKLLM: model version mismatch` veya `driver version is too low` | Karttaki RKNPU çekirdek sürücüsü RKLLM runtime'ın beklediği sürümün (<0.9.3) altında. | `sudo apt update && sudo apt upgrade` ile çekirdeği güncelleyin veya Rockchip BSP 5.10.110+ / 6.1 imajına geçin. |
+| Model yüklenirken `Segmentation fault (core dumped)` | Model için ayrılan bağlam uzunluğu (`max_context_len`) veya model boyutu (örn: 7B/8B) kartın RAM sınırını aştı. | 4GB/8GB kartlar için 1.5B veya 3B modeller kullanın; derleme scriptinde `max_context_len=2048` olarak sınırlayın. |
+| `ImportError: librkllmrt.so: cannot open shared object file` | RKLLM C runtime kütüphanesi sistem kütüphane yoluna kopyalanmadı. | `sudo cp librkllmrt.so /usr/lib/` uygulayın ve `sudo ldconfig` çalıştırın. |
+| Model anlamsız veya tekrar eden karakterler üretiyor | HuggingFace modeli dönüştürülürken yanlış Chat Şablonu (Prompt Template) veya kuantizasyon parametresi kullanıldı. | `export_rkllm.py` içinde modelin resmi tokenizer şablonunu (`tokenizer.apply_chat_template`) kullandığınızdan emin olun. |

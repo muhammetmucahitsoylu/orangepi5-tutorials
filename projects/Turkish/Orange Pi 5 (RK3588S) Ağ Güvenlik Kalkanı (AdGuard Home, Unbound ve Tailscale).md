@@ -159,3 +159,14 @@ Tüm evdeki televizyon, tablet ve telefonların otomatik korunması için:
 * **Akıllı TV Reklamları:** YouTube veya dizi sitelerindeki sinir bozucu reklam ve veri toplama trafiği daha televizyona ulaşmadan engellenir.
 * **Sıfır Batarya Kaybı:** Telefonlarda arka planda çalışan VPN uygulamalarına gerek kalmaz; filtreleme doğrudan donanım seviyesinde gerçekleşir.
 * **Gizlilik:** Ziyaret ettiğiniz siteler hiçbir telekomünikasyon şirketinin veya aracı firmanın loglarında yer almaz.
+
+---
+
+## **9. Sık Karşılaşılan Hatalar ve Teşhis Tablosu**
+
+| Hata Mesajı / Belirti | Kök Neden | Kesin Çözüm |
+| :--- | :--- | :--- |
+| `listen tcp 0.0.0.0:53: bind: address already in use` | `systemd-resolved` veya başka bir DNS servisi hala Port 53'ü işgal ediyor. | `sudo ss -tulpn \| grep :53` ile portu kullanan servisi bulun; Adım 1'deki `DNSStubListener=no` ayarını yapıp servisi yeniden başlatın. |
+| AdGuard kurulduktan sonra kartın kendi interneti koptu | `127.0.0.53` kapatıldı ancak `/etc/resolv.conf` gerçek DNS sunucusuna bağlanamadı. | `sudo nano /etc/resolv.conf` içine geçici olarak `nameserver 1.1.1.1` yazarak interneti kurtarın, ardından AdGuard ayarlarını tamamlayın. |
+| Unbound sorguları `SERVFAIL` veriyor veya siteler açılmıyor | DNSSEC kök anahtarları (root.key) güncel değil veya sistem tarihi hatalı. | `sudo -u unbound unbound-anchor` komutuyla anahtarları yenileyin ve sistem saatini senkronize edin. |
+| Tailscale tüneli bağlandı ama internete çıkılamıyor | Linux çekirdeğinde paket yönlendirme (IP Forwarding) aktifleşmedi veya admin panelinden exit-node onaylanmadı. | `sudo sysctl net.ipv4.ip_forward` çıktısının `1` olduğunu kontrol edin ve Tailscale Admin Konsolu'ndan route onayını verin. |

@@ -202,3 +202,14 @@ Type 'exit' or 'quit' to end session.
 
 > [!IMPORTANT]
 > Because inference runs locally on the RK3588 NPU, zero private conversation data ever leaves your device. No cloud API keys, recurring subscription costs, or internet connections are required.
+
+---
+
+## **7. Troubleshooting & Diagnostics Matrix**
+
+| Error / Symptom | Root Cause | Verified Solution |
+| :--- | :--- | :--- |
+| `RKLLM: model version mismatch` or `driver version is too low` | Target RKNPU kernel module is older (< 0.9.3) than runtime expectations. | Run `sudo apt update && sudo apt upgrade` or migrate to a Rockchip BSP 5.10.110+ / 6.1 image. |
+| `Segmentation fault (core dumped)` during model load | Configured `max_context_len` or model size (e.g. 7B/8B) exceeds physical RAM limits. | Target 1.5B to 3B models for 4GB/8GB boards; constrain context in export script (`max_context_len=2048`). |
+| `ImportError: librkllmrt.so: cannot open shared object file` | RKLLM C runtime shared object is missing from system library paths. | Copy `librkllmrt.so` to `/usr/lib/` and run `sudo ldconfig`. |
+| Model hallucinates repetitive or gibberish tokens | Mismatched chat template or quantization flags during export. | Ensure `export_rkllm.py` utilizes the model's official tokenizer template (`tokenizer.apply_chat_template`). |

@@ -238,3 +238,14 @@ Toplam Yanıt Süresi: ~353 ms
 
 > [!TIP]
 > Bu sistemi [Orange Pi 5 GPIO Rehberimizdeki](file:///projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Donanım%20Kontrolü%20ve%20GPIO-C++%20Geliştirme%20Rehberi.md) röle kontrol kodlarıyla birleştirerek; "Işığı aç", "Kombiyi çalıştır" veya "Kapıyı kilitle" gibi sesli ev otomasyon komutlarını internet olmadan çalıştırabilirsiniz.
+
+---
+
+## **8. Sık Karşılaşılan Hatalar ve Teşhis Tablosu**
+
+| Hata Mesajı / Belirti | Kök Neden | Kesin Çözüm |
+| :--- | :--- | :--- |
+| `PyAudio: [Errno -9996] Invalid input device` | Kartta dahili mikrofon olmadığı için varsayılan ALSA giriş aygıtı boş. | `arecord -l` ile USB mikrofonun kart numarasını (örn: card 1) bulun ve `pyaudio.open(input_device_index=...)` parametresine verin. |
+| `piper: command not found` | Piper TTS binary dosyası PATH dizinine kopyalanmadı veya çalıştırma izni verilmedi. | Binary dosyasını `sudo install -m 755 piper /usr/local/bin/` ile sisteme tanıtın. |
+| `OSError: libgomp.so.1: cannot open shared object file` | `faster-whisper` (ctranslate2) motorunun ihtiyaç duyduğu OpenMP kütüphanesi eksik. | `sudo apt update && sudo apt install -y libgomp1` komutunu çalıştırın. |
+| Algılanan ses anlaşılmıyor veya sürekli boş dönüyor | Mikrofon örnekleme hızı (sample rate) veya formatı uyuşmuyor. | Ses kaydını mutlaka **16000 Hz, 16-bit Mono (Tek Kanal)** PCM formatında aldığınızdan emin olun. |

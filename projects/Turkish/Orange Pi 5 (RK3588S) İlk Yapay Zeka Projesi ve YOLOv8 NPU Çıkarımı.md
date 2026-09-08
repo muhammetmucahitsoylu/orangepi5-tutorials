@@ -255,3 +255,14 @@ Tespit: person: 0.75
 
 > [!TIP]
 > NPU kullanımının en büyük avantajı yalnızca hız değildir. Çıkarım yaparken CPU çekirdekleri boş kaldığı için kart üzerinde aynı anda web sunucusu, veritabanı veya kontrol algoritmaları sıfır takılma ile çalışmaya devam eder.
+
+---
+
+## **7. Sık Karşılaşılan Hatalar ve Teşhis Tablosu**
+
+| Hata Mesajı / Belirti | Kök Neden | Kesin Çözüm |
+| :--- | :--- | :--- |
+| `AssertionError: The shape of input is invalid` | Tensör boyutu hatası. RKNN-Lite varsayılan olarak **NHWC** `(1, 640, 640, 3)` bekler; PyTorch alışkanlığıyla `(1, 3, 640, 640)` NCHW formatı verildi. | `np.transpose(2, 0, 1)` yapmayın! Giriş görüntüsünü `(640, 640, 3)` olarak tutup sadece `np.expand_dims(img, axis=0)` uygulayın. |
+| `AttributeError: 'NoneType' object has no attribute 'shape'` | `cv2.imread()` hedef görseli bulamadı. | `data/bus.jpg` dosya yolunu kontrol edin veya mutlak (absolute) yol verin. |
+| `Build failed: dataset is required when do_quantization=True` | INT8 kuantizasyon kalibrasyon veri seti (`dataset.txt`) olmadan derlenmeye çalışıldı. | Kalibrasyon veri setiniz yoksa scriptteki gibi `do_quantization=False` (FP16 modu) ile derleyin. |
+| Çıktıda kutular alakasız yerlere çiziliyor | Giriş görüntüsü BGR bırakıldı veya model derlenirken `mean_values`/`std_values` normalizasyonu yanlış verildi. | `cv2.cvtColor(img, cv2.COLOR_BGR2RGB)` yapıldığından ve derleme scriptinde `mean=0, std=255` verildiğinden emin olun. |

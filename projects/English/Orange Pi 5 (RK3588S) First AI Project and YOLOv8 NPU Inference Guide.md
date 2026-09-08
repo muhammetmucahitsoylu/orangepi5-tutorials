@@ -255,3 +255,14 @@ Detected: person: 0.75
 
 > [!TIP]
 > Offloading computer vision tasks to the NPU leaves the 8 CPU cores free to handle networking, web sockets, database transactions, and robotics PID loops with zero jitter or frame drops.
+
+---
+
+## **7. Troubleshooting & Diagnostics Matrix**
+
+| Error / Symptom | Root Cause | Verified Solution |
+| :--- | :--- | :--- |
+| `AssertionError: The shape of input is invalid` | Tensor dimension mismatch. RKNN-Lite expects **NHWC** `(1, 640, 640, 3)` by default; PyTorch-style `(1, 3, 640, 640)` NCHW format was supplied. | Do not use `np.transpose(2, 0, 1)`. Retain `(640, 640, 3)` and apply `np.expand_dims(img, axis=0)`. |
+| `AttributeError: 'NoneType' object has no attribute 'shape'` | `cv2.imread()` failed to locate the input image. | Verify file path to `data/bus.jpg` or provide an absolute path. |
+| `Build failed: dataset is required when do_quantization=True` | INT8 quantization requires a calibration dataset (`dataset.txt`). | If no calibration images are available, build with `do_quantization=False` (FP16 mode). |
+| Bounding boxes drawn at arbitrary locations | Input frame was left in BGR order or compilation `mean`/`std` normalization was omitted. | Ensure `cv2.cvtColor(img, cv2.COLOR_BGR2RGB)` is performed and `mean=0, std=255` is configured during compilation. |
