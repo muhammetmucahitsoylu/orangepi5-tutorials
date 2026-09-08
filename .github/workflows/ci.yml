@@ -1,0 +1,34 @@
+name: "CI - Documentation & Code Quality"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-scripts:
+    name: "Lint & Validate Shell Scripts"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Run ShellCheck on scripts"
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: "./scripts"
+          severity: "warning"
+
+  validate-markdown-links:
+    name: "Check Markdown Internal Links"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Check Markdown Links with Lychee"
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: "--verbose --no-progress --exclude-mail --offline './**/*.md'"
+          fail: true
