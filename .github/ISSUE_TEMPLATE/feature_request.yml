@@ -1,0 +1,45 @@
+name: "💡 Feature / Guide Request / Yeni Rehber veya Özellik Önerisi"
+description: "Yeni bir rehber, proje veya donanım testi önerin / Suggest a new tutorial or project"
+title: "[FEAT]: "
+labels: ["enhancement", "documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Yeni bir rehber, donanım testi veya proje önerisi için teşekkürler! Lütfen detayları girin.
+  - type: checkboxes
+    id: category
+    attributes:
+      label: Category / Kategori
+      description: İlgili kategorileri seçin (birden fazla seçilebilir)
+      options:
+        - label: "Edge AI & NPU Workloads (YOLO, LLM, Whisper, OpenCV)"
+        - label: "Robotics & ROS 2 (Nav2, Perception Nodes, DDS)"
+        - label: "Embedded Systems & Kernel (LKM, GPIO, I2C, SPI)"
+        - label: "Server, Networking & Media (Docker, VPN, Jellyfin)"
+        - label: "Hardware Benchmarking, Stress Tests & Diagnostics"
+        - label: "Other / Diğer"
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation & Problem Statement / Motivasyon ve İhtiyaç
+      description: Bu rehbere veya projeye neden ihtiyaç var? Geliştiricilere ne kazandıracak?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution / Önerilen Çözüm ve Mimari
+      description: Hangi kütüphaneler, mimariler veya adımlar kullanılmalı?
+    validations:
+      required: true
+  - type: textarea
+    id: hardware_required
+    attributes:
+      label: Hardware & Peripherals Required / Gerekli Donanım ve Sensörler
+      placeholder: "Örn: USB/CSI Kamera, Coral TPU, CAN bus alıcı-verici, harici ekran vb."
+  - type: textarea
+    id: reference_links
+    attributes:
+      label: Reference Links / Kaynak Bağlantılar
+      placeholder: "İlgili GitHub repoları, datasheet veya makale linkleri..."

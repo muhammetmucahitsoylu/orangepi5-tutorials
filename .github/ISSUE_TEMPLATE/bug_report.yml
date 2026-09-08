@@ -1,0 +1,81 @@
+name: "🐛 Bug Report / Hata Bildirimi"
+description: "Kılavuz veya kod hatası bildirin / Report an issue or broken step"
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Orange Pi 5 ekosistemindeki hataları bildirdiğiniz için teşekkürler. Lütfen aşağıdaki alanları doldurun.
+  - type: dropdown
+    id: board_model
+    attributes:
+      label: Hardware Model / Donanım Modeli
+      description: Select your board model / Kart modelinizi seçin
+      options:
+        - Orange Pi 5 (RK3588S)
+        - Orange Pi 5B (RK3588S)
+        - Orange Pi 5 Pro (RK3588S)
+        - Orange Pi 5 Plus (RK3588)
+        - Other Rockchip RK3588 Board
+    validations:
+      required: true
+  - type: input
+    id: os_kernel
+    attributes:
+      label: OS Distribution & Kernel Version
+      description: "Run 'uname -r' and 'cat /etc/os-release'"
+      placeholder: "Ubuntu 22.04 LTS / Linux 5.10.160-rockchip-rk3588"
+    validations:
+      required: true
+  - type: dropdown
+    id: storage
+    attributes:
+      label: Storage Medium / Depolama Birimi
+      options:
+        - M.2 NVMe SSD
+        - MicroSD Card
+        - Onboard eMMC
+    validations:
+      required: true
+  - type: input
+    id: power_supply
+    attributes:
+      label: Power Supply / Güç Kaynağı
+      placeholder: "e.g. Official 5V/4A, USB-PD 65W, Phone Charger 5V/2A"
+    validations:
+      required: true
+  - type: input
+    id: guide_file
+    attributes:
+      label: Relevant Guide / İlgili Rehber Dosyası
+      placeholder: "e.g. projects/English/Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide.md"
+    validations:
+      required: true
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce / Hatanın Oluştuğu Adım
+      description: Hangi komutu çalıştırdığınızda veya hangi adımda hata aldınız?
+      placeholder: "1. Rehberdeki şu adımı uyguladım...\n2. Şu komutu çalıştırdım..."
+    validations:
+      required: true
+  - type: textarea
+    id: terminal_error
+    attributes:
+      label: Terminal Error Output / Hata Çıktısı
+      description: Terminaldeki hata logunu veya traceback çıktısını buraya yapıştırın
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: dmesg_output
+    attributes:
+      label: Diagnostic Logs / Çekirdek Logu (Opsiyonel)
+      description: "'dmesg | tail -n 25' çıktısı"
+      render: shell
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected vs Actual Behavior / Beklenen ve Gerçekleşen Davranış
+      description: Ne olmasını bekliyordunuz, gerçekte ne gerçekleşti?
