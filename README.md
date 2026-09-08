@@ -33,6 +33,7 @@ Orange Pi 5 (Rockchip RK3588S) tek kart bilgisayarı için sahada bizzat test ed
 | [**Çevrimdışı Sesli Asistan (Whisper & Piper)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Çevrimdışı%20Sesli%20Asistan%20(Whisper%20ve%20Piper%20TTS)%20Projesi.md) | %100 yerel sesli asistan: faster-whisper (STT) + RKLLM zekası + Piper TTS doğal Türkçe ses sentezi (<1s gecikme). |
 | [**Kişisel Bulut & Jellyfin VPU Medya Sunucusu**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Kişisel%20Bulut%20ve%20Jellyfin%20Donanımsal%20Medya%20Sunucusu.md) | NVMe üzerinde CasaOS, telefon fotoğraflarını otomatik yedekleme (Nextcloud), 4K VPU donanımsal transcode (Jellyfin) ve Samba. |
 | [**Ağ Güvenlik Kalkanı (AdGuard, Unbound, Tailscale)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Ağ%20Güvenlik%20Kalkanı%20(AdGuard%20Home,%20Unbound%20ve%20Tailscale).md) | Tüm ev için donanımsal reklam/izleyici kalkanı, İSS kaydını önleyen Unbound kök DNS ve dışarıdan güvenli erişim için Tailscale VPN. |
+| [**Retro Oyun Konsolu (PS2, PSP, GameCube)**](projects/Turkish/Orange%20Pi%205%20(RK3588S)%20Retro%20Oyun%20Konsolu%20ve%201080p%2060FPS%20Emülasyon%20Rehberi.md) | Mali-G610 GPU ve Vulkan hızlandırma ile 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emülasyonu ve DualShock 3/4 kol eşleşmesi. |
 
 ### 🛠️ Kılavuz Yazım İlkeleri
 
@@ -76,7 +77,8 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
     │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
     │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
-    │   └── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
+    │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
+    │   └── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
     └── Turkish/
         ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
         ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
@@ -85,7 +87,8 @@ OrangePi5_Tutorials/
         ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
         ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
         ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
-        └── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
+        ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
+        └── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
 ```
 
 ### 📄 Lisans
@@ -124,6 +127,7 @@ Field-tested recovery protocols, bootloader restorations, and setup guides enric
 | [**Offline Voice Assistant (Whisper & Piper)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Offline%20Voice%20Assistant%20with%20Whisper%20and%20Piper%20TTS%20Guide.md) | 100% private voice assistant: faster-whisper (STT) + RKLLM reasoning + Piper TTS neural synthesis (<1s round-trip). |
 | [**Personal Cloud & Jellyfin Media Server**](projects/English/Orange%20Pi%205%20(RK3588S)%20Personal%20Cloud%20and%20Jellyfin%20Hardware%20Media%20Server%20Guide.md) | CasaOS on NVMe, automatic camera roll sync (Nextcloud), 4K VPU hardware transcoding (Jellyfin), and Samba. |
 | [**Network Shield (AdGuard, Unbound, Tailscale)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Network%20Shield%20(AdGuard%20Home,%20Unbound%20and%20Tailscale%20Guide).md) | Whole-home ad/tracker sinkhole, zero-ISP-logging recursive Unbound root DNS, and secure remote Tailscale exit node. |
+| [**Retro Gaming Console (PS2, PSP, GameCube)**](projects/English/Orange%20Pi%205%20(RK3588S)%20Retro%20Gaming%20Console%20and%201080p%2060FPS%20Emulation%20Guide.md) | Mali-G610 GPU with Vulkan acceleration for 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emulation, and controller pairing. |
 
 ### 🛠️ Guide Principles
 
@@ -167,7 +171,8 @@ OrangePi5_Tutorials/
     │   ├── Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide.md
     │   ├── Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide.md
     │   ├── Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide.md
-    │   └── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
+    │   ├── Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide).md
+    │   └── Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide.md
     └── Turkish/
         ├── Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu.md
         ├── Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu.md
@@ -176,7 +181,8 @@ OrangePi5_Tutorials/
         ├── Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu.md
         ├── Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi.md
         ├── Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu.md
-        └── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
+        ├── Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale).md
+        └── Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi.md
 ```
 
 ### 📄 License
