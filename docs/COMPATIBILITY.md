@@ -9,10 +9,10 @@
 | Component | Verified Reference Version | Secondary Supported Version | Known Caveats & Deprecated |
 | :--- | :--- | :--- | :--- |
 | **Reference Hardware** | **Orange Pi 5 (RK3588S) V1.3.2** | Orange Pi 5 (V1.1 / V1.2), Orange Pi 5 Plus | Orange Pi 5B lacks M.2 NVMe slot (eMMC only). |
-| **Primary OS Distribution** | **Ubuntu 22.04.5 LTS (Jammy Jellyfish)** | Ubuntu 24.04 LTS (Noble Numbat) | Debian 11 (Bullseye) has outdated glibc/pip dependencies. |
-| **Linux Kernel Branch** | **Rockchip BSP `5.10.160-rockchip-rk3588`** (Joshua Riek / Official BSP) | Rockchip BSP `6.1.x` | Mainline Linux (6.8+) lacks in-tree RKNPU/VPU drivers (CPU fallback only). |
+| **Primary OS Distribution** | **Ubuntu 24.04.1 LTS (Noble Numbat)** | Ubuntu 22.04.5 LTS (Jammy Jellyfish) | Debian 11 (Bullseye) has outdated glibc/pip dependencies. |
+| **Linux Kernel Branch** | **Rockchip BSP `6.1.0-1025-rockchip`** (Joshua Riek / Official BSP) | Rockchip BSP `5.10.160-rockchip` | Mainline Linux (6.8+) lacks in-tree RKNPU/VPU drivers (CPU fallback only). |
 | **Desktop Environment** | **XFCE4 / Minimal Server (Headless)** | GNOME (Ubuntu Desktop) | Wayland native can cause screen-recording and X11 forwarding glitches. |
-| **Python Toolchain** | **Python 3.10.12** | Python 3.12 (Ubuntu 24.04) | Python 3.8 is deprecated by upstream Rockchip SDKs. |
+| **Python Toolchain** | **Python 3.12 (PEP 668 venv)** | Python 3.10.12 (Ubuntu 22.04) | Python 3.8 is deprecated by upstream Rockchip SDKs. |
 
 ---
 

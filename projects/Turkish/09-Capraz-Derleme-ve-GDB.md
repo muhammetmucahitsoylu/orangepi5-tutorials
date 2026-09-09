@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) Çapraz Derleme (Cross-Compilation) ve Uzaktan Hata Ayıklama Rehberi**
+# **Orange Pi 5 (RK3588S) Çapraz Derleme (Cross-Compilation) ve Uzaktan Hata Ayıklama Rehberi**
 
 > 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
@@ -38,7 +38,7 @@ Gömülü Linux dünyasında doğrudan hedef kart üzerinde derleme yapmak (nati
 
 Çapraz derlemeye başlamadan önce bilinmesi gereken **en kritik kural**:
 * **Kural:** Host (PC) üzerindeki çapraz derleyicinin bağlandığı `glibc` sürümü, hedefteki (Orange Pi 5) `glibc` sürümünden **daha yeni olamaz**.
-* **Senaryo:** Host bilgisayarınızda Ubuntu 24.04 (glibc 2.39) varsa ve Orange Pi 5'inizde Ubuntu 22.04 (glibc 2.35) kuruluysa; derlediğiniz binary kartta şu hatayla patlar:
+* **Senaryo:** Hem host bilgisayarınızda hem Orange Pi 5'inizde **Ubuntu 24.04 LTS (glibc 2.39)** kuruluysa derlenen binary tam uyumla çalışır. Ancak hedef kartınızda eski bir sistem (örn: Ubuntu 22.04 glibc 2.35) varken host'ta 24.04 kullanırsanız; derlediğiniz binary kartta şu hatayla patlar:
   ```
   ./app: /lib/aarch64-linux-gnu/libc.so.6: version 'GLIBC_2.38' not found (required by ./app)
   ```
@@ -46,13 +46,13 @@ Gömülü Linux dünyasında doğrudan hedef kart üzerinde derleme yapmak (nati
   ```bash
   ldd --version
   ```
-  *(Örn: `ldd (Ubuntu GLIBC 2.35-0ubuntu3.8) 2.35` dönüyorsa, Host ortamınızın da tercihen Ubuntu 22.04 LTS veya aynı glibc sürümüne sahip bir Docker/WSL2 konteyneri olması gerekir).*
+  *(Örn: Ubuntu 24.04 üzerinde `ldd (Ubuntu GLIBC 2.39-0ubuntu8.x) 2.39` dönecektir; host geliştirme ortamınızın da Ubuntu 24.04 LTS veya eşdeğer WSL2/Docker olması önerilir).*
 
 ---
 
 ## **3. Adım 1: Host PC Üzerinde Çapraz Derleme Araçlarını Kurma**
 
-Geliştirici bilgisayarınızda (Ubuntu 22.04 LTS veya eşdeğer WSL2) çapraz derleme paketlerini kurun:
+Geliştirici bilgisayarınızda (Ubuntu 24.04 LTS veya eşdeğer WSL2/Linux) çapraz derleme paketlerini kurun:
 
 ```bash
 # Paket listesini güncelleyin
