@@ -48,8 +48,8 @@ jobs:
 
       - name: "Cross-Compile C++ GPIO Example for ARM64"
         run: |
-          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update -o Acquire::Retries=3 -qq || sudo apt-get update --fix-missing -qq
+          sudo rm -f /etc/apt/sources.list.d/*chrome*
+          sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends g++-aarch64-linux-gnu
           mkdir -p /tmp/wiringpi_mock
           cat << 'EOF' > /tmp/wiringpi_mock/wiringPi.h
