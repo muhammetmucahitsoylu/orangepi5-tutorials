@@ -46,8 +46,10 @@ jobs:
           dockerfile: "docker/Dockerfile.rknn"
           failure-threshold: "error"
 
-      - name: "Verify C++ GPIO Example Compilation Syntax"
+      - name: "Cross-Compile C++ GPIO Example for ARM64"
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends g++-aarch64-linux-gnu
           mkdir -p /tmp/wiringpi_mock
           cat << 'EOF' > /tmp/wiringpi_mock/wiringPi.h
           #pragma once
@@ -62,4 +64,6 @@ jobs:
           inline void digitalWrite(int, int) {}
           inline int digitalRead(int) { return 0; }
           EOF
-          g++ -Wall -Wextra -std=c++17 -fsyntax-only -I/tmp/wiringpi_mock examples/gpio_cpp/src/main.cpp
+          aarch64-linux-gnu-g++ -Wall -Wextra -std=c++17 -O2 -I/tmp/wiringpi_mock examples/gpio_cpp/src/main.cpp -c -o /tmp/gpio_arm64.o
+          file /tmp/gpio_arm64.o
+          echo "ARM64 Cross-Compilation Successful!"

@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu**
+# **Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu**
 
 > 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
@@ -30,6 +30,13 @@ Standart bilgisayarlarda LLM çalıştırmak için devasa Nvidia ekran kartları
 ## **2. Adım 1: Modeli PC'de RKLLM Formatına Dönüştürme**
 
 > **Not:** Model grafiğini NPU için derleme ve ağırlıkları 4-bite sıkıştırma (quantization) işlemi ana bilgisayarınızda (x86_64 Ubuntu veya WSL2) yapılır.
+>
+> 🚀 **Hızlı Başlangıç (PC Olmadan Doğrudan Modeli İndirme):**  
+> Eğer bilgisayarınızda Linux/WSL2 veya RKLLM-Toolkit kurmakla vakit kaybetmek istemiyorsanız, doğrudan Orange Pi 5 terminalinde Hugging Face'den önceden derlenmiş ve W4A16 olarak kuantize edilmiş hazır `.rkllm` modelini tek komutla indirebilirsiniz:
+> ```bash
+> wget -O qwen-chat-1_8B.rkllm https://huggingface.co/Pelochus/qwen-1_8B-rk3588/resolve/main/qwen-chat-1_8B.rkllm
+> ```
+> Modeli indirdikten sonra doğrudan **Adım 2: Kart Üzerinde C++ Inference Motorunu Derleme** aşamasına geçebilirsiniz!
 
 ### **1. Bilgisayarda RKLLM-Toolkit Kurulumu:**
 ```bash

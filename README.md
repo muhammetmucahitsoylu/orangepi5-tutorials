@@ -59,6 +59,23 @@ bash opi5.sh
 ```
 > Klavye oklarıyla yönetilen renkli menü: CPU/GPU/NPU sıcaklıkları, 2.4 GHz tepe frekans kilidi, NVMe I/O hız testi, NPU sürücü doğrulaması ve kalıcı MAC adresi sabitleyici.
 
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│   ORANGE PI 5 (RK3588S) INTERAKTİF YÖNETİM MERKEZİ (TUI)               │
+│   Sistem: Ubuntu 24.04 LTS  | Çekirdek: 6.1.0-rockchip | NPU: 6 TOPS   │
+├────────────────────────────────────────────────────────────────────────┤
+│   [1] ⚡ Performans Modu (2.4 GHz Governor & Termal Kilitleme)          │
+│   [2] 🤖 NPU & RKNN Teşhis ve Doğrulama (Core 0/1/2 - v2.3.2)          │
+│   [3] 🚀 NVMe SSD Hız Testi (fio Sıralı & Rastgele Direct I/O)         │
+│   [4] 🌐 Kalıcı Sabit MAC Adresi & Statik IP Yapılandırma              │
+│   [5] 🌡️ Canlı Sıcaklık & Çekirdek Frekansı Telemetrisi               │
+│   [6] 🐳 Donanım Geçişli Docker Yığını Kur (VPU / GPU / NPU)           │
+│   [0] 🚪 Çıkış                                                         │
+├────────────────────────────────────────────────────────────────────────┤
+│   Canlı Teleometri: CPU 36.4°C | NPU: 1.0 GHz | NVMe: /dev/nvme0n1     │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
 #### 2. Hızlı Salt-Okunur Donanım Teşhisi (`check_health.sh`):
 ```bash
 # Doğrudan indirip inceleyerek çalıştırma:
@@ -299,6 +316,23 @@ curl -sSLO https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tuto
 bash opi5.sh
 ```
 > Full-color interactive terminal UI: Live thermal sensors, 1-click 2.4 GHz performance lock, direct NVMe I/O throughput test, NPU subsystem audit, and permanent static MAC address locking.
+
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│   ORANGE PI 5 (RK3588S) INTERACTIVE CONTROL CENTER (TUI)               │
+│   OS: Ubuntu 24.04 LTS | Kernel: 6.1.0-rockchip | NPU: 6 TOPS          │
+├────────────────────────────────────────────────────────────────────────┤
+│   [1] ⚡ Performance Mode (Lock 2.4 GHz CPU Governor & Governors)      │
+│   [2] 🤖 NPU & RKNN Diagnostic & Validation (Core 0/1/2 - v2.3.2)      │
+│   [3] 🚀 NVMe SSD Benchmark (fio Sequential & Random Direct I/O)       │
+│   [4] 🌐 Persistent Fixed MAC Address & Static IP Configurator         │
+│   [5] 🌡️ Real-Time Temperature & CPU Frequency Telemetry Monitor       │
+│   [6] 🐳 Deploy Hardware Passthrough Docker Stack (VPU/GPU/NPU)        │
+│   [0] 🚪 Exit                                                          │
+├────────────────────────────────────────────────────────────────────────┤
+│   Live Status: CPU 36.4°C | NPU: 1.0 GHz | NVMe: /dev/nvme0n1 Ready    │
+└────────────────────────────────────────────────────────────────────────┘
+```
 
 #### 2. Read-Only Instant Diagnostics (`check_health.sh`):
 ```bash

@@ -103,11 +103,26 @@ Following all of these lockups, the clearest conclusion I reached is this: insta
 
 ### **Stage 3: Put the Board into Hardware MaskROM Mode**
 
+```
+                   ORANGE PI 5 HARDWARE & PORT ORIENTATION SCHEMATIC
++-------------------------------------------------------------------------+
+| [DC-IN Type-C] [OTG Type-C]   [HDMI OUT]   [3-Pin UART] [26-Pin Header] |
+| (5V/4A Power)  (Data/Flash)                (1.5M Baud)  (GPIO/SPI/I2C)  |
+|                                                                         |
+|                                                                         |
+|                         [ RK3588S SoC ]                                 |
+|                                                                         |
+| [MicroSD Slot]    [MASKROM KEY]                                         |
+|                   (Tactile Key)                                         |
+|                                                 [ M.2 NVMe SSD (Btm) ]  |
++-------------------------------------------------------------------------+
+```
+
 1. **[WARNING]** Connect the original 5V/4A power supply to the Power In (DC-IN) Type-C port of the Orange Pi 5.  
 2. **[WARNING]** Connect a USB cable from your host computer's USB 3.0 port to the second Type-C (OTG) port on the Orange Pi 5.  
 3. **Forced MaskROM Recovery Protocol:**  
    * If the SPI Flash was cleanly erased, the SoC finds no bootloader and **automatically** falls back to MaskROM mode.
-   * **Corrupted SPI / Bootloop Escape:** If the board is stuck in an early boot crash and fails to enter MaskROM automatically, disconnect all power. Press and hold the hardware **MaskROM key** (small tactile button adjacent to the SoC / MicroSD slot). While holding the button, connect the Type-C OTG cable from the PC, wait 3 seconds, then release the button. *(Labeled 'BOOT' or 'MaskROM' on V1.1/V1.2 PCBs; tactile button on V1.3.2).*
+   * **Corrupted SPI / Bootloop Escape:** If the board is stuck in an early boot crash and fails to enter MaskROM automatically, disconnect all power. Press and hold the hardware **MaskROM key** (small tactile button adjacent to the SoC / MicroSD slot shown in the schematic above). While holding the button, connect the Type-C OTG cable from the PC, wait 3 seconds, then release the button. *(Labeled 'BOOT' or 'MaskROM' on V1.1/V1.2 PCBs; SMD tactile button on V1.3.2).*
 4. Launch `RKDevTool`; verify that the status bar at the bottom reports **Found One MASKROM Device**.
 
 ---
