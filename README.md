@@ -1,7 +1,7 @@
 # 🍊 Orange Pi 5 (RK3588S) Field Notes & Tutorials
 
 <div align="center">
-  <img src="assets/social-preview.png" alt="Orange Pi 5 RK3588S Field Notes & Tutorials" width="100%" />
+  <img src="assets/social-preview.jpg" alt="Orange Pi 5 RK3588S Field Notes & Tutorials" width="100%" />
 </div>
 
 <br/>
@@ -209,6 +209,7 @@ OrangePi5_Tutorials/
 ├── LICENSE
 ├── README.md
 ├── assets/
+│   ├── social-preview.jpg
 │   └── social-preview.png
 ├── docker/
 │   ├── Dockerfile.rknn
@@ -473,6 +474,7 @@ OrangePi5_Tutorials/
 ├── LICENSE
 ├── README.md
 ├── assets/
+│   ├── social-preview.jpg
 │   └── social-preview.png
 ├── docker/
 │   ├── Dockerfile.rknn
