@@ -52,7 +52,19 @@ Gömülü Linux dünyasında doğrudan hedef kart üzerinde derleme yapmak (nati
 
 ## **3. Adım 1: Host PC Üzerinde Çapraz Derleme Araçlarını Kurma**
 
-Geliştirici bilgisayarınızda (Ubuntu 24.04 LTS veya eşdeğer WSL2/Linux) çapraz derleme paketlerini kurun:
+### **Ön Hazırlık: Windows Kullanıcıları İçin (WSL2 Kurulumu)**
+> [!IMPORTANT]
+> Windows PowerShell veya CMD üzerinde doğrudan `apt` komutu çalışmaz. Gömülü Linux çapraz derleme araçlarını Windows'ta çalıştırmanın en temiz ve endüstri standardı yolu **WSL2 (Ubuntu 24.04)** kullanmaktır:
+> 1. Windows PowerShell'de şu komutu çalıştırın:
+>    ```powershell
+>    wsl --install -d Ubuntu-24.04
+>    ```
+> 2. Bilgisayarınızı yeniden başlatın. Açılışta Ubuntu terminali otomatik açılacaktır; kullanıcı adı ve şifrenizi belirleyin.
+> 3. Aşağıdaki tüm derleme komutlarını doğrudan bu **Ubuntu (WSL2)** terminalinde çalıştırın.
+
+---
+
+Geliştirici bilgisayarınızda (Ubuntu 24.04 LTS veya WSL2 Ubuntu terminalinde) çapraz derleme paketlerini kurun:
 
 ```bash
 # Paket listesini güncelleyin
