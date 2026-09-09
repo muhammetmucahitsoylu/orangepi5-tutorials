@@ -10,10 +10,17 @@ Skip the host PC conversion pipeline (`rknn-toolkit2` / `rkllm-toolkit`) and dow
 
 | Model | Format / Precision | Target Hardware | Direct Download Link | Source & License |
 | :--- | :---: | :---: | :--- | :--- |
-| **Qwen-1.8B Chat** | `.rkllm` (W4A16) | RK3588 NPU (3 Cores) | [Download `qwen-chat-1_8B.rkllm`](https://huggingface.co/Pelochus/qwen-1_8B-rk3588/resolve/main/qwen-chat-1_8B.rkllm) | Apache 2.0 / Qwen Open |
-| **Qwen2-1.5B Chat** | `.rkllm` (W4A16) | RK3588 NPU (3 Cores) | [Download `qwen2-1.8B-rk3588.rkllm`](https://huggingface.co/Pelochus/qwen2-1_5B-rk3588/resolve/main/qwen2-1.8B-rk3588.rkllm) | Apache 2.0 / Qwen Open |
-| **MobileNet V1** | `.rknn` (INT8/FP16) | RK3588 NPU (3 Cores) | [Download `mobilenet_v1.rknn`](https://raw.githubusercontent.com/airockchip/rknn_model_zoo/main/examples/mobilenet/model/mobilenet_v1.rknn) | Apache 2.0 (Rockchip Zoo) |
-| **YOLOv8 COCO Labels** | `.txt` (80 Classes) | Host & Target | [Download `coco_80_labels_list.txt`](https://raw.githubusercontent.com/airockchip/rknn_model_zoo/main/examples/yolov8/model/coco_80_labels_list.txt) | AGPL-3.0 / COCO |
+| **ResNet-18 (Classification)** | `.rknn` (INT8/FP16) | RK3588 NPU (3 Cores) | [Direct Download `resnet18_for_rk3588.rknn`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/resnet18_for_rk3588.rknn) | Apache 2.0 (Rockchip Model Zoo) |
+| **YOLOv8 COCO Labels** | `.txt` (80 Classes) | Host & Target | [Direct Download `coco_80_labels_list.txt`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/coco_80_labels_list.txt) | AGPL-3.0 / Ultralytics COCO |
+| **Qwen-1.8B Chat** | `.rkllm` (W4A16) | RK3588 NPU (3 Cores) | [Direct Download `qwen-chat-1_8B.rkllm`](https://huggingface.co/Pelochus/qwen-1_8B-rk3588/resolve/main/qwen-chat-1_8B.rkllm) | Apache 2.0 / Qwen Open |
+| **Qwen2-1.5B Chat** | `.rkllm` (W4A16) | RK3588 NPU (3 Cores) | [Direct Download `qwen2-1.8B-rk3588.rkllm`](https://huggingface.co/Pelochus/qwen2-1_5B-rk3588/resolve/main/qwen2-1.8B-rk3588.rkllm) | Apache 2.0 / Qwen Open |
+
+```bash
+# 📥 Quick Terminal Download (Run directly on Orange Pi 5):
+mkdir -p ~/models && cd ~/models
+wget https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/resnet18_for_rk3588.rknn
+wget https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/coco_80_labels_list.txt
+```
 
 ---
 
