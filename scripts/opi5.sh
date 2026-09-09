@@ -18,15 +18,16 @@ RESET="\033[0m"
 
 # Resilient Input Reader (Supports pipe, stdin, and /dev/tty fallback)
 read_input() {
-    local var_name="${1:-_DUMMY}"
-    eval "$var_name=''"
+    local val=""
     if [ -t 0 ]; then
-        read -r "$var_name" || true
-    elif ( < /dev/tty ) 2>/dev/null; then
-        read -r "$var_name" < /dev/tty 2>/dev/null || true
+        read -r val || true
+    elif true < /dev/tty 2>/dev/null; then
+        read -r val < /dev/tty 2>/dev/null || true
     else
-        read -r "$var_name" || true
+        read -r val || true
     fi
+    local var_name="${1:-_DUMMY}"
+    printf -v "$var_name" '%s' "$val"
 }
 
 # Print Header Banner
