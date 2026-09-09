@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 680" width="100%" height="100%">
   <defs>
     <style>
       .bg { fill: #0f172a; }
@@ -17,241 +17,245 @@
       .p-i2c  { fill: #0369a1; stroke: #0ea5e9; }
       .p-uart { fill: #a16207; stroke: #eab308; }
       .p-spi  { fill: #6d28d9; stroke: #a855f7; }
+      .p-can  { fill: #0e7490; stroke: #06b6d4; }
       .t-white { fill: #ffffff; }
       .t-light { fill: #f1f5f9; }
     </style>
   </defs>
 
   <!-- Background -->
-  <rect class="bg" width="900" height="680" rx="14" />
+  <rect class="bg" width="920" height="680" rx="14" />
 
   <!-- Header -->
-  <text x="450" y="40" class="header-title">Orange Pi 5 (RK3588S) — 26-Pin GPIO Header Layout</text>
-  <text x="450" y="62" class="header-sub">Physical Pins • WiringOP IDs • Linux GPIO Offset Formula: (Bank * 32) + (Group * 8) + Pin</text>
+  <text x="460" y="38" class="header-title">Orange Pi 5 (RK3588S) — 26-Pin GPIO Header Layout</text>
+  <text x="460" y="60" class="header-sub">Hardware Verified on Ubuntu 24.04 LTS (Linux 6.1 BSP) • Exact wiringOP IDs &amp; Linux GPIOs</text>
 
   <!-- Legend -->
-  <g transform="translate(110, 80)">
-    <rect x="0" y="0" width="16" height="16" rx="4" class="p-pwr3" />
-    <text x="22" y="13" class="legend-text">3.3V Power</text>
+  <g transform="translate(70, 78)">
+    <rect x="0" y="0" width="14" height="14" rx="3" class="p-pwr3" />
+    <text x="18" y="11" class="legend-text">3.3V Power</text>
 
-    <rect x="110" y="0" width="16" height="16" rx="4" class="p-pwr5" />
-    <text x="132" y="13" class="legend-text">5V Power</text>
+    <rect x="95" y="0" width="14" height="14" rx="3" class="p-pwr5" />
+    <text x="113" y="11" class="legend-text">5V Power</text>
 
-    <rect x="210" y="0" width="16" height="16" rx="4" class="p-gnd" />
-    <text x="232" y="13" class="legend-text">GND (Ground)</text>
+    <rect x="180" y="0" width="14" height="14" rx="3" class="p-gnd" />
+    <text x="198" y="11" class="legend-text">GND</text>
 
-    <rect x="330" y="0" width="16" height="16" rx="4" class="p-gpio" />
-    <text x="352" y="13" class="legend-text">General GPIO</text>
+    <rect x="245" y="0" width="14" height="14" rx="3" class="p-gpio" />
+    <text x="263" y="11" class="legend-text">GPIO</text>
 
-    <rect x="450" y="0" width="16" height="16" rx="4" class="p-i2c" />
-    <text x="472" y="13" class="legend-text">I2C Bus</text>
+    <rect x="315" y="0" width="14" height="14" rx="3" class="p-i2c" />
+    <text x="333" y="11" class="legend-text">I2C</text>
 
-    <rect x="540" y="0" width="16" height="16" rx="4" class="p-uart" />
-    <text x="562" y="13" class="legend-text">UART Serial</text>
+    <rect x="375" y="0" width="14" height="14" rx="3" class="p-uart" />
+    <text x="393" y="11" class="legend-text">UART</text>
 
-    <rect x="640" y="0" width="16" height="16" rx="4" class="p-spi" />
-    <text x="662" y="13" class="legend-text">SPI Bus</text>
+    <rect x="445" y="0" width="14" height="14" rx="3" class="p-spi" />
+    <text x="463" y="11" class="legend-text">SPI</text>
+
+    <rect x="505" y="0" width="14" height="14" rx="3" class="p-can" />
+    <text x="523" y="11" class="legend-text">CAN Bus</text>
   </g>
 
   <!-- Center Pin Column Labels -->
-  <text x="430" y="125" font-family="'Segoe UI', system-ui" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">ODD</text>
-  <text x="470" y="125" font-family="'Segoe UI', system-ui" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">EVEN</text>
+  <text x="440" y="125" font-family="'Segoe UI', system-ui" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">ODD</text>
+  <text x="480" y="125" font-family="'Segoe UI', system-ui" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">EVEN</text>
 
   <!-- PINS LIST (13 Rows, 2 Pins per Row) -->
   <!-- Row 1: Pin 1 & Pin 2 -->
   <g transform="translate(0, 135)">
     <!-- Left: Pin 1 -->
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-pwr3" />
-    <text x="75" y="22" class="pin-text t-white">3.3V Power</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">DC PWR</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">1</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-pwr3" />
+    <text x="65" y="22" class="pin-text t-white">3.3V Power</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">DC PWR</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">1</text>
 
     <!-- Right: Pin 2 -->
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">2</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-pwr5" />
-    <text x="515" y="22" class="pin-text t-light">DC PWR</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">5V Power</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">2</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-pwr5" />
+    <text x="525" y="22" class="pin-text t-light">DC PWR</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">5.0V Power</text>
   </g>
 
   <!-- Row 2: Pin 3 & Pin 4 -->
   <g transform="translate(0, 175)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-i2c" />
-    <text x="75" y="22" class="pin-text t-white">I2C6_SDA / GPIO0_B5</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 8</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">3</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-i2c" />
+    <text x="65" y="22" class="pin-text t-white">I2C5_SDA / GPIO1_B7 (Pin 47)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 0</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">3</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">4</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-pwr5" />
-    <text x="515" y="22" class="pin-text t-light">DC PWR</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">5V Power</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">4</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-pwr5" />
+    <text x="525" y="22" class="pin-text t-light">DC PWR</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">5.0V Power</text>
   </g>
 
   <!-- Row 3: Pin 5 & Pin 6 -->
   <g transform="translate(0, 215)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-i2c" />
-    <text x="75" y="22" class="pin-text t-white">I2C6_SCL / GPIO0_B6</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 9</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">5</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-i2c" />
+    <text x="65" y="22" class="pin-text t-white">I2C5_SCL / GPIO1_B6 (Pin 46)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 1</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">5</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">6</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gnd" />
-    <text x="515" y="22" class="pin-text t-light">GND</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">Ground (GND)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">6</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-gnd" />
+    <text x="525" y="22" class="pin-text t-light">GND</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">Ground (GND)</text>
   </g>
 
   <!-- Row 4: Pin 7 & Pin 8 -->
   <g transform="translate(0, 255)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="75" y="22" class="pin-text t-white">GPIO1_C6 (Pin 54)</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 2</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">7</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-gpio" />
+    <text x="65" y="22" class="pin-text t-white">PWM15_IR / GPIO1_C6 (Pin 54)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 2</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">7</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">8</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-uart" />
-    <text x="515" y="22" class="pin-text t-light">wPi 15</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">UART0_TX / GPIO0_B7 (1.5M Baud)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">8</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-uart" />
+    <text x="525" y="22" class="pin-text t-light">wPi 3</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">UART0_TX / GPIO4_A3 (Pin 131)</text>
   </g>
 
   <!-- Row 5: Pin 9 & Pin 10 -->
   <g transform="translate(0, 295)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-gnd" />
-    <text x="75" y="22" class="pin-text t-white">Ground (GND)</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">GND</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">9</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-gnd" />
+    <text x="65" y="22" class="pin-text t-white">Ground (GND)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">GND</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">9</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">10</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-uart" />
-    <text x="515" y="22" class="pin-text t-light">wPi 16</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">UART0_RX / GPIO0_C0 (1.5M Baud)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">10</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-uart" />
+    <text x="525" y="22" class="pin-text t-light">wPi 4</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">UART0_RX / GPIO4_A4 (Pin 132)</text>
   </g>
 
   <!-- Row 6: Pin 11 & Pin 12 -->
   <g transform="translate(0, 335)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="75" y="22" class="pin-text t-white">GPIO1_D0 (Pin 56)</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 5</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">11</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-can" />
+    <text x="65" y="22" class="pin-text t-white">CAN1_RX / GPIO4_B2 (Pin 138)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 5</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">11</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">12</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="515" y="22" class="pin-text t-light">wPi 4</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">GPIO1_C7 (Pin 55)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">12</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-can" />
+    <text x="525" y="22" class="pin-text t-light">wPi 6</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">CAN2_TX / GPIO0_D5 (Pin 29)</text>
   </g>
 
   <!-- Row 7: Pin 13 & Pin 14 -->
   <g transform="translate(0, 375)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="75" y="22" class="pin-text t-white">GPIO1_D1 (Pin 57)</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 6</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">13</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-can" />
+    <text x="65" y="22" class="pin-text t-white">CAN1_TX / GPIO4_B3 (Pin 139)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 7</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">13</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">14</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gnd" />
-    <text x="515" y="22" class="pin-text t-light">GND</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">Ground (GND)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">14</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-gnd" />
+    <text x="525" y="22" class="pin-text t-light">GND</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">Ground (GND)</text>
   </g>
 
   <!-- Row 8: Pin 15 & Pin 16 -->
   <g transform="translate(0, 415)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="75" y="22" class="pin-text t-white">GPIO1_D2 (Pin 58)</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 7</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">15</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-can" />
+    <text x="65" y="22" class="pin-text t-white">CAN2_RX / GPIO0_D4 (Pin 28)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 8</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">15</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">16</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="515" y="22" class="pin-text t-light">wPi 10</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">GPIO4_C4 (Pin 148)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">16</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-i2c" />
+    <text x="525" y="22" class="pin-text t-light">wPi 9</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">I2C1_SDA / GPIO1_D3 (Pin 59)</text>
   </g>
 
   <!-- Row 9: Pin 17 & Pin 18 -->
   <g transform="translate(0, 455)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-pwr3" />
-    <text x="75" y="22" class="pin-text t-white">3.3V Power</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">DC PWR</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">17</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-pwr3" />
+    <text x="65" y="22" class="pin-text t-white">3.3V Power</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">DC PWR</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">17</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">18</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="515" y="22" class="pin-text t-light">wPi 11</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">GPIO4_C5 (Pin 149)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">18</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-i2c" />
+    <text x="525" y="22" class="pin-text t-light">wPi 10</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">I2C1_SCL / GPIO1_D2 (Pin 58)</text>
   </g>
 
   <!-- Row 10: Pin 19 & Pin 20 -->
   <g transform="translate(0, 495)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-spi" />
-    <text x="75" y="22" class="pin-text t-white">SPI1_MOSI / GPIO1_B3</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 12</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">19</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-spi" />
+    <text x="65" y="22" class="pin-text t-white">SPI4_MOSI / GPIO1_C1 (Pin 49)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 11</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">19</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">20</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gnd" />
-    <text x="515" y="22" class="pin-text t-light">GND</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">Ground (GND)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">20</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-gnd" />
+    <text x="525" y="22" class="pin-text t-light">GND</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">Ground (GND)</text>
   </g>
 
   <!-- Row 11: Pin 21 & Pin 22 -->
   <g transform="translate(0, 535)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-spi" />
-    <text x="75" y="22" class="pin-text t-white">SPI1_MISO / GPIO1_B4</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 13</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">21</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-spi" />
+    <text x="65" y="22" class="pin-text t-white">SPI4_MISO / GPIO1_C0 (Pin 48)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 12</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">21</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">22</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="515" y="22" class="pin-text t-light">wPi 14</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">GPIO4_C6 (Pin 150)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">22</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-gpio" />
+    <text x="525" y="22" class="pin-text t-light">wPi 13</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">GPIO2_D4 (Pin 92)</text>
   </g>
 
   <!-- Row 12: Pin 23 & Pin 24 -->
   <g transform="translate(0, 575)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-spi" />
-    <text x="75" y="22" class="pin-text t-white">SPI1_CLK / GPIO1_B5</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">wPi 1</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">23</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-spi" />
+    <text x="65" y="22" class="pin-text t-white">SPI4_CLK / GPIO1_C2 (Pin 50)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">wPi 14</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">23</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">24</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-spi" />
-    <text x="515" y="22" class="pin-text t-light">wPi 0</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">SPI1_CS0 / GPIO1_B2</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">24</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-spi" />
+    <text x="525" y="22" class="pin-text t-light">wPi 15</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">SPI4_CS1 / GPIO1_C4 (Pin 52)</text>
   </g>
 
   <!-- Row 13: Pin 25 & Pin 26 -->
   <g transform="translate(0, 615)">
-    <rect x="60" y="0" width="340" height="34" class="pin-box p-gnd" />
-    <text x="75" y="22" class="pin-text t-white">Ground (GND)</text>
-    <text x="385" y="22" class="pin-text t-light" text-anchor="end">GND</text>
-    <circle cx="430" cy="17" r="13" class="num-circle" />
-    <text x="430" y="21" class="pin-num">25</text>
+    <rect x="50" y="0" width="360" height="34" class="pin-box p-gnd" />
+    <text x="65" y="22" class="pin-text t-white">Ground (GND)</text>
+    <text x="395" y="22" class="pin-text t-light" text-anchor="end">GND</text>
+    <circle cx="440" cy="17" r="13" class="num-circle" />
+    <text x="440" y="21" class="pin-num">25</text>
 
-    <circle cx="470" cy="17" r="13" class="num-circle" />
-    <text x="470" y="21" class="pin-num">26</text>
-    <rect x="500" y="0" width="340" height="34" class="pin-box p-gpio" />
-    <text x="515" y="22" class="pin-text t-light">wPi 3</text>
-    <text x="825" y="22" class="pin-text t-white" text-anchor="end">GPIO1_B1 (Pin 41)</text>
+    <circle cx="480" cy="17" r="13" class="num-circle" />
+    <text x="480" y="21" class="pin-num">26</text>
+    <rect x="510" y="0" width="360" height="34" class="pin-box p-gpio" />
+    <text x="525" y="22" class="pin-text t-light">wPi 16</text>
+    <text x="855" y="22" class="pin-text t-white" text-anchor="end">PWM1_M2 / GPIO1_A3 (Pin 35)</text>
   </g>
 </svg>

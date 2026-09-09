@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide**
+# **Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide**
 
 > 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
@@ -38,7 +38,7 @@ Compiling large C/C++ projects directly on target Single Board Computers (native
 
 The most common failure in embedded cross-compilation is runtime dynamic linker version conflict:
 * **The Rule:** The host cross-toolchain must **NOT** target a newer `glibc` version than the one installed on the Orange Pi 5 target board.
-* **The Failure:** If your host machine runs Ubuntu 24.04 (`glibc 2.39`) while your Orange Pi 5 runs Ubuntu 22.04 (`glibc 2.35`), running the binary on the target fails immediately:
+* **The Failure:** When both your host workstation and your Orange Pi 5 run **Ubuntu 24.04 LTS (`glibc 2.39`)**, binaries execute with 100% native compatibility. However, if your host workstation runs Ubuntu 24.04 while an older target runs Ubuntu 22.04 (`glibc 2.35`), dynamic symbol resolution fails immediately:
   ```
   ./app: /lib/aarch64-linux-gnu/libc.so.6: version 'GLIBC_2.38' not found (required by ./app)
   ```
@@ -46,13 +46,13 @@ The most common failure in embedded cross-compilation is runtime dynamic linker 
   ```bash
   ldd --version
   ```
-  *(If your target reports `Ubuntu GLIBC 2.35`, ensure your host build environment runs Ubuntu 22.04 LTS natively or inside a matching Docker container / WSL2 distribution).*
+  *(On Ubuntu 24.04 target systems, this outputs `Ubuntu GLIBC 2.39`; ensuring your host workstation is also Ubuntu 24.04 LTS or runs a matching Docker container eliminates glibc mismatches entirely).*
 
 ---
 
 ## **3. Step 1: Install Cross-Compilation Toolchains on Host PC**
 
-On your x86_64 workstation (Ubuntu 22.04 LTS or matching WSL2 environment):
+On your x86_64 workstation (Ubuntu 24.04 LTS or matching WSL2 / Linux environment):
 
 ```bash
 sudo apt update

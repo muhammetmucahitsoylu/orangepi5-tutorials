@@ -138,7 +138,7 @@ bash check_health.sh
 
 * **Şeffaf ve Objektif Mühendislik:** Kulaktan dolma veya yapay zeka tarafından ezbere yazılmış varsayımlar yerine; çözülmüş eski hatalar (örn. yeni çekirdeklerde giderilen MAC adresi bug'ı) veya donanım limitleri (PCIe 2.0 x1 darboğazı, USB YUYV 5 FPS kilidi) açıkça belirtilmiştir.
 * **Hata Odaklı Sorun Giderme (Error-Driven Troubleshooting):** Her kılavuzda *"Şu hata alınırsa kök neden şudur, şu adımı uygulayın"* şeklinde teşhis haritaları bulunur.
-* **Dağıtım ve Kernel Farkındalığı:** Çözümler Ubuntu 22.04 LTS ve Rockchip BSP çekirdeği (Linux 5.10.x / 6.1.x) temel alınarak yapılandırılmıştır; Armbian veya farklı çekirdeklerdeki ayrışmalar açıkça vurgulanmıştır.
+* **Dağıtım ve Kernel Farkındalığı:** Çözümler **Ubuntu 24.04 LTS (ve 22.04 LTS)** ile Rockchip BSP çekirdeği (Linux 6.1.x / 5.10.x) temel alınarak yapılandırılmış ve fiziksel donanımda doğrulanmıştır; Armbian veya farklı çekirdeklerdeki ayrışmalar açıkça vurgulanmıştır.
 * **Firmware ve Donanım Analizi:** Sorunun sadece nasıl çözüleceği değil; MaskROM, PCIe hatları ve SPI Flash mimarisi seviyesindeki teknik nedenleri açıklanır.
 
 ---
@@ -162,7 +162,7 @@ bash check_health.sh
 <details>
 <summary><b>3. Hangi işletim sistemini kurmalıyım? (Ubuntu vs Armbian vs Resmi İmaj)</b></summary>
 
-* **NPU / Yapay Zeka Geliştirme İçin:** Rockchip BSP çekirdeği (Linux 5.10.x veya 6.1.x) kullanan **Ubuntu 22.04 LTS (Joshua Riek sürümü)** veya **Resmi Orange Pi OS (Ubuntu tabanlı)** önerilir.
+* **NPU / Yapay Zeka Geliştirme İçin:** Rockchip BSP çekirdeği (Linux 6.1.x veya 5.10.x) kullanan **Ubuntu 24.04 LTS (Noble Numbat - Joshua Riek sürümü)** veya **Ubuntu 22.04 LTS (Jammy)** önerilir.
 * **Sunucu / Minimal Kullanım İçin:** **Armbian Minimal** veya Joshua Riek Server imajı tercih edilebilir.
 * **Önemli Not:** Ana hat (Mainline Vanilla Linux 6.x) çekirdeklerde RKNPU sürücüsü ve VPU donanımsal video hızlandırma henüz tam entegre edilmediği için AI ve video projelerinde BSP çekirdeği zorunludur.
 </details>
@@ -419,7 +419,7 @@ bash check_health.sh
 <details>
 <summary><b>3. Which OS distribution should I install? (Ubuntu vs Armbian vs Official)</b></summary>
 
-* **For Edge AI / NPU / VPU Development:** Distributions based on the Rockchip BSP kernel (Linux 5.10.x or 6.1.x), such as **Ubuntu 22.04 LTS (Joshua Riek build)** or **Official Orange Pi OS (Ubuntu-based)**, are recommended.
+* **For Edge AI / NPU / VPU Development:** Distributions based on the Rockchip BSP kernel (Linux 6.1.x or 5.10.x), such as **Ubuntu 24.04 LTS (Noble Numbat - Joshua Riek build)** or **Ubuntu 22.04 LTS (Jammy)**, are recommended.
 * **For Headless / Minimal Server Workloads:** **Armbian Minimal** or Joshua Riek Server builds.
 * **Critical Caveat:** Vanilla Mainline Linux (6.x) currently lacks upstream RKNPU driver and VPU acceleration support. For AI and video transcoding, stay on BSP kernels.
 </details>

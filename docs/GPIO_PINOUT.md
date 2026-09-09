@@ -87,24 +87,22 @@ Where:
 ### A. Bash (`gpiod` Modern Linux Standard)
 
 > [!NOTE]
-> **libgpiod v1 vs v2 Syntax:**
-> * **Ubuntu 22.04 / Debian 11/12 (libgpiod v1):** `gpioset gpiochip1 22=1`
-> * **Ubuntu 24.04 Noble (libgpiod v2):** `gpioset -c 1 22=active` (or `gpioset --chip 1 22=1`)
+> **Permissions Note:** Raw hardware access to `/dev/gpiochip*` requires root privileges (`sudo`) or adding your user account to the `gpio` group (`sudo usermod -aG gpio $USER`).
 
 ```bash
 # Install tool
 sudo apt install -y gpiod
 
 # Inspect all available GPIO chips
-gpiodetect
+sudo gpiodetect
 
-# Toggle Pin 7 (GPIO1_C6 -> gpiochip1 Line 22) HIGH then LOW (v1 syntax)
-gpioset gpiochip1 22=1
+# Toggle Pin 7 (GPIO1_C6 -> gpiochip1 Line 22) HIGH then LOW
+sudo gpioset gpiochip1 22=1
 sleep 1
-gpioset gpiochip1 22=0
+sudo gpioset gpiochip1 22=0
 
-# Read state of Pin 18 (GPIO1_D2 -> gpiochip1 Line 26)
-gpioget gpiochip1 26
+# Read state of Pin 7 (GPIO1_C6 -> gpiochip1 Line 22)
+sudo gpioget gpiochip1 22
 ```
 
 ### B. C++ (`wiringOP`)
@@ -112,8 +110,8 @@ gpioget gpiochip1 26
 #include <wiringPi.h>
 #include <iostream>
 
-// Physical Pin 7 (GPIO1_C6) corresponds to wiringOP pin 4
-#define LED_PIN 4 
+// Physical Pin 7 (GPIO1_C6) corresponds to wiringOP pin 2
+#define LED_PIN 2 
 
 int main() {
     if (wiringPiSetup() == -1) {
