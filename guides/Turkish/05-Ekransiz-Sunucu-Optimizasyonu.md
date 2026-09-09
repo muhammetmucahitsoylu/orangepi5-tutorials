@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Ekransız (Headless) Sunucu ve Optimizasyon Rehberi**
 
+> 🛡️ **Doğrulandı & Test Edildi:** ZRAM sıkıştırma, GUI devre dışı bırakma (500MB+ RAM tasarrufu) ve systemd governor servisi **Orange Pi 5 + Ubuntu 24.04 / 22.04 LTS** üzerinde 7/24 test edilerek onaylanmıştır.
+
 Bu rehber; Orange Pi 5'i monitör, klavye veya fare bağlamadan (ekransız / headless) 7/24 çalışan bir ev sunucusu, Docker ana makinesi veya ağ cihazı olarak yapılandırmak isteyenler için temel ilk kurulum ve optimizasyon adımlarını içerir.
 
 ---

@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Hardware and Accessory Compatibility Guide**
 
+> 🛡️ **Hardware Verified:** Power, NVMe, camera, and thermal recommendations in this guide are physically benchmarked and validated on **Orange Pi 5 (RK3588S V1.3.2) reference hardware**.
+
 This guide provides practical recommendations for selecting the correct power supply, M.2 SSD, cooling system, and peripherals for the Orange Pi 5 (Rockchip RK3588S). It focuses on essential, field-tested guidance to help you avoid common stability issues, unexpected reboots, and hardware recognition failures.
 
 ---

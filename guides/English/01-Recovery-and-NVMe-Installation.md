@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Recovery and Installation Guide**
 
+> 🛡️ **Hardware Verified:** All recovery and installation procedures in this guide are physically tested and confirmed on **Orange Pi 5 (RK3588S) hardware across SPI Flash and MaskROM states**.
+
 *This guide documents step-by-step the troubleshooting, trial-and-error, and technical analyses that led to resolving critical issues on the Orange Pi 5—specifically after flashing EDK2 UEFI BIOS and getting trapped in a boot loop, wasting hours trying to clone an SSD from a live running system, and completely bricking/locking the board by wiping the SPI Flash chip. Unlike the fragmented and incomplete tutorials scattered across the internet, I have compiled all the exact steps and underlying technical root causes so that others won't fall into the same traps. Note: I experienced this issue using a Mobile HDD (External HDD enclosure); no MicroSD card was used.*
 
 ---

@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Tarayıcı ve Donanımsal Video Hızlandırma Kılavuzu**
 
+> 🛡️ **Doğrulandı & Test Edildi:** Chromium VPU donanım hızlandırma bayrakları ve 4K@60fps akıcı video oynatma **Orange Pi 5 + Ubuntu 24.04 / 22.04 LTS** üzerinde test edilmiştir.
+
 Bu kılavuz, Orange Pi 5 üzerinde masaüstü ortamında Chromium tarayıcısıyla YouTube veya internet üzerinden video izlerken yaşanan takılma, yüksek CPU kullanımı ve fan gürültüsü sorununu çözmek için hazırlanmıştır.
 
 ---

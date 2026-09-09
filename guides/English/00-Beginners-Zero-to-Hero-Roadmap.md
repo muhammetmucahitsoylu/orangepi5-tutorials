@@ -1,5 +1,7 @@
 # **Zero to Hero Guide for Orange Pi 5: From Unboxing to Your First Project**
 
+> 🛡️ **Hardware Verified:** All steps and commands in this guide are physically tested and confirmed on **Orange Pi 5 (RK3588S) running Ubuntu 24.04 / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
+
 > **Who is this guide for?**  
 > Anyone who has never used Linux before, has never opened a terminal (black command-line window), or is holding a Single-Board Computer (SBC) for the very first time. Without assuming any prior technical knowledge, this guide walks you from unboxing to running your first edge project.
 

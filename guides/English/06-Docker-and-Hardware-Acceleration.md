@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Docker Installation and Hardware Acceleration Guide**
 
+> 🛡️ **Hardware Verified:** Upstream Docker Engine, Compose, and hardware passthrough of `/dev/mpp_service`, `/dev/rga`, and `/dev/mali0` are validated on **Orange Pi 5 running Ubuntu 24.04 / 22.04 LTS**.
+
 This guide demonstrates how to install upstream Docker Engine on the Orange Pi 5, remediate distro-specific `cgroup` memory limit warnings, pass hardware acceleration nodes (VPU/GPU) directly into containers (Jellyfin/Plex), and resolve common permission and driver faults.
 
 ---

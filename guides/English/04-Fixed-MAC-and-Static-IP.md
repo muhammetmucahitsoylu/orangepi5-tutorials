@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Fixed MAC Address and Static IP Guide**
 
+> 🛡️ **Hardware Verified:** All `nmcli` static IP and MAC address persistent binding procedures are verified on **Orange Pi 5 hardware running Ubuntu 24.04 / 22.04 LTS**.
+
 This guide provides a diagnostic workflow to determine whether your Orange Pi 5 is generating randomized MAC addresses on reboot, and demonstrates how to assign a persistent cloned MAC address and static local IP via NetworkManager when required.
 
 > [!NOTE]

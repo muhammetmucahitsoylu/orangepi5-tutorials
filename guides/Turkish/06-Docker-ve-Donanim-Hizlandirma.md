@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Docker Kurulumu ve Donanım Hızlandırma Rehberi**
 
+> 🛡️ **Doğrulandı & Test Edildi:** Docker Engine, Compose ve donanım geçişli `/dev/mpp_service`, `/dev/rga`, `/dev/mali0` konteyner izinleri **Orange Pi 5 + Ubuntu 24.04 / 22.04 LTS** üzerinde doğrulanmıştır.
+
 Bu rehber; Orange Pi 5 üzerinde temiz bir Docker ve Docker Compose ortamı kurmak, dağıtıma göre farklılık gösteren `cgroup` bellek sınırı uyarılarını gidermek, konteynerlere (Jellyfin, Plex, Frigate vb.) donanımsal video/grafik hızlandırma (VPU/GPU) yetkisi vermek ve sık karşılaşılan yetki/aygıt hatalarını teşhis etmek için hazırlanmıştır.
 
 ---

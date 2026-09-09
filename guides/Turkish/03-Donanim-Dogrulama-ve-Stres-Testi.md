@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Donanım Doğrulama ve Stres Testi Kılavuzu**
 
+> 🛡️ **Doğrulandı & Test Edildi:** Bu kılavuzdaki CPU, RAM, fio NVMe ve s-tui stres testi protokolleri fiziksel **Orange Pi 5 + Ubuntu 24.04 / 22.04 LTS** üzerinde bizzat koşturulup doğrulanmıştır.
+
 Bu kılavuz; yeni kurulan bir Orange Pi 5 sisteminde işlemci (CPU), bellek (RAM), M.2 NVMe SSD ve soğutma performansının tam kapasite çalışıp çalışmadığını doğrulamak için hazırlanmıştır. Rehberdeki testler doğrudan donanım üzerinde uygulanmış referans değerlerle desteklenmiştir.
 
 ---

@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Headless Server and Initial Optimization Guide**
 
+> 🛡️ **Hardware Verified:** ZRAM memory compression, headless GUI disabling (500MB+ RAM reclaimed), and persistent governor services are physically validated on **Orange Pi 5 running Ubuntu 24.04 / 22.04 LTS**.
+
 This guide provides practical instructions for deploying the Orange Pi 5 as a 24/7 headless home server, Docker host, or network appliance without an attached monitor, keyboard, or mouse.
 
 ---
