@@ -73,19 +73,20 @@ Following all of these lockups, the clearest conclusion I reached is this: insta
 
    **Windows (CMD - Command Prompt):**  
    ```cmd
-   type ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img | ssh root@ORANGE_PI_IP "dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
+   type ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img | ssh orangepi@ORANGE_PI_IP "sudo dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
    ```
 
    **Windows (PowerShell 7+):**  
    ```powershell
-   Get-Content .\ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img -AsByteStream -Raw | ssh root@ORANGE_PI_IP "dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
+   Get-Content .\ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img -AsByteStream -Raw | ssh orangepi@ORANGE_PI_IP "sudo dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
    ```
 
    **Linux / macOS:**  
    ```bash
-   cat ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img | ssh root@ORANGE_PI_IP "dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
+   cat ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img | ssh orangepi@ORANGE_PI_IP "sudo dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
    ```
-5. Once the writing process finishes, shut down the Orange Pi 5 (`poweroff`) and **disconnect the temporary storage drive**.
+   *(Note: Modern Ubuntu distributions disable direct SSH password logins for root by default. Therefore, connect as `orangepi` or your configured user account and invoke `sudo dd` for raw block write privileges).*  
+5. Once the writing process finishes, shut down the Orange Pi 5 (`sudo poweroff`) and **disconnect the temporary storage drive**.
 
 ---
 

@@ -79,9 +79,12 @@ Inside your Orange Pi 5 terminal (or VS Code Remote - SSH session):
 
 ```bash
 cd ~/projects/ilk-projem
-source venv/bin/activate
 
-# Install computer vision prerequisites
+# Activate the NPU runtime environment configured in Project 02:
+source ~/projects/npu-env/venv/bin/activate
+# (If using a distinct venv, ensure rknn-toolkit-lite2 is installed in that environment)
+
+# Install / verify required dependencies:
 pip install numpy opencv-python pillow
 ```
 

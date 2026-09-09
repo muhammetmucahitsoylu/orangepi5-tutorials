@@ -16,14 +16,16 @@ CYAN="\033[0;36m"
 MAGENTA="\033[0;35m"
 RESET="\033[0m"
 
-# Resilient Input Reader (Supports curl ... | bash pipe via /dev/tty fallback)
+# Resilient Input Reader (Supports pipe, stdin, and /dev/tty fallback)
 read_input() {
+    local var_name="${1:-_DUMMY}"
+    eval "$var_name=''"
     if [ -t 0 ]; then
-        read -r "$@"
-    elif [ -e /dev/tty ]; then
-        read -r "$@" < /dev/tty
+        read -r "$var_name" || true
+    elif ( < /dev/tty ) 2>/dev/null; then
+        read -r "$var_name" < /dev/tty 2>/dev/null || true
     else
-        read -r "$@"
+        read -r "$var_name" || true
     fi
 }
 
@@ -78,12 +80,38 @@ run_diagnostics() {
     
     # NPU Node
     echo -e "\n  ${BOLD}Hardware Accelerators:${RESET}"
+    NPU_ACTIVE=false
+    NPU_NODE_STR=""
     if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
-        NPU_TAG=""
-        if [ -f /sys/kernel/debug/rknpu/version ]; then
-            NPU_TAG=" ($(cat /sys/kernel/debug/rknpu/version 2>/dev/null | tr -d '\n\r'))"
+        NPU_ACTIVE=true
+        NPU_NODE_STR="/dev/rknpu active"
+    else
+        for rnode in /sys/class/drm/renderD*/device/driver; do
+            if [ -e "$rnode" ] && grep -qi "rknpu" <<< "$(readlink -f "$rnode")"; then
+                DRM_NAME=$(basename "$(dirname "$(dirname "$rnode")")")
+                NPU_ACTIVE=true
+                NPU_NODE_STR="/dev/dri/${DRM_NAME} active"
+                break
+            fi
+        done
+        if [ "$NPU_ACTIVE" = false ] && [ -d /sys/devices/platform/fdab0000.npu ]; then
+            NPU_ACTIVE=true
+            NPU_NODE_STR="Platform NPU active"
         fi
-        echo -e "    NPU (6 TOPS)     : ${GREEN}[FOUND] /dev/rknpu active${NPU_TAG}${RESET}"
+    fi
+
+    if [ "$NPU_ACTIVE" = true ]; then
+        NPU_TAG=""
+        if [ -f /sys/kernel/debug/rknpu/version ] && [ -r /sys/kernel/debug/rknpu/version ]; then
+            NPU_TAG=" ($(cat /sys/kernel/debug/rknpu/version 2>/dev/null | tr -d '\n\r'))"
+        elif [ -f /sys/kernel/debug/rknpu/version ] && sudo -n true 2>/dev/null; then
+            NPU_TAG=" ($(sudo -n cat /sys/kernel/debug/rknpu/version 2>/dev/null | tr -d '\n\r'))"
+        fi
+        if [ -z "$NPU_TAG" ] && command -v dmesg >/dev/null 2>&1; then
+            D_VER=$(dmesg 2>/dev/null | grep -i "Initialized rknpu" | tail -n 1 | sed -n 's/.*Initialized rknpu \([^ ]*\).*/v\1/p')
+            [ -n "$D_VER" ] && NPU_TAG=" (${D_VER})"
+        fi
+        echo -e "    NPU (6 TOPS)     : ${GREEN}[FOUND] ${NPU_NODE_STR}${NPU_TAG}${RESET}"
     else
         echo -e "    NPU (6 TOPS)     : ${RED}[MISSING] Driver node not detected${RESET}"
     fi
@@ -249,19 +277,43 @@ run_storage_benchmark() {
 run_npu_test() {
     echo -e "\n${BOLD}${CYAN}=== [5] Neural Processing Unit (NPU - 6 TOPS) Self-Test ===${RESET}\n"
     
-    if [ ! -e /dev/rknpu ] && ! compgen -G "/dev/rknpu*" > /dev/null; then
-        echo -e "${RED}[FAIL] /dev/rknpu device node not detected!${RESET}"
+    NPU_NODE_STR=""
+    if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
+        NPU_NODE_STR="/dev/rknpu"
+    else
+        for rnode in /sys/class/drm/renderD*/device/driver; do
+            if [ -e "$rnode" ] && grep -qi "rknpu" <<< "$(readlink -f "$rnode")"; then
+                DRM_NAME=$(basename "$(dirname "$(dirname "$rnode")")")
+                NPU_NODE_STR="/dev/dri/${DRM_NAME}"
+                break
+            fi
+        done
+        if [ -z "$NPU_NODE_STR" ] && [ -d /sys/devices/platform/fdab0000.npu ]; then
+            NPU_NODE_STR="/sys/devices/platform/fdab0000.npu"
+        fi
+    fi
+
+    if [ -z "$NPU_NODE_STR" ]; then
+        echo -e "${RED}[FAIL] NPU device node not detected!${RESET}"
         echo -e "The Rockchip NPU driver is not loaded in this kernel."
         echo -e "Press [ENTER] to return..."
         read_input _
         return
     fi
     
-    echo -e "NPU Character Node    : ${GREEN}[OK] /dev/rknpu detected${RESET}"
+    echo -e "NPU Hardware Node     : ${GREEN}[OK] ${NPU_NODE_STR} detected${RESET}"
     
-    if [ -f /sys/kernel/debug/rknpu/version ]; then
-        echo -e "RKNPU Driver Version  : ${CYAN}$(cat /sys/kernel/debug/rknpu/version)${RESET}"
+    NPU_VER=""
+    if [ -f /sys/kernel/debug/rknpu/version ] && [ -r /sys/kernel/debug/rknpu/version ]; then
+        NPU_VER=$(cat /sys/kernel/debug/rknpu/version 2>/dev/null | tr -d '\n\r')
+    elif [ -f /sys/kernel/debug/rknpu/version ] && sudo -n true 2>/dev/null; then
+        NPU_VER=$(sudo -n cat /sys/kernel/debug/rknpu/version 2>/dev/null | tr -d '\n\r')
     fi
+    if [ -z "$NPU_VER" ] && command -v dmesg >/dev/null 2>&1; then
+        D_VER=$(dmesg 2>/dev/null | grep -i "Initialized rknpu" | tail -n 1 | sed -n 's/.*Initialized rknpu \([^ ]*\).*/v\1/p')
+        [ -n "$D_VER" ] && NPU_VER="${D_VER}"
+    fi
+    [ -n "$NPU_VER" ] && echo -e "RKNPU Driver Version  : ${CYAN}${NPU_VER}${RESET}"
     
     # Check Python bindings
     echo "Checking Python RKNN-Toolkit-Lite2 bindings..."
@@ -375,6 +427,11 @@ main_menu() {
         echo -ne "${BOLD}Enter choice [0-7]: ${RESET}"
         read_input CHOICE
         
+        if [ -z "$CHOICE" ]; then
+            echo -e "\nExiting. Happy Hacking!\n"
+            exit 0
+        fi
+
         case "$CHOICE" in
             1) run_diagnostics ;;
             2) set_performance ;;

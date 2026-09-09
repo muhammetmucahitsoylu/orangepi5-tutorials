@@ -44,18 +44,17 @@ cat /sys/class/devfreq/*npu*/cur_freq
 Python veya C++ uygulamalarının NPU ile iletişim kurabilmesi için resmi donanım çalışma kütüphanesinin sistemde bulunması gerekir:
 
 ```bash
-# 1. Resmi Rockchip rknpu2 deposunu klonlayın:
-cd /tmp
-git clone --depth 1 https://github.com/rockchip-linux/rknpu2.git
-
-# 2. 64-bit ARM kütüphanesini sistem dizinine kopyalayın:
-sudo cp rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so /usr/lib/
-
-# 3. İzinleri ayarlayın ve kütüphane önbelleğini güncelleyin:
+# Yöntem 1: Doğrudan ve Hızlı İndirme (Önerilen)
+sudo curl -sL -o /usr/lib/librknnrt.so https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so
 sudo chmod 755 /usr/lib/librknnrt.so
 sudo ldconfig
 
-# 4. Geçici klasörü temizleyin:
+# Yöntem 2: Git Deposu Üzerinden (Alternatif)
+cd /tmp
+git clone --depth 1 https://github.com/rockchip-linux/rknpu2.git
+sudo cp rknpu2/runtime/RK3588/Linux/librknn_api/aarch64/librknnrt.so /usr/lib/
+sudo chmod 755 /usr/lib/librknnrt.so
+sudo ldconfig
 rm -rf /tmp/rknpu2
 ```
 
@@ -96,27 +95,48 @@ pip install numpy opencv-python pillow
 
 ## **5. Adım 4: "Hello NPU" — 3 Çekirdeği Birden Uyandırma Testi**
 
+> [!NOTE]
+> RKNN-Toolkit-Lite2 mimarisinde `rknn.init_runtime()` donanım oturumunu açabilmek için önceden derlenmiş bir `.rknn` modelinin belleğe alınmasını (`load_rknn`) şart koşar. Aşağıdaki script, resmi örnek modeli otomatik indirip 3 çekirdeği (6 TOPS) devreye sokar.
+
 `test_npu.py` dosyasını oluşturun:
 
 ```python
-from rknnlite.api import RKNNLite
+import os
+import urllib.request
 import subprocess
+from rknnlite.api import RKNNLite
+
+MODEL_FILE = "resnet18_for_rk3588.rknn"
+MODEL_URL = "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/examples/resnet18/resnet18_for_rk3588.rknn"
+
+# 1. Örnek RKNN modelini temin et
+if not os.path.exists(MODEL_FILE):
+    print(f"[*] Referans NPU modeli indiriliyor: {MODEL_FILE}...")
+    urllib.request.urlretrieve(MODEL_URL, MODEL_FILE)
 
 print("--- Orange Pi 5 RKNN NPU Test Başlatılıyor ---")
-
 rknn = RKNNLite()
 
-# 3 Çekirdeği birden (Core 0, Core 1, Core 2) tam 6 TOPS olarak devreye sok:
+# 2. Modeli yükle
+ret = rknn.load_rknn(MODEL_FILE)
+if ret != 0:
+    print(f"[HATA] Model yüklenemedi! Hata kodu: {ret}")
+    exit(ret)
+
+# 3. 3 Çekirdeği birden (Core 0, Core 1, Core 2) tam 6 TOPS olarak devreye sok:
 ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2)
 
 if ret == 0:
-    print("[BAŞARILI] 3 NPU Çekirdeği de donanımsal olarak uyandırıldı!")
+    print("[BAŞARILI] 3 NPU Çekirdeği de donanımsal olarak uyandırıldı (Core 0, 1, 2)!")
+    print("\n--- Sürücü ve API Versiyon Bilgisi ---")
+    rknn.get_sdk_version()
     try:
-        telemetry = subprocess.check_output("cat /sys/kernel/debug/rknpu/load", shell=True).decode()
-        print("\n--- Anlık NPU Çekirdek Durumu ---")
-        print(telemetry.strip())
+        telemetry = subprocess.check_output("cat /sys/kernel/debug/rknpu/load 2>/dev/null || true", shell=True).decode()
+        if telemetry.strip():
+            print("\n--- Anlık NPU Çekirdek Telemetrisi ---")
+            print(telemetry.strip())
     except Exception:
-        print("[!] Not: Telemetri okumak için root (sudo) yetkisi gerekebilir.")
+        pass
 else:
     print(f"[HATA] NPU başlatılamadı! Hata kodu: {ret}")
 
@@ -125,16 +145,21 @@ rknn.release()
 
 ### **Testi Çalıştırın:**
 ```bash
-sudo $(which python3) test_npu.py
+# Sanal ortam aktifken çalıştırın:
+python3 test_npu.py
 ```
 
 **Beklenen Çıktı:**
 ```text
 --- Orange Pi 5 RKNN NPU Test Başlatılıyor ---
-[BAŞARILI] 3 NPU Çekirdeği de donanımsal olarak uyandırıldı!
+[BAŞARILI] 3 NPU Çekirdeği de donanımsal olarak uyandırıldı (Core 0, 1, 2)!
 
---- Anlık NPU Çekirdek Durumu ---
-NPU load:  Core0: 0%, Core1: 0%, Core2: 0%
+--- Sürücü ve API Versiyon Bilgisi ---
+==============================================
+RKNN VERSION:
+  API: 2.3.2
+  DRV: 0.9.7 (veya 0.9.8)
+==============================================
 ```
 
 ---

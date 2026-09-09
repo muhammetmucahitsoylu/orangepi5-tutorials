@@ -20,9 +20,10 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 # 3. Set up repository:
+. /etc/os-release
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  ${UBUNTU_CODENAME:-$VERSION_CODENAME} stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # 4. Install Docker packages:

@@ -89,16 +89,17 @@ Inside your Orange Pi 5 terminal:
 ```bash
 mkdir -p ~/projects && cd ~/projects
 
-# 1. Clone the rknn-llm repository:
-git clone --depth 1 https://github.com/airockchip/rknn-llm.git
-
-# 2. Install the 64-bit ARM runtime library to system path:
-sudo cp rknn-llm/rkllm-runtime/Linux/librkllm_api/aarch64/librkllmrt.so /usr/lib/
+# 1. Provision 64-bit ARM RKLLM runtime shared library:
+# (Method 1: Direct and Fast Download)
+sudo curl -sL -o /usr/lib/librkllmrt.so https://raw.githubusercontent.com/airockchip/rknn-llm/master/rkllm-runtime/Linux/librkllm_api/aarch64/librkllmrt.so
 sudo chmod 755 /usr/lib/librkllmrt.so
 sudo ldconfig
 
+# 2. Clone the official rknn-llm repository:
+git clone --depth 1 https://github.com/airockchip/rknn-llm.git
+
 # 3. Compile the optimized C++ LLM inference executable (llm_demo):
-cd rknn-llm/examples/rkllm_api_demo
+cd rknn-llm/examples/rkllm_api_demo/deploy
 mkdir -p build && cd build
 cmake ..
 make -j$(nproc)
@@ -111,7 +112,7 @@ make -j$(nproc)
 Execute the compiled `llm_demo` with your converted NPU model:
 
 ```bash
-cd ~/projects/rknn-llm/examples/rkllm_api_demo/build
+cd ~/projects/rknn-llm/examples/rkllm_api_demo/deploy/build
 
 # Usage: ./llm_demo <model_path> <max_new_tokens> <max_context_len>
 ./llm_demo ~/projects/ilk-projem/models/qwen2.5_1.5b_w4a16_rk3588.rkllm 512 2048

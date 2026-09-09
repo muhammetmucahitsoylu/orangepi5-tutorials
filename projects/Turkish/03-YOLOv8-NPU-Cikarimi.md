@@ -79,9 +79,12 @@ Orange Pi 5 terminalinde (veya VS Code Remote - SSH oturumunuzda):
 
 ```bash
 cd ~/projects/ilk-projem
-source venv/bin/activate
 
-# Gerekli bağımlılıkları yükleyin
+# Proje 02'de kurduğumuz NPU çalışma ortamını aktif edin:
+source ~/projects/npu-env/venv/bin/activate
+# (Eğer farklı bir venv kullanıyorsanız rknn-toolkit-lite2 paketini o ortama kurduğunuzdan emin olun)
+
+# Gerekli ek kütüphaneleri yükleyin:
 pip install numpy opencv-python pillow
 ```
 

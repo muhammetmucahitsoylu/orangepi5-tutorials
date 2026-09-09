@@ -191,7 +191,7 @@ Download all source codes, models, and scripts directly to your board:
 git clone https://github.com/muhammetmucahitsoylu/orangepi5-tutorials.git
 cd orangepi5-tutorials
 ```
-You are now situated in `/home/orangepi/orangepi5-tutorials`; every project, script, and guide is directly accessible on your board!
+You are now situated in `~/orangepi5-tutorials` (or `/home/<your_username>/orangepi5-tutorials`); every project, script, and guide is directly accessible on your board!
 
 ---
 
@@ -205,7 +205,9 @@ bash scripts/opi5.sh
 
 A sleek ASCII dashboard and menu will launch:
 * Press **`1`** to run a comprehensive hardware health check.
-* Press **`4`** to monitor real-time CPU core frequencies and thermal sensors.
+* Press **`4`** to run a real-time NVMe / Storage I/O read & write benchmark.
+* Press **`5`** to trigger an automated NPU (6 TOPS) self-test.
+* Press **`7`** to monitor real-time CPU core frequencies and thermal sensors.
 * Press **`0`** to exit back to the shell prompt.
 
 > [!TIP]

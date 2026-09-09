@@ -27,19 +27,55 @@ fi
 
 # 2. Check NPU Kernel Node
 echo -e "\n${BOLD}[1/4] Checking Low-Level NPU Kernel Device Node...${RESET}"
-if [ ! -e /dev/rknpu ] && ! compgen -G "/dev/rknpu*" > /dev/null; then
-    echo -e "${RED}[FAIL] /dev/rknpu device node not found!${RESET}"
+NPU_FOUND=false
+NPU_NODE=""
+
+if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
+    NPU_FOUND=true
+    NPU_NODE="/dev/rknpu"
+else
+    for rnode in /sys/class/drm/renderD*/device/driver; do
+        if [ -e "$rnode" ] && grep -qi "rknpu" <<< "$(readlink -f "$rnode")"; then
+            DRM_NAME=$(basename "$(dirname "$(dirname "$rnode")")")
+            NPU_FOUND=true
+            NPU_NODE="/dev/dri/${DRM_NAME}"
+            break
+        fi
+    done
+    if [ "$NPU_FOUND" = false ] && [ -d /sys/devices/platform/fdab0000.npu ]; then
+        NPU_FOUND=true
+        NPU_NODE="/sys/devices/platform/fdab0000.npu"
+    fi
+fi
+
+if [ "$NPU_FOUND" = false ]; then
+    echo -e "${RED}[FAIL] NPU device node not found!${RESET}"
     echo -e "Your current kernel ($(uname -r)) does not have active Rockchip NPU drivers."
     echo -e "Please ensure you run a Rockchip BSP kernel (5.10.x or 6.1.x)."
     exit 1
 fi
-echo -e "${GREEN}[OK] /dev/rknpu kernel driver detected.${RESET}"
+echo -e "${GREEN}[OK] NPU kernel driver detected (${NPU_NODE}).${RESET}"
 
-# 3. Check / Install System Dependencies
-echo -e "\n${BOLD}[2/4] Verifying System Libraries (Python3, venv, gcc)...${RESET}"
+# Ensure user has access permissions (render and video groups)
+TARGET_USER="${SUDO_USER:-$USER}"
+sudo usermod -aG render,video "$TARGET_USER" 2>/dev/null || true
+
+# 3. Check / Install System Dependencies & Hardware Runtime Library
+echo -e "\n${BOLD}[2/4] Verifying System Libraries and librknnrt.so Runtime...${RESET}"
 sudo apt update -y
 sudo apt install -y python3 python3-pip python3-venv python3-dev build-essential \
-                    libxslt1-dev zlib1g-dev libgl1 libglib2.0-0 libgomp1
+                    libxslt1-dev zlib1g-dev libgl1 libglib2.0-0 libgomp1 curl
+
+# Ensure /usr/lib/librknnrt.so is present
+if [ ! -f /usr/lib/librknnrt.so ]; then
+    echo "Installing hardware runtime library (librknnrt.so v2.3.2)..."
+    sudo curl -sL -o /usr/lib/librknnrt.so https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so
+    sudo chmod 755 /usr/lib/librknnrt.so
+    sudo ldconfig
+    echo -e "${GREEN}[OK] librknnrt.so installed.${RESET}"
+else
+    echo -e "${GREEN}[OK] librknnrt.so already present in /usr/lib/.${RESET}"
+fi
 
 # 4. Create Dedicated Virtual Environment
 VENV_DIR="$HOME/rknn_env"

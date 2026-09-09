@@ -43,18 +43,17 @@ cat /sys/class/devfreq/*npu*/cur_freq
 Applications require the proprietary hardware runtime library in system library paths:
 
 ```bash
-# 1. Clone official Rockchip rknpu2 repository:
-cd /tmp
-git clone --depth 1 https://github.com/rockchip-linux/rknpu2.git
-
-# 2. Copy 64-bit ARM library into system directory:
-sudo cp rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so /usr/lib/
-
-# 3. Configure permissions and refresh linker cache:
+# Method 1: Direct and Fast Download (Recommended)
+sudo curl -sL -o /usr/lib/librknnrt.so https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so
 sudo chmod 755 /usr/lib/librknnrt.so
 sudo ldconfig
 
-# 4. Clean up:
+# Method 2: Via Git Repository Clone (Alternative)
+cd /tmp
+git clone --depth 1 https://github.com/rockchip-linux/rknpu2.git
+sudo cp rknpu2/runtime/RK3588/Linux/librknn_api/aarch64/librknnrt.so /usr/lib/
+sudo chmod 755 /usr/lib/librknnrt.so
+sudo ldconfig
 rm -rf /tmp/rknpu2
 ```
 
@@ -95,45 +94,71 @@ pip install numpy opencv-python pillow
 
 ## **5. Step 4: "Hello NPU" — Tri-Core Hardware Initialization Test**
 
+> [!NOTE]
+> In RKNN-Toolkit-Lite2 architecture, `rknn.init_runtime()` strictly requires loading a compiled `.rknn` model into memory (`load_rknn`) before opening a hardware session. The script below downloads an official reference model and activates all 3 cores (6 TOPS).
+
 Create `test_npu.py`:
 
 ```python
-from rknnlite.api import RKNNLite
+import os
+import urllib.request
 import subprocess
+from rknnlite.api import RKNNLite
+
+MODEL_FILE = "resnet18_for_rk3588.rknn"
+MODEL_URL = "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/examples/resnet18/resnet18_for_rk3588.rknn"
+
+# 1. Ensure sample RKNN model exists
+if not os.path.exists(MODEL_FILE):
+    print(f"[*] Downloading reference NPU model: {MODEL_FILE}...")
+    urllib.request.urlretrieve(MODEL_URL, MODEL_FILE)
 
 print("--- Initializing Orange Pi 5 RKNN NPU ---")
-
 rknn = RKNNLite()
 
-# Engage all 3 NPU cores (Core 0, 1, 2) for full 6 TOPS throughput:
+# 2. Load model graph
+ret = rknn.load_rknn(MODEL_FILE)
+if ret != 0:
+    print(f"[ERROR] Failed to load model! Code: {ret}")
+    exit(ret)
+
+# 3. Engage all 3 NPU cores (Core 0, 1, 2) for full 6 TOPS throughput:
 ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2)
 
 if ret == 0:
-    print("[SUCCESS] All 3 NPU cores initialized successfully!")
+    print("[SUCCESS] All 3 NPU cores initialized successfully (Core 0, 1, 2)!")
+    print("\n--- Driver & API Version Information ---")
+    rknn.get_sdk_version()
     try:
-        telemetry = subprocess.check_output("cat /sys/kernel/debug/rknpu/load", shell=True).decode()
-        print("\n--- Real-Time NPU Core Telemetry ---")
-        print(telemetry.strip())
+        telemetry = subprocess.check_output("cat /sys/kernel/debug/rknpu/load 2>/dev/null || true", shell=True).decode()
+        if telemetry.strip():
+            print("\n--- Real-Time NPU Core Telemetry ---")
+            print(telemetry.strip())
     except Exception:
-        print("[!] Note: Reading debugfs telemetry requires root privileges.")
+        pass
 else:
     print(f"[ERROR] Failed to initialize NPU! Return code: {ret}")
 
 rknn.release()
 ```
 
-Run test:
+### **Run the Test:**
 ```bash
-sudo $(which python3) test_npu.py
+# Execute within activated virtual environment:
+python3 test_npu.py
 ```
 
 **Expected Output:**
 ```text
 --- Initializing Orange Pi 5 RKNN NPU ---
-[SUCCESS] All 3 NPU cores initialized successfully!
+[SUCCESS] All 3 NPU cores initialized successfully (Core 0, 1, 2)!
 
---- Real-Time NPU Core Telemetry ---
-NPU load:  Core0: 0%, Core1: 0%, Core2: 0%
+--- Driver & API Version Information ---
+==============================================
+RKNN VERSION:
+  API: 2.3.2
+  DRV: 0.9.7 (or 0.9.8)
+==============================================
 ```
 
 ---

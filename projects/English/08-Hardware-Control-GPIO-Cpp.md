@@ -53,8 +53,8 @@ cd wiringOP
 sudo ./build clean
 sudo ./build
 
-# 3. Verify the pin table:
-gpio readall
+# 3. Verify the pin table (Requires root privileges):
+sudo gpio readall
 ```
 
 *The terminal will output a full matrix detailing physical pin numbers, wPi IDs, BCM mappings, and logic states.*
@@ -86,7 +86,7 @@ target_link_libraries(hardware_app PRIVATE ${WIRINGOP_LIB} pthread)
 ```
 
 ### **3. C++ Source Code (`src/main.cpp`):**
-Blinks an LED on Pin 7 (wiringOP Pin 4 / GPIO1_C6) and samples button state on Pin 11 (wiringOP Pin 0 / GPIO4_B2) with internal pull-up:
+Blinks an LED on Pin 7 (wiringOP Pin 2 / GPIO1_C6) and samples button state on Pin 11 (wiringOP Pin 5 / GPIO4_B2) with internal pull-up:
 
 ```cpp
 #include <iostream>
@@ -94,8 +94,8 @@ Blinks an LED on Pin 7 (wiringOP Pin 4 / GPIO1_C6) and samples button state on P
 #include <thread>
 #include <wiringPi.h>
 
-#define LED_PIN    4   // Physical Pin 7 (GPIO1_C6 - wiringOP 4)
-#define BUTTON_PIN 0   // Physical Pin 11 (GPIO4_B2 - wiringOP 0)
+#define LED_PIN    2   // Physical Pin 7 (GPIO1_C6 - wiringOP 2)
+#define BUTTON_PIN 5   // Physical Pin 11 (GPIO4_B2 - wiringOP 5)
 
 int main() {
     std::cout << "--- Orange Pi 5 Hardware Control (C++) ---" << std::endl;
@@ -181,6 +181,12 @@ finally:
     line.release()
     chip.close()
     print("Pin resource released safely.")
+```
+
+### **Run Python Script:**
+```bash
+# Execute with sudo for gpiochip character device access:
+sudo python3 led_control.py
 ```
 
 ---
