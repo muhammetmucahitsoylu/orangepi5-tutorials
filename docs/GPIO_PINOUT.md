@@ -8,6 +8,10 @@
 
 ![Orange Pi 5 26-Pin GPIO Header Layout](images/opi5_26pin_header.svg)
 
+<p align="center">
+  <img src="images/hardware/opi5_pin_definition.png" alt="Orange Pi 5 V1.3.2 Official Pin Definition" width="95%" />
+</p>
+
 ### 3-Pin Dedicated Debug UART Wiring (1,500,000 Baud)
 
 When debugging bootloader crashes, kernel panics, or MaskROM recovery, connect a 3.3V USB-to-UART bridge (e.g. CP2102, CH340, FTDI) to the dedicated 3-pin debug header located next to the HDMI port:

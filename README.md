@@ -41,6 +41,11 @@ Bu depodaki rehberler Orange Pi 5 (RK3588S) temel alınarak hazırlanmıştır; 
 | **Orange Pi 5 Pro** | RK3588S | 6 TOPS / Mali-G610 | M.2 PCIe 2.0 x1 (2280) + MicroSD | 1x GbE LAN + WiFi 5/6 + BT | AI/NPU rehberleri tam uyumlu; standart 2280 SSD destekler. 40-pin GPIO pin numaraları kontrol edilmelidir. |
 | **Orange Pi 5 Plus** | **RK3588** (Tam) | 6 TOPS / Mali-G610 | M.2 PCIe 3.0 x4 (2280) + eMMC yuvası | 2x 2.5 GbE LAN + M.2 E-Key (WiFi) | AI/NPU rehberleri tam uyumlu; NVMe hızı ~3500 MB/s'ye çıkar, çift 2.5G ağ ile sunucu projelerine mükemmel uyum sağlar. |
 
+<p align="center">
+  <img src="docs/images/hardware/opi5_front.png" width="48%" alt="Orange Pi 5 V1.3.2 Front View" />
+  <img src="docs/images/hardware/opi5_rear.png" width="48%" alt="Orange Pi 5 V1.3.2 Rear View" />
+</p>
+
 ---
 
 ### 🎮 İnteraktif Kontrol Merkezi & Donanım Araçları
@@ -298,6 +303,11 @@ While this repository is authored and benchmarked against the baseline Orange Pi
 | **Orange Pi 5B** | RK3588S | 6 TOPS / Mali-G610 | Onboard eMMC + MicroSD (No M.2 slot) | 1x GbE LAN + WiFi 6 / BT 5.0 | All AI/NPU and Docker guides fully compatible; flash to eMMC instead of NVMe. |
 | **Orange Pi 5 Pro** | RK3588S | 6 TOPS / Mali-G610 | M.2 PCIe 2.0 x1 (2280) + MicroSD | 1x GbE LAN + WiFi 5/6 + BT | All AI/NPU guides fully compatible. Supports standard 2280 NVMe SSDs; verify 40-pin GPIO pinout. |
 | **Orange Pi 5 Plus** | **RK3588** (Full) | 6 TOPS / Mali-G610 | M.2 PCIe 3.0 x4 (2280) + eMMC socket | 2x 2.5 GbE LAN + M.2 E-Key slot | All AI/NPU guides fully compatible. NVMe speeds reach ~3500 MB/s; dual 2.5G LAN excels for server appliances. |
+
+<p align="center">
+  <img src="docs/images/hardware/opi5_front.png" width="48%" alt="Orange Pi 5 V1.3.2 Front View" />
+  <img src="docs/images/hardware/opi5_rear.png" width="48%" alt="Orange Pi 5 V1.3.2 Rear View" />
+</p>
 
 ---
 
