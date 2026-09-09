@@ -46,3 +46,23 @@ Under the following terms:
 
 For the full legal code of CC BY-SA 4.0, please visit:
 https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+---
+
+## PART 3: Trademarks, Third-Party Assets & Legal Disclaimer
+
+1. **Trademarks & Brand Names:**  
+   * **Orange Pi™** is a registered trademark of **Shenzhen Xunlong Software CO., Limited**.  
+   * **Rockchip™** is a registered trademark of **Rockchip Electronics Co., Ltd.**  
+   * **Ubuntu™** and Canonical are registered trademarks of **Canonical Ltd.**  
+   * All other product names, logos, brands, and registered trademarks mentioned or displayed in this repository are the property of their respective owners.
+
+2. **Non-Affiliation Disclaimer:**  
+   This repository (`orangepi5-tutorials`) is an **independent, community-driven educational initiative** authored and maintained by Muhammet Mücahit Soylu. It is **not** affiliated with, authorized by, sponsored by, or endorsed by Shenzhen Xunlong Software CO., Limited, Rockchip Electronics Co., Ltd., Canonical Ltd., or any of their affiliates.
+
+3. **Hardware Photography & Schematics (Fair Use):**  
+   Physical hardware photos, dimensional schematics, and pinout definitions derived from official reference documentation are included and transformed (annotated with callouts, signal mappings, and component identifiers) strictly for **non-commercial, educational documentation, reverse-recovery procedures, and software interoperability purposes** under the Fair Use doctrine (17 U.S. Code § 107 and corresponding international intellectual property conventions).
+
+4. **Third-Party Open-Source Assets & AI Models:**  
+   All third-party tools, libraries (e.g., `WiringOP`, `RKNN-Toolkit2`, `RKLLM`), and pre-trained weights (e.g., Qwen by Alibaba Cloud, MobileNet by Google) remain the intellectual property of their original creators and are distributed or linked under their respective permissive open-source licenses (Apache 2.0, MIT, Qwen License). Full upstream attributions and original repository links are maintained across all release notes and project guides.
+
