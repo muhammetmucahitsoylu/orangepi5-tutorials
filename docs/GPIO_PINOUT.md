@@ -45,30 +45,30 @@
 | :---: | :--- | :---: | :--- | :---: | :--- | :--- | :--- |
 | **01** | **+3.3V Power** | — | — | — | 3.3V DC Power Rail | — | — |
 | **02** | **+5.0V Power** | — | — | — | 5.0V DC Power Rail | — | — |
-| **03** | **GPIO1_B7** | 2 | `gpiochip1` Line 15 | **47** | **PWM13_M2** | **UART1_RX_M1** | **I2C5_SDA_M3** |
+| **03** | **GPIO1_B7** | **0** | `gpiochip1` Line 15 | **47** | **PWM13_M2** | **UART1_RX_M1** | **I2C5_SDA_M3** |
 | **04** | **+5.0V Power** | — | — | — | 5.0V DC Power Rail | — | — |
-| **05** | **GPIO1_B6** | 3 | `gpiochip1` Line 14 | **46** | **UART1_TX_M1** | **I2C5_SCL_M3** | — |
+| **05** | **GPIO1_B6** | **1** | `gpiochip1` Line 14 | **46** | **UART1_TX_M1** | **I2C5_SCL_M3** | — |
 | **06** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
-| **07** | **GPIO1_C6** | 4 | `gpiochip1` Line 22 | **54** | **PWM15_IR_M2** | — | — |
-| **08** | **GPIO4_A3** | 15 | `gpiochip4` Line 3 | **131** | **UART0_TX_M2** | — | — |
+| **07** | **GPIO1_C6** | **2** | `gpiochip1` Line 22 | **54** | **PWM15_IR_M2** | — | — |
+| **08** | **GPIO4_A3** | **3** | `gpiochip4` Line 3 | **131** | **UART0_TX_M2** | — | — |
 | **09** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
-| **10** | **GPIO4_A4** | 16 | `gpiochip4` Line 4 | **132** | **UART0_RX_M2** | — | — |
-| **11** | **GPIO4_B2** | 0 | `gpiochip4` Line 10 | **138** | **PWM14_M1** | **CAN1_RX_M1** | — |
-| **12** | **GPIO0_D5** | 6 | `gpiochip0` Line 29 | **29** | **CAN2_TX_M1** | — | — |
-| **13** | **GPIO4_B3** | 1 | `gpiochip4` Line 11 | **139** | **CAN1_TX_M1** | — | — |
+| **10** | **GPIO4_A4** | **4** | `gpiochip4` Line 4 | **132** | **UART0_RX_M2** | — | — |
+| **11** | **GPIO4_B2** | **5** | `gpiochip4` Line 10 | **138** | **PWM14_M1** | **CAN1_RX_M1** | — |
+| **12** | **GPIO0_D5** | **6** | `gpiochip0` Line 29 | **29** | **CAN2_TX_M1** | — | — |
+| **13** | **GPIO4_B3** | **7** | `gpiochip4` Line 11 | **139** | **CAN1_TX_M1** | — | — |
 | **14** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
-| **15** | **GPIO0_D4** | 5 | `gpiochip0` Line 28 | **28** | **PWM3_IR_M0** | **CAN2_RX_M1** | — |
-| **16** | **GPIO1_D3** | 8 | `gpiochip1` Line 27 | **59** | **UART4_RX_M0** | **I2C1_SDA_M4** | — |
+| **15** | **GPIO0_D4** | **8** | `gpiochip0` Line 28 | **28** | **PWM3_IR_M0** | **CAN2_RX_M1** | — |
+| **16** | **GPIO1_D3** | **9** | `gpiochip1` Line 27 | **59** | **UART4_RX_M0** | **I2C1_SDA_M4** | — |
 | **17** | **+3.3V Power** | — | — | — | 3.3V DC Power Rail | — | — |
-| **18** | **GPIO1_D2** | 9 | `gpiochip1` Line 26 | **58** | **UART4_TX_M0** | **I2C1_SCL_M4** | **PWM0_M1** |
-| **19** | **GPIO1_C1** | 12 | `gpiochip1` Line 17 | **49** | **I2C3_SCL_M0** | **UART3_TX_M0** | **SPI4_MOSI_M0** |
+| **18** | **GPIO1_D2** | **10** | `gpiochip1` Line 26 | **58** | **UART4_TX_M0** | **I2C1_SCL_M4** | **PWM0_M1** |
+| **19** | **GPIO1_C1** | **11** | `gpiochip1` Line 17 | **49** | **I2C3_SCL_M0** | **UART3_TX_M0** | **SPI4_MOSI_M0** |
 | **20** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
-| **21** | **GPIO1_C0** | 13 | `gpiochip1` Line 16 | **48** | **I2C3_SDA_M0** | **UART3_RX_M0** | **SPI4_MISO_M0** |
-| **22** | **GPIO2_D4** | 10 | `gpiochip2` Line 28 | **92** | — | — | — |
-| **23** | **GPIO1_C2** | 14 | `gpiochip1` Line 18 | **50** | **SPI4_CLK_M0** | — | — |
-| **24** | **GPIO1_C4** | 11 | `gpiochip1` Line 20 | **52** | **SPI4_CS1_M0** | — | — |
+| **21** | **GPIO1_C0** | **12** | `gpiochip1` Line 16 | **48** | **I2C3_SDA_M0** | **UART3_RX_M0** | **SPI4_MISO_M0** |
+| **22** | **GPIO2_D4** | **13** | `gpiochip2` Line 28 | **92** | — | — | — |
+| **23** | **GPIO1_C2** | **14** | `gpiochip1` Line 18 | **50** | **SPI4_CLK_M0** | — | — |
+| **24** | **GPIO1_C4** | **15** | `gpiochip1` Line 20 | **52** | **SPI4_CS1_M0** | — | — |
 | **25** | **Ground (GND)**| — | — | — | 0V Ground Reference | — | — |
-| **26** | **GPIO1_A3** | 7 | `gpiochip1` Line 3 | **35** | **PWM1_M2** | — | — |
+| **26** | **GPIO1_A3** | **16** | `gpiochip1` Line 3 | **35** | **PWM1_M2** | — | — |
 
 ### Dedicated 3-Pin Debug UART Header
 Located immediately below the 26-pin header on the Orange Pi 5 PCB:

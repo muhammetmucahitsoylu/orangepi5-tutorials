@@ -22,10 +22,17 @@ On certain older kernel versions or BSP revisions, if U-Boot fails to pass the p
 
 ## **2. Step 1: Diagnose MAC Address Persistence**
 
-Run:
+First, list your active physical network interfaces and determine your primary Ethernet interface name:
 
 ```bash
-ip link show eth0
+ip -br link
+```
+*(On Ubuntu 24.04, the primary Rockchip Gigabit Ethernet interface is typically named `end1`, while on Ubuntu 22.04 or legacy kernels it is named `eth0`).*
+
+Inspect your interface details (e.g. for `end1`):
+
+```bash
+ip link show end1   # or: ip link show eth0
 ```
 
 1. Note the 12-character hexadecimal string next to `link/ether` (e.g., `ee:7c:02:4b:91:aa`).
@@ -33,7 +40,7 @@ ip link show eth0
    ```bash
    sudo reboot
    ```
-3. Re-run `ip link show eth0`.
+3. Re-run `ip link show end1` (or `eth0`).
    * **If the address is identical:** Your system is **NOT** affected. Skip Steps 2 and 3.
    * **If the address changed (e.g., starts with `fe:` or different octets):** Proceed to Step 2.
 
@@ -83,7 +90,7 @@ sudo nmcli connection up "Wired connection 1"
 ## **5. Verification**
 
 ```bash
-ip addr show eth0
+ip addr show end1   # or: ip addr show eth0
 ```
 *Verify that `inet` reflects your chosen IP (e.g., `192.168.1.150`) and `link/ether` displays your configured cloned MAC.*
 

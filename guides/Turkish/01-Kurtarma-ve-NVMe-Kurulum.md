@@ -60,11 +60,16 @@ Yaşadığım tüm kilitlenmelerin ardından çıkardığım en net sonuç şudu
 3. Orange Pi 5 ve laptopunuzun aynı yerel ağda (Wi-Fi veya Ethernet) olduğundan emin olun. Orange Pi 5 terminalinde SSD aygıt adını doğrulayın:  
    lsblk *(M.2 SSD genellikle /dev/nvme0n1 olarak listelenir.)*  
 4. Laptopunuzda terminali açıp resmi ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img dosyasının bulunduğu dizine gidin ve işletim sisteminize uygun komutla imajı doğrudan SSD'ye (/dev/nvme0n1) aktarın:  
-   **Windows (CMD \- Komut İstemi):**  
-   type ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img | ssh root@ORANGE\_PI\_IP "dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"  
+   **Windows (CMD - Komut İstemi):**  
+   ```cmd
+   type ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img | ssh orangepi@ORANGE_PI_IP "sudo dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
+   ```
    **Windows (PowerShell 7+):**  
-   Get-Content .\\ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img \-AsByteStream \-Raw | ssh root@ORANGE\_PI\_IP "dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"  
-> 5. Yazma işlemi bittiğinde Orange Pi 5'i kapatın (poweroff) ve geçici olarak kullandığınız **Depolama aygıtını çıkartın**.
+   ```powershell
+   Get-Content .\ubuntu-24.04-preinstalled-desktop-arm64-orangepi-5.img -AsByteStream -Raw | ssh orangepi@ORANGE_PI_IP "sudo dd of=/dev/nvme0n1 bs=4M status=progress conv=fsync"
+   ```
+   *(Not: Ubuntu'da varsayılan olarak root kullanıcısının doğrudan parola ile SSH oturumu açması kapalıdır. Bu nedenle komutta `orangepi` veya belirlediğiniz kullanıcı adını ve blok yazma yetkisi için `sudo dd` kullandık).*  
+> 5. Yazma işlemi bittiğinde Orange Pi 5'i kapatın (`sudo poweroff`) ve geçici olarak kullandığınız **Depolama aygıtını çıkartın**.
 
 ### **Aşama 2: Windows Sürücü Çakışmalarını Temizleyin**
 

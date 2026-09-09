@@ -89,16 +89,17 @@ Orange Pi 5 terminalinde:
 ```bash
 mkdir -p ~/projects && cd ~/projects
 
-# 1. Resmi rknn-llm deposunu klonlayın:
-git clone --depth 1 https://github.com/airockchip/rknn-llm.git
-
-# 2. 64-bit ARM çalışma kütüphanesini (/usr/lib) dizinine kopyalayın:
-sudo cp rknn-llm/rkllm-runtime/Linux/librkllm_api/aarch64/librkllmrt.so /usr/lib/
+# 1. 64-bit ARM RKLLM çalışma kütüphanesini sisteme kurun:
+# (Yöntem 1: Doğrudan ve Hızlı İndirme)
+sudo curl -sL -o /usr/lib/librkllmrt.so https://raw.githubusercontent.com/airockchip/rknn-llm/master/rkllm-runtime/Linux/librkllm_api/aarch64/librkllmrt.so
 sudo chmod 755 /usr/lib/librkllmrt.so
 sudo ldconfig
 
+# 2. Resmi rknn-llm deposunu klonlayın:
+git clone --depth 1 https://github.com/airockchip/rknn-llm.git
+
 # 3. Optimize edilmiş C++ LLM çalıştırıcısını (llm_demo) derleyin:
-cd rknn-llm/examples/rkllm_api_demo
+cd rknn-llm/examples/rkllm_api_demo/deploy
 mkdir -p build && cd build
 cmake ..
 make -j$(nproc)
@@ -111,7 +112,7 @@ make -j$(nproc)
 Derlenen `llm_demo` uygulamasını NPU model dosyanız ile çalıştırın:
 
 ```bash
-cd ~/projects/rknn-llm/examples/rkllm_api_demo/build
+cd ~/projects/rknn-llm/examples/rkllm_api_demo/deploy/build
 
 # Kullanım: ./llm_demo <model_yolu> <maksimum_yeni_token> <maksimum_baglam_uzunlugu>
 ./llm_demo ~/projects/ilk-projem/models/qwen2.5_1.5b_w4a16_rk3588.rkllm 512 2048

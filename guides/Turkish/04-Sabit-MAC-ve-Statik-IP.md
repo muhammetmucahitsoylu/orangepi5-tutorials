@@ -22,10 +22,16 @@ Bazı Orange Pi 5 kartlarında veya eski Linux çekirdeği sürümlerinde, dahil
 
 ## **2. Adım 1: MAC Adresinin Değişip Değişmediğini Teşhis Etme**
 
-Terminalde şu komutu çalıştırın:
+Terminalde önce ağ arayüzünüzün adını (`end1` veya `eth0`) ve mevcut durumunu listeleyin:
 
 ```bash
-ip link show eth0
+ip -br link
+```
+*(Ubuntu 24.04 üzerinde Rockchip Ethernet portu genellikle `end1`, 22.04 veya eski çekirdeklerde ise `eth0` olarak adlandırılır).*
+
+Arayüzünüzün detaylarını görüntüleyin (örneğin `end1` için):
+```bash
+ip link show end1   # veya: ip link show eth0
 ```
 
 1. Çıktıda `link/ether` satırındaki 12 haneli adresi bir kenara not edin (Örn: `ee:7c:02:4b:91:aa`).
@@ -33,7 +39,7 @@ ip link show eth0
    ```bash
    sudo reboot
    ```
-3. Tekrar `ip link show eth0` çalıştırın.
+3. Tekrar `ip link show end1` (veya `eth0`) çalıştırın.
    * **Adres aynıysa:** Sisteminizde bu sorun **YOKTUR**. 2. ve 3. Adımları atlayabilirsiniz.
    * **Adres farklıysa (örneğin ilk iki hane `fe:` veya tamamen rastgele değiştiyse):** 2. Adıma geçin.
 
@@ -87,7 +93,7 @@ sudo nmcli connection up "Wired connection 1"
 ## **5. Doğrulama**
 
 ```bash
-ip addr show eth0
+ip addr show end1   # veya: ip addr show eth0
 ```
 * Çıktıda `inet` satırında atadığınız sabit IP (ör. `192.168.1.150`) ve `link/ether` satırında belirlediğiniz sabit MAC adresi görünüyorsa işlem başarıyla tamamlanmıştır. Cihazı yeniden başlatsanız dahi IP ve MAC adresi kesinlikle değişmeyecektir.
 

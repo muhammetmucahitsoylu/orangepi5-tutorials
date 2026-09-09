@@ -85,25 +85,30 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 # Paket listesini güncelleyin
 sudo apt update
 
-# Ubuntu 22.04 için optimize edilmiş hafif ROS-Base ve Python araçlarını kurun:
-sudo apt install -y ros-humble-ros-base \
+# Ubuntu sürümünüze göre dağıtım adını belirleyin:
+# Ubuntu 24.04 (Noble) -> jazzy | Ubuntu 22.04 (Jammy) -> humble
+ROS_DISTRO=$(source /etc/os-release && [ "$UBUNTU_CODENAME" = "noble" ] && echo "jazzy" || echo "humble")
+echo "Seçilen ROS 2 Dağıtımı: $ROS_DISTRO"
+
+# Hafif ROS-Base ve geliştirici araçlarını kurun:
+sudo apt install -y ros-${ROS_DISTRO}-ros-base \
                     ros-dev-tools \
                     python3-colcon-common-extensions \
                     python3-rosdep \
-                    ros-humble-cv-bridge \
-                    ros-humble-vision-msgs
+                    ros-${ROS_DISTRO}-cv-bridge \
+                    ros-${ROS_DISTRO}-vision-msgs
 
 # rosdep veritabanını başlatın:
-sudo rosdep init
+sudo rosdep init 2>/dev/null || true
 rosdep update
 ```
 
 ### **Kabuk Ortamı Yapılandırması (`~/.bashrc`):**
 Her terminal açıldığında ROS 2 ortamının otomatik yüklenmesi ve çakışmaları önlemek için:
 ```bash
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 echo "export ROS_DOMAIN_ID=42" >> ~/.bashrc
-source ~/.bashrc
+source /opt/ros/${ROS_DISTRO}/setup.bash
 ```
 
 ### **Doğrulama (Çekirdek İletişim Testi):**

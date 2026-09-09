@@ -101,19 +101,54 @@ fi
 
 # 4. Neural Processing Unit (NPU - 6 TOPS) & Version Pinning
 echo -e "\n${BOLD}[4/7] NPU (Rockchip 6 TOPS Tri-Core) & Stack Alignment${RESET}"
+NPU_FOUND=false
+NPU_NODE=""
+
 if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
-    echo -e "  NPU Character Node : ${GREEN}[FOUND] /dev/rknpu${RESET}"
-    if [ -f /sys/kernel/debug/rknpu/version ]; then
+    NPU_FOUND=true
+    NPU_NODE="/dev/rknpu (Legacy Character Device)"
+else
+    # Check modern DRM render node for NPU (Rockchip 6.1+ BSP Kernel on Ubuntu 24.04)
+    for rnode in /sys/class/drm/renderD*/device/driver; do
+        if [ -e "$rnode" ] && grep -qi "rknpu" <<< "$(readlink -f "$rnode")"; then
+            DRM_NAME=$(basename "$(dirname "$(dirname "$rnode")")")
+            NPU_FOUND=true
+            NPU_NODE="/dev/dri/${DRM_NAME} (Modern DRM Render Node)"
+            break
+        fi
+    done
+    if [ "$NPU_FOUND" = false ] && [ -d /sys/devices/platform/fdab0000.npu ]; then
+        NPU_FOUND=true
+        NPU_NODE="/sys/devices/platform/fdab0000.npu (Platform Device)"
+    fi
+fi
+
+if [ "$NPU_FOUND" = true ]; then
+    echo -e "  NPU Device Node    : ${GREEN}[FOUND] ${NPU_NODE}${RESET}"
+    
+    # Extract driver version via debugfs or dmesg
+    NPU_VER=""
+    if [ -f /sys/kernel/debug/rknpu/version ] && [ -r /sys/kernel/debug/rknpu/version ]; then
         NPU_VER=$(cat /sys/kernel/debug/rknpu/version 2>/dev/null)
+    elif [ -f /sys/kernel/debug/rknpu/version ] && sudo -n true 2>/dev/null; then
+        NPU_VER=$(sudo -n cat /sys/kernel/debug/rknpu/version 2>/dev/null)
+    fi
+    
+    if [ -z "$NPU_VER" ] && command -v dmesg >/dev/null 2>&1; then
+        NPU_VER=$(dmesg 2>/dev/null | grep -i "Initialized rknpu" | tail -n 1 | sed -n 's/.*Initialized rknpu \([^ ]*\).*/v\1/p')
+    fi
+    
+    if [ -z "$NPU_VER" ] && [ -f /sys/devices/platform/fdab0000.npu/uevent ]; then
+        NPU_VER=$(grep "DRIVER=" /sys/devices/platform/fdab0000.npu/uevent 2>/dev/null | cut -d'=' -f2)
+    fi
+
+    if [ -n "$NPU_VER" ]; then
         echo -e "  RKNPU Driver Ver   : ${CYAN}${NPU_VER}${RESET}"
-    elif dmesg | grep -qi "rknpu"; then
-        NPU_DMESG=$(dmesg | grep -i "rknpu" | tail -n 1)
-        echo -e "  NPU Driver Log     : ${CYAN}${NPU_DMESG}${RESET}"
     else
         echo -e "  RKNPU Driver Ver   : ${GREEN}Driver active${RESET}"
     fi
 
-    # Check userspace librknnrt.so runtime library
+    # Check userspace librknnrt.so runtime library or Python RKNN environment
     LIB_PATH=""
     for p in /usr/lib/librknnrt.so /usr/local/lib/librknnrt.so /usr/lib/aarch64-linux-gnu/librknnrt.so; do
         if [ -f "$p" ]; then
@@ -126,13 +161,16 @@ if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
         RT_VER=$(strings "$LIB_PATH" 2>/dev/null | grep -i "librknnrt version" | head -n 1)
         [ -z "$RT_VER" ] && RT_VER="Detected"
         echo -e "  Board Runtime Lib  : ${GREEN}[OK] ${LIB_PATH} (${RT_VER})${RESET}"
+    elif python3 -c "import rknnlite" 2>/dev/null || ([ -f "$HOME/rknn_env/bin/python3" ] && "$HOME/rknn_env/bin/python3" -c "import rknnlite" 2>/dev/null); then
+        PY_RKNN_VER=$(python3 -c "import importlib.metadata; print(importlib.metadata.version('rknn-toolkit-lite2'))" 2>/dev/null || echo "2.3.2")
+        echo -e "  Board Runtime Lib  : ${GREEN}[OK] Python RKNN-Toolkit-Lite2 v${PY_RKNN_VER} active${RESET}"
     else
         echo -e "  Board Runtime Lib  : ${YELLOW}[NOT FOUND] librknnrt.so not found in system library path${RESET}"
         echo -e "  ${YELLOW}Notice: Run 'scripts/setup_npu.sh' to install librknnrt v2.3.2 runtime.${RESET}"
     fi
     echo -e "  Compatibility Ref  : ${CYAN}See docs/COMPATIBILITY.md for driver & runtime version matrix${RESET}"
 else
-    echo -e "  NPU Character Node : ${RED}[NOT FOUND] /dev/rknpu is missing!${RESET}"
+    echo -e "  NPU Device Node    : ${RED}[NOT FOUND] NPU device node is missing!${RESET}"
     echo -e "  ${YELLOW}Fix: Ensure you are running Rockchip 5.10/6.1 BSP kernel or verify kernel modules with 'lsmod | grep rknpu'.${RESET}"
 fi
 

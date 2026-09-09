@@ -53,8 +53,8 @@ cd wiringOP
 sudo ./build clean
 sudo ./build
 
-# 3. Pin tablosunu doğrulayın:
-gpio readall
+# 3. Pin tablosunu doğrulayın (Root yetkisi gereklidir):
+sudo gpio readall
 ```
 
 *Terminalde 26 pinin tamamını, wPi numaralarını, BCM karşılıklarını ve voltaj seviyelerini listeleyen tablo belirecektir.*
@@ -86,7 +86,7 @@ target_link_libraries(hardware_app PRIVATE ${WIRINGOP_LIB} pthread)
 ```
 
 ### **3. C++ Kaynak Kodu (`src/main.cpp`):**
-Pin 7 (wiringOP Pin 4 / GPIO1_C6) üzerine bağlı bir LED'i yakıp söndüren ve Pin 11 (wiringOP Pin 0 / GPIO4_B2) üzerindeki buton durumunu okuyan kod:
+Pin 7 (wiringOP Pin 2 / GPIO1_C6) üzerine bağlı bir LED'i yakıp söndüren ve Pin 11 (wiringOP Pin 5 / GPIO4_B2) üzerindeki buton durumunu okuyan kod:
 
 ```cpp
 #include <iostream>
@@ -94,8 +94,8 @@ Pin 7 (wiringOP Pin 4 / GPIO1_C6) üzerine bağlı bir LED'i yakıp söndüren v
 #include <thread>
 #include <wiringPi.h>
 
-#define LED_PIN    4   // Fiziksel Pin 7 (GPIO1_C6 - wiringOP 4)
-#define BUTTON_PIN 0   // Fiziksel Pin 11 (GPIO4_B2 - wiringOP 0)
+#define LED_PIN    2   // Fiziksel Pin 7 (GPIO1_C6 - wiringOP 2)
+#define BUTTON_PIN 5   // Fiziksel Pin 11 (GPIO4_B2 - wiringOP 5)
 
 int main() {
     std::cout << "--- Orange Pi 5 Donanım Kontrolü (C++) ---" << std::endl;
@@ -184,6 +184,12 @@ finally:
     line.release()
     chip.close()
     print("Pin serbest bırakıldı.")
+```
+
+### **Python Betiğini Çalıştırın:**
+```bash
+# Donanım gpiochip karakter aygıtına erişim için sudo ile çalıştırın:
+sudo python3 led_control.py
 ```
 
 ---

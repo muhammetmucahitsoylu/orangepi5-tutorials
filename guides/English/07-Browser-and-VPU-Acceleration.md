@@ -21,7 +21,7 @@ The Orange Pi 5 is powered by a capable 8-core processor and includes a dedicate
 Ensure that the Rockchip hardware video acceleration packages are installed on your system by running:
 
 ```bash
-sudo apt update && sudo apt install -y rockchip-mpp libv4l-rkmpp
+sudo apt update && sudo apt install -y librockchip-mpp1 libv4l-rkmpp
 ```
 
 ---

@@ -21,7 +21,7 @@ Orange Pi 5 oldukça güçlü 8 çekirdekli bir işlemciye ve 4K/8K video çözm
 Rockchip donanımsal video çözücü kütüphanelerinin kurulu olduğundan emin olmak için terminale şu komutu girin:
 
 ```bash
-sudo apt update && sudo apt install -y rockchip-mpp libv4l-rkmpp
+sudo apt update && sudo apt install -y librockchip-mpp1 libv4l-rkmpp
 ```
 
 ---

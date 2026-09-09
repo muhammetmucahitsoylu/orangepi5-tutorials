@@ -83,24 +83,29 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 ```bash
 sudo apt update
 
-# Install base ROS 2 packages and OpenCV bridges (Ubuntu 22.04 example):
-sudo apt install -y ros-humble-ros-base \
+# Automatically detect ROS 2 distribution from Ubuntu release:
+# (Ubuntu 24.04 Noble -> jazzy | Ubuntu 22.04 Jammy -> humble)
+ROS_DISTRO=$(source /etc/os-release && [ "$UBUNTU_CODENAME" = "noble" ] && echo "jazzy" || echo "humble")
+echo "Selected ROS 2 Distribution: $ROS_DISTRO"
+
+# Install base ROS 2 packages and developer tools:
+sudo apt install -y ros-${ROS_DISTRO}-ros-base \
                     ros-dev-tools \
                     python3-colcon-common-extensions \
                     python3-rosdep \
-                    ros-humble-cv-bridge \
-                    ros-humble-vision-msgs
+                    ros-${ROS_DISTRO}-cv-bridge \
+                    ros-${ROS_DISTRO}-vision-msgs
 
 # Initialize rosdep
-sudo rosdep init
+sudo rosdep init 2>/dev/null || true
 rosdep update
 ```
 
 ### **Persist Environment Configuration (`~/.bashrc`):**
 ```bash
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 echo "export ROS_DOMAIN_ID=42" >> ~/.bashrc
-source ~/.bashrc
+source /opt/ros/${ROS_DISTRO}/setup.bash
 ```
 
 ### **Verify Node Communication:**

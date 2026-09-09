@@ -96,7 +96,8 @@ After=multi-user.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c 'echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo performance | tee /sys/class/devfreq/dmc/governor'
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor > /dev/null && echo performance | tee /sys/class/devfreq/dmc/governor > /dev/null'
 
 [Install]
 WantedBy=multi-user.target

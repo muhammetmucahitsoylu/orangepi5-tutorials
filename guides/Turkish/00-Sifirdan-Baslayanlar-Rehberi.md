@@ -191,7 +191,7 @@ Tüm kaynak kodların, modellerin ve projelerin kartınızda hazır bulunması i
 git clone https://github.com/muhammetmucahitsoylu/orangepi5-tutorials.git
 cd orangepi5-tutorials
 ```
-Artık kartınızın içinde `/home/orangepi/orangepi5-tutorials` klasöründesiniz; tüm projeler ve rehberler parmaklarınızın ucunda!
+Artık kartınızın içinde `~/orangepi5-tutorials` (veya `/home/<kullanici_adiniz>/orangepi5-tutorials`) klasöründesiniz; tüm projeler ve rehberler parmaklarınızın ucunda!
 
 ---
 
@@ -205,7 +205,9 @@ bash scripts/opi5.sh
 
 Ekrana etkileyici bir terminal menüsü gelecektir:
 * **`1`** tuşuna basarak tam donanım sağlığı denetimi yapın.
-* **`4`** tuşuna basarak 8 çekirdekli Rockchip işlemcinizin sıcaklık ve frekanslarını canlı izleyin.
+* **`4`** tuşuna basarak NVMe SSD / depolama biriminizin gerçek okuma/yazma hızını test edin.
+* **`5`** tuşuna basarak 6 TOPS Yapay Zeka (NPU) hızlandırıcısını kendi kendine test edin.
+* **`7`** tuşuna basarak 8 çekirdekli Rockchip işlemcinizin sıcaklık ve frekanslarını canlı izleyin.
 * Menüden çıkmak için **`0`** tuşuna basın.
 
 > [!TIP]

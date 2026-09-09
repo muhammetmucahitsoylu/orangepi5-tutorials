@@ -3,8 +3,8 @@
 #include <thread>
 #include <wiringPi.h>
 
-#define LED_PIN    4   // Physical Pin 7 (GPIO1_C6 - wiringOP 4)
-#define BUTTON_PIN 0   // Physical Pin 11 (GPIO4_B2 - wiringOP 0)
+#define LED_PIN    2   // Physical Pin 7 (GPIO1_C6 - wiringOP 2)
+#define BUTTON_PIN 5   // Physical Pin 11 (GPIO4_B2 - wiringOP 5)
 
 int main() {
     std::cout << "--- Orange Pi 5 Hardware Control (C++) ---" << std::endl;
