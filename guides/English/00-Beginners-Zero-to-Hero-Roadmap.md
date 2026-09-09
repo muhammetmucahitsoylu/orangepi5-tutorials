@@ -23,7 +23,14 @@ flowchart LR
 
 ## **Step 1: Unboxing – Preparing Your Desk & Hardware**
 
-You are holding a bare green printed circuit board (PCB) populated with delicate surface-mount chips and exposed solder pads.
+You are holding a bare blue printed circuit board (PCB) populated with delicate surface-mount chips, connectors, and exposed solder pads.
+
+<p align="center">
+  <img src="../../docs/images/hardware/opi5_front.png" width="85%" alt="Orange Pi 5 Hardware and Port Layout (Front View)" />
+  <img src="../../docs/images/hardware/opi5_rear.png" width="85%" alt="Orange Pi 5 Hardware and Port Layout (Rear View)" />
+  <br>
+  <em>🔍 <strong>Hardware Architecture:</strong> All onboard ports, chips, buttons (MaskROM, Recovery), UART, and the M.2 NVMe slot are labeled with callout arrows in the high-resolution photos above.</em>
+</p>
 
 ### 1. Electrostatic Discharge (ESD) Safety
 * Do **not** place or power the board on carpets, wool blankets, or static-prone plastic surfaces.

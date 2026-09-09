@@ -23,7 +23,14 @@ flowchart LR
 
 ## **Adım 1: Kutuyu Açtınız – Masayı ve Donanımı Hazırlayın**
 
-Elinizde yeşil renkli, üzerinde yüzlerce minik bileşen ve lehim bulunan hassas bir elektronik kart var.
+Elinizde mavi renkli, üzerinde yüzlerce minik bileşen, çip ve lehim bulunan hassas bir elektronik kart var.
+
+<p align="center">
+  <img src="../../docs/images/hardware/opi5_front.png" width="85%" alt="Orange Pi 5 Donanım ve Port Yerleşimi (Ön Yüz)" />
+  <img src="../../docs/images/hardware/opi5_rear.png" width="85%" alt="Orange Pi 5 Donanım ve Port Yerleşimi (Arka Yüz)" />
+  <br>
+  <em>🔍 <strong>Donanım Mimarisi:</strong> Kart üzerindeki tüm portlar, çipler, butonlar (MaskROM, Recovery), UART ve M.2 NVMe yuvası yukarıdaki yüksek çözünürlüklü fotoğraflarda oklarla etiketlenmiştir.</em>
+</p>
 
 ### 1. Statik Elektrikten Koruma
 * Kartı yün kazak, halı veya battaniye üzerinde çalıştırmayın.

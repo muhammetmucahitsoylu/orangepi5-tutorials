@@ -118,11 +118,17 @@ Following all of these lockups, the clearest conclusion I reached is this: insta
 +-------------------------------------------------------------------------+
 ```
 
+<p align="center">
+  <img src="../../docs/images/hardware/opi5_front.png" width="90%" alt="Orange Pi 5 MaskROM Key and Hardware Layout" />
+  <br>
+  <em>🔍 <strong>Hardware Location:</strong> The onboard <strong>MaskROM Key</strong>, <strong>RECOVERY Key</strong>, and Type-C OTG flashing port are labeled with red arrows in the high-resolution photo above.</em>
+</p>
+
 1. **[WARNING]** Connect the original 5V/4A power supply to the Power In (DC-IN) Type-C port of the Orange Pi 5.  
 2. **[WARNING]** Connect a USB cable from your host computer's USB 3.0 port to the second Type-C (OTG) port on the Orange Pi 5.  
 3. **Forced MaskROM Recovery Protocol:**  
    * If the SPI Flash was cleanly erased, the SoC finds no bootloader and **automatically** falls back to MaskROM mode.
-   * **Corrupted SPI / Bootloop Escape:** If the board is stuck in an early boot crash and fails to enter MaskROM automatically, disconnect all power. Press and hold the hardware **MaskROM key** (small tactile button adjacent to the SoC / MicroSD slot shown in the schematic above). While holding the button, connect the Type-C OTG cable from the PC, wait 3 seconds, then release the button. *(Labeled 'BOOT' or 'MaskROM' on V1.1/V1.2 PCBs; SMD tactile button on V1.3.2).*
+   * **Corrupted SPI / Bootloop Escape:** If the board is stuck in an early boot crash and fails to enter MaskROM automatically, disconnect all power. Press and hold the hardware **MaskROM key** (small tactile button adjacent to the SoC / MicroSD slot shown in the photo above). While holding the button, connect the Type-C OTG cable from the PC, wait 3 seconds, then release the button. *(Labeled 'BOOT' or 'MaskROM' on V1.1/V1.2 PCBs; SMD tactile button on V1.3.2).*
 4. Launch `RKDevTool`; verify that the status bar at the bottom reports **Found One MASKROM Device**.
 
 ---
@@ -154,6 +160,12 @@ Following all of these lockups, the clearest conclusion I reached is this: insta
 ---
 
 ### **Stage 5: Boot from NVMe SSD and Validate System**
+
+<p align="center">
+  <img src="../../docs/images/hardware/opi5_rear.png" width="85%" alt="Orange Pi 5 M.2 NVMe Slot (Rear View)" />
+  <br>
+  <em>🔍 <strong>M.2 NVMe Slot:</strong> The onboard <strong>M.2 PCIe 2.0 (2242)</strong> slot located on the bottom side of the board is indicated by the arrow callout.</em>
+</p>
 
 1. Unplug the Type-C USB data cable connected to your computer.  
 2. Confirm that the temporary storage drive used in Stage 1 has been removed and the NVMe SSD is firmly seated.  
