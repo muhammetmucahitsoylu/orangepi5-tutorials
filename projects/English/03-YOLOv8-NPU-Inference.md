@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide**
+# **Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide**
 
 > 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
@@ -23,7 +23,15 @@ The golden rule of embedded edge machine learning is: **"Train & Convert on PC, 
 
 ## **2. Step 1: Model Preparation and RKNN Compilation on Host PC**
 
-> **Note:** Quantization (INT8/FP16) and model graph compilation require high host memory and x86_64 toolchains. Perform this step on your development PC (Linux or WSL2). If you already have a compiled `.rknn` model, skip directly to Step 2.
+> **Note:** Quantization (INT8/FP16) and model graph compilation require high host memory and x86_64 toolchains. Perform this step on your development PC (Linux or WSL2).
+>
+> 🚀 **Fast-Track (Direct Download on Board Without Host PC):**  
+> If you prefer to skip setting up Python and conversion toolchains on your PC, download the sample model resources and COCO labels directly on your Orange Pi 5:
+> ```bash
+> mkdir -p ~/projects/yolov8_npu/model && cd ~/projects/yolov8_npu/model
+> wget -O coco_80_labels_list.txt https://raw.githubusercontent.com/airockchip/rknn_model_zoo/main/examples/yolov8/model/coco_80_labels_list.txt
+> ```
+> Then proceed straight to **Step 2: Deploy and Run NPU Inference on Board**!
 
 ### **1. Export YOLOv8 to ONNX on Host PC:**
 ```bash

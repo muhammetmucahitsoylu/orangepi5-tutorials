@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı**
+# **Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı**
 
 > 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
@@ -23,7 +23,15 @@ Gömülü cihazlarda yapay zeka çalıştırmanın altın kuralı: **"Bilgisayar
 
 ## **2. Adım 1: Modeli Bilgisayarda Hazırlama ve RKNN Formatına Dönüştürme**
 
-> **Not:** Model dönüştürme ve kuantizasyon (INT8/FP16) işlemi yüksek CPU ve RAM gerektirdiğinden bu adım ana bilgisayarınızda (x86_64 Linux veya WSL2) yapılır. Hazır dönüştürülmüş model kullanmak isterseniz doğrudan Adım 2'ye geçebilirsiniz.
+> **Not:** Model dönüştürme ve kuantizasyon (INT8/FP16) işlemi yüksek CPU ve RAM gerektirdiğinden bu adım ana bilgisayarınızda (x86_64 Linux veya WSL2) yapılır.
+>
+> 🚀 **Hızlı Başlangıç (PC Olmadan Doğrudan Modeli İndirme):**  
+> Bilgisayarda Python ortamı kurup model dönüştürmekle vakit kaybetmek istemiyorsanız, doğrudan Orange Pi 5 üzerinde hazır model ve COCO etiketlerini tek tıkla indirebilirsiniz:
+> ```bash
+> mkdir -p ~/projects/yolov8_npu/model && cd ~/projects/yolov8_npu/model
+> wget -O coco_80_labels_list.txt https://raw.githubusercontent.com/airockchip/rknn_model_zoo/main/examples/yolov8/model/coco_80_labels_list.txt
+> ```
+> Ardından doğrudan **Adım 2: Kart Üzerinde NPU Çıkarımını Çalıştırma** aşamasına geçebilirsiniz!
 
 ### **1. Bilgisayarda YOLOv8 ONNX Dışa Aktarımı:**
 ```bash

@@ -6,33 +6,24 @@
 
 ## 1. Physical 26-Pin & 3-Pin Debug Header Diagram
 
-```
-                              ORANGE PI 5 (V1.3.2)
-                                 26-PIN HEADER
-                                    Top View
-                              +-------------------+
-                      3.3V DC | [01]   |   [02]   | +5.0V DC (VCC)
-          GPIO1_B7 / PWM13_M2 | [03]   |   [04]   | +5.0V DC (VCC)
-          GPIO1_B6 / UART1_TX | [05]   |   [06]   | GROUND (GND)
-          GPIO1_C6 / PWM15_IR | [07]   |   [08]   | GPIO4_A3 / UART0_TX
-                 GROUND (GND) | [09]   |   [10]   | GPIO4_A4 / UART0_RX
-           GPIO4_B2 / CAN1_RX | [11]   |   [12]   | GPIO0_D5 / CAN2_TX
-           GPIO4_B3 / CAN1_TX | [13]   |   [14]   | GROUND (GND)
-           GPIO0_D4 / CAN2_RX | [15]   |   [16]   | GPIO1_D3 / UART4_RX
-                      3.3V DC | [17]   |   [18]   | GPIO1_D2 / UART4_TX / PWM0_M1
-        GPIO1_C1 / SPI4_MOSI  | [19]   |   [20]   | GROUND (GND)
-        GPIO1_C0 / SPI4_MISO  | [21]   |   [22]   | GPIO2_D4
-        GPIO1_C2 / SPI4_CLK   | [23]   |   [24]   | GPIO1_C4 / SPI4_CS1
-                 GROUND (GND) | [25]   |   [26]   | GPIO1_A3 / PWM1_M2
-                              +-------------------+
+![Orange Pi 5 26-Pin GPIO Header Layout](images/opi5_26pin_header.svg)
 
-                        DEDICATED 3-PIN DEBUG UART
-                              +-------------+
-                         [TX] | UART_TX     | (1,500,000 Baud)
-                         [RX] | UART_RX     |
-                        [GND] | GROUND (■)  | (Square Pad)
-                              +-------------+
+### 3-Pin Dedicated Debug UART Wiring (1,500,000 Baud)
+
+When debugging bootloader crashes, kernel panics, or MaskROM recovery, connect a 3.3V USB-to-UART bridge (e.g. CP2102, CH340, FTDI) to the dedicated 3-pin debug header located next to the HDMI port:
+
 ```
+ Orange Pi 5 Dedicated Debug Header            USB-to-UART Adapter (PC)
++----------------------------------+          +--------------------------+
+|  [TX]  ------------------------->---------->|  [RX]                    |
+|  [RX]  <-------------------------<----------|  [TX]                    |
+|  [GND] (Square Pad ■) ----------->--------->|  [GND]                   |
++----------------------------------+          +--------------------------+
+ (DO NOT CONNECT VCC / 3.3V / 5V!)              Settings: 1,500,000 Baud, 8N1
+```
+
+> [!CAUTION]
+> **Never connect VCC (3.3V or 5V)** between your USB-UART adapter and the Orange Pi 5. Connecting power leads from two different power supplies will cause ground loops and can permanently fry the RK3588S UART pad. Connect **ONLY TX, RX, and GND**.
 
 ---
 

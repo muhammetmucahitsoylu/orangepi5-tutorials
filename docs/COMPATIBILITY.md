@@ -94,3 +94,21 @@ cat /sys/class/devfreq/fdab0000.npu/cur_freq
   ```bash
   sudo apt update && sudo apt install -y libxslt1-dev zlib1g-dev libgomp1 libgl1
   ```
+
+---
+
+## 5. Mainline Linux (Upstream 6.10+) vs. Rockchip BSP Roadmap
+
+Developers frequently ask whether they should run the **vendor Rockchip BSP kernel** (5.10 / 6.1) or the **Vanilla Mainline Linux kernel** (6.10+). Here is the technical roadmap:
+
+| Subsystem | Rockchip BSP (5.10 / 6.1) | Mainline Linux (6.10+) | Status & Recommendation |
+| :--- | :--- | :--- | :--- |
+| **NPU (6 TOPS AI)** | ✅ Native (`rknpu.ko` + `librknnrt`) | ⚠️ Experimental (Collabora Upstream RFC) | **BSP Required** for RKNN / RKLLM production pipelines. |
+| **GPU (Mali-G610)** | ⚠️ Proprietary Blobs (`libmali`) | ✅ **Panthor DRM Driver + Mesa 24.1+** | **Mainline Wins** for pure open-source Vulkan 1.3 / OpenGL ES 3.1. |
+| **VPU (Video Codec)** | ✅ 8K 60FPS Rockchip MPP (`/dev/mpp_service`)| ⚠️ Limited to 4K H.264/HEVC (`rkvdec2`) | **BSP Required** for 8K multi-channel real-time transcoding. |
+| **Camera ISP** | ✅ Hardware 3A Engine (`rkaiq_3A_server`) | ❌ Software / Generic V4L2 only | **BSP Required** for native MIPI CSI cameras. |
+| **PCIe & NVMe** | ✅ Stable (~416 MB/s on Gen 2 x1) | ✅ Fully Supported Upstream | Identical performance on both branches. |
+
+### Architectural Summary:
+* **Choose Rockchip BSP (Ubuntu 22.04 / 24.04 BSP):** If your project relies on the **NPU hardware**, **8K Jellyfin hardware transcode**, or **MIPI CSI cameras**.
+* **Choose Mainline 6.10+ (Armbian Mainline):** If your project is a general Linux workstation requiring standard upstream Mesa GPU acceleration (**Panthor**) without proprietary binary driver lock-in.

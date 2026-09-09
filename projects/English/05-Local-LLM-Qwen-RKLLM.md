@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide**
+# **Orange Pi 5 (RK3588S) Local LLM on NPU with RKLLM and Qwen Guide**
 
 > 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
@@ -30,6 +30,13 @@ Running LLMs on edge devices typically requires high-end desktop GPUs with dedic
 ## **2. Step 1: Model Quantization & Compilation on Host PC**
 
 > **Note:** Compiling and quantizing the model graph to 4-bit NPU weights requires significant host RAM and x86_64 toolchains. Perform this step on your development computer (Linux or WSL2).
+>
+> 🚀 **Fast-Track (Download Pre-Compiled Model Directly on Board):**  
+> If you do not have an x86_64 Linux workstation or wish to skip configuring the RKLLM-Toolkit environment, download the pre-compiled, W4A16 quantized `.rkllm` model from Hugging Face directly onto your Orange Pi 5:
+> ```bash
+> wget -O qwen-chat-1_8B.rkllm https://huggingface.co/Pelochus/qwen-1_8B-rk3588/resolve/main/qwen-chat-1_8B.rkllm
+> ```
+> Once downloaded, proceed directly to **Step 2: Build the Native C++ Inference Engine on Board**!
 
 ### **1. Install RKLLM-Toolkit on Host PC:**
 ```bash
