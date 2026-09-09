@@ -2,7 +2,7 @@
 # ==============================================================================
 # Orange Pi 5 (RK3588 / RK3588S) Interactive Control Center & Benchmark Suite
 # Repository: https://github.com/muhammetmucahitsoylu/orangepi5-tutorials
-# License: CC BY-NC-ND 4.0
+# License: MIT
 # ==============================================================================
 
 set -u
@@ -79,7 +79,11 @@ run_diagnostics() {
     # NPU Node
     echo -e "\n  ${BOLD}Hardware Accelerators:${RESET}"
     if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
-        echo -e "    NPU (6 TOPS)     : ${GREEN}[FOUND] /dev/rknpu active${RESET}"
+        NPU_TAG=""
+        if [ -f /sys/kernel/debug/rknpu/version ]; then
+            NPU_TAG=" ($(cat /sys/kernel/debug/rknpu/version 2>/dev/null | tr -d '\n\r'))"
+        fi
+        echo -e "    NPU (6 TOPS)     : ${GREEN}[FOUND] /dev/rknpu active${NPU_TAG}${RESET}"
     else
         echo -e "    NPU (6 TOPS)     : ${RED}[MISSING] Driver node not detected${RESET}"
     fi

@@ -2,7 +2,7 @@
 # ==============================================================================
 # Orange Pi 5 (RK3588 / RK3588S) Hardware & System Diagnostics Tool
 # Repository: https://github.com/muhammetmucahitsoylu/orangepi5-tutorials
-# License: CC BY-NC-ND 4.0
+# License: MIT
 # ==============================================================================
 
 # ANSI Color Codes
@@ -99,8 +99,8 @@ else
     echo -e "  ${GREEN}[OK] Thermal levels are within optimal operational bounds.${RESET}"
 fi
 
-# 4. Neural Processing Unit (NPU - 6 TOPS)
-echo -e "\n${BOLD}[4/7] NPU (Rockchip 6 TOPS Tri-Core) Status${RESET}"
+# 4. Neural Processing Unit (NPU - 6 TOPS) & Version Pinning
+echo -e "\n${BOLD}[4/7] NPU (Rockchip 6 TOPS Tri-Core) & Stack Alignment${RESET}"
 if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
     echo -e "  NPU Character Node : ${GREEN}[FOUND] /dev/rknpu${RESET}"
     if [ -f /sys/kernel/debug/rknpu/version ]; then
@@ -112,6 +112,25 @@ if [ -e /dev/rknpu ] || compgen -G "/dev/rknpu*" > /dev/null; then
     else
         echo -e "  RKNPU Driver Ver   : ${GREEN}Driver active${RESET}"
     fi
+
+    # Check userspace librknnrt.so runtime library
+    LIB_PATH=""
+    for p in /usr/lib/librknnrt.so /usr/local/lib/librknnrt.so /usr/lib/aarch64-linux-gnu/librknnrt.so; do
+        if [ -f "$p" ]; then
+            LIB_PATH="$p"
+            break
+        fi
+    done
+
+    if [ -n "$LIB_PATH" ]; then
+        RT_VER=$(strings "$LIB_PATH" 2>/dev/null | grep -i "librknnrt version" | head -n 1)
+        [ -z "$RT_VER" ] && RT_VER="Detected"
+        echo -e "  Board Runtime Lib  : ${GREEN}[OK] ${LIB_PATH} (${RT_VER})${RESET}"
+    else
+        echo -e "  Board Runtime Lib  : ${YELLOW}[NOT FOUND] librknnrt.so not found in system library path${RESET}"
+        echo -e "  ${YELLOW}Notice: Run 'scripts/setup_npu.sh' to install librknnrt v2.3.2 runtime.${RESET}"
+    fi
+    echo -e "  Compatibility Ref  : ${CYAN}See docs/COMPATIBILITY.md for driver & runtime version matrix${RESET}"
 else
     echo -e "  NPU Character Node : ${RED}[NOT FOUND] /dev/rknpu is missing!${RESET}"
     echo -e "  ${YELLOW}Fix: Ensure you are running Rockchip 5.10/6.1 BSP kernel or verify kernel modules with 'lsmod | grep rknpu'.${RESET}"

@@ -74,6 +74,7 @@ bash check_health.sh
 | :--- | :--- |
 | 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Donanımsal Karşılaştırma**](BENCHMARKS.md) | 6 TOPS NPU vs CPU AI çıkarımı (YOLOv8, Qwen LLM), 8K VPU transcode, derleme süresi ve güç tüketimi karşılaştırması. |
 | 🗺️ [**26-Pin GPIO Header & Donanım Şeması**](docs/GPIO_PINOUT.md) | Fiziksel pinler, WiringOP ID, Linux `libgpiod` adresleri, I2C/SPI/UART multiplex haritası ve C++/Python örnekleri. |
+| 📌 [**Sürüm & Donanım Uyumluluk Matrisi**](docs/COMPATIBILITY.md) | Linux çekirdeği (5.10 vs 6.1), RKNPU sürücüleri (v0.9.8), librknnrt ve RKNN-Toolkit2 sürüm sabitleme tablosu. |
 | 🐳 [**İzole Docker RKNN Geliştirme Ortamı**](docker/README.md) | `/dev/rknpu` donanım geçişli (passthrough), bağımlılık çakışması olmadan tek tıkla çalışan Docker konteyneri. |
 
 ---
@@ -313,6 +314,7 @@ bash check_health.sh
 | :--- | :--- |
 | 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Hardware Benchmarks**](BENCHMARKS.md) | Empirical analysis: 6 TOPS NPU vs. CPU AI inference (YOLOv8, Qwen LLM), 8K VPU hardware transcoding, compilation throughput, and power efficiency. |
 | 🗺️ [**26-Pin GPIO Header Reference & Pinout Guide**](docs/GPIO_PINOUT.md) | Physical pin diagram, WiringOP IDs, Linux `libgpiod` line offsets, sysfs formulas, I2C/SPI/UART multiplexing, and C++/Python examples. |
+| 📌 [**Hardware & Software Version Compatibility Matrix**](docs/COMPATIBILITY.md) | Strict version pinning: Linux kernel (5.10 vs 6.1), RKNPU driver (v0.9.8), librknnrt, and RKNN-Toolkit2 alignment. |
 | 🐳 [**Isolated Docker RKNN Development Environment**](docker/README.md) | Pre-configured container with direct `/dev/rknpu` hardware passthrough, OpenCV, and zero host dependency contamination. |
 
 ---

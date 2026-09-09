@@ -2,7 +2,7 @@
 # ==============================================================================
 # Orange Pi 5 (RK3588S) One-Step NPU Runtime & Python Environment Initializer
 # Repository: https://github.com/muhammetmucahitsoylu/orangepi5-tutorials
-# License: CC BY-NC-ND 4.0
+# License: MIT
 # ==============================================================================
 
 set -e

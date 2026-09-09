@@ -24,8 +24,11 @@ dmesg | grep -i rknpu
 *Expected Output:* `RKNPU: Driver version: 0.9.x` or newer.
 
 > [!IMPORTANT]
-> **CRITICAL VERSION COMPATIBILITY RULE:**  
-> If the kernel reports `Driver version: 0.8.x`, you are on an outdated BSP kernel that is **incompatible** with RKNN-Toolkit2 v2.x runtimes (raising `Driver version mismatch` errors). Upgrade your system packages first: `sudo apt update && sudo apt upgrade -y`.
+> **CRITICAL VERSION PINNING & COMPATIBILITY RULE:**  
+> In the Rockchip ecosystem, your model compiler (`rknn-toolkit2`), board runtime (`librknnrt.so`), and kernel driver (`rknpu.ko`) **must remain strictly pinned to the same version family**:
+> * **Verified Baseline for this Repository:** RKNPU Kernel Driver: **`v0.9.8`**, Runtime & Toolkit: **`v2.3.2`**.
+> * Inspect driver version directly: `cat /sys/kernel/debug/rknpu/version`
+> * For full version matrices and resolving runtime mismatch errors, see [docs/COMPATIBILITY.md](../../docs/COMPATIBILITY.md).
 
 Verify NPU clock governor:
 ```bash

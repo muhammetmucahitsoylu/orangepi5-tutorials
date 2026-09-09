@@ -109,10 +109,12 @@ sudo apt update && sudo apt upgrade -y
 ```
 *(Komutun başında `sudo` gördüğünüzde, sistem sizden şifrenizi isteyebilir. Bu, "Yönetici olarak çalıştır" anlamına gelir).*
 
-### 3. Donanım Sağlığını Kontrol Edin (Tek Komutla)
-Bizim hazırladığımız otomatik donanım denetim scriptini çalıştırarak kartın tüm parçalarını tek ekranda görün:
+### 3. Donanım Sağlığını Kontrol Edin (Güvenli Yerel Çalıştırma)
+Otomatik donanım denetim betiğimizi indirip çalıştırarak kartın tüm bileşenlerini (CPU sıcaklığı, NPU sürücüsü, bellek durumu) tek ekranda denetleyin:
 ```bash
-curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
+# Güvenlik en iyi pratiği: Betiği yerel olarak indirin ve çalıştırın
+curl -sSLO https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh
+bash check_health.sh
 ```
 Ekranda işlemci sıcaklığı, NPU sürücüsü ve bellek durumu yeşil renklerle dökülecektir.
 
