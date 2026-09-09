@@ -73,6 +73,7 @@ Yaşadığım tüm kilitlenmelerin ardından çıkardığım en net sonuç şudu
 
 ### **Aşama 3: Kartı Donanımsal MaskROM Moduna Alın**
 
+```text
                      ORANGE PI 5 DONANIMSAL MASKROM MODU
   
   [DC-IN 5V]    [Type-C OTG]
@@ -86,6 +87,7 @@ Yaşadığım tüm kilitlenmelerin ardından çıkardığım en net sonuç şudu
   |             +-----------------+                     |
   |                                                     |
   +-----------------------------------------------------+
+```
 
 1. **[UYARI]** Orange Pi 5'in Power In (DC-IN) Type-C portuna orijinal 5V/4A şarj adaptörünü bağlayın.  
 2. **[UYARI]** Bilgisayarınızın USB 3.0 çıkışını ise Orange Pi 5'in diğer Type-C (OTG) portuna takın.  
