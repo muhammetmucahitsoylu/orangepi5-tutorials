@@ -46,9 +46,13 @@ You are holding a bare green printed circuit board (PCB) populated with delicate
 
 When visiting the official Orange Pi download repository, you are confronted with a bewildering array of choices: *Android, OrangePi OS Arch, Droid, Debian, Ubuntu, OpenWRT*.
 
-* **Our Recommended Choice:** **Ubuntu 22.04 LTS Desktop (Rockchip 5.10 or 6.1 BSP Kernel)**.
-* **Why?** The 6 TOPS NPU drivers, hardware video decoding (VPU), and all 13 project guides in this repository are benchmarked and verified specifically against this distribution.
-* Download the `.img.xz` or `.7z` archive from the official Orange Pi download mirror or Armbian portal and unpack it to extract the raw `.img` file.
+* **Recommended & Verified Distributions:**
+  * **Ubuntu 24.04 LTS (Noble Numbat)** - Cutting-edge modern distribution (Joshua Riek 5.10 / 6.1 BSP Kernel).
+  * **Ubuntu 22.04 LTS (Jammy Jellyfish)** - Industry standard long-term support (LTS).
+* **"I Already Installed Ubuntu 24.04, Will I Face Any Issues?"**
+  * **Absolutely not!** Every project, TUI tool (`opi5.sh`), diagnostic script (`check_health.sh`), NPU environment builder (`setup_npu.sh`), and Python RKNN package in this repository is **100% verified and compatible with both Ubuntu 24.04 and 22.04**. You do not need to reflash or downgrade your board.
+* **The Only Critical Prerequisite:** Ensure your image is based on a **Rockchip BSP Kernel (5.10.x or 6.1.x)** (such as Joshua Riek's Ubuntu release or the official Orange Pi BSP). Upstream Mainline kernels (6.8+) lack in-tree NPU and VPU acceleration drivers.
+* Download the image archive from official Orange Pi mirrors or Joshua Riek's GitHub releases, extract it, and prepare the `.img` file.
 
 ---
 
@@ -169,10 +173,15 @@ The Linux terminal is simply a **file explorer without a mouse**.
 To run the AI, camera, and home server projects on your board, you must install the fundamental developer packages and clone this repository directly onto the device:
 
 ### 1. Install Essential Tooling
-Execute this single command to install Git, Python, virtual environment tooling, and build compilers:
+Execute this command to install Git, Python, virtual environment tooling, and build compilers:
 ```bash
-sudo apt install -y git python3-pip python3-venv build-essential
+sudo apt update && sudo apt install -y git python3-pip python3-venv build-essential
 ```
+
+> [!TIP]
+> **Pro-Tip for Ubuntu 24.04 Users (Python 3.12 & PEP 668):**  
+> Ubuntu 24.04 ships with Python 3.12, which enforces managed environments (`externally-managed-environment`).  
+> When running projects, create an isolated virtual environment with `python3 -m venv ~/rknn_env && source ~/rknn_env/bin/activate`, or simply run our automated `scripts/setup_npu.sh` script, which installs the matching Python 3.12 wheel (`cp312`) and virtual environment automatically.
 
 ### 2. Clone This Tutorial Repository
 Download all source codes, models, and scripts directly to your board:

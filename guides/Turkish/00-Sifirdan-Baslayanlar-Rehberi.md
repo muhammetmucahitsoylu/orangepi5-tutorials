@@ -44,11 +44,15 @@ Elinizde yeşil renkli, üzerinde yüzlerce minik bileşen ve lehim bulunan hass
 
 ## **Adım 2: İşletim Sistemi Seçimi (Labirentten Kurtulun)**
 
-Orange Pi resmi indirme sitesine gittiğinizde karşınıza *Android, OrangePi OS Arch, Droid, Debian, Ubuntu* gibi onlarca seçenek çıkar.
+Orange Pi indirme kaynaklarına gittiğinizde karşınıza *Android, OrangePi OS Arch, Droid, Debian, Ubuntu* gibi onlarca seçenek çıkar.
 
-* **Bizim Seçimimiz:** **Ubuntu 22.04 LTS Desktop (Kernel 5.10 veya 6.1 BSP)**.
-* **Neden?** Yapay zeka (NPU), video hızlandırma (VPU) ve bu depodaki 13 projenin tamamı bu Linux sürümüne göre optimize edilmiştir.
-* Resmi Orange Pi sitesinden veya Armbian sayfasından `.img.xz` veya `.7z` uzantılı Ubuntu imajını bilgisayarınıza indirin ve arşivden çıkararak `.img` dosyasını elde edin.
+* **Önerilen & Doğrulanmış Dağıtımlar:**
+  * **Ubuntu 24.04 LTS (Noble Numbat)** - En güncel modern dağıtım (Joshua Riek 5.10 / 6.1 BSP Kernel).
+  * **Ubuntu 22.04 LTS (Jammy Jellyfish)** - Endüstri standardı uzun süreli destek (LTS).
+* **"Benim Kartımda Ubuntu 24.04 Kurulu, Sorun Yaşar mıyım?"**
+  * **Kesinlikle hayır!** Depomuzdaki tüm projeler, TUI araçları (`opi5.sh`), donanım teşhis betikleri (`check_health.sh`), NPU kurulum otomasyonu (`setup_npu.sh`) ve Python RKNN paketleri **hem Ubuntu 24.04 hem de 22.04 ile %100 uyumlu** çalışacak şekilde optimize edilmiştir. Sisteminizi sıfırlamanıza veya 22.04'e düşürmenize kesinlikle gerek yoktur.
+* **Hayati Öneme Sahip Tek Kural:** İndirdiğiniz imajın **Rockchip BSP Kernel (5.10.x veya 6.1.x)** tabanlı olmasıdır (Joshua Riek veya resmi Orange Pi imajı). Mainline (çekirdek 6.8+) genel imajlarda NPU ve VPU donanım hızlandırma sürücüleri bulunmaz.
+* İmajı resmi Orange Pi sitesinden veya Joshua Riek GitHub deposundan indirip arşivden çıkararak `.img` dosyasını elde edin.
 
 ---
 
@@ -169,10 +173,15 @@ Terminalden korkmanıza gerek yok; terminal sadece **farenin olmadığı bir dos
 Bu depodaki yapay zeka, kamera ve sunucu projelerini kartınızda çalıştırabilmek için temel geliştirme araçlarını kurup projeleri kartın içine çekmemiz gerekir:
 
 ### 1. Temel Geliştirici Paketlerini Kurun
-Terminalde şu tek satırlık komutu çalıştırarak Git, Python ve derleme araçlarını yükleyin:
+Terminalde şu komutu çalıştırarak Git, Python ve derleme araçlarını yükleyin:
 ```bash
-sudo apt install -y git python3-pip python3-venv build-essential
+sudo apt update && sudo apt install -y git python3-pip python3-venv build-essential
 ```
+
+> [!TIP]
+> **Ubuntu 24.04 Kullanıcıları İçin Python (PEP 668) İpucu:**  
+> Ubuntu 24.04 varsayılan olarak Python 3.12 ile gelir ve sistem genelinde `pip install` komutunu sınırlar (`externally-managed-environment`).  
+> Projeleri çalıştırırken `python3 -m venv ~/rknn_env && source ~/rknn_env/bin/activate` ile izole bir sanal ortam oluşturabilir veya depomuzdaki `scripts/setup_npu.sh` betiğini çalıştırabilirsiniz; betik Python 3.12 uyumlu wheel paketini (`cp312`) ve sanal ortamı sizin yerinize tek tıkla otomatik kurar.
 
 ### 2. Bu Depoyu Kartınıza Klonlayın (İndirin)
 Tüm kaynak kodların, modellerin ve projelerin kartınızda hazır bulunması için depoyu klonlayın:
