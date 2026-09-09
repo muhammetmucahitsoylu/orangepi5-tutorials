@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Linux Kernel Module (LKM) and Device Driver Guide**
+﻿# **Orange Pi 5 (RK3588S) Linux Kernel Module (LKM) and Device Driver Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide provides an end-to-end walkthrough of Linux kernel programming on the Orange Pi 5 (Rockchip RK3588S). It explores Kernel Space vs. User Space privilege rings, demonstrates how to provision proprietary Rockchip BSP Kernel Headers, and implements a full **Character Device Driver (`/dev/opi5_gpio`)** in C to drive physical hardware GPIO lines with ring 0 privileges.
 

@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Linux Çekirdek Modülü (LKM) ve Aygıt Sürücüsü Rehberi**
+﻿# **Orange Pi 5 (RK3588S) Linux Çekirdek Modülü (LKM) ve Aygıt Sürücüsü Rehberi**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5 (Rockchip RK3588S) üzerinde Linux çekirdek mimarisini (Kernel Space vs. User Space) anlamak, çekirdek başlıklarını (Kernel Headers) hazırlamak, donanım register'larına doğrudan erişen bir **Karakter Aygıt Sürücüsü (Character Device Driver)** yazmak, derlemek ve `/dev` dizini üzerinden donanımı (GPIO) kontrol etmeyi anlatır.
 

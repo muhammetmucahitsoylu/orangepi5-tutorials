@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide**
+﻿# **Orange Pi 5 (RK3588S) ROS 2 Setup and NPU Robotics Node Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide provides an end-to-end walkthrough for deploying the industry-standard robotic framework **ROS 2 (Robot Operating System - Humble Hawksbill)** on the Orange Pi 5 (Rockchip RK3588S), tuning DDS network topology, and building a high-throughput **NPU Perception Node** that detects obstacles/objects in real time using the **6 TOPS NPU** and publishes coordinate vectors to autonomous navigation stacks.
 

@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide)**
+﻿# **Orange Pi 5 (RK3588S) Network Shield (AdGuard Home, Unbound and Tailscale Guide)**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide covers converting the Orange Pi 5 into an enterprise-grade **Whole-Home Network Security & Privacy Gateway**, eliminating telemetry, malware, and intrusive advertisements at the router level, decoupling DNS resolution from commercial ISPs via Unbound, and exposing a secure WireGuard-based Tailscale mesh tunnel.
 

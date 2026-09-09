@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Bilgisayarlı Görü Pipeline Rehberi**
+﻿# **Orange Pi 5 (RK3588S) Canlı Kamera ve NPU Bilgisayarlı Görü Pipeline Rehberi**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5'in **6 TOPS NPU (Sinirsel İşlem Birimi)** donanımını kullanarak bir **USB Web Kamerası** veya **RTSP IP Kamera** akışından canlı görüntü alan, sıfır gecikme (zero-latency) için çoklu iş parçacığı (multi-threading) mimarisiyle kareleri yakalayan, **YOLOv8** ile nesne tespiti yapan ve sonuçları gerçek zamanlı telemetri verileriyle (FPS, NPU sıcaklığı, gecikme) tarayıcıya yansıtan uçtan uca bir görüntü işleme pipeline'ı kurmayı anlatır.
 

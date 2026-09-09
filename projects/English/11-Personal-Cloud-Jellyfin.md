@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide**
+﻿# **Orange Pi 5 (RK3588S) Personal Cloud and Jellyfin Hardware Media Server Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide details converting your Orange Pi 5 into a complete, private **Home Cloud & Streaming Station (NAS & Media Server)** powered by CasaOS, Nextcloud (automatic smartphone backup replacing Google Photos), and Jellyfin with hardware-accelerated 4K transcoding via the Rockchip RK3588 VPU.
 

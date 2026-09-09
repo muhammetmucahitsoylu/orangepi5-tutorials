@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide**
+﻿# **Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide provides a step-by-step procedure to initialize the 3-core **6 TOPS Neural Processing Unit (NPU)** on the Rockchip RK3588S, verify kernel driver compatibility, configure Python environments, and troubleshoot version-mismatch exceptions.
 

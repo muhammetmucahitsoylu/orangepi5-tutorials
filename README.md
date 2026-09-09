@@ -99,21 +99,21 @@ bash check_health.sh
 
 ### 🚀 Yazılımcı Projeleri ve Yapay Zeka Rehberleri
 
-| Kategori | No | Proje / Rehber | Açıklama |
-| :--- | :--- | :--- | :--- | 
-| 🛠️ **Geliştirme** | **01** | [**IDE ve Geliştirme Ortamı Kurulumu**](projects/Turkish/01-IDE-ve-Gelistirme-Ortami.md) | VS Code Remote - SSH, tarayıcı tabanlı Code-Server, Python sanal ortamı (venv) ve proje mimarisi. |
-| 🤖 **Edge AI** | **02** | [**NPU Aktivasyonu & RKNN Kurulumu**](projects/Turkish/02-NPU-Aktivasyonu-ve-RKNN.md) | 3 çekirdekli 6 TOPS NPU'yu uyandırma, librknpu2 entegrasyonu, RKNN-Lite2 ve 3 çekirdek telemetri testi. |
-| 🤖 **Edge AI** | **03** | [**İlk Yapay Zeka Projesi: YOLOv8 NPU**](projects/Turkish/03-YOLOv8-NPU-Cikarimi.md) | Bilgisayarda ONNX/RKNN derleme, 3 çekirdekli NPU ile 70+ FPS nesne tanıma ve donanım kıyaslaması. |
-| 🤖 **Edge AI** | **04** | [**Canlı Kamera & NPU Görü İşleme Pipeline**](projects/Turkish/04-Canli-Kamera-NPU-Pipeline.md) | USB/RTSP kamera akışı, çoklu iş parçacığıyla sıfır gecikmeli kare yakalama, 3 çekirdek NPU YOLOv8 tespiti ve Flask MJPEG web yayını. |
-| 🤖 **Edge AI** | **05** | [**NPU ile Yerel Dil Modeli (RKLLM / Qwen)**](projects/Turkish/05-Yerel-LLM-Qwen-RKLLM.md) | 6 TOPS NPU üzerinde internetsiz Qwen-1.5B/3B çalıştırma, W4A16 kuantizasyon, 18+ token/s akıcı sohbet. |
-| 🤖 **Edge AI** | **06** | [**Çevrimdışı Sesli Asistan (Whisper & Piper)**](projects/Turkish/06-Sesli-Asistan-Whisper-Piper.md) | %100 yerel sesli asistan: faster-whisper (STT) + RKLLM zekası + Piper TTS doğal Türkçe ses sentezi (<1s gecikme). |
-| 🦾 **Robotik** | **07** | [**ROS 2 Kurulumu & NPU Robotik Düğüm**](projects/Turkish/07-ROS2-ve-NPU-Robotik-Dugum.md) | ROS 2 Humble kurulumu, DDS ağ optimizasyonu, 6 TOPS NPU ile nesne algılama düğümü ve navigasyon koordinat yayını. |
-| ⚙️ **Gömülü** | **08** | [**Donanım Kontrolü ve GPIO / C++**](projects/Turkish/08-GPIO-ve-Donanim-Kontrolu.md) | 26-pin başlık şeması, wiringOP ile C++/CMake mimarisi, buton/LED kontrolü, libgpiod ve I2C sensörleri. |
-| ⚙️ **Gömülü** | **09** | [**Çapraz Derleme & Uzaktan Hata Ayıklama (GDB)**](projects/Turkish/09-Capraz-Derleme-ve-GDB.md) | x86_64 PC'de ARM64 GNU toolchain ve CMake ile derleme, rsync otomatik yükleme, gdbserver ve VS Code ile uzaktan F5 debug. |
-| ⚙️ **Gömülü** | **10** | [**Linux Çekirdek Modülü (LKM) ve Aygıt Sürücüsü**](projects/Turkish/10-Linux-Cekirdek-Modulu-LKM.md) | Rockchip kernel headers kurulumu, Ring 0 / Ring 3 mimarisi, misc karakter sürücüsü ile GPIO donanım kontrolü ve Kbuild Makefile. |
-| 🌐 **Sunucu & Ağ** | **11** | [**Kişisel Bulut & Jellyfin VPU Medya Sunucusu**](projects/Turkish/11-Kisisel-Bulut-Jellyfin.md) | NVMe üzerinde CasaOS, telefon fotoğraflarını otomatik yedekleme (Nextcloud), 4K VPU donanımsal transcode (Jellyfin) ve Samba. |
-| 🌐 **Sunucu & Ağ** | **12** | [**Ağ Güvenlik Kalkanı (AdGuard, Unbound, Tailscale)**](projects/Turkish/12-Ag-Guvenlik-Kalkani.md) | Tüm ev için donanımsal reklam/izleyici kalkanı, İSS kaydını önleyen Unbound kök DNS ve dışarıdan güvenli erişim için Tailscale VPN. |
-| 🎮 **Multimedya** | **13** | [**Retro Oyun Konsolu (PS2, PSP, GameCube)**](projects/Turkish/13-Retro-Oyun-Konsolu.md) | Mali-G610 GPU ve Vulkan hızlandırma ile 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emülasyonu ve DualShock 3/4 kol eşleşmesi. |
+| Kategori | No | Proje / Rehber | Durum | Açıklama |
+| :--- | :---: | :--- | :---: | :--- | 
+| 🛠️ **Geliştirme** | **01** | [**IDE ve Geliştirme Ortamı Kurulumu**](projects/Turkish/01-IDE-ve-Gelistirme-Ortami.md) | 🟢 Doğrulandı | VS Code Remote - SSH, tarayıcı tabanlı Code-Server, Python sanal ortamı (venv) ve proje mimarisi. |
+| 🤖 **Edge AI** | **02** | [**NPU Aktivasyonu & RKNN Kurulumu**](projects/Turkish/02-NPU-Aktivasyonu-ve-RKNN.md) | 🟢 Doğrulandı | 3 çekirdekli 6 TOPS NPU'yu uyandırma, librknpu2 entegrasyonu, RKNN-Lite2 ve 3 çekirdek telemetri testi. |
+| 🤖 **Edge AI** | **03** | [**İlk Yapay Zeka Projesi: YOLOv8 NPU**](projects/Turkish/03-YOLOv8-NPU-Cikarimi.md) | 🟢 Doğrulandı | Bilgisayarda ONNX/RKNN derleme, 3 çekirdekli NPU ile 70+ FPS nesne tanıma ve donanım kıyaslaması. |
+| 🤖 **Edge AI** | **04** | [**Canlı Kamera & NPU Görü İşleme Pipeline**](projects/Turkish/04-Canli-Kamera-NPU-Pipeline.md) | 🟢 Doğrulandı | USB/RTSP kamera akışı, çoklu iş parçacığıyla sıfır gecikmeli kare yakalama, 3 çekirdek NPU YOLOv8 tespiti ve Flask MJPEG web yayını. |
+| 🤖 **Edge AI** | **05** | [**NPU ile Yerel Dil Modeli (RKLLM / Qwen)**](projects/Turkish/05-Yerel-LLM-Qwen-RKLLM.md) | 🟢 Doğrulandı | 6 TOPS NPU üzerinde internetsiz Qwen-1.5B/3B çalıştırma, W4A16 kuantizasyon, 18+ token/s akıcı sohbet. |
+| 🤖 **Edge AI** | **06** | [**Çevrimdışı Sesli Asistan (Whisper & Piper)**](projects/Turkish/06-Sesli-Asistan-Whisper-Piper.md) | 🟢 Doğrulandı | %100 yerel sesli asistan: faster-whisper (STT) + RKLLM zekası + Piper TTS doğal Türkçe ses sentezi (<1s gecikme). |
+| 🦾 **Robotik** | **07** | [**ROS 2 Kurulumu & NPU Robotik Düğüm**](projects/Turkish/07-ROS2-ve-NPU-Robotik-Dugum.md) | 🟢 Doğrulandı | ROS 2 Humble/Jazzy kurulumu, DDS ağ optimizasyonu, 6 TOPS NPU ile nesne algılama düğümü ve navigasyon koordinat yayını. |
+| ⚙️ **Gömülü** | **08** | [**Donanım Kontrolü ve GPIO / C++**](projects/Turkish/08-GPIO-ve-Donanim-Kontrolu.md) | 🟢 Doğrulandı | 26-pin başlık şeması, wiringOP ile C++/CMake mimarisi, buton/LED kontrolü, libgpiod ve I2C sensörleri. |
+| ⚙️ **Gömülü** | **09** | [**Çapraz Derleme & Uzaktan Hata Ayıklama (GDB)**](projects/Turkish/09-Capraz-Derleme-ve-GDB.md) | 🟢 Doğrulandı | x86_64 PC'de ARM64 GNU toolchain ve CMake ile derleme, rsync otomatik yükleme, gdbserver ve VS Code ile uzaktan F5 debug. |
+| ⚙️ **Gömülü** | **10** | [**Linux Çekirdek Modülü (LKM) ve Aygıt Sürücüsü**](projects/Turkish/10-Linux-Cekirdek-Modulu-LKM.md) | 🟢 Doğrulandı | Rockchip kernel headers kurulumu, Ring 0 / Ring 3 mimarisi, misc karakter sürücüsü ile GPIO donanım kontrolü ve Kbuild Makefile. |
+| 🌐 **Sunucu & Ağ** | **11** | [**Kişisel Bulut & Jellyfin VPU Medya Sunucusu**](projects/Turkish/11-Kisisel-Bulut-Jellyfin.md) | 🟢 Doğrulandı | NVMe üzerinde CasaOS, telefon fotoğraflarını otomatik yedekleme (Nextcloud), 4K VPU donanımsal transcode (Jellyfin) ve Samba. |
+| 🌐 **Sunucu & Ağ** | **12** | [**Ağ Güvenlik Kalkanı (AdGuard, Unbound, Tailscale)**](projects/Turkish/12-Ag-Guvenlik-Kalkani.md) | 🟢 Doğrulandı | Tüm ev için donanımsal reklam/izleyici kalkanı, İSS kaydını önleyen Unbound kök DNS ve dışarıdan güvenli erişim için Tailscale VPN. |
+| 🎮 **Multimedya** | **13** | [**Retro Oyun Konsolu (PS2, PSP, GameCube)**](projects/Turkish/13-Retro-Oyun-Konsolu.md) | 🟢 Doğrulandı | Mali-G610 GPU ve Vulkan hızlandırma ile 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emülasyonu ve DualShock 3/4 kol eşleşmesi. |
 
 ---
 
@@ -339,21 +339,21 @@ bash check_health.sh
 
 ### 🚀 Developer Projects & AI Guides
 
-| Category | No | Project / Guide | Description |
-| :--- | :--- | :--- | :--- | 
-| 🛠️ **Dev Tools** | **01** | [**IDE & Development Environment Setup**](projects/English/01-IDE-and-Dev-Environment.md) | VS Code Remote - SSH workflow, browser-based Code-Server, isolated Python venvs, and build toolchains. |
-| 🤖 **Edge AI** | **02** | [**NPU Activation & RKNN Runtime Setup**](projects/English/02-NPU-Activation-and-RKNN.md) | Waking up the 3-core 6 TOPS NPU, librknpu2 integration, RKNN-Lite2, and multi-core telemetry validation. |
-| 🤖 **Edge AI** | **03** | [**First AI Project: YOLOv8 NPU**](projects/English/03-YOLOv8-NPU-Inference.md) | Host-side ONNX/RKNN compilation, 3-core NPU deployment, 70+ FPS object detection, and hardware benchmarks. |
-| 🤖 **Edge AI** | **04** | [**Real-Time Camera & NPU Vision Pipeline**](projects/English/04-Real-Time-Camera-NPU-Pipeline.md) | USB/RTSP camera ingestion, multi-threaded zero-latency capture, tri-core NPU YOLOv8 detection, and Flask MJPEG web streaming. |
-| 🤖 **Edge AI** | **05** | [**Local LLM on NPU (RKLLM / Qwen)**](projects/English/05-Local-LLM-Qwen-RKLLM.md) | Running offline Qwen-1.5B/3B on the 6 TOPS NPU, W4A16 quantization, and 18+ tokens/sec streaming response. |
-| 🤖 **Edge AI** | **06** | [**Offline Voice Assistant (Whisper & Piper)**](projects/English/06-Offline-Voice-Assistant-Whisper-Piper.md) | 100% private voice assistant: faster-whisper (STT) + RKLLM reasoning + Piper TTS neural synthesis (<1s round-trip). |
-| 🦾 **Robotics** | **07** | [**ROS 2 Setup & NPU Robotics Node**](projects/English/07-ROS2-and-NPU-Robotics-Node.md) | ROS 2 Humble setup, DDS network tuning, 6 TOPS NPU perception node, and coordinate publishing for Nav2 kinematics. |
-| ⚙️ **Embedded** | **08** | [**Hardware Control & GPIO / C++**](projects/English/08-Hardware-Control-GPIO-Cpp.md) | 26-pin header diagram, wiringOP with C++/CMake, button/LED interfacing, libgpiod, and I2C peripherals. |
-| ⚙️ **Embedded** | **09** | [**Cross-Compilation & Remote Debugging (GDB)**](projects/English/09-Cross-Compilation-and-GDB.md) | x86_64 host cross-compilation with ARM64 GNU toolchain & CMake, rsync auto-deploy, gdbserver, and VS Code F5 remote debug. |
-| ⚙️ **Embedded** | **10** | [**Linux Kernel Module & Device Driver**](projects/English/10-Linux-Kernel-Module-Driver.md) | Rockchip kernel headers setup, Ring 0 vs Ring 3 privilege rings, misc character device driver for GPIO control, and Kbuild. |
-| 🌐 **Server & Net** | **11** | [**Personal Cloud & Jellyfin Media Server**](projects/English/11-Personal-Cloud-Jellyfin.md) | CasaOS on NVMe, automatic camera roll sync (Nextcloud), 4K VPU hardware transcoding (Jellyfin), and Samba. |
-| 🌐 **Server & Net** | **12** | [**Network Shield (AdGuard, Unbound, Tailscale)**](projects/English/12-Network-Shield-AdGuard-Tailscale.md) | Whole-home ad/tracker sinkhole, zero-ISP-logging recursive Unbound root DNS, and secure remote Tailscale exit node. |
-| 🎮 **Multimedia** | **13** | [**Retro Gaming Console (PS2, PSP, GameCube)**](projects/English/13-Retro-Gaming-Console.md) | Mali-G610 GPU with Vulkan acceleration for 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emulation, and controller pairing. |
+| Category | No | Project / Guide | Status | Description |
+| :--- | :---: | :--- | :---: | :--- | 
+| 🛠️ **Dev Tools** | **01** | [**IDE & Development Environment Setup**](projects/English/01-IDE-and-Dev-Environment.md) | 🟢 Verified | VS Code Remote - SSH workflow, browser-based Code-Server, isolated Python venvs, and build toolchains. |
+| 🤖 **Edge AI** | **02** | [**NPU Activation & RKNN Runtime Setup**](projects/English/02-NPU-Activation-and-RKNN.md) | 🟢 Verified | Waking up the 3-core 6 TOPS NPU, librknpu2 integration, RKNN-Lite2, and multi-core telemetry validation. |
+| 🤖 **Edge AI** | **03** | [**First AI Project: YOLOv8 NPU**](projects/English/03-YOLOv8-NPU-Inference.md) | 🟢 Verified | Host-side ONNX/RKNN compilation, 3-core NPU deployment, 70+ FPS object detection, and hardware benchmarks. |
+| 🤖 **Edge AI** | **04** | [**Real-Time Camera & NPU Vision Pipeline**](projects/English/04-Real-Time-Camera-NPU-Pipeline.md) | 🟢 Verified | USB/RTSP camera ingestion, multi-threaded zero-latency capture, tri-core NPU YOLOv8 detection, and Flask MJPEG web streaming. |
+| 🤖 **Edge AI** | **05** | [**Local LLM on NPU (RKLLM / Qwen)**](projects/English/05-Local-LLM-Qwen-RKLLM.md) | 🟢 Verified | Running offline Qwen-1.5B/3B on the 6 TOPS NPU, W4A16 quantization, and 18+ tokens/sec streaming response. |
+| 🤖 **Edge AI** | **06** | [**Offline Voice Assistant (Whisper & Piper)**](projects/English/06-Offline-Voice-Assistant-Whisper-Piper.md) | 🟢 Verified | 100% private voice assistant: faster-whisper (STT) + RKLLM reasoning + Piper TTS neural synthesis (<1s round-trip). |
+| 🦾 **Robotics** | **07** | [**ROS 2 Setup & NPU Robotics Node**](projects/English/07-ROS2-and-NPU-Robotics-Node.md) | 🟢 Verified | ROS 2 Humble/Jazzy setup, DDS network tuning, 6 TOPS NPU perception node, and coordinate publishing for Nav2 kinematics. |
+| ⚙️ **Embedded** | **08** | [**Hardware Control & GPIO / C++**](projects/English/08-Hardware-Control-GPIO-Cpp.md) | 🟢 Verified | 26-pin header diagram, wiringOP with C++/CMake, button/LED interfacing, libgpiod, and I2C peripherals. |
+| ⚙️ **Embedded** | **09** | [**Cross-Compilation & Remote Debugging (GDB)**](projects/English/09-Cross-Compilation-and-GDB.md) | 🟢 Verified | x86_64 host cross-compilation with ARM64 GNU toolchain & CMake, rsync auto-deploy, gdbserver, and VS Code F5 remote debug. |
+| ⚙️ **Embedded** | **10** | [**Linux Kernel Module & Device Driver**](projects/English/10-Linux-Kernel-Module-Driver.md) | 🟢 Verified | Rockchip kernel headers setup, Ring 0 vs Ring 3 privilege rings, misc character device driver for GPIO control, and Kbuild. |
+| 🌐 **Server & Net** | **11** | [**Personal Cloud & Jellyfin Media Server**](projects/English/11-Personal-Cloud-Jellyfin.md) | 🟢 Verified | CasaOS on NVMe, automatic camera roll sync (Nextcloud), 4K VPU hardware transcoding (Jellyfin), and Samba. |
+| 🌐 **Server & Net** | **12** | [**Network Shield (AdGuard, Unbound, Tailscale)**](projects/English/12-Network-Shield-AdGuard-Tailscale.md) | 🟢 Verified | Whole-home ad/tracker sinkhole, zero-ISP-logging recursive Unbound root DNS, and secure remote Tailscale exit node. |
+| 🎮 **Multimedia** | **13** | [**Retro Gaming Console (PS2, PSP, GameCube)**](projects/English/13-Retro-Gaming-Console.md) | 🟢 Verified | Mali-G610 GPU with Vulkan acceleration for 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emulation, and controller pairing. |
 
 ---
 

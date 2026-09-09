@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide**
+﻿# **Orange Pi 5 (RK3588S) Cross-Compilation and Remote Debugging Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide provides an end-to-end workflow for writing code on an x86_64 host developer machine (Ubuntu Linux or WSL2), cross-compiling high-performance binaries for the Orange Pi 5 (Rockchip RK3588S) using the **ARM64 (aarch64) GNU toolchain** and **CMake**, deploying via automated scripts, and remotely debugging line-by-line using **gdbserver and VS Code**.
 

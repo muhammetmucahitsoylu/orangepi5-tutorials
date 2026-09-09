@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Çapraz Derleme (Cross-Compilation) ve Uzaktan Hata Ayıklama Rehberi**
+﻿# **Orange Pi 5 (RK3588S) Çapraz Derleme (Cross-Compilation) ve Uzaktan Hata Ayıklama Rehberi**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; x86_64 mimarili bir geliştirici bilgisayarı (Ubuntu Linux veya WSL2) üzerinde kod yazıp, **ARM64 (aarch64) GNU toolchain** ve **CMake** ile Orange Pi 5 (RK3588S) için saniyeler içinde derleme yapmayı, ikili dosyayı (binary) otomatik olarak karta yüklemeyi ve **gdbserver / VS Code** ile uzaktan satır satır hata ayıklamayı (remote debugging) anlatır.
 

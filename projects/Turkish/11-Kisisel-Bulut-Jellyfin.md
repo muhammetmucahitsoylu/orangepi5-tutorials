@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu**
+﻿# **Orange Pi 5 (RK3588S) Kişisel Bulut ve Jellyfin Donanımsal Medya Sunucusu**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5'inizi Google Drive, Google Photos ve Netflix'e bağımlılığı ortadan kaldıran, M.2 NVMe SSD üzerinde çalışan ve 4K filmleri Rockchip VPU donanımıyla televizyon veya telefonlara sıfır CPU yüküyle aktaran **profesyonel bir ev bulutuna (NAS & Media Server)** dönüştürme adımlarını kapsar.
 

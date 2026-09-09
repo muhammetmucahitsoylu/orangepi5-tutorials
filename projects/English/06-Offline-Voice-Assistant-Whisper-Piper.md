@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide**
+﻿# **Orange Pi 5 (RK3588S) Offline Voice Assistant with Whisper and Piper TTS Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide covers building a 100% private, cloud-independent smart voice assistant on the Orange Pi 5 using **Whisper** (Speech-to-Text), **RKLLM** (Local AI Brain), and **Piper TTS** (Neural Text-to-Speech) with sub-second response times.
 

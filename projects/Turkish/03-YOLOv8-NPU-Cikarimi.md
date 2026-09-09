@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı**
+﻿# **Orange Pi 5 (RK3588S) İlk Yapay Zeka Projesi ve YOLOv8 NPU Çıkarımı**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5 üzerinde çalışan 6 TOPS NPU'yu (Nöral İşlem Birimi) kullanarak, **YOLOv8** nesne tanıma modelini saniyede **70+ FPS** hızında sıfırdan çalıştırma adımlarını kapsar.
 

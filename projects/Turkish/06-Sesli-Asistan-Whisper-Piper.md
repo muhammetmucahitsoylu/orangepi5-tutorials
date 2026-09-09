@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi**
+﻿# **Orange Pi 5 (RK3588S) Çevrimdışı Sesli Asistan (Whisper ve Piper TTS) Projesi**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5 üzerinde harici bir internet bağlantısına veya bulut servisine (Google Assistant, Alexa vb.) ihtiyaç duymadan; **Whisper** (Konuşmayı Metne Çevirme - STT), **RKLLM** (Yapay Zeka Beyni) ve **Piper TTS** (Doğal Türkçe/İngilizce Ses Sentezi) kullanarak **tamamen yerel ve gizli çalışan bir sesli asistan** inşa etmeyi anlatır.
 
