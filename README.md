@@ -10,7 +10,7 @@
 [![SoC](https://img.shields.io/badge/SoC-Rockchip_RK3588S-orange.svg)](#)
 [![NPU](https://img.shields.io/badge/NPU-6_TOPS_Tri--Core-blue.svg)](#)
 [![OS](https://img.shields.io/badge/OS-Ubuntu_24.04_|_Armbian-purple.svg)](#)
-[![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](LICENSE)
+[![License: MIT / CC BY-SA 4.0](https://img.shields.io/badge/License-MIT_%7C_CC_BY--SA_4.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Living_Documentation-success.svg)](#)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
@@ -49,13 +49,21 @@ Orange Pi 5 kartınızı tek bir komutla yönetmek, performans modunu kilitlemek
 
 #### 1. İnteraktif Yönetim & Benchmark Paketi (`opi5.sh` TUI):
 ```bash
-curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/opi5.sh | bash
+# Güvenli ve Önerilen Kurulum (Yerel İnceleme & Çalıştırma):
+git clone https://github.com/muhammetmucahitsoylu/orangepi5-tutorials.git
+cd orangepi5-tutorials/scripts && chmod +x opi5.sh && ./opi5.sh
+
+# Hızlı Doğrudan İndirme:
+curl -sSLO https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/opi5.sh
+bash opi5.sh
 ```
 > Klavye oklarıyla yönetilen renkli menü: CPU/GPU/NPU sıcaklıkları, 2.4 GHz tepe frekans kilidi, NVMe I/O hız testi, NPU sürücü doğrulaması ve kalıcı MAC adresi sabitleyici.
 
 #### 2. Hızlı Salt-Okunur Donanım Teşhisi (`check_health.sh`):
 ```bash
-curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
+# Doğrudan indirip inceleyerek çalıştırma:
+curl -sSLO https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh
+bash check_health.sh
 ```
 
 ---
@@ -242,12 +250,11 @@ OrangePi5_Tutorials/
 
 ---
 
-### 📄 Lisans
+### 📄 Çift Lisanslama (Dual-License Modeli)
 
-Bu projedeki tüm kılavuzlar ve içerikler **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International ([CC BY-NC-ND 4.0](LICENSE))** lisansı ile korunmaktadır.
-* **Kişisel Kullanım & Uygulama:** Serbesttir.
-* **Paylaşım:** Yazar (`Muhammet Mücahit Soylu`) ve orijinal depo bağlantısı belirtilerek serbesttir.
-* **Türev İçerik Üretimi & Ticari Kullanım:** Yasaktır (içerik değiştirilerek başka platformlarda kendi eseri gibi yayımlanamaz veya ticari amaçla kullanılamaz).
+Bu projedeki tüm içerikler, modern açık kaynak standartlarına uygun olarak **Çift Lisanslama (Dual-License)** modeliyle lisanslanmıştır:
+* **Yazılım, Betikler ve Kodlar (`.sh`, `.py`, `.cpp`, `.h`, Dockerfile):** [MIT Lisansı](LICENSE) ile korunmaktadır. Özgürce çatallayabilir (fork), değişiklik yapabilir, türev projeler üretebilir ve ticari/bireysel projelerinizde kısıtlama olmadan kullanabilirsiniz.
+* **Kılavuzlar, Eğitimler ve Dokümantasyon (`.md`, mimari şemalar):** [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](LICENSE) lisansı altındadır. Kaynak göstererek (orijinal yazar: `Muhammet Mücahit Soylu`) ve aynı lisans modeliyle paylaşarak özgürce kopyalayabilir, uyarlayabilir ve dağıtabilirsiniz.
 
 ---
 
@@ -282,13 +289,20 @@ Manage your Orange Pi 5, lock performance governors, run storage benchmarks, or 
 
 #### 1. Interactive Control Center & Benchmark Suite (`opi5.sh` TUI):
 ```bash
-curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/opi5.sh | bash
+# Secure Recommended Execution (Inspect & Run Locally):
+git clone https://github.com/muhammetmucahitsoylu/orangepi5-tutorials.git
+cd orangepi5-tutorials/scripts && chmod +x opi5.sh && ./opi5.sh
+
+# Quick Verified Download:
+curl -sSLO https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/opi5.sh
+bash opi5.sh
 ```
 > Full-color interactive terminal UI: Live thermal sensors, 1-click 2.4 GHz performance lock, direct NVMe I/O throughput test, NPU subsystem audit, and permanent static MAC address locking.
 
 #### 2. Read-Only Instant Diagnostics (`check_health.sh`):
 ```bash
-curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
+curl -sSLO https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh
+bash check_health.sh
 ```
 
 ---
@@ -475,9 +489,8 @@ OrangePi5_Tutorials/
 
 ---
 
-### 📄 License
+### 📄 Dual-License Architecture
 
-All guides and documentation in this repository are protected under the **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International ([CC BY-NC-ND 4.0](LICENSE))** license.
-* **Personal Learning & Execution:** Free and open.
-* **Sharing:** Allowed only with clear attribution to the author (`Muhammet Mücahit Soylu`) and original repository link.
-* **Derivative Works & Commercial Exploitation:** Strictly prohibited (materials may not be remixed, altered, republished as personal content, or used for commercial purposes).
+This repository adopts a transparent **Dual-License** model conforming to open-source software and documentation standards:
+* **Software, Code, & Scripts (`.sh`, `.py`, `.cpp`, `.h`, Dockerfiles):** Licensed under the permissive [MIT License](LICENSE). You are fully entitled to fork, adapt, remix, and incorporate into proprietary, academic, or commercial projects.
+* **Guides, Educational Content, & Schematics (`.md`, diagrams):** Licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](LICENSE) license. You may redistribute and modify documentation provided appropriate credit is given to the author (`Muhammet Mücahit Soylu`) and derived versions are shared under identical terms.

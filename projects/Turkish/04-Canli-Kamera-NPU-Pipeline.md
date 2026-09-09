@@ -55,6 +55,10 @@ Orange Pi 5 üzerinde kuracağımız profesyonel **Asenkron Pipeline** mimarisi:
    Bu yüzden görüntü doğrudan Web MJPEG akışına yönlendirilir; X11 veya monitör gerekmez.
 2. **USB UVC Kameralarda MJPEG Format Zorunluluğu:** Standart USB kameralar Linux altında varsayılan olarak `YUYV` ham piksel formatında açılır ve USB 2.0 bant genişliği yüzünden 5 FPS'e kilitlenir. OpenCV üzerinde FourCC `MJPG` olarak zorlanmalıdır.
 3. **RTSP IP Kamera Akış Gecikmesi:** FFmpeg varsayılan olarak 30-50 kareyi belleğe tamponlar. Bu durum 2-3 saniye yayın gecikmesi yaratır. Çözüm, low-delay bayrakları tanımlamaktır.
+4. **Büyük Tuzak: USB UVC vs. MIPI CSI (Rockchip RKAIQ ISP Mayın Tarlası):**
+   * **USB Web Kameraları (Tak-Çalıştır):** Dahili ISP barındırır, doğrudan donanımsal MJPEG/YUYV çıktısı verir ve `cv2.VideoCapture(0)` ile sıfır konfigürasyonla çalışır.
+   * **MIPI CSI Kameralar (OV13850, IMX415 vb.):** Orange Pi 5 üzerindeki 3 adet MIPI CSI portu ham Bayer (RAW) piksel verisi alır. Bu veriyi işlemek, otomatik pozlama (AE), beyaz dengesi (AWB) ve netleme (AF) sağlamak için Rockchip'in kapalı kaynak **RKAIQ 3A Server (`librkaiq.so` / `rkaiq_3A_server`)** arka plan servisi zorunludur!
+   * *Neden Tak-Çalıştır Değildir?* RKAIQ servisi başlatılmadan `/dev/video11` doğrudan `cv2.VideoCapture` ile açılırsa görüntü zifiri karanlık veya donmuş kalır. MIPI CSI kullanırken OpenCV'ye özel GStreamer pipeline'ı (`v4l2src device=/dev/video11 ! video/x-raw,format=NV12 ... ! appsink`) tanımlanmalıdır. Hızlı ve sorunsuz geliştirme için bu rehberde USB UVC / RTSP standartlaştırılmıştır.
 
 ---
 

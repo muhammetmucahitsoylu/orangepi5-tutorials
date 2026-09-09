@@ -23,7 +23,20 @@ The Orange Pi 5 features a single M.2 socket on the underside of the board. Keep
 
 ### **Physical Form Factor: M.2 2242 Default Standoff**
 * **Onboard Screw Hole is 2242:** The brass mounting standoff on the underside of the PCB is physically positioned for **M.2 2242 (22mm wide, 42mm long)** drives.
-* **Can You Use a Standard 2280 SSD?** The most common consumer SSDs are **2280 (80mm)**. A 2280 drive is electrically 100% compatible and fits into the M-Key slot, but its rear extends ~38mm past the mounting screw hole. To secure it firmly against vibration, you should use a cheap **2242-to-2280 metal adapter extender bracket** or a dedicated 3D-printed enclosure (Orange Pi 5 Pro and Plus boards feature native 2280 standoffs).
+* **Can You Use a Standard 2280 SSD?** The most common consumer SSDs are **2280 (80mm)**. A 2280 drive is electrically 100% compatible and fits into the M-Key slot, but its rear extends ~38mm past the mounting screw hole. To secure it firmly against vibration, use a **2242-to-2280 metal/PCB extension adapter bracket**:
+
+```
+                 ORANGE PI 5 M.2 PHYSICAL MOUNTING DIAGRAM
+                  
+  [M-Key Slot]    |<------- 42mm ------->|<------- 38mm ------->|
+  +------------+  +----------------------+----------------------+
+  | [][][][][] |  |  M.2 2242 NVMe SSD   | 2280 Extender Bracket|
+  +------------+  +----------------------+----------------------+
+                  |                      ( O )                  ( O )
+                                           ▲                      ▲
+                                  Onboard Standoff Screw   2280 Retention Screw
+```
+
 * **Native 2242 Plug-and-Play Drives:** Kioxia BG4, Western Digital SN530 (2242 variant), Transcend 430S, or KingSpec 2242 NVMe.
 
 ### **NVMe (PCIe) Only**
@@ -42,10 +55,6 @@ Some SSDs (notably certain revisions of the Kingston NV2 or drives using Phison 
   extraargs=pcie_aspm=off
   ```
 
-### **Recommended SSD Models**
-* **Compatible:** M.2 NVMe SSDs.
-* **Incompatible:** All M.2 SATA SSDs.
-
 ---
 
 ## **3. Cooling Selection (Passive vs. Active Fan)**
@@ -53,7 +62,7 @@ Some SSDs (notably certain revisions of the Kingston NV2 or drives using Phison 
 When the processor temperature reaches **80°C**, the board automatically throttles clock speeds to prevent overheating, which degrades performance significantly.
 
 * **Passive Aluminum Heatsink:** Suitable only for light desktop browsing or basic terminal tasks. Under sustained workloads, temperatures quickly exceed 80°C and trigger thermal throttling.
-* **Active Fan Cooling (Recommended):** An aluminum heatsink equipped with a 5V fan keeps temperatures within the 70–75°C range even under 100% all-core load. Active cooling is strongly recommended for 24/7 server tasks, software compilation, or AI workloads.
+* **Active Fan Cooling (Strongly Recommended):** An aluminum heatsink equipped with a 5V fan keeps temperatures within the 70–75°C range even under 100% all-core load. Active cooling is mandatory for 24/7 server tasks, software compilation, or edge AI workloads.
 * **Connection:** Connect directly to the onboard 2-pin 5V fan header.
 
 ---
@@ -71,12 +80,28 @@ When the processor temperature reaches **80°C**, the board automatically thrott
 
 ---
 
-## **5. Hardware Selection Summary**
+## **5. Camera Compatibility: USB UVC vs. MIPI CSI (The Rockchip RKAIQ ISP Reality)**
+
+The Orange Pi 5 includes 3 physical MIPI CSI camera connectors (CAM1, CAM2, CAM3); however, there is an essential architectural distinction:
+
+### **A. USB Webcams (UVC - Plug-and-Play / Recommended)**
+* Standard USB webcams (Logitech C920, C270, etc.) include an integrated hardware Image Signal Processor (ISP).
+* They register as `/dev/video0` and operate out of the box with OpenCV `cv2.VideoCapture(0)`. This is by far the most reliable, zero-headache choice for rapid edge AI and computer vision prototyping.
+
+### **B. MIPI CSI Sensors (OV13850, IMX415, etc. - The RKAIQ ISP Quirk)**
+* MIPI CSI sensors stream uncalibrated, raw Bayer image data directly to the RK3588 SoC.
+* Demosaicing, Auto Exposure (AE), Auto White Balance (AWB), and Focus (AF) require Rockchip's closed-source **RKAIQ 3A Server daemon (`librkaiq.so` / `rkaiq_3A_server`)** running in userspace.
+* **Field Reality:** Opening `/dev/video11` directly with standard OpenCV without the active RKAIQ daemon produces a pitch-black frame or freezes. Running MIPI CSI reliably requires constructing a custom GStreamer pipeline (`v4l2src device=/dev/video11 ! video/x-raw,format=NV12 ... ! appsink`) with Rockchip media-ctl subdevice routing.
+
+---
+
+## **6. Hardware Selection Summary**
 
 | Component | Recommended Choice | What to Avoid |
 | :--- | :--- | :--- |
 | **Power Supply** | Dedicated 5V / 4A fixed Type-C adapter | Standard phone chargers (5V 2A), unstable multi-port PD adapters |
-| **M.2 Storage** | M.2 NVMe PCIe SSD (~418 MB/s practical ceiling) | M.2 SATA SSDs (completely unsupported) |
+| **M.2 Storage** | M.2 NVMe PCIe SSD (2242 or extended 2280) | M.2 SATA SSDs (completely unsupported) |
 | **Cooling** | 5V active fan heatsink | Running without a heatsink or using tiny passive pads under load |
+| **Camera** | Standard USB UVC Webcam | Raw MIPI CSI sensors without configured ISP daemons |
 | **Network** | Wired Gigabit Ethernet or compatible USB Wi-Fi dongle | Generic wireless adapters without Linux in-tree drivers |
 | **Wireless Dongles** | Connected via USB 2.0 port or USB extension cable | Plugged directly adjacent to active USB 3.0 storage drives |

@@ -55,6 +55,10 @@ Our decoupled **Asynchronous Multi-Threaded Pipeline**:
    Broadcasting over HTTP MJPEG eliminates any display server dependency.
 2. **USB UVC Video Format Lock:** Default USB drivers often default to uncompressed `YUYV` over USB 2.0, throttling the camera to 5 FPS. Enforcing FourCC `MJPG` inside OpenCV unlocks 30 to 60 FPS hardware capture.
 3. **RTSP Buffer Lag:** By default, FFmpeg buffers 30+ frames. Setting low-delay and zero-buffer flags drops network camera latency to <100ms.
+4. **The MIPI CSI Trap vs. USB UVC (Rockchip RKAIQ ISP Quirk):**
+   * **USB UVC Webcams (Plug & Play):** Feature integrated hardware ISPs, outputting pre-processed MJPEG/YUYV directly via standard V4L2 and `cv2.VideoCapture(0)`.
+   * **MIPI CSI Sensors (OV13850, IMX415, etc.):** Stream raw Bayer sensor data into the RK3588 SoC. Processing this raw data requires Rockchip's proprietary **RKAIQ 3A Server (`librkaiq.so` / `rkaiq_3A_server`)** userspace daemon for Auto Exposure (AE), Auto White Balance (AWB), and Focus (AF).
+   * *Why standard OpenCV fails on MIPI CSI:* Opening `/dev/video11` directly without an active RKAIQ daemon yields a completely black or corrupted frame. MIPI CSI requires constructing a dedicated GStreamer pipeline (`v4l2src device=/dev/video11 ! video/x-raw,format=NV12 ... ! appsink`) with Rockchip media-ctl routing. For frictionless computer vision development, this guide standardizes on high-throughput USB UVC / RTSP streams.
 
 ---
 

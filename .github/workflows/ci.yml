@@ -32,3 +32,34 @@ jobs:
         with:
           args: --verbose --no-progress --offline "**/*.md"
           fail: true
+
+  validate-cpp-and-docker:
+    name: "Validate C++ Code & Dockerfile"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Validate Dockerfile Lint"
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: "docker/Dockerfile.rknn"
+          failure-threshold: "error"
+
+      - name: "Verify C++ GPIO Example Compilation Syntax"
+        run: |
+          mkdir -p /tmp/wiringpi_mock
+          cat << 'EOF' > /tmp/wiringpi_mock/wiringPi.h
+          #pragma once
+          #define OUTPUT 1
+          #define INPUT 0
+          #define PUD_UP 2
+          #define HIGH 1
+          #define LOW 0
+          inline int wiringPiSetup(void) { return 0; }
+          inline void pinMode(int, int) {}
+          inline void pullUpDnControl(int, int) {}
+          inline void digitalWrite(int, int) {}
+          inline int digitalRead(int) { return 0; }
+          EOF
+          g++ -Wall -Wextra -std=c++17 -fsyntax-only -I/tmp/wiringpi_mock examples/gpio_cpp/src/main.cpp

@@ -23,8 +23,21 @@ Kartın alt yüzeyinde bir adet M.2 yuvası yer almaktadır. Disk seçiminde dik
 
 ### **Fiziksel Boyut (Form Factor): M.2 2242 Standardı**
 * **Dahili Vida Yuvası 2242'dir:** Kartın altındaki pirinç vida yuvası **M.2 2242 (22mm genişlik, 42mm uzunluk)** boyutuna göre konumlandırılmıştır.
-* **Standart 2280 SSD Takılır mı?** Piyasadaki en yaygın SSD'ler **2280 (80mm)** boyutundadır. 2280 bir disk yuvaya oturur ve elektriksel olarak sorunsuz çalışır; ancak diskin arka kısmı kartın vida yuvasının dışına taşar. Diski sabitlemek için küçük bir **2242-2280 metal uzatma braketi** kullanılmalı veya diskin arkasının sallanması engellenmelidir (Orange Pi 5 Pro ve Plus modellerinde 2280 vida yuvası yerleşiktir).
-* **Doğrudan Karta Oturan Modeller:** Kioxia BG4, Western Digital SN530 (2242 boyutu), Transcend 430S veya KingSpec 2242 NVMe.
+* **Standart 2280 SSD Takılır mı?** Piyasadaki en yaygın SSD'ler **2280 (80mm)** boyutundadır. 2280 bir disk yuvaya oturur ve elektriksel olarak sorunsuz çalışır; ancak diskin arka kısmı kartın vida yuvasının dışına taşar. Diski sabitlemek için küçük bir **2242-2280 metal/PCB uzatma braketi** kullanılmalıdır:
+
+```
+                  ORANGE PI 5 M.2 FİZİKSEL MONTAJ ŞEMASI
+                  
+  [M-Key Yuva]    |<------- 42mm ------->|<------- 38mm ------->|
+  +------------+  +----------------------+----------------------+
+  | [][][][][] |  |  M.2 2242 NVMe SSD   | 2280 Uzatma Braketi  |
+  +------------+  +----------------------+----------------------+
+                  |                      ( O )                  ( O )
+                                           ▲                      ▲
+                                    Yerleşik Kart Vidası    2280 Sabitleme Vidası
+```
+
+* **Doğrudan Karta Oturan Modeller (2242):** Kioxia BG4, Western Digital SN530 (2242), Transcend 430S veya KingSpec 2242 NVMe.
 
 ### **Yalnızca NVMe (PCIe) Desteklenir**
 * Bu yuvaya **kesinlikle M.2 SATA SSD takılmamalıdır**. Anakart üzerinde SATA veri hattı bulunmadığı için kart SATA diskleri algılamaz (`lsblk` komutunda disk görünmez).
@@ -42,10 +55,6 @@ Bazı SSD modellerinde (örneğin Kingston NV2 veya bazı Phison denetleyicili m
   extraargs=pcie_aspm=off
   ```
 
-### **Önerilen SSD Modelleri**
-* **Çalışanlar:** M.2 NVMe SSD'ler.
-* **Desteklenmeyenler:** Bütün M.2 SATA SSD'ler.
-
 ---
 
 ## **3. Soğutma Seçimi (Pasif vs. Aktif Fan)**
@@ -53,8 +62,8 @@ Bazı SSD modellerinde (örneğin Kingston NV2 veya bazı Phison denetleyicili m
 İşlemci sıcaklığı **80°C** seviyesine ulaştığında kart kendini korumak için çalışma hızını düşürür (thermal throttling), bu da doğrudan performans kaybına yol açar.
 
 * **Pasif Alüminyum Blok:** Yalnızca hafif masaüstü kullanımı veya temel komut satırı işlemleri için yeterlidir. Sürekli yük altında sıcaklık 80°C'yi aşar ve frekans kısılır.
-* **Aktif Fanlı Soğutucu (Önerilen):** 5V fanlı bir soğutucu blok, tam yük altında bile sıcaklığı 70–75°C aralığında tutar. Derleme, yapay zeka veya sunucu kullanımı için fanlı soğutma zorunludur.
-* **Bağlantı:** Kart üzerindeki 2-pin 5V fan konnektörü kullanılabilir.
+* **Aktif Fanlı Soğutucu (Kesinlikle Önerilen):** 5V fanlı alüminyum soğutucu blok, 8 çekirdek %100 yük altındayken bile sıcaklığı 70–75°C bandında tutar. 7/24 sunucu, derleme veya yapay zeka projelerinde zorunludur.
+* **Bağlantı:** Kart üzerindeki 2-pin 5V fan soketine takılır.
 
 ---
 
@@ -71,12 +80,28 @@ Bazı SSD modellerinde (örneğin Kingston NV2 veya bazı Phison denetleyicili m
 
 ---
 
-## **5. Özet Donanım Tablosu**
+## **5. Kamera Uyumluluğu: USB UVC vs. MIPI CSI (Rockchip RKAIQ ISP Gerçeği)**
+
+Orange Pi 5 üzerinde 3 adet MIPI CSI kamera konnektörü (CAM1, CAM2, CAM3) yer alır; ancak kamera seçiminde kritik bir mühendislik ayrımı vardır:
+
+### **A. USB Web Kameraları (UVC - Tak ve Çalıştır / Önerilen)**
+* Logitech C920, C270 veya herhangi bir UVC uyumlu USB kamera dahili bir görüntü işlemcisi (ISP) barındırır.
+* Doğrudan `/dev/video0` olarak sisteme kaydolur ve OpenCV'de `cv2.VideoCapture(0)` ile sıfır konfigürasyonla çalışır. Hızlı prototipleme ve bilgisayarlı görü projeleri için en sorunsuz çözümdür.
+
+### **B. MIPI CSI Kameralar (OV13850, IMX415 vb. - RKAIQ ISP Mayın Tarlası)**
+* MIPI CSI sensörleri karta ham Bayer (RAW) piksel verisi aktarır.
+* Renk üretimi, otomatik pozlama (AE), beyaz dengesi (AWB) ve netleme (AF) işlemlerini yapmak için Rockchip'in kapalı kaynak **RKAIQ 3A Server (`librkaiq.so` / `rkaiq_3A_server`)** arka plan servisi çalışmak zorundadır.
+* **Kritik Saha Deneyimi:** RKAIQ servisi başlatılmadan `/dev/video11` doğrudan standart OpenCV ile açılırsa görüntü zifiri karanlık çıkar veya kare yakalanamaz. MIPI CSI sensörleri ancak GStreamer `v4l2src` pipeline'ı ve medya kontrolcüsü (`media-ctl`) yönlendirmesiyle stabil çalıştırılabilir.
+
+---
+
+## **6. Özet Donanım Tablosu**
 
 | Bileşen | Önerilen Tercih | Kaçınılması Gereken |
 | :--- | :--- | :--- |
 | **Güç Kaynağı** | 5V / 4A sabit Type-C adaptör | Standart telefon şarj aletleri (5V 2A), kararsız PD cihazları |
-| **M.2 Depolama** | M.2 NVMe PCIe SSD (~418 MB/s pratik sınır) | M.2 SATA SSD'ler (kesinlikle çalışmaz) |
+| **M.2 Depolama** | M.2 NVMe PCIe SSD (2242 veya uzatmalı 2280) | M.2 SATA SSD'ler (kesinlikle çalışmaz) |
 | **Soğutma** | 5V aktif fanlı alüminyum soğutucu | Soğutucusuz kullanım veya yetersiz küçük pasif pedler |
+| **Kamera** | Standart USB UVC Web Kamerası | ISP yapılandırması bilinmeyen ham MIPI CSI sensörleri |
 | **Ağ** | Gigabit Ethernet kablosu veya uyumlu USB Wi-Fi | Sürücüsü olmayan uyumsuz kablosuz adaptörler |
 | **Fare/Klavye Dongle** | USB 2.0 portu veya uzatma kablosu | USB 3.0 portunun hemen bitişiğindeki yuva (parazit riski) |

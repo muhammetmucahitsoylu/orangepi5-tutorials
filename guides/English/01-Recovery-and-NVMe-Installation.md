@@ -100,10 +100,28 @@ Following all of these lockups, the clearest conclusion I reached is this: insta
 
 ### **Stage 3: Put the Board into Hardware MaskROM Mode**
 
-1. **[WARNING]** Connect the original power adapter to the Power In (DC-IN) Type-C port of the Orange Pi 5.  
-2. **[WARNING]** Connect a USB cable from your computer's USB 3.0 port to the other Type-C (OTG) port on the Orange Pi 5.  
-3. *(Note: Since the SPI Flash was previously wiped/corrupted, pressing or holding the MaskROM button is usually unnecessary; because the SoC cannot locate a valid bootloader at startup, it will automatically drop into MaskROM mode).*  
-4. Launch `RKDevTool`; verify that the message **Found One MASKROM Device** appears at the bottom of the window.
+```
+                     ORANGE PI 5 HARDWARE MASKROM MODE
+  
+  [DC-IN 5V]    [Type-C OTG]
+  (Power)       (To PC USB)
+   [ === ]         [ === ]
+  +-----------------------------------------------------+
+  |                                                     |
+  |             +-----------------+                     |
+  |             |  Rockchip       |       [MaskROM Key] |
+  |             |  RK3588S SoC    |           ( • )     |
+  |             +-----------------+                     |
+  |                                                     |
+  +-----------------------------------------------------+
+```
+
+1. **[WARNING]** Connect the original 5V/4A power supply to the Power In (DC-IN) Type-C port of the Orange Pi 5.  
+2. **[WARNING]** Connect a USB cable from your host computer's USB 3.0 port to the second Type-C (OTG) port on the Orange Pi 5.  
+3. **Forced MaskROM Recovery Protocol:**  
+   * If the SPI Flash was cleanly erased, the SoC finds no bootloader and **automatically** falls back to MaskROM mode.
+   * **Corrupted SPI / Bootloop Escape:** If the board is stuck in an early boot crash and fails to enter MaskROM automatically, disconnect all power. Press and hold the hardware **MaskROM key** (small tactile button adjacent to the SoC / MicroSD slot). While holding the button, connect the Type-C OTG cable from the PC, wait 3 seconds, then release the button. *(Labeled 'BOOT' or 'MaskROM' on V1.1/V1.2 PCBs; tactile button on V1.3.2).*
+4. Launch `RKDevTool`; verify that the status bar at the bottom reports **Found One MASKROM Device**.
 
 ---
 
