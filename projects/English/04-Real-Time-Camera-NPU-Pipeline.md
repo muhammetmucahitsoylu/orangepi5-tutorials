@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide**
+﻿# **Orange Pi 5 (RK3588S) Real-Time Camera and NPU Vision Pipeline Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide demonstrates how to build an end-to-end, zero-latency computer vision pipeline on the Orange Pi 5 (Rockchip RK3588S). It ingests video from a **USB UVC WebCam** or an **RTSP IP Camera**, uses dedicated capture threads to eliminate stream buffering, accelerates **YOLOv8** object detection across the **6 TOPS 3-core NPU**, and broadcasts the annotated stream with live telemetry (FPS, NPU latency, SoC thermals) via an embedded HTTP MJPEG web server.
 

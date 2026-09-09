@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide**
+﻿# **Orange Pi 5 (RK3588S) First AI Project and YOLOv8 NPU Inference Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide covers building a complete end-to-end Edge AI vision application on the Orange Pi 5, running the **YOLOv8** object detection model at **70+ FPS** using the 6 TOPS 3-core Neural Processing Unit (NPU).
 

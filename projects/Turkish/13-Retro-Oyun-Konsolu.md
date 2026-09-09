@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi**
+﻿# **Orange Pi 5 (RK3588S) Retro Oyun Konsolu ve 1080p 60FPS Emülasyon Rehberi**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5'in güçlü **Mali-G610 MP4 GPU**'sunu ve 8 çekirdekli işlemcisini kullanarak, oturma odanızdaki televizyonda **PlayStation 2, PSP, GameCube, Wii ve Dreamcast** oyunlarını **1080p çözünürlükte ve takılmasız 60 FPS** hızında oynatan bir retro oyun konsolu inşa etmeyi anlatır.
 

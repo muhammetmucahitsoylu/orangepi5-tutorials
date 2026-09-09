@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi**
+﻿# **Orange Pi 5 (RK3588S) ROS 2 Kurulumu ve NPU Robotik Düğüm Rehberi**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5 (Rockchip RK3588S) üzerine endüstri standardı robotik işletim sistemi **ROS 2 (Robot Operating System - Humble Hawksbill)** kurulumunu, DDS haberleşme mimarisi optimizasyonunu ve **6 TOPS NPU** donanımını kullanarak kamera görüntüsünden nesne tespit edip robotun hareket motorlarına yönlendiren **NPU Algılama Düğümü (Perception Node)** geliştirmeyi anlatır.
 

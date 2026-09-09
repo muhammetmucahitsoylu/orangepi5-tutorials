@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale)**
+﻿# **Orange Pi 5 (RK3588S) Ağ Güvenlik Kalkanı (AdGuard Home, Unbound ve Tailscale)**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5'inizi tüm ev veya ofis ağı için **reklamları, izleyicileri ve zararlı yazılımları kökünden engelleyen**, internet servis sağlayıcınızın (İSS) DNS kayıtlarını tutmasını imkansız kılan ve dışarıdayken bile evinize güvenle bağlanmanızı sağlayan **kurumsal düzeyde bir ağ güvenlik merkezine** dönüştürme adımlarını anlatır.
 

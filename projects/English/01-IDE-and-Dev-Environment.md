@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers**
+﻿# **Orange Pi 5 (RK3588S) IDE and Development Environment Setup for Developers**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide provides a step-by-step walkthrough for software developers to build a professional development workflow for C/C++, Python, and Edge AI projects on the Orange Pi 5 from scratch.
 

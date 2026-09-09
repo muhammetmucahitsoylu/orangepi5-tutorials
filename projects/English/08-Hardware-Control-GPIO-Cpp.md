@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Hardware Control and GPIO / C++ Development Guide**
+﻿# **Orange Pi 5 (RK3588S) Hardware Control and GPIO / C++ Development Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide covers interfacing with the Orange Pi 5's 26-pin expansion header using C++ and Python to control LEDs, relays, buttons, sensors, and actuators with zero jitter and professional engineering patterns.
 

@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide**
+﻿# **Orange Pi 5 (RK3588S) Retro Gaming Console and 1080p 60FPS Emulation Guide**
+
+> 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
 This guide details converting your Orange Pi 5 into a living-room retro gaming powerhouse, taking full advantage of the **Mali-G610 MP4 GPU** and Vulkan 1.2 to render **PlayStation 2, PSP, GameCube, Wii, and Dreamcast** titles at **1080p resolution and rock-solid 60 FPS**.
 

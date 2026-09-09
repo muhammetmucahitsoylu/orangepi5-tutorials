@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu**
+﻿# **Orange Pi 5 (RK3588S) NPU ile Yerel Dil Modeli (RKLLM ve Qwen) Kurulumu**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5'in 6 TOPS gücündeki NPU'sunu (Nöral İşlem Birimi) kullanarak, **Qwen-1.8B / Qwen2.5-1.5B** veya **LLaMA-3.2-1B** gibi modern Büyük Dil Modellerini (LLM) **tamamen internetsiz (çevrimdışı)** ve saniyede **15 – 20 token** hızında çalıştırma adımlarını kapsar.
 

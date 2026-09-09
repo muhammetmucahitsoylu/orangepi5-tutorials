@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO / C++ Geliştirme Rehberi**
+﻿# **Orange Pi 5 (RK3588S) Donanım Kontrolü ve GPIO / C++ Geliştirme Rehberi**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5'in 26-pin genişleme konnektörünü kullanarak sensörler, röleler, butonlar ve motorlar gibi harici donanımları C++ ve Python ile profesyonel düzeyde kontrol etmeniz için hazırlanmıştır.
 

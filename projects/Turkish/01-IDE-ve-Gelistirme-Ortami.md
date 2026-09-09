@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu**
+﻿# **Orange Pi 5 (RK3588S) Yazılımcılar İçin IDE ve Geliştirme Ortamı Kurulumu**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Orange Pi 5 üzerinde C/C++, Python veya yapay zeka projeleri geliştirmek isteyen yazılımcıların sıfırdan profesyonel bir çalışma ortamı kurabilmesi için hazırlanmıştır.
 

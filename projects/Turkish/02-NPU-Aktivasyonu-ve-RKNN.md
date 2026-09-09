@@ -1,4 +1,6 @@
-# **Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu**
+﻿# **Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu**
+
+> 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
 Bu rehber; Rockchip RK3588S işlemcisinde yer alan 3 çekirdekli ve **6 TOPS** işlem gücüne sahip Nöral İşlem Birimi'ni (NPU) uyandırmak, çekirdek sürücü uyumluluğunu doğrulamak ve Python ile yapay zeka modellerini çalıştırmak için gerekli çalışma ortamını kurmayı anlatır.
 
