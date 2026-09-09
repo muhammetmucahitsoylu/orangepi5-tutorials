@@ -52,7 +52,19 @@ The most common failure in embedded cross-compilation is runtime dynamic linker 
 
 ## **3. Step 1: Install Cross-Compilation Toolchains on Host PC**
 
-On your x86_64 workstation (Ubuntu 24.04 LTS or matching WSL2 / Linux environment):
+### **Prerequisite for Windows Users (WSL2 Setup)**
+> [!IMPORTANT]
+> Windows PowerShell or CMD cannot execute `apt` commands natively. The industry-standard and cleanest method to run embedded Linux cross-toolchains on Windows is via **WSL2 (Ubuntu 24.04)**:
+> 1. Run the following command in Windows PowerShell:
+>    ```powershell
+>    wsl --install -d Ubuntu-24.04
+>    ```
+> 2. Restart your computer. On boot, Ubuntu will automatically launch—configure your initial username and password.
+> 3. Run all subsequent build and compilation commands directly inside this **Ubuntu (WSL2)** shell.
+
+---
+
+On your x86_64 workstation (Ubuntu 24.04 LTS or matching WSL2 Ubuntu environment):
 
 ```bash
 sudo apt update
