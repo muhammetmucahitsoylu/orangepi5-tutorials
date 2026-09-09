@@ -16,3 +16,12 @@ This directory contains high-resolution, arrow-annotated hardware photography an
 | <img src="opi5_angle_lan.png" width="260" alt="Orange Pi 5 LAN Angle" /> | [`opi5_angle_lan.png`](opi5_angle_lan.png) | **45° LAN / USB Açısı:** RJ45 Gigabit Ethernet, çift katlı USB 3.0/2.0 konnektörü ve pin yerleşimi. | **45° Isometric View (LAN / USB):** Gigabit RJ45 LAN, stacked USB 3.0/2.0 jack, and header layout. |
 | <img src="opi5_angle_hdmi.png" width="260" alt="Orange Pi 5 HDMI Angle" /> | [`opi5_angle_hdmi.png`](opi5_angle_hdmi.png) | **45° HDMI / Type-C Açısı:** DC-IN güç portu, OTG Type-C, HDMI ve 3.5mm ses jakı yerleşimi. | **45° Isometric View (HDMI / Type-C):** DC-IN power jack, OTG Type-C, HDMI OUT, and 3.5mm audio socket. |
 
+---
+
+### ⚖️ Yasal Feragatname & Atıf | Legal Disclaimer & Fair Use
+
+* **Ticari Markalar:** *Orange Pi™*, Shenzhen Xunlong Software CO., Limited'ın tescilli ticari markasıdır. *Rockchip™*, Rockchip Electronics Co., Ltd.'nin tescilli ticari markasıdır.
+* **Adil Kullanım:** Bu dizindeki anakart görselleri ve pin şemaları, donanım kullanıcılarına ve geliştiricilerine açık kaynaklı teknik dokümantasyon, kurtarma kılavuzu ve eğitim materyali sunmak amacıyla dönüştürülerek (oklar, fonksiyon etiketleri ve şemalar eklenerek) **Adil Kullanım (Fair Use - 17 U.S.C. § 107)** ilkeleri doğrultusunda kullanılmıştır.
+* **Trademarks & Fair Use:** *Orange Pi™* is a registered trademark of Shenzhen Xunlong Software CO., Limited. All hardware photos and schematics in this catalog are annotated and provided strictly for non-commercial, educational documentation, and hardware interoperability purposes under Fair Use.
+
+
