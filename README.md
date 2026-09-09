@@ -42,8 +42,10 @@ Bu depodaki rehberler Orange Pi 5 (RK3588S) temel alınarak hazırlanmıştır; 
 | **Orange Pi 5 Plus** | **RK3588** (Tam) | 6 TOPS / Mali-G610 | M.2 PCIe 3.0 x4 (2280) + eMMC yuvası | 2x 2.5 GbE LAN + M.2 E-Key (WiFi) | AI/NPU rehberleri tam uyumlu; NVMe hızı ~3500 MB/s'ye çıkar, çift 2.5G ağ ile sunucu projelerine mükemmel uyum sağlar. |
 
 <p align="center">
-  <img src="docs/images/hardware/opi5_front.png" width="48%" alt="Orange Pi 5 V1.3.2 Front View" />
-  <img src="docs/images/hardware/opi5_rear.png" width="48%" alt="Orange Pi 5 V1.3.2 Rear View" />
+  <img src="docs/images/hardware/opi5_front.png" width="48%" alt="Orange Pi 5 V1.3.2 Front View (Annotated)" />
+  <img src="docs/images/hardware/opi5_rear.png" width="48%" alt="Orange Pi 5 V1.3.2 Rear View (Annotated)" />
+  <br>
+  <em>🔍 Kart üzerindeki tüm bileşenler, MaskROM/Recovery butonları, UART ve M.2 NVMe yuvası yüksek çözünürlüklü oklarla etiketlenmiştir. Detaylı katalog: <a href="docs/images/hardware/">docs/images/hardware/</a></em>
 </p>
 
 ---
@@ -305,8 +307,10 @@ While this repository is authored and benchmarked against the baseline Orange Pi
 | **Orange Pi 5 Plus** | **RK3588** (Full) | 6 TOPS / Mali-G610 | M.2 PCIe 3.0 x4 (2280) + eMMC socket | 2x 2.5 GbE LAN + M.2 E-Key slot | All AI/NPU guides fully compatible. NVMe speeds reach ~3500 MB/s; dual 2.5G LAN excels for server appliances. |
 
 <p align="center">
-  <img src="docs/images/hardware/opi5_front.png" width="48%" alt="Orange Pi 5 V1.3.2 Front View" />
-  <img src="docs/images/hardware/opi5_rear.png" width="48%" alt="Orange Pi 5 V1.3.2 Rear View" />
+  <img src="docs/images/hardware/opi5_front.png" width="48%" alt="Orange Pi 5 V1.3.2 Front View (Annotated)" />
+  <img src="docs/images/hardware/opi5_rear.png" width="48%" alt="Orange Pi 5 V1.3.2 Rear View (Annotated)" />
+  <br>
+  <em>🔍 All onboard components, MaskROM/Recovery buttons, UART, and M.2 NVMe slot are labeled with callout arrows. Full hardware catalog: <a href="docs/images/hardware/">docs/images/hardware/</a></em>
 </p>
 
 ---

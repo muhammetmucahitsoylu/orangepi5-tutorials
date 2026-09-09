@@ -95,11 +95,17 @@ Yaşadığım tüm kilitlenmelerin ardından çıkardığım en net sonuç şudu
 +-------------------------------------------------------------------------+
 ```
 
+<p align="center">
+  <img src="../../docs/images/hardware/opi5_front.png" width="90%" alt="Orange Pi 5 MaskROM Butonu ve Donanım Yerleşimi" />
+  <br>
+  <em>🔍 <strong>Donanım Konumu:</strong> Kart üzerindeki <strong>MaskROM Key</strong>, <strong>RECOVERY Key</strong> ve Type-C OTG flaşlama portu yukarıdaki fotoğrafta kırmızı oklarla açıkça işaretlenmiştir.</em>
+</p>
+
 1. **[UYARI]** Orange Pi 5'in Power In (DC-IN) Type-C portuna orijinal 5V/4A şarj adaptörünü bağlayın.  
 2. **[UYARI]** Bilgisayarınızın USB 3.0 çıkışını ise Orange Pi 5'in diğer Type-C (OTG) portuna takın.  
 3. **Zorunlu MaskROM Tetikleme Prosedürü:**  
    * Eğer SPI Flash tamamen silinmişse, kart açılışta bootloader bulamadığı için **otomatik** olarak MaskROM moduna düşer.
-   * **Kritik Durum (SPI Flash Bozuk/Döngüde Kilitli İse):** Kart otomatik MaskROM'a geçmezse; gücü tamamen kesin. Kartın üzerindeki **MaskROM butonuna** (yukarıdaki şemada MicroSD yuvasının hemen yanında gösterilen minik donanım butonu) basılı tutun. Butonu bırakmadan PC'ye bağlı Type-C OTG kablosunu takın, 3 saniye bekleyip butonu bırakın. *(Rev V1.1/V1.2 kartlarda buton 'BOOT' veya 'MaskROM' olarak etiketlidir; V1.3.2'de SMD lehim butonudur).*
+   * **Kritik Durum (SPI Flash Bozuk/Döngüde Kilitli İse):** Kart otomatik MaskROM'a geçmezse; gücü tamamen kesin. Kartın üzerindeki **MaskROM butonuna** (yukarıdaki fotoğrafta kırmızı okla gösterilen minik donanım butonu) basılı tutun. Butonu bırakmadan PC'ye bağlı Type-C OTG kablosunu takın, 3 saniye bekleyip butonu bırakın. *(Rev V1.1/V1.2 kartlarda buton 'BOOT' veya 'MaskROM' olarak etiketlidir; V1.3.2'de SMD lehim butonudur).*
 4. RKDevTool programını açın; pencerenin en altında **Found One MASKROM Device** yazısını doğrulayın.
 
 ### **Aşama 4: RKDevTool ile SPI Flash Onarımı ve U-Boot Flaşlama**
@@ -130,6 +136,12 @@ Yaşadığım tüm kilitlenmelerin ardından çıkardığım en net sonuç şudu
 * Sağ panelde Download Image OK yazısını gördüğünüzde işlem tamamdır.
 
 ### **Aşama 5: Sistemi NVMe SSD ile Başlatma ve Doğrulama**
+
+<p align="center">
+  <img src="../../docs/images/hardware/opi5_rear.png" width="85%" alt="Orange Pi 5 M.2 NVMe Yuvası (Arka Yüz)" />
+  <br>
+  <em>🔍 <strong>M.2 NVMe Yuvası:</strong> Kartın arka yüzünde yer alan <strong>M.2 PCIe 2.0 (2242)</strong> yuvası okla işaretlenmiştir.</em>
+</p>
 
 > 1. Bilgisayara bağlı olan Type-C kablosunu çekin.  
 > 2. Aşama 1'de hazırlandığı üzere önceki depolama aygıtının çıkarılmış ve NVMe SSD nin takılı olduğunu teyit edin.  
