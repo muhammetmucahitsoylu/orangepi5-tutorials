@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Hardware Verification and Stress Testing Guide**
 
+> 🛡️ **Hardware Verified:** All CPU, RAM, fio NVMe throughput, and s-tui stress testing protocols in this guide are physically confirmed on **Orange Pi 5 running Ubuntu 24.04 / 22.04 LTS**.
+
 This guide provides a standardized testing protocol to verify that the CPU, RAM, M.2 NVMe SSD, and cooling solution on your Orange Pi 5 (Rockchip RK3588S) operate at 100% rated capacity without thermal throttling. All benchmark baseline figures in this guide reflect verified physical hardware tests.
 
 ---

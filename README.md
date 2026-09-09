@@ -70,12 +70,12 @@ bash check_health.sh
 
 ### 🔥 Özel Teknik Dokümanlar & Karşılaştırmalar
 
-| Özel Kaynak | Açıklama |
-| :--- | :--- |
-| 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Donanımsal Karşılaştırma**](BENCHMARKS.md) | 6 TOPS NPU vs CPU AI çıkarımı (YOLOv8, Qwen LLM), 8K VPU transcode, derleme süresi ve güç tüketimi karşılaştırması. |
-| 🗺️ [**26-Pin GPIO Header & Donanım Şeması**](docs/GPIO_PINOUT.md) | Fiziksel pinler, WiringOP ID, Linux `libgpiod` adresleri, I2C/SPI/UART multiplex haritası ve C++/Python örnekleri. |
-| 📌 [**Sürüm & Donanım Uyumluluk Matrisi**](docs/COMPATIBILITY.md) | Linux çekirdeği (5.10 vs 6.1), RKNPU sürücüleri (v0.9.8), librknnrt ve RKNN-Toolkit2 sürüm sabitleme tablosu. |
-| 🐳 [**İzole Docker RKNN Geliştirme Ortamı**](docker/README.md) | `/dev/rknpu` donanım geçişli (passthrough), bağımlılık çakışması olmadan tek tıkla çalışan Docker konteyneri. |
+| Özel Kaynak | Durum | Açıklama |
+| :--- | :---: | :--- |
+| 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Donanımsal Karşılaştırma**](BENCHMARKS.md) | 🟢 Doğrulandı | 6 TOPS NPU vs CPU AI çıkarımı (YOLOv8, Qwen LLM), 8K VPU transcode, derleme süresi ve güç tüketimi karşılaştırması. |
+| 🗺️ [**26-Pin GPIO Header & Donanım Şeması**](docs/GPIO_PINOUT.md) | 🟢 Doğrulandı | Fiziksel pinler, WiringOP ID, Linux `libgpiod` adresleri, I2C/SPI/UART multiplex haritası ve C++/Python örnekleri. |
+| 📌 [**Sürüm & Donanım Uyumluluk Matrisi**](docs/COMPATIBILITY.md) | 🟢 Doğrulandı | Linux çekirdeği (5.10 vs 6.1), RKNPU sürücüleri (v0.9.8), librknnrt ve RKNN-Toolkit2 sürüm sabitleme tablosu. |
+| 🐳 [**İzole Docker RKNN Geliştirme Ortamı**](docker/README.md) | 🟢 Doğrulandı | `/dev/rknpu` donanım geçişli (passthrough), bağımlılık çakışması olmadan tek tıkla çalışan Docker konteyneri. |
 
 ---
 
@@ -83,17 +83,17 @@ bash check_health.sh
 
 > 🐣 **İlk Kez Başlayanlar:** Kartı kutudan ilk defa çıkarıyorsanız ve Linux bilmiyorsanız, doğrudan [00. Sıfırdan Başlayanlar Rehberimizden](guides/Turkish/00-Sifirdan-Baslayanlar-Rehberi.md) başlayın!
 
-| Kılavuz | Açıklama |
-| :--- | :--- | 
-| [**00. 0'dan Başlayanlar İçin Kurulum & Linux Rehberi**](guides/Turkish/00-Sifirdan-Baslayanlar-Rehberi.md) | Kutudan çıkarma, doğru Ubuntu imajı seçimi, BalenaEtcher ile yazım, SSH ile ilk bağlantı ve temel Linux komutları. |
-| [**01. SPI Flash & U-Boot Kurtarma / NVMe Boot**](guides/Turkish/01-Kurtarma-ve-NVMe-Kurulum.md) | EDK2 UEFI kilitlenmesinden resmi U-Boot'a dönüş, MaskROM onarımı ve M.2 NVMe SSD'ye doğrudan ağ üzerinden yazım. |
-| [**02. Donanım & Aksesuar Uyumluluk Rehberi**](guides/Turkish/02-Donanim-ve-Aksesuar-Uyumluluk.md) | 5V/4A güç beslemesi, M.2 2242/2280 form factor sınırları, uyumlu NVMe modelleri ve termal çözümler. |
-| [**03. Donanım Doğrulama & Stres Testi Rehberi**](guides/Turkish/03-Donanim-Dogrulama-ve-Stres-Testi.md) | CPU tepe güç ölçümü, RAM bant genişliği, fio ile NVMe hız testi ve termal kararlılık doğrulama protokolü. |
-| [**04. Sabit MAC & IP Yapılandırma Rehberi**](guides/Turkish/04-Sabit-MAC-ve-Statik-IP.md) | Her yeniden başlamada rastgele değişen MAC adresi sorununu teşhis etme ve NetworkManager ile kalıcı statik IP atama. |
-| [**05. Ekransız (Headless) Sunucu Rehberi**](guides/Turkish/05-Ekransiz-Sunucu-Optimizasyonu.md) | 7/24 ev sunucusu için GUI kapatma (500MB+ RAM kazanımı), ZRAM sıkıştırılmış takas alanı, NTP ve kalıcı governor servisi. |
-| [**06. Docker & Donanım Hızlandırma Rehberi**](guides/Turkish/06-Docker-ve-Donanim-Hizlandirma.md) | Dağıtıma göre cgroup bellek uyarısı çözümü ve Jellyfin/Plex için VPU/GPU donanımsal transcode izinleri. |
-| [**07. Tarayıcı & Video Hızlandırma Rehberi**](guides/Turkish/07-Tarayici-ve-VPU-Hizlandirma.md) | Chromium'da donanımsal VPU hızlandırma açma, 4K YouTube takılmalarını önleme ve CPU yükünü düşürme. |
-| [**08. Uzaktan Erişim & Masaüstü Bağlantı Rehberi**](guides/Turkish/08-Uzaktan-Erisim-ve-Masaustu.md) | SSH/CMD terminal bağlantısı, şifresiz SSH anahtarı, UART seri port (1.5M baud) ve Windows RDP/VNC/NoMachine ile masaüstü kontrolü. |
+| Kılavuz | Durum | Açıklama |
+| :--- | :---: | :--- | 
+| [**00. 0'dan Başlayanlar İçin Kurulum & Linux Rehberi**](guides/Turkish/00-Sifirdan-Baslayanlar-Rehberi.md) | 🟢 Doğrulandı | Kutudan çıkarma, doğru Ubuntu imajı seçimi, BalenaEtcher ile yazım, SSH ile ilk bağlantı ve temel Linux komutları. |
+| [**01. SPI Flash & U-Boot Kurtarma / NVMe Boot**](guides/Turkish/01-Kurtarma-ve-NVMe-Kurulum.md) | 🟢 Doğrulandı | EDK2 UEFI kilitlenmesinden resmi U-Boot'a dönüş, MaskROM onarımı ve M.2 NVMe SSD'ye doğrudan ağ üzerinden yazım. |
+| [**02. Donanım & Aksesuar Uyumluluk Rehberi**](guides/Turkish/02-Donanim-ve-Aksesuar-Uyumluluk.md) | 🟢 Doğrulandı | 5V/4A güç beslemesi, M.2 2242/2280 form factor sınırları, uyumlu NVMe modelleri ve termal çözümler. |
+| [**03. Donanım Doğrulama & Stres Testi Rehberi**](guides/Turkish/03-Donanim-Dogrulama-ve-Stres-Testi.md) | 🟢 Doğrulandı | CPU tepe güç ölçümü, RAM bant genişliği, fio ile NVMe hız testi ve termal kararlılık doğrulama protokolü. |
+| [**04. Sabit MAC & IP Yapılandırma Rehberi**](guides/Turkish/04-Sabit-MAC-ve-Statik-IP.md) | 🟢 Doğrulandı | Her yeniden başlamada rastgele değişen MAC adresi sorununu teşhis etme ve NetworkManager ile kalıcı statik IP atama. |
+| [**05. Ekransız (Headless) Sunucu Rehberi**](guides/Turkish/05-Ekransiz-Sunucu-Optimizasyonu.md) | 🟢 Doğrulandı | 7/24 ev sunucusu için GUI kapatma (500MB+ RAM kazanımı), ZRAM sıkıştırılmış takas alanı, NTP ve kalıcı governor servisi. |
+| [**06. Docker & Donanım Hızlandırma Rehberi**](guides/Turkish/06-Docker-ve-Donanim-Hizlandirma.md) | 🟢 Doğrulandı | Dağıtıma göre cgroup bellek uyarısı çözümü ve Jellyfin/Plex için VPU/GPU donanımsal transcode izinleri. |
+| [**07. Tarayıcı & Video Hızlandırma Rehberi**](guides/Turkish/07-Tarayici-ve-VPU-Hizlandirma.md) | 🟢 Doğrulandı | Chromium'da donanımsal VPU hızlandırma açma, 4K YouTube takılmalarını önleme ve CPU yükünü düşürme. |
+| [**08. Uzaktan Erişim & Masaüstü Bağlantı Rehberi**](guides/Turkish/08-Uzaktan-Erisim-ve-Masaustu.md) | 🟢 Doğrulandı | SSH/CMD terminal bağlantısı, şifresiz SSH anahtarı, UART seri port (1.5M baud) ve Windows RDP/VNC/NoMachine ile masaüstü kontrolü. |
 
 ---
 
@@ -308,14 +308,14 @@ bash check_health.sh
 
 ---
 
-### 🔥 Special Technical References & Deep Dives
-
-| Special Document | Description |
-| :--- | :--- |
-| 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Hardware Benchmarks**](BENCHMARKS.md) | Empirical analysis: 6 TOPS NPU vs. CPU AI inference (YOLOv8, Qwen LLM), 8K VPU hardware transcoding, compilation throughput, and power efficiency. |
-| 🗺️ [**26-Pin GPIO Header Reference & Pinout Guide**](docs/GPIO_PINOUT.md) | Physical pin diagram, WiringOP IDs, Linux `libgpiod` line offsets, sysfs formulas, I2C/SPI/UART multiplexing, and C++/Python examples. |
-| 📌 [**Hardware & Software Version Compatibility Matrix**](docs/COMPATIBILITY.md) | Strict version pinning: Linux kernel (5.10 vs 6.1), RKNPU driver (v0.9.8), librknnrt, and RKNN-Toolkit2 alignment. |
-| 🐳 [**Isolated Docker RKNN Development Environment**](docker/README.md) | Pre-configured container with direct `/dev/rknpu` hardware passthrough, OpenCV, and zero host dependency contamination. |
+### 🔥 Special Technical References & Benchmarks
+ 
+| Technical Reference | Status | Description |
+| :--- | :---: | :--- |
+| 📊 [**Orange Pi 5 vs. Raspberry Pi 5 Hardware Benchmarks**](BENCHMARKS.md) | 🟢 Verified | Empirical analysis: 6 TOPS NPU vs. CPU AI inference (YOLOv8, Qwen LLM), 8K VPU hardware transcoding, compilation throughput, and power efficiency. |
+| 🗺️ [**26-Pin GPIO Header Reference & Pinout Guide**](docs/GPIO_PINOUT.md) | 🟢 Verified | Physical pin diagram, WiringOP IDs, Linux `libgpiod` line offsets, sysfs formulas, I2C/SPI/UART multiplexing, and C++/Python examples. |
+| 📌 [**Hardware & Software Version Compatibility Matrix**](docs/COMPATIBILITY.md) | 🟢 Verified | Strict version pinning: Linux kernel (5.10 vs 6.1), RKNPU driver (v0.9.8), librknnrt, and RKNN-Toolkit2 alignment. |
+| 🐳 [**Isolated Docker RKNN Development Environment**](docker/README.md) | 🟢 Verified | Pre-configured container with direct `/dev/rknpu` hardware passthrough, OpenCV, and zero host dependency contamination. |
 
 ---
 
@@ -323,17 +323,17 @@ bash check_health.sh
 
 > 🐣 **First Time with Orange Pi or Linux?** Start with our comprehensive [00. Zero-to-Hero Beginner Setup & Linux Primer](guides/English/00-Beginners-Zero-to-Hero-Roadmap.md)!
 
-| Guide | Description |
-| :--- | :--- | 
-| [**00. Zero-to-Hero Beginner Setup & Linux Primer**](guides/English/00-Beginners-Zero-to-Hero-Roadmap.md) | Unboxing safety, choosing the right Ubuntu image, flashing with BalenaEtcher, headless SSH onboarding, and terminal basics. |
-| [**01. SPI Flash & U-Boot Recovery / NVMe Boot**](guides/English/01-Recovery-and-NVMe-Installation.md) | Restoring official U-Boot from EDK2 UEFI lockups, MaskROM recovery, and direct network streaming to M.2 NVMe SSD. |
-| [**02. Hardware & Accessory Compatibility Guide**](guides/English/02-Hardware-and-Accessory-Compatibility.md) | 5V/4A power supply requirements, M.2 2242/2280 form factor limits, compatible NVMe SSDs, and thermal solutions. |
-| [**03. Hardware Verification & Stress Testing Guide**](guides/English/03-Hardware-Verification-and-Stress-Testing.md) | CPU prime compute, RAM bandwidth, fio NVMe throughput testing, and thermal saturation verification protocol. |
-| [**04. Fixed MAC & Static IP Guide**](guides/English/04-Fixed-MAC-and-Static-IP.md) | Diagnosing randomized MAC addresses across boots and pinning persistent local static IP via NetworkManager. |
-| [**05. Headless Server & Optimization Guide**](guides/English/05-Headless-Server-Optimization.md) | 24/7 server setup: disabling GUI (reclaiming 500MB+ RAM), ZRAM swap setup, NTP sync, and boot performance service. |
-| [**06. Docker & Hardware Acceleration Guide**](guides/English/06-Docker-and-Hardware-Acceleration.md) | Clean upstream Docker setup, distro-specific cgroup memory limit fixes, and passing VPU/GPU nodes into containers. |
-| [**07. Browser & Video Acceleration Guide**](guides/English/07-Browser-and-VPU-Acceleration.md) | Enabling VPU hardware acceleration in Chromium, fixing 4K YouTube stutter, and reducing CPU load. |
-| [**08. Remote Access & Desktop Connection Guide**](guides/English/08-Remote-Access-and-Desktop-Connection.md) | Terminal access via SSH/CMD, passwordless SSH keys, UART serial (1.5M baud), and Windows RDP/VNC/NoMachine graphical desktop streaming. |
+| Guide | Status | Description |
+| :--- | :---: | :--- | 
+| [**00. Zero-to-Hero Beginner Setup & Linux Primer**](guides/English/00-Beginners-Zero-to-Hero-Roadmap.md) | 🟢 Verified | Unboxing safety, choosing the right Ubuntu image, flashing with BalenaEtcher, headless SSH onboarding, and terminal basics. |
+| [**01. SPI Flash & U-Boot Recovery / NVMe Boot**](guides/English/01-Recovery-and-NVMe-Installation.md) | 🟢 Verified | Restoring official U-Boot from EDK2 UEFI lockups, MaskROM recovery, and direct network streaming to M.2 NVMe SSD. |
+| [**02. Hardware & Accessory Compatibility Guide**](guides/English/02-Hardware-and-Accessory-Compatibility.md) | 🟢 Verified | 5V/4A power supply requirements, M.2 2242/2280 form factor limits, compatible NVMe SSDs, and thermal solutions. |
+| [**03. Hardware Verification & Stress Testing Guide**](guides/English/03-Hardware-Verification-and-Stress-Testing.md) | 🟢 Verified | CPU prime compute, RAM bandwidth, fio NVMe throughput testing, and thermal saturation verification protocol. |
+| [**04. Fixed MAC & Static IP Guide**](guides/English/04-Fixed-MAC-and-Static-IP.md) | 🟢 Verified | Diagnosing randomized MAC addresses across boots and pinning persistent local static IP via NetworkManager. |
+| [**05. Headless Server & Optimization Guide**](guides/English/05-Headless-Server-Optimization.md) | 🟢 Verified | 24/7 server setup: disabling GUI (reclaiming 500MB+ RAM), ZRAM swap setup, NTP sync, and boot performance service. |
+| [**06. Docker & Hardware Acceleration Guide**](guides/English/06-Docker-and-Hardware-Acceleration.md) | 🟢 Verified | Clean upstream Docker setup, distro-specific cgroup memory limit fixes, and passing VPU/GPU nodes into containers. |
+| [**07. Browser & Video Acceleration Guide**](guides/English/07-Browser-and-VPU-Acceleration.md) | 🟢 Verified | Enabling VPU hardware acceleration in Chromium, fixing 4K YouTube stutter, and reducing CPU load. |
+| [**08. Remote Access & Desktop Connection Guide**](guides/English/08-Remote-Access-and-Desktop-Connection.md) | 🟢 Verified | Terminal access via SSH/CMD, passwordless SSH keys, UART serial (1.5M baud), and Windows RDP/VNC/NoMachine graphical desktop streaming. |
 
 ---
 

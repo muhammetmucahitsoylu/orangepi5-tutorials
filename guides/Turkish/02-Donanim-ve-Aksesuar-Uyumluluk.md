@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Donanım ve Aksesuar Uyumluluk Kılavuzu**
 
+> 🛡️ **Doğrulandı & Test Edildi:** Bu kılavuzdaki güç, NVMe, kamera ve termal aksesuarlar bizzat fiziksel **Orange Pi 5 (RK3588S V1.3.2)** donanımı üzerinde test edilerek doğrulanmıştır.
+
 Bu kılavuz, Orange Pi 5 (Rockchip RK3588S) için doğru güç kaynağı, M.2 SSD, soğutma ve çevre birimlerini seçmeniz amacıyla hazırlanmıştır. Yanlış donanım tercihinden kaynaklanan kilitlenme, yeniden başlama ve tanınmayan aygıt sorunlarını önlemek için gerekli pratik bilgileri içerir.
 
 ---

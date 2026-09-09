@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Remote Access and Desktop Connection Guide**
 
+> 🛡️ **Hardware Verified:** SSH, key-based auth, 1.5M baud UART serial debugging, and RDP/VNC/NoMachine remote desktop sessions are confirmed on **Orange Pi 5 running Ubuntu 24.04 / 22.04 LTS**.
+
 This guide provides practical instructions for connecting to the Orange Pi 5 from a laptop or desktop computer without an external monitor, keyboard, or mouse, covering both command-line (CMD / Terminal) and graphical desktop (GUI) access methods.
 
 ---

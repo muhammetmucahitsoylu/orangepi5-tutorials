@@ -1,5 +1,7 @@
 # **0'dan Başlayanlar İçin Orange Pi 5 Rehberi: Kutudan Projeye Adım Adım Yolculuk**
 
+> 🛡️ **Doğrulandı & Test Edildi:** Bu rehberdeki tüm adımlar ve komutlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
+
 > **Bu kılavuz kimler içindir?**  
 > Hayatında hiç Linux kullanmamış, terminal (siyah ekran) görmemiş ya da eline ilk defa bir Tek Kart Bilgisayar (SBC) almış herkes için hazırlanmıştır. Hiçbir teknik jargon varsayılmadan, kutu açılışından ilk projenizi çalıştırmaya kadar adım adım rehberlik eder.
 

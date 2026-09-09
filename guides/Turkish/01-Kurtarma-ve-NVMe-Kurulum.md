@@ -1,5 +1,7 @@
 # **Orange Pi 5 (RK3588S) Kurtarma ve Kurulum Kılavuzu**
 
+> 🛡️ **Doğrulandı & Test Edildi:** Bu rehberdeki kurtarma ve kurulum adımları **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS** üzerinde fiziksel donanım, SPI Flash ve MaskROM modunda test edilmiş ve onaylanmıştır.
+
 *Bu kılavuz, Orange Pi 5 kartına EDK2 UEFI BIOS kurup cihazı boot döngüsüne soktuktan, çalışan sistemden SSD klonlama hatalarıyla saatler kaybettikten ve SPI Flash çipini boşaltıp kartı kilitledikten sonra deneme-yanılma ve teknik analizlerle çözüme ulaştığım süreci adım adım belgelemektedir. İnternetteki dağınık ve eksik anlatımların aksine, sıfırdan başlayanların aynı tuzaklara düşmemesi için tüm adımları ve teknik nedenleri derledim. Not: Bu sorunu Mobile HDD ile yaşadım MicroSD kart kullanılmamıştır.* 
 
 ## **1\. Giriş ve Temel Sorun Özeti**
