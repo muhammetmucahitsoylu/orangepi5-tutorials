@@ -100,22 +100,6 @@ Following all of these lockups, the clearest conclusion I reached is this: insta
 
 ### **Stage 3: Put the Board into Hardware MaskROM Mode**
 
-```
-                     ORANGE PI 5 HARDWARE MASKROM MODE
-  
-  [DC-IN 5V]    [Type-C OTG]
-  (Power)       (To PC USB)
-   [ === ]         [ === ]
-  +-----------------------------------------------------+
-  |                                                     |
-  |             +-----------------+                     |
-  |             |  Rockchip       |       [MaskROM Key] |
-  |             |  RK3588S SoC    |           ( • )     |
-  |             +-----------------+                     |
-  |                                                     |
-  +-----------------------------------------------------+
-```
-
 1. **[WARNING]** Connect the original 5V/4A power supply to the Power In (DC-IN) Type-C port of the Orange Pi 5.  
 2. **[WARNING]** Connect a USB cable from your host computer's USB 3.0 port to the second Type-C (OTG) port on the Orange Pi 5.  
 3. **Forced MaskROM Recovery Protocol:**  
