@@ -55,6 +55,11 @@ Katkınızın hızlıca incelenip kabul edilmesi için lütfen aşağıdaki müh
    ```
 5. Dalınızı push edin ve `main` dalına bir **Pull Request** açın.
 
+### 📄 Katkı Lisans Sözleşmesi
+Pull Request göndererek, katkılarınızın deponun [Çift Lisans](LICENSE) koşullarıyla yayımlanacağını kabul etmiş olursunuz:
+* **Kodlar ve betikler:** **MIT Lisansı**
+* **Dokümanlar ve kılavuzlar:** **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**
+
 ---
 
 ## English
@@ -98,3 +103,11 @@ To ensure your contributions are reviewed and merged efficiently, please adhere 
    git commit -m "docs(npu): add RK3588 multi-batch benchmark table"
    ```
 4. Push to your branch and open a **Pull Request** against `main`.
+
+---
+
+### 📄 License Agreement for Contributions
+
+By submitting a Pull Request, you agree that your contributions will be licensed under the repository's [Dual-License](LICENSE) terms:
+* **Code and scripts** under the **MIT License**.
+* **Documentation and tutorials** under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** license.

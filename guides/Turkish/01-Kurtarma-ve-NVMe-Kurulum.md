@@ -73,10 +73,26 @@ Yaşadığım tüm kilitlenmelerin ardından çıkardığım en net sonuç şudu
 
 ### **Aşama 3: Kartı Donanımsal MaskROM Moduna Alın**
 
-1. **\[UYARI\]** Orange Pi 5'in Power In (DC-IN) Type-C portuna kendi orijinal şarj adaptörünü bağlayın.  
-2. **\[UYARI\]** Bilgisayarınızın USB 3.0 çıkışını ise Orange Pi 5'in diğer Type-C (OTG) portuna takın.  
-> 3. *(Not: SPI Flash önceden silinmiş olduğu için MaskROM tuşuna basıp basmamak kartta bir şey değiştirmez; kart açılışta önyükleyici bulamadığı için otomatik olarak MaskROM moduna geçer).*  
-> 4. RKDevTool programını açın; en altta **Found One MASKROM Device** yazısını doğrulayın.
+                     ORANGE PI 5 DONANIMSAL MASKROM MODU
+  
+  [DC-IN 5V]    [Type-C OTG]
+  (Adaptör)      (PC USB'ye)
+   [ === ]         [ === ]
+  +-----------------------------------------------------+
+  |                                                     |
+  |             +-----------------+                     |
+  |             |  Rockchip       |       [MaskROM Butonu]
+  |             |  RK3588S SoC    |           ( • )     |
+  |             +-----------------+                     |
+  |                                                     |
+  +-----------------------------------------------------+
+
+1. **[UYARI]** Orange Pi 5'in Power In (DC-IN) Type-C portuna orijinal 5V/4A şarj adaptörünü bağlayın.  
+2. **[UYARI]** Bilgisayarınızın USB 3.0 çıkışını ise Orange Pi 5'in diğer Type-C (OTG) portuna takın.  
+3. **Zorunlu MaskROM Tetikleme Prosedürü:**  
+   * Eğer SPI Flash tamamen silinmişse, kart açılışta bootloader bulamadığı için **otomatik** olarak MaskROM moduna düşer.
+   * **Kritik Durum (SPI Flash Bozuk/Döngüde Kilitli İse):** Kart otomatik MaskROM'a geçmezse; gücü tamamen kesin. Kartın üzerindeki **MaskROM butonuna** (RK3588S SoC'un sağında, MicroSD yuvası yakınında yer alan minik buton) basılı tutun. Butonu bırakmadan PC'ye bağlı Type-C OTG kablosunu takın, 3 saniye bekleyip butonu bırakın. *(Rev V1.1/V1.2 kartlarda buton 'BOOT' veya 'MaskROM' olarak etiketlidir; V1.3.2'de lehim butonudur).*
+4. RKDevTool programını açın; pencerenin en altında **Found One MASKROM Device** yazısını doğrulayın.
 
 ### **Aşama 4: RKDevTool ile SPI Flash Onarımı ve U-Boot Flaşlama**
 
