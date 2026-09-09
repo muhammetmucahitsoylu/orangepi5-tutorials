@@ -109,10 +109,12 @@ sudo apt update && sudo apt upgrade -y
 ```
 *(When you see `sudo` at the beginning of a command, the system is executing the task with administrative "Superuser" privileges).*
 
-### 3. Run the Hardware Health Diagnostic
-Execute our automated diagnostic utility to audit your board's subsystem health:
+### 3. Run the Hardware Health Diagnostic (Secure Local Execution)
+Audit your board's subsystem health (CPU die temperatures, NPU character nodes, memory headroom) using our automated diagnostic utility:
 ```bash
-curl -sSL https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh | bash
+# Security best practice: Download and run locally
+curl -sSLO https://raw.githubusercontent.com/muhammetmucahitsoylu/orangepi5-tutorials/main/scripts/check_health.sh
+bash check_health.sh
 ```
 Your CPU die temperatures, NPU character nodes, and memory headroom will render on screen.
 

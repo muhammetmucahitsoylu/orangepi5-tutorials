@@ -25,8 +25,11 @@ dmesg | grep -i rknpu
 *Beklenen çıktı:* `RKNPU: Driver version: 0.9.x` veya üzeri.
 
 > [!IMPORTANT]
-> **KRİTİK VERSİYON KURALI:**  
-> Eğer çıktı `Driver version: 0.8.x` veriyorsa sisteminizdeki çekirdek eskidir ve modern RKNN-Toolkit2 (v2.x) ile **çalışmaz** (`Driver version mismatch` hatası verir). Bu durumda önce sistemi güncelleyin: `sudo apt update && sudo apt upgrade -y`.
+> **KRİTİK VERSİYON SABİTLEME & UYUMLULUK KURALI:**  
+> Rockchip ekosisteminde model derleyicisi (`rknn-toolkit2`), kart çalışma motoru (`librknnrt.so`) ve çekirdek sürücüsü (`rknpu.ko`) **aynı sürüm ailesine** kilitli olmak zorundadır:
+> * **Bu Repodaki Doğrulanmış Referans:** RKNPU Sürücüsü: **`v0.9.8`**, Runtime & Toolkit: **`v2.3.2`**.
+> * Sürücü versiyonunu doğrudan kontrol edin: `cat /sys/kernel/debug/rknpu/version`
+> * Detaylı uyumluluk matrisi ve sürüm çatışmalarını çözmek için [docs/COMPATIBILITY.md](../../docs/COMPATIBILITY.md) kılavuzunu inceleyin.
 
 ```bash
 # 2. NPU frekans yöneticisini kontrol edin:
