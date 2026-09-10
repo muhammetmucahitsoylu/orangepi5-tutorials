@@ -547,3 +547,15 @@ This repository adopts a transparent **Dual-License** model conforming to open-s
 * **Software, Code, & Scripts (`.sh`, `.py`, `.cpp`, `.h`, Dockerfiles):** Licensed under the permissive [MIT License](LICENSE). You are fully entitled to fork, adapt, remix, and incorporate into proprietary, academic, or commercial projects.
 * **Guides, Educational Content, & Schematics (`.md`, diagrams):** Licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](LICENSE) license. You may redistribute and modify documentation provided appropriate credit is given to the author (`Muhammet Mücahit Soylu`) and derived versions are shared under identical terms.
 * **Trademarks & Fair Use:** *Orange Pi™* is a trademark of Shenzhen Xunlong Software CO., Limited; *Rockchip™* is a trademark of Rockchip Electronics Co., Ltd. Hardware photography, pinout diagrams, and external references are included under non-commercial Fair Use for educational and technical interoperability purposes (see [LICENSE](LICENSE) Part 3).
+
+---
+
+### ⭐ Star & Support the Project
+
+If this repository saved you hours of debugging, rescued a bricked board, or accelerated your edge AI workflows:
+* **Star this Repository:** Drop a ⭐ on GitHub to boost visibility so other developers can easily discover it.
+* **Fork & Contribute:** Have an optimization, a new project, or hardware notes for other RK3588 boards? PRs are warmly welcomed—see [CONTRIBUTING.md](CONTRIBUTING.md)!
+* **Share the Knowledge:** Share this repository across your favorite maker, robotics, and embedded Linux communities.
+
+> 🌟 **Topluluk Desteği:** Bu rehber kartınızı kurtardıysa veya projelerinize hız kattıysa repoya bir ⭐ bırakarak daha fazla geliştiriciye ulaşmasını sağlayabilirsiniz. Yeni proje fikirleri ve PR katkıları için [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını inceleyebilirsiniz.
+
