@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide**
+# **Orange Pi 5 (RK3588S) NPU Activation and RKNN Runtime Setup Guide**
 
 > 🛡️ **Verified on Hardware:** All steps and code in this project have been physically tested and verified on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)**.
 
@@ -165,11 +165,27 @@ RKNN VERSION:
 
 ---
 
-## **6. Troubleshooting & Diagnostics Matrix**
+## **6. Alternative: Isolated Zero-Dependency Setup via Docker**
+
+To completely bypass Python version pinning conflicts and keep your host system pristine, run the pre-configured isolated Docker environment:
+
+```bash
+cd docker
+docker compose up -d --build
+docker exec -w /workspace/docker opi5_rknn_workspace python3 test_npu.py
+```
+
+*This container maps `/dev/dri`, `/dev/dma_heap`, and `/proc/device-tree/compatible` directly into an Ubuntu 22.04 + Python 3.10 runtime with full tri-core hardware acceleration.*
+
+---
+
+## **7. Troubleshooting & Diagnostics Matrix**
 
 | Error / Symptom | Root Cause | Verified Solution |
 | :--- | :--- | :--- |
 | `rknn_init, RKNN driver version(0.8.2) is not match with runtime version(2.x.x)` | Running legacy RKNPU kernel module (v0.8) with modern RKNN v2 runtime. | Upgrade kernel via `sudo apt update && sudo apt upgrade` or install Rockchip BSP 5.10.110+ image. |
 | `ImportError: librknnrt.so: cannot open shared object file` | Missing shared object in system library path. | Copy `librknnrt.so` to `/usr/lib/` and run `sudo ldconfig`. |
 | `is not a supported wheel on this platform` | Python version mismatch (e.g. attempting to install cp310 on Python 3.12). | Run `python3 --version` and install the exact matching `cp310`, `cp311`, or `cp312` wheel. |
-| `Permission denied: /dev/rknpu` | Non-root user lacks access rights to device node. | Execute `sudo chmod 666 /dev/rknpu*` or add user to video/dialout group. |
+| `/dev/rknpu not found (Kernel 6.1)` | Kernel 6.1 (Ubuntu 24.04) initializes RKNPU as a DRM minor render node (`/dev/dri/renderD129`) instead of a legacy character device. | Expected behavior. RKNN v2.3.2+ automatically binds to `/dev/dri/renderD129`. Map `/dev/dri` and `/dev/dma_heap` in Docker or permissions. |
+| `Permission denied: /dev/rknpu` or `/dev/dri/renderD129` | Non-root user lacks access rights to device node. | Add user to video/render groups: `sudo usermod -aG video,render $USER` and log back in. |
+| `It is detected that some necessary files are missing in the container` | Container lacks `/proc/device-tree/compatible` or `librknnrt.so`. | Configure `privileged: true` and mount `-v /proc/device-tree/compatible:/proc/device-tree/compatible:ro`. |

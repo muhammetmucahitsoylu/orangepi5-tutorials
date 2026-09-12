@@ -35,3 +35,8 @@ desktop.ini
 *.bak
 *.old
 *.pdf
+
+# Build artifacts & models
+build/
+bin/
+*.rknn
