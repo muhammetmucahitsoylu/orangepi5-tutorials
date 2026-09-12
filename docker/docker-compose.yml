@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile.rknn
     image: orangepi5-rknn:latest
     container_name: opi5_rknn_workspace
+    privileged: true
     restart: unless-stopped
     stdin_open: true
     tty: true
@@ -14,6 +15,7 @@ services:
     network_mode: host
     volumes:
       - ../:/workspace
+      - /proc/device-tree/compatible:/proc/device-tree/compatible:ro
     devices:
       - /dev/dri:/dev/dri
       - /dev/dma_heap:/dev/dma_heap

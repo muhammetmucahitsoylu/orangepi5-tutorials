@@ -1,4 +1,4 @@
-﻿# **Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu**
+# **Orange Pi 5 (RK3588S) NPU Aktivasyonu ve RKNN Çalışma Ortamı Kurulumu**
 
 > 🛡️ **Doğrulandı & Test Edildi:** Bu projedeki tüm adımlar ve kodlar **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS / 22.04 LTS (Rockchip BSP Kernel 5.10 / 6.1)** üzerinde bizzat fiziksel donanımda test edilmiş ve onaylanmıştır.
 
@@ -166,11 +166,27 @@ RKNN VERSION:
 
 ---
 
-## **6. Sık Karşılaşılan Hatalar ve Teşhis Tablosu**
+## **6. Alternatif: Docker ile İzole ve Sıfır Bağımlılıkla Çalıştırma**
+
+Eğer ana işletim sisteminizi kirletmeden, Python bağımlılık karmaşası yaşamadan izole bir ortamda çalışmak isterseniz projedeki hazır Docker ortamını kullanabilirsiniz:
+
+```bash
+cd docker
+docker compose up -d --build
+docker exec -w /workspace/docker opi5_rknn_workspace python3 test_npu.py
+```
+
+*Bu ortam `/dev/dri`, `/dev/dma_heap` ve `/proc/device-tree/compatible` düğümlerini otomatik eşleyerek tüm donanımsal NPU gücünü izole konteynere aktarır.*
+
+---
+
+## **7. Sık Karşılaşılan Hatalar ve Teşhis Tablosu**
 
 | Hata Mesajı / Belirti | Kök Neden | Çözüm |
 | :--- | :--- | :--- |
 | `rknn_init, RKNN driver version(0.8.2) is not match with runtime version(2.x.x)` | Çekirdekteki RKNPU kernel modülü eski (v0.8), indirilen RKNN-Lite ise yeni (v2.x). | `sudo apt update && sudo apt upgrade` ile kerneli güncelleyin veya Rockchip BSP 5.10.110+ imajı yükleyin. |
 | `ImportError: librknnrt.so: cannot open shared object file` | Adım 2'deki C kütüphanesi sisteme kopyalanmadı veya `ldconfig` çalıştırılmadı. | `sudo cp librknnrt.so /usr/lib/` yapıp `sudo ldconfig` komutunu uygulayın. |
 | `is not a supported wheel on this platform` | Sistemdeki Python sürümü (örn: 3.12) ile indirilen `.whl` paketi (örn: cp310) uyuşmuyor. | `python3 --version` çıktısına göre Adım 3'teki uygun `cp310`, `cp311` veya `cp312` paketini seçin. |
-| `Permission denied: /dev/rknpu` | Normal kullanıcının NPU aygıt düğümüne erişim izni yok. | `sudo chmod 666 /dev/rknpu*` uygulayın veya kullanıcıyı ilgili gruba ekleyin. |
+| `/dev/rknpu bulunamıyor (Kernel 6.1)` | Kernel 6.1 (Ubuntu 24.04), RKNPU'yu karakter aygıtı yerine Linux DRM alt sisteminde `/dev/dri/renderD129` olarak başlatır. | Bu normal bir durumdur. RKNN v2.3.2+ çalışma zamanı bu düğümü otomatik algılar. Aygıt eşlemesi yaparken `/dev/dri` ve `/dev/dma_heap` kullanın. |
+| `Permission denied: /dev/rknpu` veya `/dev/dri/renderD129` | Normal kullanıcının NPU aygıt düğümüne erişim izni yok. | `sudo usermod -aG video,render $USER` çalıştırıp oturumu kapatıp açın. |
+| `It is detected that some necessary files are missing in the container` | Konteyner içinde `/proc/device-tree/compatible` veya `librknnrt.so` eksik. | Konteynere `privileged: true` verin ve `-v /proc/device-tree/compatible:/proc/device-tree/compatible:ro` ekleyin. |

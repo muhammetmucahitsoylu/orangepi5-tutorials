@@ -40,9 +40,11 @@ RUN pip3 install --no-cache-dir \
     pillow \
     tqdm
 
-# Download and install official RKNN-Toolkit-Lite2 wheel for Python 3.10 (Ubuntu 22.04 LTS)
+# Download and install official RKNN-Toolkit-Lite2 wheel for Python 3.10 and RK3588 runtime library
 RUN pip3 install --no-cache-dir \
-    https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/packages/rknn_toolkit_lite2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/packages/rknn_toolkit_lite2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl \
+    && curl -fsSL https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so -o /usr/lib/librknnrt.so \
+    && chmod 755 /usr/lib/librknnrt.so
 
 # Verification test inside container image
 RUN python3 -c "from rknnlite.api import RKNNLite; print('RKNN-Toolkit-Lite2 successfully installed in container!')"
