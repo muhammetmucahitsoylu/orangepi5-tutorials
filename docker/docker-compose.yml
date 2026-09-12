@@ -15,8 +15,8 @@ services:
     volumes:
       - ../:/workspace
     devices:
-      - /dev/rknpu:/dev/rknpu
-      - /dev/mali0:/dev/mali0
+      - /dev/dri:/dev/dri
+      - /dev/dma_heap:/dev/dma_heap
     environment:
       - TZ=UTC
     working_dir: /workspace
