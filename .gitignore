@@ -39,4 +39,9 @@ desktop.ini
 # Build artifacts & models
 build/
 bin/
-*.rknn
+*.rknn
+
+# AI test outputs & temp downloads
+docker/synset_label.py
+docker/*_result.jpg
+docker/custom_test.jpg
