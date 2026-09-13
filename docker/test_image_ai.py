@@ -30,6 +30,7 @@ PRESETS = {
     "meyve": ("fruits.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/fruits.jpg", "Meyve Tabağı (Elma, Portakal)"),
     "shuttle": ("space_shuttle_224.jpg", "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/examples/resnet18/space_shuttle_224.jpg", "NASA Uzay Mekiği"),
     "uzay": ("space_shuttle_224.jpg", "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/examples/resnet18/space_shuttle_224.jpg", "NASA Uzay Mekiği"),
+    "kangal": ("kangal.jpg", None, "Heybetli Sivas Kangalı (Kurt Boğan Tasmali)"),
 }
 
 def download_file(url, target_path):
@@ -58,8 +59,12 @@ def main():
         print(f"🚀 NPU TESTİ: '{desc.upper()}' İNCELENİYOR")
         print("==========================================================")
         if not os.path.exists(img_filename):
-            print(f"[*] Görsel indiriliyor: {img_filename}...")
-            download_file(img_url, img_filename)
+            if img_url:
+                print(f"[*] Görsel indiriliyor: {img_filename}...")
+                download_file(img_url, img_filename)
+            else:
+                print(f"[HATA] Yerel dosya bulunamadı: {img_filename}")
+                return
     elif target_arg.startswith("http://") or target_arg.startswith("https://"):
         img_filename = "custom_test.jpg"
         print(f"[*] Özel URL indiriliyor: {target_arg}...")
