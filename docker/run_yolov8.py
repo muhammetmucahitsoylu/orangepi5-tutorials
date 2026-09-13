@@ -163,10 +163,17 @@ def main():
         print(f"[HATA] Model yüklenemedi: {ret}")
         return
 
-    ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2)
+    try:
+        ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2)
+    except Exception:
+        ret = -1
+
     if ret != 0:
-        print(f"[HATA] NPU başlatılamadı: {ret}")
-        return
+        print("[!] Bu model (v1.3.0 derleyici) çoklu çekirdek maskesini (7) desteklemiyor, Tek Çekirdek (Auto) moduna geçiliyor...")
+        ret = rknn.init_runtime()
+        if ret != 0:
+            print(f"[HATA] NPU başlatılamadı: {ret}")
+            return
 
     print("⚡ NPU Devrede! YOLOv8 Sinir Ağı Çalıştırılıyor...")
 
