@@ -110,6 +110,31 @@ def main():
     print(f"🎯 KESİN TEŞHİS: Bu görsel %{top1_prob:.1f} ihtimalle '{top1_name}'!")
     print("==========================================================\n")
 
+    # 6. Görsel Üzerine Teşhis ve Hız Bilgisi Yaz (HUD & Kaydet)
+    # Orijinal resmin kopyasını alıp üzerine bilgi yazıyoruz
+    annotated = orig_img.copy()
+    h, w = annotated.shape[:2]
+    
+    # Üst kısma şık siyah bir bilgi çubuğu çiz
+    banner_height = max(60, int(h * 0.12))
+    overlay = annotated.copy()
+    cv2.rectangle(overlay, (0, 0), (w, banner_height), (20, 20, 20), -1)
+    # Yarı saydamlık efekti ver (alpha blending)
+    cv2.addWeighted(overlay, 0.75, annotated, 0.25, 0, annotated)
+
+    # Teşhis metnini ve süreyi yaz
+    text_pred = f"{top1_name} (%{top1_prob:.1f})"
+    text_speed = f"NPU: {latency_ms:.2f} ms ({1000.0/latency_ms:.0f} FPS)"
+    
+    font_scale = max(0.5, min(w / 700.0, 0.9))
+    cv2.putText(annotated, text_pred, (15, int(banner_height * 0.48)), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(annotated, text_speed, (15, int(banner_height * 0.88)), cv2.FONT_HERSHEY_SIMPLEX, font_scale * 0.8, (0, 255, 0), 2, cv2.LINE_AA)
+
+    out_filename = "classification_result.jpg"
+    cv2.imwrite(out_filename, annotated)
+    print(f"🖼️  Görsel üzerine teşhis yazıldı ve kaydedildi: {out_filename}")
+    print(f"🌐 Tarayıcıdan görmek için: http://192.168.1.100:8000/{out_filename}\n")
+
     rknn.release()
 
 if __name__ == "__main__":
