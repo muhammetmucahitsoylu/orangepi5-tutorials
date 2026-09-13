@@ -172,7 +172,7 @@ def main():
         print(f"[HATA] Model yüklenemedi: {ret}")
         return
 
-    ret = rknn.init_runtime()
+    ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2)
     if ret != 0:
         print(f"[HATA] NPU başlatılamadı: {ret}")
         return
