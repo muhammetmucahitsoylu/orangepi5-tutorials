@@ -18,10 +18,14 @@ LABELS_FILE = "synset_label.py"
 LABELS_URL = "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/examples/resnet18/synset_label.py"
 
 PRESETS = {
-    "dog": ("dog.jpg", "https://raw.githubusercontent.com/pytorch/hub/master/images/dog.jpg", "Sevimli Bir Köpek"),
-    "kopek": ("dog.jpg", "https://raw.githubusercontent.com/pytorch/hub/master/images/dog.jpg", "Sevimli Bir Köpek"),
-    "bus": ("bus.jpg", "https://raw.githubusercontent.com/ultralytics/ultralytics/main/ultralytics/assets/bus.jpg", "Şehir İçi Belediye Otobüsü"),
-    "otobus": ("bus.jpg", "https://raw.githubusercontent.com/ultralytics/ultralytics/main/ultralytics/assets/bus.jpg", "Şehir İçi Belediye Otobüsü"),
+    "dog": ("dog.jpg", "https://raw.githubusercontent.com/pytorch/hub/master/images/dog.jpg", "Sevimli Bir Köpek (Samoyed)"),
+    "kopek": ("dog.jpg", "https://raw.githubusercontent.com/pytorch/hub/master/images/dog.jpg", "Sevimli Bir Köpek (Samoyed)"),
+    "monkey": ("baboon.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/baboon.jpg", "Babun Maymunu"),
+    "maymun": ("baboon.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/baboon.jpg", "Babun Maymunu"),
+    "plane": ("aero1.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/aero1.jpg", "Savaş / Yolcu Uçağı"),
+    "ucak": ("aero1.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/aero1.jpg", "Savaş / Yolcu Uçağı"),
+    "apple": ("apple.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/apple.jpg", "Kırmızı Elma"),
+    "elma": ("apple.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/apple.jpg", "Kırmızı Elma"),
     "fruits": ("fruits.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/fruits.jpg", "Meyve Tabağı (Elma, Portakal)"),
     "meyve": ("fruits.jpg", "https://raw.githubusercontent.com/opencv/opencv/master/samples/data/fruits.jpg", "Meyve Tabağı (Elma, Portakal)"),
     "shuttle": ("space_shuttle_224.jpg", "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-toolkit-lite2/examples/resnet18/space_shuttle_224.jpg", "NASA Uzay Mekiği"),
