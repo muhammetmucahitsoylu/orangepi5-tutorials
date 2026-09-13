@@ -78,14 +78,19 @@ docker exec -w /workspace/docker opi5_rknn_workspace python3 test_image_ai.py do
 docker exec -w /workspace/docker opi5_rknn_workspace python3 test_image_ai.py kangal
 ```
 
-### B. YOLO 80-Class Object Detection (`run_yolo_demo.py`)
-Scans the entire scene, detects up to 80 COCO object classes (people, dogs, sheep, cars, bicycles, buses, etc.), and draws colored bounding boxes around each object in **~18 milliseconds (~55 FPS)**:
+### B. Object Detection: YOLOv5 vs. YOLOv8
+We support both official Anchor-Based (**YOLOv5**) and Anchor-Free DFL (**YOLOv8**) pipelines on the tri-core NPU:
 
 ```bash
-# Detect objects on any image:
+# 1. Official High-Accuracy YOLOv5 (COCO 330k dataset @ ~31 ms / 32 FPS):
 docker exec -w /workspace/docker opi5_rknn_workspace python3 run_yolo_demo.py bus.jpg
 docker exec -w /workspace/docker opi5_rknn_workspace python3 run_yolo_demo.py kangal.jpg
+
+# 2. Experimental Anchor-Free YOLOv8 (DFL pipeline @ ~22 ms / 45 FPS):
+docker exec -w /workspace/docker opi5_rknn_workspace python3 run_yolov8.py bus.jpg
 ```
+
+👉 **Detailed Technical Benchmark & Comparison Guide:** Read [`YOLO_COMPARISON.md`](./YOLO_COMPARISON.md) for full latency, accuracy, and silicon-architecture analysis.
 
 ---
 
