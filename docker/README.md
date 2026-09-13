@@ -1,3 +1,7 @@
+[🇹🇷 Türkçe](./README_TR.md) | [🇬🇧 English](./README.md)
+
+---
+
 # Containerized RKNN-Toolkit-Lite2 Environment (Orange Pi 5)
 
 > Run isolated, reproducible Neural Processing Unit (NPU) vision inference inside Docker on the **Orange Pi 5 / 5B / 5 Plus (RK3588 / RK3588S)** with direct hardware device passthrough.

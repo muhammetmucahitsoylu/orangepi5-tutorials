@@ -1,3 +1,7 @@
+[🇹🇷 Türkçe](./YOLO_COMPARISON_TR.md) | [🇬🇧 English](./YOLO_COMPARISON.md)
+
+---
+
 # YOLOv5 vs. YOLOv8 on Orange Pi 5 (RK3588 NPU Benchmark)
 
 > A rigorous architectural and benchmark comparison of **Anchor-Based (YOLOv5)** vs. **Anchor-Free / DFL (YOLOv8)** object detection on the Rockchip RK3588S Neural Processing Unit (NPU).
