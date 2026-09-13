@@ -78,13 +78,13 @@ docker exec -w /workspace/docker opi5_rknn_workspace python3 test_image_ai.py do
 docker exec -w /workspace/docker opi5_rknn_workspace python3 test_image_ai.py kangal
 ```
 
-### B. YOLOv8 80-Class Object Detection (`run_yolov8_demo.py`)
-Scans the entire scene, detects up to 80 COCO object classes (people, dogs, sheep, cars, bicycles, buses, etc.), and draws colored bounding boxes around each object in **~22 milliseconds (~45 FPS)**:
+### B. YOLO 80-Class Object Detection (`run_yolo_demo.py`)
+Scans the entire scene, detects up to 80 COCO object classes (people, dogs, sheep, cars, bicycles, buses, etc.), and draws colored bounding boxes around each object in **~18 milliseconds (~55 FPS)**:
 
 ```bash
 # Detect objects on any image:
-docker exec -w /workspace/docker opi5_rknn_workspace python3 run_yolov8_demo.py bus.jpg
-docker exec -w /workspace/docker opi5_rknn_workspace python3 run_yolov8_demo.py kangal.jpg
+docker exec -w /workspace/docker opi5_rknn_workspace python3 run_yolo_demo.py bus.jpg
+docker exec -w /workspace/docker opi5_rknn_workspace python3 run_yolo_demo.py kangal.jpg
 ```
 
 ---
@@ -100,7 +100,7 @@ Because inference runs headless over SSH, you can inspect the annotated images d
 
 2. **Open in your host computer's browser:**
    - Classification output: `http://<ORANGE_PI_IP>:8000/classification_result.jpg`
-   - YOLOv8 detection output: `http://<ORANGE_PI_IP>:8000/yolov8_result.jpg`
+   - YOLO detection output: `http://<ORANGE_PI_IP>:8000/yolo_result.jpg`
    - File directory: `http://<ORANGE_PI_IP>:8000/`
 
 ---
