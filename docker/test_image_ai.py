@@ -138,7 +138,17 @@ def main():
     out_filename = "classification_result.jpg"
     cv2.imwrite(out_filename, annotated)
     print(f"🖼️  Görsel üzerine teşhis yazıldı ve kaydedildi: {out_filename}")
-    print(f"🌐 Tarayıcıdan görmek için: http://192.168.1.100:8000/{out_filename}\n")
+    
+    # Yerel IP adresini dinamik olarak tespit et
+    try:
+        import socket
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(("8.8.8.8", 80))
+            host_ip = s.getsockname()[0]
+    except Exception:
+        host_ip = "<ORANGE_PI_IP>"
+        
+    print(f"🌐 Tarayıcıdan görmek için: http://{host_ip}:8000/{out_filename}\n")
 
     rknn.release()
 

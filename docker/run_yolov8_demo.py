@@ -216,7 +216,16 @@ def main():
     cv2.imwrite(out_file, orig_img)
     print("==========================================================")
     print(f"🖼️  Kutucukları çizilmiş görsel kaydedildi: {out_file}")
-    print(f"🌐 Tarayıcıdan görmek için: http://192.168.1.100:8000/{out_file}")
+
+    try:
+        import socket
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(("8.8.8.8", 80))
+            host_ip = s.getsockname()[0]
+    except Exception:
+        host_ip = "<ORANGE_PI_IP>"
+
+    print(f"🌐 Tarayıcıdan görmek için: http://{host_ip}:8000/{out_file}")
     print("==========================================================\n")
 
     rknn.release()
