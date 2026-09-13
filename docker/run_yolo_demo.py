@@ -1,6 +1,6 @@
 """
-Orange Pi 5 (RK3588S) - Real-Time YOLOv8 80-Class Object Detection on NPU
-Detects people, cars, buses, bikes, dogs, etc., and draws bounding boxes!
+Orange Pi 5 (RK3588S) - Real-Time YOLO 80-Class Object Detection on Tri-Core NPU
+Powered by Rockchip's Official COCO-Trained NPU Model (80 Classes)
 """
 
 import os
@@ -11,8 +11,8 @@ import cv2
 import numpy as np
 from rknnlite.api import RKNNLite
 
-MODEL_FILE = "yolov8_80class.rknn"
-MODEL_URL = "https://raw.githubusercontent.com/cqu20160901/yolov8n_rknn_Cplusplus_dfl/main/examples/rknn_yolov8_demo_dfl_open/model/RK3588/yolov8_relu_80class_ZQ.rknn"
+MODEL_FILE = "yolov5s-640-640.rknn"
+MODEL_URL = "https://raw.githubusercontent.com/rockchip-linux/rknpu2/master/examples/rknn_yolov5_demo/model/RK3588/yolov5s-640-640.rknn"
 
 DEFAULT_IMG = "bus.jpg"
 DEFAULT_IMG_URL = "https://raw.githubusercontent.com/ultralytics/ultralytics/main/ultralytics/assets/bus.jpg"
@@ -33,6 +33,13 @@ COCO_CLASSES = [
 np.random.seed(42)
 COLORS = np.random.randint(50, 255, size=(len(COCO_CLASSES), 3), dtype=np.uint8)
 
+ANCHORS = [
+    [[10, 13], [16, 30], [33, 23]],       # Stride 8 (80x80)
+    [[30, 61], [62, 45], [59, 119]],      # Stride 16 (40x40)
+    [[116, 90], [156, 198], [373, 326]]   # Stride 32 (20x20)
+]
+STRIDES = [8, 16, 32]
+
 def download_file(url, target_path):
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req) as resp, open(target_path, 'wb') as f:
@@ -52,63 +59,54 @@ def letterbox(im, new_shape=(640, 640), color=(114, 114, 114)):
     im = cv2.copyMakeBorder(im, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
     return im, r, (dw, dh)
 
-def dfl(position):
-    # Distribution Focal Loss softmax decoder for bounding box regression
-    # position shape: [B, 64, H, W] -> split to 4 coordinates of 16 bins each
-    B, C, H, W = position.shape
-    mc = C // 4  # 16
-    pos = position.reshape(B, 4, mc, H, W)
-    # Softmax over dim 2
-    pos_exp = np.exp(pos - np.max(pos, axis=2, keepdims=True))
-    weights = pos_exp / np.sum(pos_exp, axis=2, keepdims=True)
-    conv_weights = np.arange(mc, dtype=np.float32).reshape(1, 1, mc, 1, 1)
-    out = np.sum(weights * conv_weights, axis=2) # [B, 4, H, W]
-    return out
-
-def postprocess(outputs, orig_shape, scale, pad, conf_thres=0.20, iou_thres=0.45):
-    # Outputs: [boxes_80, cls_80, boxes_40, cls_40, boxes_20, cls_20]
-    strides = [8, 16, 32]
+def postprocess_yolov5(outputs, orig_shape, scale, pad, conf_thres=0.30, iou_thres=0.45):
     all_boxes, all_scores, all_class_ids = [], [], []
 
-    for idx, stride in enumerate(strides):
-        box_feat = outputs[idx * 2]      # [1, 64, H, W]
-        cls_feat = outputs[idx * 2 + 1]  # [1, 80, H, W]
-
-        decoded_box = dfl(box_feat)[0]    # [4, H, W]
-        cls_prob = 1.0 / (1.0 + np.exp(-cls_feat[0]))  # Sigmoid [80, H, W]
-
-        H, W = decoded_box.shape[1], decoded_box.shape[2]
-        grid_y, grid_x = np.meshgrid(np.arange(H), np.arange(W), indexing='ij')
-
-        # [4, H, W]: left, top, right, bottom distances from grid center
-        x1 = (grid_x + 0.5 - decoded_box[0]) * stride
-        y1 = (grid_y + 0.5 - decoded_box[1]) * stride
-        x2 = (grid_x + 0.5 + decoded_box[2]) * stride
-        y2 = (grid_y + 0.5 + decoded_box[3]) * stride
-
-        # Find best class per cell
-        best_cls = np.argmax(cls_prob, axis=0) # [H, W]
-        best_scores = np.max(cls_prob, axis=0) # [H, W]
-
-        mask = best_scores > conf_thres
-        print(f"[*] Stride {stride} ({H}x{W}): max score = {best_scores.max():.4f}, cells above {conf_thres} = {np.sum(mask)}")
-        if not np.any(mask):
+    for idx, (feat, anchor, stride) in enumerate(zip(outputs, ANCHORS, STRIDES)):
+        # feat shape: [1, 255, H, W] -> reshape to [3, 85, H, W]
+        if feat.ndim == 4 and feat.shape[1] == 255:
+            H, W = feat.shape[2], feat.shape[3]
+            feat = feat[0].reshape(3, 85, H, W)
+        elif feat.ndim == 5:
+            H, W = feat.shape[3], feat.shape[4]
+            feat = feat[0]
+        else:
             continue
 
-        x1_m = x1[mask]
-        y1_m = y1[mask]
-        x2_m = x2[mask]
-        y2_m = y2[mask]
-        scores_m = best_scores[mask]
-        cls_m = best_cls[mask]
+        # Grid koordinatları
+        grid_y, grid_x = np.meshgrid(np.arange(H), np.arange(W), indexing='ij')
 
-        w = x2_m - x1_m
-        h = y2_m - y1_m
+        for a in range(3):
+            anchor_w, anchor_h = anchor[a]
+            data = feat[a] # [85, H, W]
 
-        for i in range(len(scores_m)):
-            all_boxes.append([float(x1_m[i]), float(y1_m[i]), float(w[i]), float(h[i])])
-            all_scores.append(float(scores_m[i]))
-            all_class_ids.append(int(cls_m[i]))
+            obj_conf = data[4] # Nesne olma güven skoru
+            cls_probs = data[5:] # [80, H, W]
+
+            # En yüksek sınıf skoru
+            best_cls = np.argmax(cls_probs, axis=0)
+            best_cls_prob = np.max(cls_probs, axis=0)
+            final_scores = obj_conf * best_cls_prob
+
+            mask = final_scores > conf_thres
+            if not np.any(mask):
+                continue
+
+            bx = (data[0][mask] * 2.0 - 0.5 + grid_x[mask]) * stride
+            by = (data[1][mask] * 2.0 - 0.5 + grid_y[mask]) * stride
+            bw = ((data[2][mask] * 2.0) ** 2) * anchor_w
+            bh = ((data[3][mask] * 2.0) ** 2) * anchor_h
+
+            x1 = bx - bw / 2.0
+            y1 = by - bh / 2.0
+
+            s_m = final_scores[mask]
+            c_m = best_cls[mask]
+
+            for i in range(len(s_m)):
+                all_boxes.append([float(x1[i]), float(y1[i]), float(bw[i]), float(bh[i])])
+                all_scores.append(float(s_m[i]))
+                all_class_ids.append(int(c_m[i]))
 
     if not all_boxes:
         return []
@@ -138,13 +136,14 @@ def postprocess(outputs, orig_shape, scale, pad, conf_thres=0.20, iou_thres=0.45
 
 def main():
     print("==========================================================")
-    print("🎯 Orange Pi 5 (RK3588S) NPU YOLOv8 NESNE TESPİTİ BAŞLIYOR")
+    print("🎯 Orange Pi 5 (RK3588S) NPU RESMİ YOLO NESNE TESPİTİ BAŞLIYOR")
     print("==========================================================")
 
-    # 1. Model ve resim indir
+    # 1. Model dosyasını kontrol et ve indir
     if not os.path.exists(MODEL_FILE):
-        print(f"[*] 80 Sınıflı YOLOv8 NPU modeli indiriliyor: {MODEL_FILE}...")
+        print(f"[*] Rockchip resmi COCO YOLO modeli indiriliyor: {MODEL_FILE} (8.4 MB)...")
         download_file(MODEL_URL, MODEL_FILE)
+        print("[+] Model indirme tamamlandı!")
 
     target_img = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_IMG
     if not os.path.exists(target_img):
@@ -164,8 +163,8 @@ def main():
     rgb_img = cv2.cvtColor(padded_img, cv2.COLOR_BGR2RGB)
     input_tensor = np.expand_dims(rgb_img, axis=0)
 
-    # 3. NPU Çalışma Motorunu Başlat
-    print("[*] Donanımsal NPU oturumu açılıyor...")
+    # 3. 3 Çekirdekli NPU'yu Başlat (6 TOPS)
+    print("[*] Donanımsal NPU oturumu açılıyor (Core 0, 1, 2)...")
     rknn = RKNNLite(verbose=False)
     ret = rknn.load_rknn(MODEL_FILE)
     if ret != 0:
@@ -177,7 +176,7 @@ def main():
         print(f"[HATA] NPU başlatılamadı: {ret}")
         return
 
-    print("⚡ NPU Devrede! YOLOv8 Sinir Ağı Çalıştırılıyor...")
+    print("⚡ NPU Devrede! Sinir Ağı Çalıştırılıyor...")
 
     # 4. NPU Çıkarımı (Inference)
     t0 = time.perf_counter()
@@ -189,7 +188,7 @@ def main():
     print("==========================================================")
 
     # 5. Son İşleme (Post-processing & NMS)
-    detections = postprocess(outputs, (orig_h, orig_w), scale, pad)
+    detections = postprocess_yolov5(outputs, (orig_h, orig_w), scale, pad)
     print(f"🔍 Toplam {len(detections)} nesne tespit edildi:\n")
 
     for d in detections:
@@ -204,15 +203,15 @@ def main():
         cv2.rectangle(orig_img, (x, y), (x + w, y + h), color, 3)
         tag = f"{label} %{score:.0f}"
         (tw, th), _ = cv2.getTextSize(tag, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
-        cv2.rectangle(orig_img, (x, y - th - 10), (x + tw + 6, y), color, -1)
-        cv2.putText(orig_img, tag, (x + 3, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+        cv2.rectangle(orig_img, (x, max(0, y - th - 10)), (x + tw + 6, max(th + 10, y)), color, -1)
+        cv2.putText(orig_img, tag, (x + 3, max(th, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
     # NPU süresini resmin sol üstüne ekle
-    hud = f"Orange Pi 5 NPU | YOLOv8: {latency_ms:.1f} ms ({1000.0/latency_ms:.0f} FPS)"
-    cv2.rectangle(orig_img, (10, 10), (500, 45), (0, 0, 0), -1)
-    cv2.putText(orig_img, hud, (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+    hud = f"Orange Pi 5 NPU | YOLO: {latency_ms:.1f} ms ({1000.0/latency_ms:.0f} FPS)"
+    cv2.rectangle(orig_img, (10, 10), (450, 45), (0, 0, 0), -1)
+    cv2.putText(orig_img, hud, (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 255, 0), 2)
 
-    out_file = "yolov8_result.jpg"
+    out_file = "yolo_result.jpg"
     cv2.imwrite(out_file, orig_img)
     print("==========================================================")
     print(f"🖼️  Kutucukları çizilmiş görsel kaydedildi: {out_file}")
