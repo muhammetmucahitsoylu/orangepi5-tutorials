@@ -71,14 +71,7 @@ Tested directly on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS (Linux 6.1)** with
 
 ---
 
-## 📸 Real-World Hardware Benchmarks & Snapshots
-
-### 1. Multi-Panel Performance Grid: NPU (6 TOPS) vs. CPU AI vs. Classical Interpolation
-The following 6-panel comparison was generated directly by `benchmark_zoom.py` on physical Orange Pi 5 hardware:
-
-![Orange Pi 5 AI Smart Zoom: NPU 6 TOPS vs CPU AI vs Classical Interpolation](../../assets/benchmarks/npu_benchmark_grid.jpg)
-
-### 2. Live Web Stream Snapshots (Orange Pi Box at 4.0x Zoom)
+## 📸 Real-World Hardware Snapshots (Orange Pi Box at 4.0x Zoom)
 
 Captured live on an **Orange Pi 5 (RK3588S)** with an active A4Tech FHD 1080P USB camera in V4L2 1080p mode:
 

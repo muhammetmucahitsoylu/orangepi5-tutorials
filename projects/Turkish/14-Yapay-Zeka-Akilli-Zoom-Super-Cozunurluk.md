@@ -114,14 +114,7 @@ Aşağıdaki ölçümler, **Orange Pi 5 (RK3588S)** donanımı üzerinde doğrud
 
 > 🌡️ **Sıcaklık ve Enerji:** NPU çıkarımı CPU'yu meşgul etmediği için sürekli canlı akışta dahi SoC sıcaklığı **~49.9 °C** seviyesinde kalır; pasif alüminyum soğutucu ile termal kısma (throttling) yaşanmaz.
 
-### **Fiziksel Donanım Karşılaştırma Görselleri**
-
-#### 1. 6 Panelli Donanım Karşılaştırma Matrisi (NPU 6 TOPS vs. CPU AI vs. Klasik Enterpolasyon)
-`benchmark_zoom.py` tarafından doğrudan Orange Pi 5 üzerinde üretilen donanım karşılaştırması:
-
-![Orange Pi 5 NPU 6 TOPS vs CPU AI vs Geleneksel Enterpolasyon](../../assets/benchmarks/npu_benchmark_grid.jpg)
-
-#### 2. Canlı Web Yayını Karşılaştırmaları (Orange Pi Kutusu Üzerinde 4.0x Zoom)
+### **Fiziksel Donanım Karşılaştırma Görselleri (Orange Pi Kutusu Üzerinde 4.0x Zoom)**
 
 A4Tech FHD 1080P kameramızla V4L2 1080p modunda doğrudan Orange Pi kutusunun yazı ve devre yolları üzerinde alınan gerçek donanım ekran yakalamaları:
 

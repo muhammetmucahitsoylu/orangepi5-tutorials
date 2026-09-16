@@ -114,14 +114,7 @@ The following benchmarks were captured directly on physical **Orange Pi 5 (RK358
 
 > 🌡️ **Thermal Performance:** Because NPU operations execute on dedicated neural hardware, the RK3588 SoC die temperature remained at a cool **~49.9 °C** even during continuous live inference, ensuring zero thermal throttling.
 
-### **Real-World Hardware Benchmarks & Snapshots**
-
-#### 1. 6-Panel Multi-Engine Comparison Grid (NPU 6 TOPS vs. CPU AI vs. Classical Interpolation)
-Generated directly by `benchmark_zoom.py` on physical Orange Pi 5 hardware:
-
-![Orange Pi 5 AI Smart Zoom: NPU 6 TOPS vs CPU AI vs Classical Interpolation](../../assets/benchmarks/npu_benchmark_grid.jpg)
-
-#### 2. Live Web Stream Snapshots (Orange Pi Box at 4.0x Zoom)
+### **Real-World Hardware Snapshots (Orange Pi Box at 4.0x Zoom)**
 
 Hardware captures acquired live from our A4Tech FHD 1080P USB camera operating in V4L2 1080p mode on the Orange Pi 5:
 
