@@ -2,7 +2,7 @@
 
 > 🎯 **Hardware Accelerated Real-Time Digital Zoom Restoration on Rockchip RK3588S**
 
-![AI Smart Zoom Banner](../../assets/banners/ai_zoom_banner.png)
+![AI Smart Zoom Super-Resolution Comparison](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
 
 This project solves the fundamental problem of **digital zoom quality degradation** using deep learning super-resolution neural networks (**FSRCNN** and **ESPCN**) on the **Orange Pi 5 (RK3588S)**.
 
