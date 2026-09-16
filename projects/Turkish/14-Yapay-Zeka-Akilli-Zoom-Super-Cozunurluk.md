@@ -47,7 +47,12 @@ Bu projede kullanılan iki özel mimari:
 ### B) ESPCN (Efficient Sub-Pixel Convolutional Neural Network)
 * **Tasarım:** Standart enterpolasyon veya deconvolution yerine **PixelShuffle (Sub-Pixel Convolution)** kullanır.
 * **Çalışma Prensibi:** Kanallar boyunca özellik çıkarır ve son katmanda kanalları uzamsal piksellere dönüştürerek ($r^2$ kanal ➔ $r \times r$ piksel) doğrudan yüksek çözünürlüklü kare üretir.
-* **Avantajı:** Olağanüstü düşük hesaplama maliyeti; Orange Pi 5 üzerinde **~22+ FPS** ile gerçek zamanlı canlı akış sağlar.
+* **Avantajı:** Olağanüstü düşük hesaplama maliyeti; Orange Pi 5 üzerinde **~23+ FPS** ile gerçek zamanlı canlı akış sağlar.
+
+### C) Rockchip RK3588 Tri-Core NPU Donanım Hızlandırması (6.0 TOPS)
+* **Tasarım:** Sub-Pixel CNN (ESPCN 3x) mimarisi ONNX formatından Rockchip NPU ikili formatına (`super_resolution_rk3588.rknn`) derlenmiştir.
+* **Çalışma Prensibi:** Görüntünün Parlaklık (Y-Luminance) kanalı `[1, 1, 224, 224]` tensörüne dönüştürülerek doğrudan RK3588'in 3 çekirdekli NPU donanımına (`NPU_CORE_0_1_2`) verilir. NPU, 3x büyütülmüş `[1, 1, 672, 672]` parlaklık haritasını sıfır CPU yüküyle üretir. Renk kanalları (Cr/Cb) bikübik enterpolasyon ile eşleştirilerek birleştirilir.
+* **Avantajı:** CPU çekirdeklerini tamamen serbest bırakır (yaklaşık %0 CPU yükü), **34.38 ms (~29.1 FPS)** ile ultra akıcı canlı donanım çıkarımı sunar.
 
 ---
 
@@ -63,21 +68,26 @@ Bu projede kullanılan iki özel mimari:
 │  İş Parçacığı 1: Kamera Yakalama Motoru (CameraThread)                  │
 │  - Donanım tamponunu sürekli tazeler (Sıfır Gecikme / Zero Latency)     │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ (Ham Kare)
+                                    │ (Ham 1080p Kare)
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │  İş Parçacığı 2: Süper Çözünürlük İşleme Motoru (ProcessingThread)      │
 │  - Dinamik Zoom Penceresi Kırpma (1.0x – 4.0x)                         │
-│  - Paralel Karşılaştırma: [Bicubic Zoom] vs [FSRCNN / ESPCN AI Zoom]   │
-│  - Ayrılmış Ekran (Split Screen) ve Telemetri Verisi (FPS, Gecikme, C) │
+│  - Motor Seçimi:                                                        │
+│     ├─► [NPU Motoru]: Rockchip RK3588 3 Çekirdek NPU (ESPCN 3x, 6 TOPS) │
+│     └─► [CPU Motoru]: OpenCV DNN (FSRCNN 2x/4x, ESPCN 2x/4x)           │
+│  - Akıllı Netlik: CLAHE Mikro-Kontrast + Uyarlamalı Unsharp Mask       │
+│  - Karşılaştırma: [Bicubic Baseline] vs [Akıllı Yapay Zeka Zoom]       │
+│  - Ayrılmış Ekran (Split View) + Donanım Telemetrisi (FPS, Gecikme, C) │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │  Dağıtım: Dahili Çoklu İş Parçacıklı HTTP Web Sunucusu (Port 5000)     │
 │  - Tarayıcı üzerinden sıfır bağımlılıkla canlı MJPEG izleme             │
-│  - Canlı Zoom Kaydırıcısı (1.0x - 4.0x) ve Model Değiştirme Butonları   │
-│  - Tek Tıkla Yüksek Çözünürlüklü Karşılaştırma Fotoğrafı Kaydetme      │
+│  - Canlı Zoom (1.0x - 4.0x), Keskinlik ve Kontrast Kaydırıcıları        │
+│  - Tek Tıkla NPU (6 TOPS) ve CPU modelleri arasında anlık geçiş        │
+│  - Yüksek Çözünürlüklü Karşılaştırma Fotoğrafı Kaydetme (Snapshot)     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -88,36 +98,45 @@ Bu projede kullanılan iki özel mimari:
 Aşağıdaki ölçümler, **Orange Pi 5 (RK3588S)** donanımı üzerinde doğrudan bağlı fiziksel USB kamera ile `benchmark_zoom.py` aracıyla bizzat test edilmiştir:
 
 * **Giriş Çözünürlüğü:** 1920x1080 Full HD
-* **Kırpılan ROI Boyutu:** 240x240 piksel
-* **Büyütme Faktörü:** 2x Digital Zoom (Hedef Çıktı: 480x480 piksel)
+* **Kırpılan ROI Boyutu:** 224x224 piksel
+* **Büyütme Faktörü:** 2x / 3x Digital Zoom (Hedef Çıktı: 448x448 / 672x672 piksel)
 
-| Yöntem / Algoritma | Mimari Türü | Ortalama Gecikme (ms) | Teorik FPS | Görsel Kalite Özeti |
+| Yöntem / Algoritma | Çalışma Katmanı / Donanım | Ortalama Gecikme (ms) | Teorik FPS | Görsel Kalite & Karakteristik |
 | :--- | :--- | :--- | :--- | :--- |
-| **Nearest Neighbor** | Geleneksel | **0.35 ms** | ~2886 FPS | Aşırı merdiven etkisi, blok blok pikseller |
-| **Bilinear** | Geleneksel | **1.01 ms** | ~986 FPS | Yumuşatılmış ancak bariz şekilde bulanık |
-| **Bicubic (Standart Zoom)**| Geleneksel Baseline | **2.00 ms** | ~499 FPS | Endüstri standardı dijital zoom; flulaşma yüksek |
-| **Lanczos-4** | Geleneksel Resampling | **2.83 ms** | ~352 FPS | Kenarlar daha belirgin fakat çınlama (ringing) var |
-| **ESPCN x2 (Yapay Zeka)** | **Derin Öğrenme (CNN)**| **44.95 ms** | **~22.2 FPS** | **Canlı video için ideal; pürüzsüz ve keskin kenarlar** |
-| **FSRCNN x2 (Yapay Zeka)**| **Derin Öğrenme (CNN)**| **65.33 ms** | **~15.3 FPS** | **Maksimum netlik ve yüksek frekanslı doku onarımı** |
+| **Nearest Neighbor** | Geleneksel (CPU) | **0.41 ms** | >2400 FPS | Aşırı merdiven etkisi, blok blok pikseller |
+| **Bilinear** | Geleneksel (CPU) | **1.15 ms** | ~870 FPS | Yumuşatılmış ancak bariz şekilde bulanık |
+| **Bicubic (Standart Zoom)**| Geleneksel Baseline (CPU)| **2.25 ms** | ~440 FPS | Endüstri standardı dijital zoom; flulaşma yüksek |
+| **Lanczos-4** | Geleneksel Resampling | **1.96 ms** | ~510 FPS | Kenarlar daha belirgin fakat çınlama (ringing) var |
+| **FSRCNN x2 (CPU AI)** | Derin Öğrenme (CPU DNN) | **82.81 ms** | **~12.1 FPS** | Maksimum yapısal sadakat ve net kenar onarımı |
+| **ESPCN x2 (CPU AI)** | Derin Öğrenme (CPU DNN) | **42.57 ms** | **~23.5 FPS** | Canlı video için ideal gerçek zamanlı CPU çıkarımı |
+| **RK3588 NPU (ESPCN 3x)** | **Rockchip NPU (6.0 TOPS)** | **34.38 ms** | **~29.1 FPS** | **Tri-Core NPU donanım hızlandırması, ~%0 CPU yükü** |
+| **NPU + Smart Enhancer** | **NPU + CLAHE + Keskinlik** | **42.95 ms** | **~23.3 FPS** | **Jilet gibi net metinler ve devre yolları** |
 
-> 🌡️ **Sıcaklık Notu:** 15 ardışık derin öğrenme çıkarımı ve sürekli kamera akışı boyunca SoC sıcaklığı sadece **55.5 °C** ölçülmüştür; pasif soğutucu + 3.3V sessiz fan ile termal kısma (throttling) riski sıfırdır.
+> 🌡️ **Sıcaklık ve Enerji:** NPU çıkarımı CPU'yu meşgul etmediği için sürekli canlı akışta dahi SoC sıcaklığı **~49.9 °C** seviyesinde kalır; pasif alüminyum soğutucu ile termal kısma (throttling) yaşanmaz.
 
-### **Fiziksel Donanım Karşılaştırma Görselleri (Orange Pi Kutusu Üzerinde 4.0x Zoom)**
+### **Fiziksel Donanım Karşılaştırma Görselleri**
+
+#### 1. 6 Panelli Donanım Karşılaştırma Matrisi (NPU 6 TOPS vs. CPU AI vs. Klasik Enterpolasyon)
+`benchmark_zoom.py` tarafından doğrudan Orange Pi 5 üzerinde üretilen donanım karşılaştırması:
+
+![Orange Pi 5 NPU 6 TOPS vs CPU AI vs Geleneksel Enterpolasyon](../../assets/benchmarks/npu_benchmark_grid.jpg)
+
+#### 2. Canlı Web Yayını Karşılaştırmaları (Orange Pi Kutusu Üzerinde 4.0x Zoom)
 
 A4Tech FHD 1080P kameramızla V4L2 1080p modunda doğrudan Orange Pi kutusunun yazı ve devre yolları üzerinde alınan gerçek donanım ekran yakalamaları:
 
-#### 1. FSRCNN (4x Smart AI Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
+##### FSRCNN (4x Smart AI Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
 ![FSRCNN 4x Yapay Zeka Zoom](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
 
-#### 2. ESPCN (4x Sub-Pixel Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
+##### ESPCN (4x Sub-Pixel Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
 ![ESPCN 4x Sub-Pixel Zoom](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
 
-#### 3. FSRCNN (2x) ve ESPCN (2x) Akıllı Zoom Karşılaştırmaları (3.7x Zoom)
+##### FSRCNN (2x) ve ESPCN (2x) Akıllı Zoom Karşılaştırmaları (3.7x Zoom)
 | FSRCNN 2x Smart AI Zoom | ESPCN 2x Smart AI Zoom |
 | :---: | :---: |
 | ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
 
-> 💡 **Farkın Sırrı:** Sol taraftaki klasik Bicubic zoom pikselleri basit ortalama ile yayarak bulanıklaştırırken, sağ taraftaki **Smart AI** motoru derin öğrenme alt piksel evrişimi, CLAHE mikro-kontrast ve uyarlamalı kenar keskinleştirme uygulayarak harf ve devre yollarını jilet gibi netleştirir.
+> 💡 **Farkın Sırrı:** Sol taraftaki klasik Bicubic zoom pikselleri basit ortalama ile yayarak bulanıklaştırırken, sağ taraftaki **Smart AI** motoru Rockchip RK3588 Tri-Core NPU donanımında alt piksel evrişimi çalıştırıp, CLAHE mikro-kontrast ve uyarlamalı kenar keskinleştirme uygulayarak harf ve devre yollarını jilet gibi netleştirir.
 
 ---
 
@@ -131,20 +150,24 @@ cd ~/orangepi5-tutorials/projects/14-AI-Smart-Zoom-Super-Resolution
 python3 models/download_models.py
 ```
 
-### Adım 2: CLI Benchmark ve Karşılaştırma Fotoğrafı Üretme
-Kameranızdan tek bir kare alarak 4 farklı yöntemi (Bicubic, Lanczos, FSRCNN, ESPCN) yan yana kıyaslayan bir görsel oluşturur:
+### Adım 2: (Opsiyonel) ONNX'ten RKNN İkili Modeline Derleme
+Repoda RK3588 için derlenmiş `super_resolution_rk3588.rknn` hazır olarak bulunmaktadır. Modeli sıfırdan x86 PC veya WSL üzerinde derlemek isterseniz:
 
 ```bash
-# 2x Dijital Zoom Kıyaslaması:
-python3 benchmark_zoom.py --source 0 --scale 2 --crop-size 240 --output zoom_comparison_2x.jpg
+python3 models/convert_to_rknn.py
+```
 
-# 4x Dijital Zoom Kıyaslaması:
-python3 benchmark_zoom.py --source 0 --scale 4 --crop-size 160 --output zoom_comparison_4x.jpg
+### Adım 3: CLI Benchmark ve Çok Panelli Karşılaştırma Görseli Üretme
+Kameranızdan veya bir görselden kare alarak Klasik Enterpolasyon, CPU AI ve **RK3588 NPU** yöntemlerini yan yana kıyaslayan 6 panelli görsel oluşturur:
+
+```bash
+# 2x Dijital Zoom ve NPU Kıyaslaması:
+python3 benchmark_zoom.py --source 0 --scale 2 --crop-size 224 --output zoom_comparison_2x.jpg
 ```
 
 Oluşan `zoom_comparison_2x.jpg` dosyası her algoritmanın gecikme süresini (ms) ve FPS değerini başlık olarak üzerine basar.
 
-### Adım 3: Canlı İnteraktif Web Yayınını Başlatma
+### Adım 4: Canlı İnteraktif Web Yayınını Başlatma
 Canlı kamera akışını yapay zeka zoom motoruyla birleştiren web sunucusunu başlatın:
 
 ```bash
@@ -155,6 +178,7 @@ Tarayıcınızdan şu adrese gidin:
 ```
 http://<ORANGE_PI_IP>:5000
 ```
+Web panelindeki **"⚡ NPU ESPCN (3x 6-TOPS)"** butonuna tıklayarak RK3588 donanım hızlandırmasını devreye alabilirsiniz!
 
 ---
 

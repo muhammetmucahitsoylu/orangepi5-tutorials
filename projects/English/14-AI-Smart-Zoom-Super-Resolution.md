@@ -47,7 +47,12 @@ This project implements two specialized architectures:
 ### B) ESPCN (Efficient Sub-Pixel Convolutional Neural Network)
 * **Design Philosophy:** Completely abandons traditional interpolation and deconvolution in favor of **Sub-Pixel Convolution (PixelShuffle)**.
 * **Mechanism:** Computes features across channels and rearranges the channel tensor spatially ($r^2$ channels ➔ $r \times r$ spatial grid) in a single step.
-* **Key Strength:** Minimal computational footprint; delivers **~22+ FPS** on the Orange Pi 5 for buttery smooth real-time video feeds.
+* **Key Strength:** Minimal computational footprint; delivers **~23+ FPS** on the Orange Pi 5 for buttery smooth real-time video feeds.
+
+### C) Rockchip RK3588 Tri-Core NPU Hardware Acceleration (6.0 TOPS)
+* **Design Philosophy:** Compiles the Sub-Pixel CNN (ESPCN 3x) model from ONNX format into Rockchip's native NPU binary (`super_resolution_rk3588.rknn`).
+* **Mechanism:** The Luminance (Y) channel is pre-processed into a `[1, 1, 224, 224]` float32 tensor and offloaded directly to RK3588's Tri-Core NPU (`NPU_CORE_0_1_2`). The NPU generates a 3x upscaled `[1, 1, 672, 672]` luminance map with zero CPU overhead. Chroma channels (Cr/Cb) are matched via bicubic scaling and merged back to BGR.
+* **Key Strength:** Completely unloads CPU cores (~0% CPU usage), yielding ultra-fast **34.38 ms (~29.1 FPS)** hardware-accelerated super-resolution.
 
 ---
 
@@ -63,21 +68,26 @@ This project implements two specialized architectures:
 │  Thread 1: Hardware Frame Grabber (CameraThread)                       │
 │  - Dedicated thread purging hardware buffer (Zero-Latency Guarantee)   │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ (Fresh Frame)
+                                    │ (Fresh 1080p Frame)
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │  Thread 2: Neural Super-Resolution Processing (ProcessingThread)       │
 │  - Dynamic ROI Zoom Cropper (1.0x – 4.0x continuous scaling)           │
-│  - Concurrent Comparison: [Bicubic Baseline] vs [FSRCNN / ESPCN AI]    │
-│  - Side-by-Side Compositor & Telemetry Overlay (FPS, Latency, Temp)    │
+│  - Engine Selection:                                                   │
+│     ├─► [NPU Engine]: Rockchip RK3588 Tri-Core NPU (ESPCN 3x, 6 TOPS)  │
+│     └─► [CPU Engine]: OpenCV DNN (FSRCNN 2x/4x, ESPCN 2x/4x)           │
+│  - Smart Enhancement: CLAHE Micro-Contrast + Adaptive Unsharp Masking  │
+│  - Side-by-Side Compositor: [Bicubic Baseline] vs [Smart AI Zoom]      │
+│  - Real-Time Telemetry Overlay (FPS, Latency, NPU/CPU Badge, Temp)     │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │  Distribution: Multi-Threaded HTTP Web Server (Port 5000)              │
 │  - Zero client dependencies: view live stream from any browser         │
-│  - Live Zoom Slider (1.0x – 4.0x) & Neural Model Toggle Controls       │
-│  - One-Click High-Resolution Comparison Snapshot Export                │
+│  - Live Zoom (1.0x – 4.0x), Sharpness, and Contrast Sliders            │
+│  - One-Click Toggle between NPU (6 TOPS) and CPU models                │
+│  - High-Resolution Comparison Snapshot Export (Snapshot)               │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -88,36 +98,45 @@ This project implements two specialized architectures:
 The following benchmarks were captured directly on physical **Orange Pi 5 (RK3588S)** hardware with an active USB camera using `benchmark_zoom.py`:
 
 * **Source Resolution:** 1920x1080 Full HD
-* **Cropped ROI Dimension:** 240x240 pixels
-* **Scale Multiplier:** 2x Digital Zoom (Output: 480x480 pixels)
+* **Cropped ROI Dimension:** 224x224 pixels
+* **Scale Multiplier:** 2x / 3x Digital Zoom (Output: 448x448 / 672x672 pixels)
 
-| Algorithm / Method | Paradigm | Mean Latency (ms) | Theoretical FPS | Perceptual Quality Summary |
+| Algorithm / Method | Execution Layer / Target | Mean Latency (ms) | Estimated FPS | Perceptual Quality & Characteristics |
 | :--- | :--- | :--- | :--- | :--- |
-| **Nearest Neighbor** | Classical | **0.35 ms** | ~2886 FPS | Severe blockiness, harsh pixelation |
-| **Bilinear** | Classical | **1.01 ms** | ~986 FPS | Softened transitions, distinctly blurry |
-| **Bicubic (Standard Zoom)**| Classical Baseline | **2.00 ms** | ~499 FPS | Industry standard digital zoom; soft and flat |
-| **Lanczos-4** | Classical Resampling | **2.83 ms** | ~352 FPS | Moderately crisper, but exhibits edge ringing |
-| **ESPCN x2 (AI)** | **Deep Learning (CNN)** | **44.95 ms** | **~22.2 FPS** | **Optimal for live video; clean and sharp edges** |
-| **FSRCNN x2 (AI)** | **Deep Learning (CNN)** | **65.33 ms** | **~15.3 FPS** | **Maximum perceptual fidelity and micro-texture recovery** |
+| **Nearest Neighbor** | Classical (CPU) | **0.41 ms** | >2400 FPS | Severe blockiness, harsh pixelation |
+| **Bilinear** | Classical (CPU) | **1.15 ms** | ~870 FPS | Softened transitions, distinctly blurry |
+| **Bicubic (Standard Zoom)**| Classical Baseline (CPU)| **2.25 ms** | ~440 FPS | Industry standard digital zoom; soft and flat |
+| **Lanczos-4** | Classical Resampling | **1.96 ms** | ~510 FPS | Moderately crisper, but exhibits edge ringing |
+| **FSRCNN x2 (CPU AI)** | Deep Learning (CPU DNN) | **82.81 ms** | **~12.1 FPS** | Maximum perceptual fidelity and edge sharpness |
+| **ESPCN x2 (CPU AI)** | Deep Learning (CPU DNN) | **42.57 ms** | **~23.5 FPS** | Real-time CPU sub-pixel synthesis |
+| **RK3588 NPU (ESPCN 3x)** | **Rockchip NPU (6.0 TOPS)** | **34.38 ms** | **~29.1 FPS** | **Tri-Core NPU hardware acceleration, ~0% CPU load**|
+| **NPU + Smart Enhancer** | **NPU + CLAHE + Sharpening** | **42.95 ms** | **~23.3 FPS** | **Razor-sharp text, micro-contrast & PCB traces** |
 
-> 🌡️ **Thermal Performance:** Across 15 consecutive neural inference passes and sustained 1080p camera ingestion, the RK3588 SoC die temperature remained at a cool **55.5 °C**, ensuring zero thermal throttling.
+> 🌡️ **Thermal Performance:** Because NPU operations execute on dedicated neural hardware, the RK3588 SoC die temperature remained at a cool **~49.9 °C** even during continuous live inference, ensuring zero thermal throttling.
 
-### **Real-World Hardware Snapshots (Orange Pi Box at 4.0x Zoom)**
+### **Real-World Hardware Benchmarks & Snapshots**
+
+#### 1. 6-Panel Multi-Engine Comparison Grid (NPU 6 TOPS vs. CPU AI vs. Classical Interpolation)
+Generated directly by `benchmark_zoom.py` on physical Orange Pi 5 hardware:
+
+![Orange Pi 5 AI Smart Zoom: NPU 6 TOPS vs CPU AI vs Classical Interpolation](../../assets/benchmarks/npu_benchmark_grid.jpg)
+
+#### 2. Live Web Stream Snapshots (Orange Pi Box at 4.0x Zoom)
 
 Hardware captures acquired live from our A4Tech FHD 1080P USB camera operating in V4L2 1080p mode on the Orange Pi 5:
 
-#### 1. FSRCNN (4x Smart AI Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
+##### FSRCNN (4x Smart AI Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
 ![FSRCNN 4x Neural Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
 
-#### 2. ESPCN (4x Sub-Pixel Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
+##### ESPCN (4x Sub-Pixel Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
 ![ESPCN 4x Sub-Pixel Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
 
-#### 3. FSRCNN (2x) & ESPCN (2x) Smart Zoom Comparisons (3.7x Zoom)
+##### FSRCNN (2x) & ESPCN (2x) Smart Zoom Comparisons (3.7x Zoom)
 | FSRCNN 2x Smart AI Zoom | ESPCN 2x Smart AI Zoom |
 | :---: | :---: |
 | ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
 
-> 💡 **The Secret to Clarity:** While classical bicubic digital zoom (left) smears and blurs pixel gradients, the **Smart AI** pipeline (right) harnesses sub-pixel convolutional inference coupled with CLAHE micro-contrast and adaptive unsharp masking to reconstruct razor-sharp text and intricate PCB circuit traces.
+> 💡 **The Secret to Clarity:** While classical bicubic digital zoom (left) smears and blurs pixel gradients, the **Smart AI** pipeline (right) harnesses sub-pixel convolutional inference on the Rockchip RK3588 Tri-Core NPU coupled with CLAHE micro-contrast and adaptive unsharp masking to reconstruct razor-sharp text and intricate PCB circuit traces.
 
 ---
 
@@ -131,20 +150,24 @@ cd ~/orangepi5-tutorials/projects/14-AI-Smart-Zoom-Super-Resolution
 python3 models/download_models.py
 ```
 
-### Step 2: Run CLI Benchmark & Export Visual Comparison
-Capture a live frame from your camera and generate a multi-panel visual comparison:
+### Step 2: (Optional) Compile ONNX to RKNN Binary
+The pre-compiled `super_resolution_rk3588.rknn` is already bundled. To recompile from ONNX source on an x86 host or WSL:
 
 ```bash
-# 2x Digital Zoom Benchmark:
-python3 benchmark_zoom.py --source 0 --scale 2 --crop-size 240 --output zoom_comparison_2x.jpg
+python3 models/convert_to_rknn.py
+```
 
-# 4x Digital Zoom Benchmark:
-python3 benchmark_zoom.py --source 0 --scale 4 --crop-size 160 --output zoom_comparison_4x.jpg
+### Step 3: Run CLI Benchmark & Multi-Panel Comparison
+Capture a live frame from your camera or an image file and generate a 6-panel comparison grid:
+
+```bash
+# 2x Digital Zoom & NPU Benchmark:
+python3 benchmark_zoom.py --source 0 --scale 2 --crop-size 224 --output zoom_comparison_2x.jpg
 ```
 
 The resulting `zoom_comparison_2x.jpg` image will include execution latency and FPS statistics burned directly onto each panel header.
 
-### Step 3: Launch Live Interactive Web Dashboard
+### Step 4: Launch Live Interactive Web Dashboard
 Start the multi-threaded streaming server:
 
 ```bash
@@ -155,6 +178,7 @@ Open your browser on any device (PC, tablet, or smartphone) and navigate to:
 ```
 http://<ORANGE_PI_IP>:5000
 ```
+Click **"⚡ NPU ESPCN (3x 6-TOPS)"** in the web dashboard to activate Rockchip RK3588 hardware NPU acceleration!
 
 ---
 

@@ -20,6 +20,11 @@ import cv2
 from cv2 import dnn_superres
 import numpy as np
 
+try:
+    from rknnlite.api import RKNNLite
+except ImportError:
+    RKNNLite = None
+
 # Global shared state
 class StreamState:
     def __init__(self):
@@ -36,6 +41,7 @@ class StreamState:
         self.soc_temp = 0.0
         self.is_running = True
         self.snapshot_counter = 0
+        self.npu_active = False
 
 state = StreamState()
 
@@ -87,7 +93,33 @@ class ProcessingThread(threading.Thread):
         super().__init__(daemon=True)
         self.models_dir = models_dir
         self.models = {}
+        self.rknn = None
         self.load_models()
+        self.init_npu()
+
+    def init_npu(self):
+        if RKNNLite is None:
+            print("[NPU] rknnlite library not found. NPU acceleration disabled.")
+            return
+        rknn_path = os.path.join(self.models_dir, "super_resolution_rk3588.rknn")
+        if not os.path.exists(rknn_path):
+            print(f"[NPU] RKNN model not found at: {rknn_path}")
+            return
+        try:
+            print(f"[*] Initializing Rockchip RK3588 Tri-Core NPU Super-Resolution Engine: {rknn_path}")
+            rknn = RKNNLite()
+            ret = rknn.load_rknn(rknn_path)
+            if ret != 0:
+                print(f"[NPU HATA] load_rknn failed with code: {ret}")
+                return
+            ret = rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2)
+            if ret != 0:
+                print(f"[NPU HATA] init_runtime failed with code: {ret}")
+                return
+            self.rknn = rknn
+            print("[+] RK3588 Tri-Core NPU Super-Resolution Engine Ready! (6.0 TOPS)")
+        except Exception as e:
+            print(f"[NPU HATA] Error initializing NPU: {e}")
 
     def load_models(self):
         print("[*] Pre-loading Super-Resolution Neural Networks...")
@@ -141,29 +173,45 @@ class ProcessingThread(threading.Thread):
             
             roi = frame[y1:y2, x1:x2]
             
-            # Keep patch at optimal size (cap width to 480 for real-time 15-25 FPS inference)
+            # Keep patch at optimal size
             inf_input = roi
             input_h, input_w = inf_input.shape[:2]
             if input_w > 480:
                 scale_ratio = 480.0 / input_w
                 inf_input = cv2.resize(inf_input, (480, int(input_h * scale_ratio)), interpolation=cv2.INTER_AREA)
 
-            # 2. Select AI model
-            sr_obj, sr_scale = self.models.get(model_key, (None, 2))
-            
-            # 3. Super-Resolution Inference
+            # 2. Super-Resolution Inference (NPU vs CPU DNN)
+            is_npu = False
             t_inf_start = time.perf_counter()
-            if sr_obj is not None:
-                ai_raw = sr_obj.upsample(inf_input)
+
+            if model_key == "npu_espcn_x3" and self.rknn is not None:
+                is_npu = True
+                # NPU ESPCN 3x Pipeline (Y-Luminance Sub-Pixel CNN on Tri-Core NPU)
+                roi_resized = cv2.resize(inf_input, (224, 224), interpolation=cv2.INTER_AREA)
+                ycrcb = cv2.cvtColor(roi_resized, cv2.COLOR_BGR2YCrCb)
+                y_plane, cr_plane, cb_plane = cv2.split(ycrcb)
+                y_in = (y_plane.astype(np.float32) / 255.0).reshape(1, 1, 224, 224)
+                
+                npu_out = self.rknn.inference(inputs=[y_in])
+                out_y = np.clip(npu_out[0][0, 0] * 255.0, 0, 255).astype(np.uint8)
+                
+                cr_up = cv2.resize(cr_plane, (672, 672), interpolation=cv2.INTER_CUBIC)
+                cb_up = cv2.resize(cb_plane, (672, 672), interpolation=cv2.INTER_CUBIC)
+                merged = cv2.merge([out_y, cr_up, cb_up])
+                ai_raw = cv2.cvtColor(merged, cv2.COLOR_YCrCb2BGR)
             else:
-                ai_raw = cv2.resize(inf_input, (inf_input.shape[1] * 2, inf_input.shape[0] * 2), interpolation=cv2.INTER_CUBIC)
+                sr_obj, sr_scale = self.models.get(model_key, (None, 2))
+                if sr_obj is not None:
+                    ai_raw = sr_obj.upsample(inf_input)
+                else:
+                    ai_raw = cv2.resize(inf_input, (inf_input.shape[1] * 2, inf_input.shape[0] * 2), interpolation=cv2.INTER_CUBIC)
             
             disp_h, disp_w = ai_raw.shape[:2]
 
-            # 4. Classical Bicubic Zoom (Un-enhanced baseline)
+            # 3. Classical Bicubic Zoom (Un-enhanced baseline)
             bicubic_zoom = cv2.resize(inf_input, (disp_w, disp_h), interpolation=cv2.INTER_CUBIC)
 
-            # 5. Smart AI Detail Reconstruction Pipeline
+            # 4. Smart AI Detail Reconstruction Pipeline
             ai_upscaled = ai_raw.copy()
 
             # A) Micro-Contrast Enhancement (CLAHE on Luminance channel)
@@ -182,7 +230,7 @@ class ProcessingThread(threading.Thread):
             t_inf_end = time.perf_counter()
             inf_ms = (t_inf_end - t_inf_start) * 1000.0
 
-            # 6. Compose Display Frame based on Mode
+            # 5. Compose Display Frame based on Mode
             if mode == "split":
                 # Annotate left (Bicubic Baseline)
                 cv2.rectangle(bicubic_zoom, (0, 0), (disp_w, 38), (15, 15, 15), -1)
@@ -191,9 +239,14 @@ class ProcessingThread(threading.Thread):
                 
                 # Annotate right (Smart AI Super-Res)
                 cv2.rectangle(ai_upscaled, (0, 0), (disp_w, 38), (15, 15, 15), -1)
-                ai_tag = f"SMART AI SUPER-RES ({model_key.upper()} | Sharp:{s_level:.1f}x)"
+                if is_npu:
+                    ai_tag = f"ROCKCHIP RK3588 NPU (ESPCN 3x | 6 TOPS | Sharp:{s_level:.1f}x)"
+                    tag_col = (0, 255, 255) # Gold-Cyan
+                else:
+                    ai_tag = f"SMART AI SUPER-RES ({model_key.upper()} | Sharp:{s_level:.1f}x)"
+                    tag_col = (0, 255, 170)
                 cv2.putText(ai_upscaled, ai_tag, (12, 25),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.52, (0, 255, 170), 2, cv2.LINE_AA)
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.52, tag_col, 2, cv2.LINE_AA)
                 
                 # Divider bar
                 divider = np.zeros((disp_h, 4, 3), dtype=np.uint8)
@@ -202,9 +255,14 @@ class ProcessingThread(threading.Thread):
                 composite = np.hstack([bicubic_zoom, divider, ai_upscaled])
             elif mode == "ai_only":
                 cv2.rectangle(ai_upscaled, (0, 0), (disp_w, 38), (15, 15, 15), -1)
-                ai_tag = f"SMART AI SUPER-RES ({model_key.upper()} | {zoom:.1f}x | Sharp:{s_level:.1f}x)"
+                if is_npu:
+                    ai_tag = f"RK3588 NPU (ESPCN 3x | 6 TOPS | {zoom:.1f}x | Sharp:{s_level:.1f}x)"
+                    tag_col = (0, 255, 255)
+                else:
+                    ai_tag = f"SMART AI SUPER-RES ({model_key.upper()} | {zoom:.1f}x | Sharp:{s_level:.1f}x)"
+                    tag_col = (0, 255, 170)
                 cv2.putText(ai_upscaled, ai_tag, (12, 25),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.58, (0, 255, 170), 2, cv2.LINE_AA)
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.58, tag_col, 2, cv2.LINE_AA)
                 composite = ai_upscaled
             else:
                 cv2.rectangle(bicubic_zoom, (0, 0), (disp_w, 38), (15, 15, 15), -1)
@@ -212,13 +270,14 @@ class ProcessingThread(threading.Thread):
                             cv2.FONT_HERSHEY_SIMPLEX, 0.58, (100, 160, 255), 2, cv2.LINE_AA)
                 composite = bicubic_zoom
 
-            # 7. Telemetry Footer
+            # 6. Telemetry Footer
             fps_count += 1
             if time.perf_counter() - fps_start >= 1.0:
                 with state.lock:
                     state.fps = fps_count / (time.perf_counter() - fps_start)
                     state.inference_ms = inf_ms
                     state.soc_temp = get_soc_temperature()
+                    state.npu_active = is_npu
                 fps_count = 0
                 fps_start = time.perf_counter()
 
@@ -227,7 +286,8 @@ class ProcessingThread(threading.Thread):
                 fps_val = state.fps
                 temp_val = state.soc_temp
             
-            telemetry_str = f"FPS: {fps_val:4.1f} | Latency: {inf_ms:5.1f} ms | SoC Temp: {temp_val:4.1f} C | Zoom: {zoom:.1f}x | Sharpness: {s_level:.1f}x"
+            backend_str = "NPU (6.0 TOPS)" if is_npu else "CPU (DNN)"
+            telemetry_str = f"FPS: {fps_val:4.1f} | Latency: {inf_ms:5.1f} ms | SoC Temp: {temp_val:4.1f} C | Zoom: {zoom:.1f}x | Engine: {backend_str}"
             cv2.putText(footer, telemetry_str, (15, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.46, (220, 220, 220), 1, cv2.LINE_AA)
             cv2.putText(footer, "Orange Pi 5 (RK3588S)", (composite.shape[1] - 185, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.44, (0, 220, 255), 1, cv2.LINE_AA)
             
@@ -323,6 +383,7 @@ HTML_PAGE = """<!DOCTYPE html>
                     <button onclick="setModel('fsrcnn_x4', this)">FSRCNN (4x)</button>
                     <button onclick="setModel('espcn_x2', this)">ESPCN (2x)</button>
                     <button onclick="setModel('espcn_x4', this)">ESPCN (4x)</button>
+                    <button id="btn_npu" onclick="setModel('npu_espcn_x3', this)" style="border-color: var(--accent); color: var(--accent); font-weight: bold;">⚡ NPU ESPCN (3x 6-TOPS)</button>
                 </div>
             </div>
 
@@ -362,12 +423,12 @@ HTML_PAGE = """<!DOCTYPE html>
             fetch('/api/contrast?val=' + val);
         }
         function setModel(name, btn) {
-            document.querySelectorAll('.control-group:nth-child(4) button').forEach(b => b.classList.remove('active'));
+            btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             fetch('/api/model?name=' + name);
         }
         function setMode(name, btn) {
-            document.querySelectorAll('.control-group:nth-child(5) button').forEach(b => b.classList.remove('active'));
+            btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             fetch('/api/mode?name=' + name);
         }

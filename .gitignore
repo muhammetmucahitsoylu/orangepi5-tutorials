@@ -40,8 +40,11 @@ desktop.ini
 build/
 bin/
 *.rknn
+!projects/14-AI-Smart-Zoom-Super-Resolution/models/*.rknn
 
 # AI test outputs & temp downloads
 docker/synset_label.py
 docker/*_result.jpg
-docker/custom_test.jpg
+docker/custom_test.jpg
+__pycache__/
+*.py[cod]

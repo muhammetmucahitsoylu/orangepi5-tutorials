@@ -148,7 +148,47 @@ def main():
     else:
         print(f"  [-] ESPCN model not found at: {espcn_path}")
 
+    # Rockchip RK3588 Tri-Core NPU Model
+    try:
+        from rknnlite.api import RKNNLite
+    except ImportError:
+        RKNNLite = None
+
+    rknn_sr = None
+    rknn_path = os.path.join(models_dir, "super_resolution_rk3588.rknn")
+    if RKNNLite is not None and os.path.exists(rknn_path):
+        try:
+            rknn = RKNNLite()
+            if rknn.load_rknn(rknn_path) == 0 and rknn.init_runtime(core_mask=RKNNLite.NPU_CORE_0_1_2) == 0:
+                rknn_sr = rknn
+                print(f"  [+] RK3588 NPU ESPCN (Tri-Core 6 TOPS) loaded: {rknn_path}")
+        except Exception as e:
+            print(f"  [-] Failed to load NPU model: {e}")
+
     results = {}
+
+    def run_npu_sr(img, sharpen=False):
+        resized = cv2.resize(img, (224, 224), interpolation=cv2.INTER_AREA)
+        ycrcb = cv2.cvtColor(resized, cv2.COLOR_BGR2YCrCb)
+        y, cr, cb = cv2.split(ycrcb)
+        y_in = (y.astype(np.float32) / 255.0).reshape(1, 1, 224, 224)
+        out = rknn_sr.inference(inputs=[y_in])
+        out_y = np.clip(out[0][0, 0] * 255.0, 0, 255).astype(np.uint8)
+        cr_up = cv2.resize(cr, (672, 672), interpolation=cv2.INTER_CUBIC)
+        cb_up = cv2.resize(cb, (672, 672), interpolation=cv2.INTER_CUBIC)
+        merged = cv2.merge([out_y, cr_up, cb_up])
+        res = cv2.cvtColor(merged, cv2.COLOR_YCrCb2BGR)
+        if sharpen:
+            yc = cv2.cvtColor(res, cv2.COLOR_BGR2YCrCb)
+            yp, cp1, cp2 = cv2.split(yc)
+            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+            yp = clahe.apply(yp)
+            res = cv2.cvtColor(cv2.merge([yp, cp1, cp2]), cv2.COLOR_YCrCb2BGR)
+            gauss = cv2.GaussianBlur(res, (0, 0), 2.0)
+            res = cv2.addWeighted(res, 2.4, gauss, -1.4, 0)
+        if (res.shape[1], res.shape[0]) != (target_w, target_h):
+            res = cv2.resize(res, (target_w, target_h), interpolation=cv2.INTER_CUBIC)
+        return res
 
     # 4. Benchmark Methods
     methods = [
@@ -159,13 +199,16 @@ def main():
     ]
 
     if sr_fsrcnn is not None:
-        methods.append((f"FSRCNN x{scale} (AI)", lambda img: sr_fsrcnn.upsample(img)))
+        methods.append((f"FSRCNN x{scale} (CPU AI)", lambda img: sr_fsrcnn.upsample(img)))
     if sr_espcn is not None:
-        methods.append((f"ESPCN x{scale} (AI)",  lambda img: sr_espcn.upsample(img)))
+        methods.append((f"ESPCN x{scale} (CPU AI)",  lambda img: sr_espcn.upsample(img)))
+    if rknn_sr is not None:
+        methods.append(("RK3588 NPU (ESPCN 3x AI)", lambda img: run_npu_sr(img, False)))
+        methods.append(("NPU + Smart Enhancer",      lambda img: run_npu_sr(img, True)))
 
     print("\n[*] Running Timing Benchmarks (Warmup: %d, Runs: %d)..." % (args.warmup, args.runs))
     print("-" * 72)
-    print(f"{'Algorithm / Method':<24} | {'Type':<10} | {'Latency (ms)':<14} | {'Est. FPS':<10}")
+    print(f"{'Algorithm / Method':<26} | {'Type':<10} | {'Latency (ms)':<14} | {'Est. FPS':<10}")
     print("-" * 72)
 
     for name, func in methods:
@@ -184,8 +227,8 @@ def main():
             
         avg_ms = float(np.mean(timings))
         fps = 1000.0 / max(avg_ms, 0.0001)
-        algo_type = "Neural Net" if "(AI)" in name else "Classical"
-        print(f"{name:<24} | {algo_type:<10} | {avg_ms:8.2f} ms     | {fps:7.1f} FPS")
+        algo_type = "NPU 6 TOPS" if "NPU" in name else ("CPU AI" if "AI" in name else "Classical")
+        print(f"{name:<26} | {algo_type:<10} | {avg_ms:8.2f} ms     | {fps:7.1f} FPS")
         results[name] = {"img": out_img, "ms": avg_ms, "fps": fps}
 
     print("-" * 72)
@@ -196,26 +239,35 @@ def main():
     # 5. Composite Comparison Grid
     print(f"\n[*] Generating multi-panel comparison visualization: {args.output}...")
     
-    # We will build a 2x3 or 2x2 grid
     tiles = []
     # 1. Bicubic (Standard)
     if "Bicubic (Standard)" in results:
-        tiles.append(annotate_tile(results["Bicubic (Standard)"]["img"], f"1. Standard Bicubic Zoom ({scale}x)", results["Bicubic (Standard)"]["ms"], "Blurry Baseline"))
+        tiles.append(annotate_tile(results["Bicubic (Standard)"]["img"], f"1. Bicubic Standard ({scale}x)", results["Bicubic (Standard)"]["ms"], "Blurry Baseline"))
     # 2. Lanczos-4
     if "Lanczos-4" in results:
         tiles.append(annotate_tile(results["Lanczos-4"]["img"], f"2. Lanczos-4 Classical ({scale}x)", results["Lanczos-4"]["ms"], "Edge Ringing"))
-    # 3. FSRCNN (AI)
-    fsrcnn_key = f"FSRCNN x{scale} (AI)"
+    # 3. FSRCNN (CPU AI)
+    fsrcnn_key = f"FSRCNN x{scale} (CPU AI)"
     if fsrcnn_key in results:
-        tiles.append(annotate_tile(results[fsrcnn_key]["img"], f"3. FSRCNN Neural Zoom ({scale}x)", results[fsrcnn_key]["ms"], "Sharp Edges / AI"))
-    # 4. ESPCN (AI)
-    espcn_key = f"ESPCN x{scale} (AI)"
+        tiles.append(annotate_tile(results[fsrcnn_key]["img"], f"3. FSRCNN ({scale}x CPU AI)", results[fsrcnn_key]["ms"], "Sharp Edges"))
+    # 4. ESPCN (CPU AI)
+    espcn_key = f"ESPCN x{scale} (CPU AI)"
     if espcn_key in results:
-        tiles.append(annotate_tile(results[espcn_key]["img"], f"4. ESPCN Sub-Pixel ({scale}x)", results[espcn_key]["ms"], "Real-Time AI"))
+        tiles.append(annotate_tile(results[espcn_key]["img"], f"4. ESPCN ({scale}x CPU AI)", results[espcn_key]["ms"], "Real-Time CPU"))
+    # 5. RK3588 NPU (ESPCN 3x AI)
+    if "RK3588 NPU (ESPCN 3x AI)" in results:
+        tiles.append(annotate_tile(results["RK3588 NPU (ESPCN 3x AI)"]["img"], "5. RK3588 NPU (ESPCN 3x)", results["RK3588 NPU (ESPCN 3x AI)"]["ms"], "Tri-Core 6 TOPS"))
+    # 6. NPU + Smart Enhancer
+    if "NPU + Smart Enhancer" in results:
+        tiles.append(annotate_tile(results["NPU + Smart Enhancer"]["img"], "6. NPU + Smart Enhancer", results["NPU + Smart Enhancer"]["ms"], "Max Clarity / CLAHE"))
 
-    if len(tiles) >= 4:
-        row1 = np.hstack([tiles[0], tiles[1]])
-        row2 = np.hstack([tiles[2], tiles[3]])
+    if len(tiles) >= 6:
+        row1 = np.hstack(tiles[:3])
+        row2 = np.hstack(tiles[3:6])
+        grid = np.vstack([row1, row2])
+    elif len(tiles) >= 4:
+        row1 = np.hstack(tiles[:2])
+        row2 = np.hstack(tiles[2:4])
         grid = np.vstack([row1, row2])
     elif len(tiles) >= 2:
         grid = np.hstack(tiles[:2])
@@ -224,12 +276,15 @@ def main():
 
     # Add master title header
     header = np.zeros((60, grid.shape[1], 3), dtype=np.uint8)
-    cv2.putText(header, f"Orange Pi 5 (RK3588S) AI Digital Zoom vs. Classical Interpolation ({scale}x Zoom)", 
-                (20, 36), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(header, f"Orange Pi 5 (RK3588S) AI Smart Zoom: NPU (6 TOPS) vs. CPU AI vs. Classical Interpolation", 
+                (20, 38), cv2.FONT_HERSHEY_SIMPLEX, 0.70, (0, 255, 255), 2, cv2.LINE_AA)
     final_output = np.vstack([header, grid])
 
     cv2.imwrite(args.output, final_output)
     print(f"[SUCCESS] Benchmark complete! Comparison saved to: {args.output}")
+
+    if rknn_sr is not None:
+        rknn_sr.release()
 
 if __name__ == "__main__":
     main()
