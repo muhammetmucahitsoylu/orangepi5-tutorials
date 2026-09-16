@@ -138,6 +138,7 @@ bash check_health.sh
 | 🌐 **Sunucu & Ağ** | **11** | [**Kişisel Bulut & Jellyfin VPU Medya Sunucusu**](projects/Turkish/11-Kisisel-Bulut-Jellyfin.md) | 🟢 Doğrulandı | NVMe üzerinde CasaOS, telefon fotoğraflarını otomatik yedekleme (Nextcloud), 4K VPU donanımsal transcode (Jellyfin) ve Samba. |
 | 🌐 **Sunucu & Ağ** | **12** | [**Ağ Güvenlik Kalkanı (AdGuard, Unbound, Tailscale)**](projects/Turkish/12-Ag-Guvenlik-Kalkani.md) | 🟢 Doğrulandı | Tüm ev için donanımsal reklam/izleyici kalkanı, İSS kaydını önleyen Unbound kök DNS ve dışarıdan güvenli erişim için Tailscale VPN. |
 | 🎮 **Multimedya** | **13** | [**Retro Oyun Konsolu (PS2, PSP, GameCube)**](projects/Turkish/13-Retro-Oyun-Konsolu.md) | 🟢 Doğrulandı | Mali-G610 GPU ve Vulkan hızlandırma ile 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emülasyonu ve DualShock 3/4 kol eşleşmesi. |
+| 🤖 **Edge AI** | **14** | [**Yapay Zeka Destekli Akıllı Zoom & Süper Çözünürlük**](projects/Turkish/14-Yapay-Zeka-Akilli-Zoom-Super-Cozunurluk.md) | 🟢 Doğrulandı | 1080p kamera akışında dijital zoom kalite kaybını FSRCNN/ESPCN derin öğrenme ağlarıyla onarma, bölünmüş ekran canlı web yayını. |
 
 ---
 
@@ -253,7 +254,8 @@ OrangePi5_Tutorials/
 │   │   ├── 10-Linux-Kernel-Module-Driver.md
 │   │   ├── 11-Personal-Cloud-Jellyfin.md
 │   │   ├── 12-Network-Shield-AdGuard-Tailscale.md
-│   │   └── 13-Retro-Gaming-Console.md
+│   │   ├── 13-Retro-Gaming-Console.md
+│   │   └── 14-AI-Smart-Zoom-Super-Resolution.md
 │   └── Turkish/
 │       ├── 01-IDE-ve-Gelistirme-Ortami.md
 │       ├── 02-NPU-Aktivasyonu-ve-RKNN.md
@@ -267,7 +269,8 @@ OrangePi5_Tutorials/
 │       ├── 10-Linux-Cekirdek-Modulu-LKM.md
 │       ├── 11-Kisisel-Bulut-Jellyfin.md
 │       ├── 12-Ag-Guvenlik-Kalkani.md
-│       └── 13-Retro-Oyun-Konsolu.md
+│       ├── 13-Retro-Oyun-Konsolu.md
+│       └── 14-Yapay-Zeka-Akilli-Zoom-Super-Cozunurluk.md
 └── scripts/
     ├── check_health.sh
     ├── opi5.sh
@@ -403,6 +406,7 @@ bash check_health.sh
 | 🌐 **Server & Net** | **11** | [**Personal Cloud & Jellyfin Media Server**](projects/English/11-Personal-Cloud-Jellyfin.md) | 🟢 Verified | CasaOS on NVMe, automatic camera roll sync (Nextcloud), 4K VPU hardware transcoding (Jellyfin), and Samba. |
 | 🌐 **Server & Net** | **12** | [**Network Shield (AdGuard, Unbound, Tailscale)**](projects/English/12-Network-Shield-AdGuard-Tailscale.md) | 🟢 Verified | Whole-home ad/tracker sinkhole, zero-ISP-logging recursive Unbound root DNS, and secure remote Tailscale exit node. |
 | 🎮 **Multimedia** | **13** | [**Retro Gaming Console (PS2, PSP, GameCube)**](projects/English/13-Retro-Gaming-Console.md) | 🟢 Verified | Mali-G610 GPU with Vulkan acceleration for 1080p 60FPS PS2 (AetherSX2), PSP, GameCube emulation, and controller pairing. |
+| 🤖 **Edge AI** | **14** | [**AI Smart Zoom & Neural Super-Resolution**](projects/English/14-AI-Smart-Zoom-Super-Resolution.md) | 🟢 Verified | Real-time digital zoom restoration using FSRCNN/ESPCN neural networks, 1080p UVC video pipeline, and interactive web dashboard. |
 
 ---
 
@@ -518,7 +522,8 @@ OrangePi5_Tutorials/
 │   │   ├── 10-Linux-Kernel-Module-Driver.md
 │   │   ├── 11-Personal-Cloud-Jellyfin.md
 │   │   ├── 12-Network-Shield-AdGuard-Tailscale.md
-│   │   └── 13-Retro-Gaming-Console.md
+│   │   ├── 13-Retro-Gaming-Console.md
+│   │   └── 14-AI-Smart-Zoom-Super-Resolution.md
 │   └── Turkish/
 │       ├── 01-IDE-ve-Gelistirme-Ortami.md
 │       ├── 02-NPU-Aktivasyonu-ve-RKNN.md
@@ -532,7 +537,8 @@ OrangePi5_Tutorials/
 │       ├── 10-Linux-Cekirdek-Modulu-LKM.md
 │       ├── 11-Kisisel-Bulut-Jellyfin.md
 │       ├── 12-Ag-Guvenlik-Kalkani.md
-│       └── 13-Retro-Oyun-Konsolu.md
+│       ├── 13-Retro-Oyun-Konsolu.md
+│       └── 14-Yapay-Zeka-Akilli-Zoom-Super-Cozunurluk.md
 └── scripts/
     ├── check_health.sh
     ├── opi5.sh
