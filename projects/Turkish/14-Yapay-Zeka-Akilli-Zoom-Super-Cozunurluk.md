@@ -104,18 +104,20 @@ Aşağıdaki ölçümler, **Orange Pi 5 (RK3588S)** donanımı üzerinde doğrud
 
 ### **Fiziksel Donanım Karşılaştırma Görselleri (Orange Pi Kutusu Üzerinde 4.0x Zoom)**
 
-A4Tech FHD 1080P kameramızla doğrudan Orange Pi kutusunun yazı ve devre yolları üzerinde alınan gerçek ekran yakalamaları:
+A4Tech FHD 1080P kameramızla V4L2 1080p modunda doğrudan Orange Pi kutusunun yazı ve devre yolları üzerinde alınan gerçek donanım ekran yakalamaları:
 
-#### 1. FSRCNN (4x Yapay Zeka Süper Çözünürlük) vs. Klasik Bicubic Zoom
+#### 1. FSRCNN (4x Smart AI Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
 ![FSRCNN 4x Yapay Zeka Zoom](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
 
-#### 2. ESPCN (4x Sub-Pixel Süper Çözünürlük) vs. Klasik Bicubic Zoom
+#### 2. ESPCN (4x Sub-Pixel Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
 ![ESPCN 4x Sub-Pixel Zoom](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
 
-#### 3. FSRCNN (2x) ve ESPCN (2x) Karşılaştırması
-| FSRCNN 2x Zoom | ESPCN 2x Zoom |
+#### 3. FSRCNN (2x) ve ESPCN (2x) Akıllı Zoom Karşılaştırmaları (3.7x Zoom)
+| FSRCNN 2x Smart AI Zoom | ESPCN 2x Smart AI Zoom |
 | :---: | :---: |
 | ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
+
+> 💡 **Farkın Sırrı:** Sol taraftaki klasik Bicubic zoom pikselleri basit ortalama ile yayarak bulanıklaştırırken, sağ taraftaki **Smart AI** motoru derin öğrenme alt piksel evrişimi, CLAHE mikro-kontrast ve uyarlamalı kenar keskinleştirme uygulayarak harf ve devre yollarını jilet gibi netleştirir.
 
 ---
 

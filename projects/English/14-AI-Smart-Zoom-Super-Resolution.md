@@ -104,18 +104,20 @@ The following benchmarks were captured directly on physical **Orange Pi 5 (RK358
 
 ### **Real-World Hardware Snapshots (Orange Pi Box at 4.0x Zoom)**
 
-Direct captures from our live A4Tech FHD 1080P camera stream demonstrating text and PCB circuit trace reconstruction:
+Hardware captures acquired live from our A4Tech FHD 1080P USB camera operating in V4L2 1080p mode on the Orange Pi 5:
 
-#### 1. FSRCNN (4x Neural Super-Resolution) vs. Classical Bicubic Zoom
+#### 1. FSRCNN (4x Smart AI Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
 ![FSRCNN 4x Neural Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
 
-#### 2. ESPCN (4x Sub-Pixel Super-Resolution) vs. Classical Bicubic Zoom
+#### 2. ESPCN (4x Sub-Pixel Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
 ![ESPCN 4x Sub-Pixel Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
 
-#### 3. FSRCNN (2x) and ESPCN (2x) Comparisons
-| FSRCNN 2x Zoom | ESPCN 2x Zoom |
+#### 3. FSRCNN (2x) & ESPCN (2x) Smart Zoom Comparisons (3.7x Zoom)
+| FSRCNN 2x Smart AI Zoom | ESPCN 2x Smart AI Zoom |
 | :---: | :---: |
 | ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
+
+> 💡 **The Secret to Clarity:** While classical bicubic digital zoom (left) smears and blurs pixel gradients, the **Smart AI** pipeline (right) harnesses sub-pixel convolutional inference coupled with CLAHE micro-contrast and adaptive unsharp masking to reconstruct razor-sharp text and intricate PCB circuit traces.
 
 ---
 
