@@ -11,6 +11,10 @@ Skip the host PC conversion pipeline (`rknn-toolkit2` / `rkllm-toolkit`) and dow
 | Model | Format / Precision | Target Hardware | Direct Download Link | Source & License |
 | :--- | :---: | :---: | :--- | :--- |
 | **ResNet-18 (Classification)** | `.rknn` (INT8/FP16) | RK3588 NPU (3 Cores) | [Direct Download `resnet18_for_rk3588.rknn`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/resnet18_for_rk3588.rknn) | Apache 2.0 (Rockchip Model Zoo) |
+| **ESPCN (3x Super-Resolution)** | `.rknn` (Tri-Core FP16) | RK3588 NPU (3 Cores) | [Direct Download `super_resolution_rk3588.rknn`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super_resolution_rk3588.rknn) | Apache 2.0 (PyTorch / ONNX) |
+| **Sub-Pixel CNN (3x ONNX)** | `.onnx` (FP32 Graph) | Host / NPU Compiler | [Direct Download `super-resolution-10.onnx`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super-resolution-10.onnx) | Apache 2.0 (ONNX Model Zoo) |
+| **ESPCN (2x / 4x Super-Res)** | `.pb` (TensorFlow) | OpenCV DNN (CPU) | [Direct Download `ESPCN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x2.pb) \| [x4](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x4.pb) | MIT (TF-ESPCN) |
+| **FSRCNN (2x / 4x Super-Res)** | `.pb` (TensorFlow) | OpenCV DNN (CPU) | [Direct Download `FSRCNN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x2.pb) \| [x4](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x4.pb) | MIT (Saafke) |
 | **YOLOv8 COCO Labels** | `.txt` (80 Classes) | Host & Target | [Direct Download `coco_80_labels_list.txt`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/coco_80_labels_list.txt) | AGPL-3.0 / Ultralytics COCO |
 | **Qwen-1.8B Chat** | `.rkllm` (W4A16) | RK3588 NPU (3 Cores) | [Direct Download `qwen-chat-1_8B.rkllm`](https://huggingface.co/Pelochus/qwen-1_8B-rk3588/resolve/main/qwen-chat-1_8B.rkllm) | Apache 2.0 / Qwen Open |
 | **Qwen2-1.5B Chat** | `.rkllm` (W4A16) | RK3588 NPU (3 Cores) | [Direct Download `qwen2-1.8B-rk3588.rkllm`](https://huggingface.co/Pelochus/qwen2-1_5B-rk3588/resolve/main/qwen2-1.8B-rk3588.rkllm) | Apache 2.0 / Qwen Open |
@@ -18,6 +22,7 @@ Skip the host PC conversion pipeline (`rknn-toolkit2` / `rkllm-toolkit`) and dow
 ```bash
 # 📥 Quick Terminal Download (Run directly on Orange Pi 5):
 mkdir -p ~/models && cd ~/models
+wget https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super_resolution_rk3588.rknn
 wget https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/resnet18_for_rk3588.rknn
 wget https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/coco_80_labels_list.txt
 ```

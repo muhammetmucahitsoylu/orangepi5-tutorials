@@ -21,6 +21,21 @@ This project solves the fundamental problem of **digital zoom quality degradatio
 
 ---
 
+## 📦 Pre-Trained & Pre-Compiled Model Downloads
+
+All models are pre-compiled and hosted as release assets for direct high-speed download:
+
+| Model | Target Architecture | Format | Size | Direct Download Link |
+| :--- | :--- | :---: | :---: | :--- |
+| **ESPCN (3x Super-Resolution)** | **Rockchip RK3588 NPU (6 TOPS)** | `.rknn` | **512 KB** | [Direct Download `super_resolution_rk3588.rknn`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super_resolution_rk3588.rknn) |
+| **Sub-Pixel CNN (3x ONNX)** | Host Compiler / ONNX Runtime | `.onnx` | 240 KB | [Direct Download `super-resolution-10.onnx`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super-resolution-10.onnx) |
+| **FSRCNN (2x Super-Resolution)** | OpenCV DNN (CPU) | `.pb` | 39 KB | [Direct Download `FSRCNN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x2.pb) |
+| **FSRCNN (4x Super-Resolution)** | OpenCV DNN (CPU) | `.pb` | 42 KB | [Direct Download `FSRCNN_x4.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x4.pb) |
+| **ESPCN (2x Super-Resolution)** | OpenCV DNN (CPU) | `.pb` | 86 KB | [Direct Download `ESPCN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x2.pb) |
+| **ESPCN (4x Super-Resolution)** | OpenCV DNN (CPU) | `.pb` | 100 KB | [Direct Download `ESPCN_x4.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x4.pb) |
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. Download & Verify Pre-Trained Models

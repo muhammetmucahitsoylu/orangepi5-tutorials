@@ -135,10 +135,20 @@ Hardware captures acquired live from our A4Tech FHD 1080P USB camera operating i
 
 ## **5. Setup & Execution Guide**
 
-### Step 1: Navigate to Project Directory
-Pre-trained models are bundled in `models/`. You can also verify or re-download them using:
+### Step 1: Download & Verify Pre-Compiled Models
+Pre-trained models are bundled in `models/`. You can also download them directly via one-click release links or run the automated downloader:
+
+| Model Name | Target Hardware / Layer | Format | Size | Direct Download Link |
+| :--- | :--- | :---: | :---: | :--- |
+| **ESPCN (3x Super-Resolution)** | **Rockchip RK3588 NPU (6 TOPS)** | `.rknn` | **512 KB** | [Direct Download `super_resolution_rk3588.rknn`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super_resolution_rk3588.rknn) |
+| **Sub-Pixel CNN (3x ONNX)** | Host Compiler / ONNX Runtime | `.onnx` | 240 KB | [Direct Download `super-resolution-10.onnx`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super-resolution-10.onnx) |
+| **FSRCNN (2x Super-Resolution)**| OpenCV DNN (CPU) | `.pb` | 39 KB | [Direct Download `FSRCNN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x2.pb) |
+| **FSRCNN (4x Super-Resolution)**| OpenCV DNN (CPU) | `.pb` | 42 KB | [Direct Download `FSRCNN_x4.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x4.pb) |
+| **ESPCN (2x Super-Resolution)** | OpenCV DNN (CPU) | `.pb` | 86 KB | [Direct Download `ESPCN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x2.pb) |
+| **ESPCN (4x Super-Resolution)** | OpenCV DNN (CPU) | `.pb` | 100 KB | [Direct Download `ESPCN_x4.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x4.pb) |
 
 ```bash
+# Automated one-step downloader:
 cd ~/orangepi5-tutorials/projects/14-AI-Smart-Zoom-Super-Resolution
 python3 models/download_models.py
 ```

@@ -8,12 +8,15 @@ Downloads FSRCNN (x2, x4) and ESPCN (x2, x4) models for real-time AI zoom.
 import os
 import urllib.request
 
+RELEASE_BASE = "https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0"
+
 MODELS = {
-    "FSRCNN_x2.pb": "https://raw.githubusercontent.com/Saafke/FSRCNN_Tensorflow/master/models/FSRCNN_x2.pb",
-    "FSRCNN_x4.pb": "https://raw.githubusercontent.com/Saafke/FSRCNN_Tensorflow/master/models/FSRCNN_x4.pb",
-    "ESPCN_x2.pb":  "https://raw.githubusercontent.com/fannymonori/TF-ESPCN/master/export/ESPCN_x2.pb",
-    "ESPCN_x4.pb":  "https://raw.githubusercontent.com/fannymonori/TF-ESPCN/master/export/ESPCN_x4.pb",
-    "super-resolution-10.onnx": "https://github.com/onnx/models/raw/main/validated/vision/super_resolution/sub_pixel_cnn_2016/model/super-resolution-10.onnx"
+    "super_resolution_rk3588.rknn": f"{RELEASE_BASE}/super_resolution_rk3588.rknn",
+    "super-resolution-10.onnx": f"{RELEASE_BASE}/super-resolution-10.onnx",
+    "ESPCN_x2.pb":  f"{RELEASE_BASE}/ESPCN_x2.pb",
+    "ESPCN_x4.pb":  f"{RELEASE_BASE}/ESPCN_x4.pb",
+    "FSRCNN_x2.pb": f"{RELEASE_BASE}/FSRCNN_x2.pb",
+    "FSRCNN_x4.pb": f"{RELEASE_BASE}/FSRCNN_x4.pb",
 }
 
 def main():
@@ -25,11 +28,14 @@ def main():
         if os.path.exists(target) and os.path.getsize(target) > 1000:
             print(f"  [OK] {filename} exists ({os.path.getsize(target):,} bytes)")
         else:
-            print(f"  [>] Downloading {filename}...")
+            print(f"  [>] Downloading {filename} from Release v2.0.0...")
             req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req) as resp, open(target, 'wb') as f:
-                f.write(resp.read())
-            print(f"  [DONE] Saved {filename} ({os.path.getsize(target):,} bytes)")
+            try:
+                with urllib.request.urlopen(req) as resp, open(target, 'wb') as f:
+                    f.write(resp.read())
+                print(f"  [DONE] Saved {filename} ({os.path.getsize(target):,} bytes)")
+            except Exception as e:
+                print(f"  [ERROR] Failed to download {filename}: {e}")
     
     print("[*] All Super-Resolution models are ready!")
 

@@ -135,10 +135,20 @@ A4Tech FHD 1080P kameramızla V4L2 1080p modunda doğrudan Orange Pi kutusunun y
 
 ## **5. Kurulum ve Çalıştırma**
 
-### Adım 1: Proje Dizinine Geçiş ve Model Kontrolü
-Modeller repoya dahil edilmiş olarak gelir (`models/` altında). Dilerseniz otomatik indiriciyi de çalıştırabilirsiniz:
+### Adım 1: Hazır Derlenmiş Modelleri İndirme ve Doğrulama
+Modeller repoya dahil edilmiş olarak gelir (`models/` altında). Dilerseniz modelleri tek tıkla aşağıdaki resmi Release bağlantılarından doğrudan indirebilir veya otomatik indiriciyi çalıştırabilirsiniz:
+
+| Model Adı | Hedef Donanım / Çalışma Katmanı | Format | Boyut | Doğrudan İndirme Bağlantısı |
+| :--- | :--- | :---: | :---: | :--- |
+| **ESPCN (3x Süper Çözünürlük)** | **Rockchip RK3588 NPU (6 TOPS)** | `.rknn` | **512 KB** | [Doğrudan İndir `super_resolution_rk3588.rknn`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super_resolution_rk3588.rknn) |
+| **Sub-Pixel CNN (3x ONNX)** | Derleyici / ONNX Runtime | `.onnx` | 240 KB | [Doğrudan İndir `super-resolution-10.onnx`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/super-resolution-10.onnx) |
+| **FSRCNN (2x Süper Çözünürlük)**| OpenCV DNN (CPU) | `.pb` | 39 KB | [Doğrudan İndir `FSRCNN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x2.pb) |
+| **FSRCNN (4x Süper Çözünürlük)**| OpenCV DNN (CPU) | `.pb` | 42 KB | [Doğrudan İndir `FSRCNN_x4.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/FSRCNN_x4.pb) |
+| **ESPCN (2x Süper Çözünürlük)** | OpenCV DNN (CPU) | `.pb` | 86 KB | [Doğrudan İndir `ESPCN_x2.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x2.pb) |
+| **ESPCN (4x Süper Çözünürlük)** | OpenCV DNN (CPU) | `.pb` | 100 KB | [Doğrudan İndir `ESPCN_x4.pb`](https://github.com/muhammetmucahitsoylu/orangepi5-tutorials/releases/download/v2.0.0/ESPCN_x4.pb) |
 
 ```bash
+# Otomatik indirici ile tüm modelleri tek seferde çekin:
 cd ~/orangepi5-tutorials/projects/14-AI-Smart-Zoom-Super-Resolution
 python3 models/download_models.py
 ```
