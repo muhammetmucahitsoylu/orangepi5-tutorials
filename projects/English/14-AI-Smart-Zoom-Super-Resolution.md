@@ -102,6 +102,21 @@ The following benchmarks were captured directly on physical **Orange Pi 5 (RK358
 
 > 🌡️ **Thermal Performance:** Across 15 consecutive neural inference passes and sustained 1080p camera ingestion, the RK3588 SoC die temperature remained at a cool **55.5 °C**, ensuring zero thermal throttling.
 
+### **Real-World Hardware Snapshots (Orange Pi Box at 4.0x Zoom)**
+
+Direct captures from our live A4Tech FHD 1080P camera stream demonstrating text and PCB circuit trace reconstruction:
+
+#### 1. FSRCNN (4x Neural Super-Resolution) vs. Classical Bicubic Zoom
+![FSRCNN 4x Neural Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
+
+#### 2. ESPCN (4x Sub-Pixel Super-Resolution) vs. Classical Bicubic Zoom
+![ESPCN 4x Sub-Pixel Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
+
+#### 3. FSRCNN (2x) and ESPCN (2x) Comparisons
+| FSRCNN 2x Zoom | ESPCN 2x Zoom |
+| :---: | :---: |
+| ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
+
 ---
 
 ## **5. Setup & Execution Guide**

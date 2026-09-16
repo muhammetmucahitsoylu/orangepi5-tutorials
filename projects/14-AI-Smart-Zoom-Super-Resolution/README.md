@@ -53,5 +53,23 @@ http://<ORANGE_PI_IP>:5000
 | **Bilinear** | Classical | ~0.45 ms | >1000 FPS | Noticeably blurred |
 | **Bicubic** | Classical (Baseline) | ~0.85 ms | >1000 FPS | Soft edges, lack of fine texture |
 | **Lanczos-4** | Classical Resampling | ~1.65 ms | ~600 FPS | Sharper but introduces ringing artifacts |
-| **ESPCN (x2 / x4)** | **Neural Net (AI)** | **~5.8 ms** | **~170 FPS** | **Sub-pixel synthesis, crisp lines** |
-| **FSRCNN (x2 / x4)**| **Neural Net (AI)** | **~8.2 ms** | **~120 FPS** | **Optimal visual fidelity & contrast** |
+| **ESPCN (x2 / x4)** | **Neural Net (AI)** | **~44.9 ms** | **~22.2 FPS** | **Sub-pixel synthesis, crisp lines** |
+| **FSRCNN (x2 / x4)**| **Neural Net (AI)** | **~65.3 ms** | **~15.3 FPS** | **Optimal visual fidelity & contrast** |
+
+---
+
+## 📸 Real-World Hardware Snapshots (Orange Pi Box at 4.0x Zoom)
+
+Captured live on an **Orange Pi 5 (RK3588S)** with an active A4Tech FHD 1080P USB camera:
+
+### 1. FSRCNN (4x Neural Super-Resolution) vs. Classical Bicubic Zoom
+![FSRCNN 4x Neural Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
+
+### 2. ESPCN (4x Sub-Pixel Super-Resolution) vs. Classical Bicubic Zoom
+![ESPCN 4x Sub-Pixel Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
+
+### 3. FSRCNN (2x) & ESPCN (2x) Comparisons
+| FSRCNN 2x Zoom | ESPCN 2x Zoom |
+| :---: | :---: |
+| ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
+

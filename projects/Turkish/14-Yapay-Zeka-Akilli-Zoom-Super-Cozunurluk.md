@@ -102,6 +102,21 @@ Aşağıdaki ölçümler, **Orange Pi 5 (RK3588S)** donanımı üzerinde doğrud
 
 > 🌡️ **Sıcaklık Notu:** 15 ardışık derin öğrenme çıkarımı ve sürekli kamera akışı boyunca SoC sıcaklığı sadece **55.5 °C** ölçülmüştür; pasif soğutucu + 3.3V sessiz fan ile termal kısma (throttling) riski sıfırdır.
 
+### **Fiziksel Donanım Karşılaştırma Görselleri (Orange Pi Kutusu Üzerinde 4.0x Zoom)**
+
+A4Tech FHD 1080P kameramızla doğrudan Orange Pi kutusunun yazı ve devre yolları üzerinde alınan gerçek ekran yakalamaları:
+
+#### 1. FSRCNN (4x Yapay Zeka Süper Çözünürlük) vs. Klasik Bicubic Zoom
+![FSRCNN 4x Yapay Zeka Zoom](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
+
+#### 2. ESPCN (4x Sub-Pixel Süper Çözünürlük) vs. Klasik Bicubic Zoom
+![ESPCN 4x Sub-Pixel Zoom](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
+
+#### 3. FSRCNN (2x) ve ESPCN (2x) Karşılaştırması
+| FSRCNN 2x Zoom | ESPCN 2x Zoom |
+| :---: | :---: |
+| ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
+
 ---
 
 ## **5. Kurulum ve Çalıştırma**
