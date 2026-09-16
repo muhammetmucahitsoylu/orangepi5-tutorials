@@ -2,8 +2,6 @@
 
 > 🎯 **Hardware Accelerated Real-Time Digital Zoom Restoration on Rockchip RK3588S**
 
-![AI Smart Zoom Super-Resolution Comparison](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
-
 This project solves the fundamental problem of **digital zoom quality degradation** using deep learning super-resolution neural networks (**FSRCNN** and **ESPCN**) on the **Orange Pi 5 (RK3588S)**.
 
 ---
@@ -86,22 +84,11 @@ Tested directly on **Orange Pi 5 (RK3588S) + Ubuntu 24.04 LTS (Linux 6.1)** with
 
 ---
 
-## 📸 Real-World Hardware Snapshots (Orange Pi Box at 4.0x Zoom)
+## 📸 Real-World Hardware Snapshots
 
-Captured live on an **Orange Pi 5 (RK3588S)** with an active A4Tech FHD 1080P USB camera in V4L2 1080p mode:
+> 📸 *Hardware benchmark snapshots will be uploaded during the upcoming test session.*
 
-#### FSRCNN (4x Smart AI Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
-![FSRCNN 4x Neural Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
-
-#### ESPCN (4x Sub-Pixel Super-Resolution + Edge Sharpening) vs. Classical Bicubic Zoom
-![ESPCN 4x Sub-Pixel Zoom vs Bicubic](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
-
-#### FSRCNN (2x) & ESPCN (2x) Comparisons (3.7x Zoom)
-| FSRCNN 2x Smart AI Zoom | ESPCN 2x Smart AI Zoom |
-| :---: | :---: |
-| ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
-
-> 💡 **The Secret to Clarity:** While classical bicubic digital zoom (left) smears and blurs pixel gradients, the **Smart AI** pipeline (right) harnesses sub-pixel convolutional inference on the Rockchip RK3588 Tri-Core NPU coupled with CLAHE micro-contrast and adaptive unsharp masking to reconstruct razor-sharp text and intricate PCB circuit traces.
+> 💡 **The Secret to Clarity:** While classical bicubic digital zoom smears and blurs pixel gradients, the **Smart AI** pipeline harnesses sub-pixel convolutional inference on the Rockchip RK3588 Tri-Core NPU coupled with CLAHE micro-contrast and adaptive unsharp masking to reconstruct razor-sharp text and intricate PCB circuit traces.
 
 
 

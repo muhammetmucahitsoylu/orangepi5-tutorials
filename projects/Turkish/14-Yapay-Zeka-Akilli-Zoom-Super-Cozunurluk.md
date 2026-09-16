@@ -114,22 +114,11 @@ Aşağıdaki ölçümler, **Orange Pi 5 (RK3588S)** donanımı üzerinde doğrud
 
 > 🌡️ **Sıcaklık ve Enerji:** NPU çıkarımı CPU'yu meşgul etmediği için sürekli canlı akışta dahi SoC sıcaklığı **~49.9 °C** seviyesinde kalır; pasif alüminyum soğutucu ile termal kısma (throttling) yaşanmaz.
 
-### **Fiziksel Donanım Karşılaştırma Görselleri (Orange Pi Kutusu Üzerinde 4.0x Zoom)**
+### **Fiziksel Donanım Karşılaştırma Görselleri**
 
-A4Tech FHD 1080P kameramızla V4L2 1080p modunda doğrudan Orange Pi kutusunun yazı ve devre yolları üzerinde alınan gerçek donanım ekran yakalamaları:
+> 📸 *Donanım benchmark ekran görüntüleri bir sonraki canlı test oturumunda eklenecektir.*
 
-##### FSRCNN (4x Smart AI Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
-![FSRCNN 4x Yapay Zeka Zoom](../../assets/benchmarks/ai_zoom_fsrcnn_x4.jpg)
-
-##### ESPCN (4x Sub-Pixel Süper Çözünürlük + Kenar Keskinleştirme) vs. Klasik Bicubic Zoom
-![ESPCN 4x Sub-Pixel Zoom](../../assets/benchmarks/ai_zoom_espcn_x4.jpg)
-
-##### FSRCNN (2x) ve ESPCN (2x) Akıllı Zoom Karşılaştırmaları (3.7x Zoom)
-| FSRCNN 2x Smart AI Zoom | ESPCN 2x Smart AI Zoom |
-| :---: | :---: |
-| ![FSRCNN 2x](../../assets/benchmarks/ai_zoom_fsrcnn_x2.jpg) | ![ESPCN 2x](../../assets/benchmarks/ai_zoom_espcn_x2.jpg) |
-
-> 💡 **Farkın Sırrı:** Sol taraftaki klasik Bicubic zoom pikselleri basit ortalama ile yayarak bulanıklaştırırken, sağ taraftaki **Smart AI** motoru Rockchip RK3588 Tri-Core NPU donanımında alt piksel evrişimi çalıştırıp, CLAHE mikro-kontrast ve uyarlamalı kenar keskinleştirme uygulayarak harf ve devre yollarını jilet gibi netleştirir.
+> 💡 **Farkın Sırrı:** Klasik Bicubic zoom pikselleri basit ortalama ile yayarak bulanıklaştırırken, **Smart AI** motoru Rockchip RK3588 Tri-Core NPU donanımında alt piksel evrişimi çalıştırıp, CLAHE mikro-kontrast ve uyarlamalı kenar keskinleştirme uygulayarak harf ve devre yollarını jilet gibi netleştirir.
 
 ---
 
